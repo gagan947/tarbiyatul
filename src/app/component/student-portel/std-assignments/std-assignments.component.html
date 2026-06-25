@@ -1,0 +1,117 @@
+<div class="assignments-container portal-font-main">
+
+  <!-- Header -->
+  <div class="section-header">
+    <h2 class="section-title">Assignments</h2>
+    <p class="section-subtitle">Track, complete and submit all tasks assigned by your teachers.</p>
+  </div>
+
+  <!-- Statistics widgets -->
+  <div class="stats-grid">
+    <div class="stat-card portal-card">
+      <div class="stat-icon-wrapper orange-light-bg">
+        <i class="fa-regular fa-clipboard stat-icon orange-color"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">12</span>
+        <span class="stat-label">Total Assignments</span>
+      </div>
+    </div>
+    
+    <div class="stat-card portal-card">
+      <div class="stat-icon-wrapper blue-light-bg">
+        <i class="fa-solid fa-arrows-spin stat-icon blue-color"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">2</span>
+        <span class="stat-label">In Progress</span>
+      </div>
+    </div>
+
+    <div class="stat-card portal-card">
+      <div class="stat-icon-wrapper green-light-bg">
+        <i class="fa-regular fa-circle-check stat-icon green-color"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">7</span>
+        <span class="stat-label">Completed</span>
+      </div>
+    </div>
+
+    <div class="stat-card portal-card">
+      <div class="stat-icon-wrapper red-light-bg">
+        <i class="fa-regular fa-calendar-minus stat-icon red-color"></i>
+      </div>
+      <div class="stat-info">
+        <span class="stat-value">3</span>
+        <span class="stat-label">Overdue</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filter Tabs -->
+  <div class="portal-tabs">
+    <button 
+      (click)="setFilter('All')" 
+      class="portal-tab-btn" 
+      [class.active]="selectedFilter === 'All'">All Books</button>
+    <button 
+      (click)="setFilter('Pending')" 
+      class="portal-tab-btn" 
+      [class.active]="selectedFilter === 'Pending'">Pending</button>
+    <button 
+      (click)="setFilter('Completed')" 
+      class="portal-tab-btn" 
+      [class.active]="selectedFilter === 'Completed'">Completed</button>
+    <button 
+      (click)="setFilter('Overdue')" 
+      class="portal-tab-btn" 
+      [class.active]="selectedFilter === 'Overdue'">Overdue</button>
+  </div>
+
+  <!-- Assignment Cards List -->
+  <div class="assignments-list">
+    <div class="assignment-item-card portal-card" *ngFor="let assignment of filteredAssignments()">
+      <div class="assignment-main-info">
+        <img [src]="assignment.coverImage" [alt]="assignment.bookTitle" class="assignment-mini-cover" />
+        <div class="assignment-meta-details">
+          <h3 class="assignment-title" (click)="viewDetails(assignment.id)">{{ assignment.title }}</h3>
+          <div class="assignment-meta-row">
+            <span class="meta-tag">Assigned by {{ assignment.assignedBy }}</span>
+            <span class="meta-dot">•</span>
+            <span class="meta-tag">{{ assignment.subject }}</span>
+            <span class="meta-dot">•</span>
+            <span class="meta-tag assigned-date-label">
+              <i class="fa-regular fa-calendar"></i> Assigned On : {{ assignment.assignedDate }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="assignment-action-side">
+        <span class="status-badge" [class.badge-pending]="assignment.status === 'In Progress'" [class.badge-overdue]="assignment.status === 'Overdue'" [class.badge-completed]="assignment.status === 'Completed'">
+          {{ assignment.status }}
+        </span>
+        <button (click)="viewDetails(assignment.id)" class="portal-btn portal-btn-outline view-details-btn">
+          View Details
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div class="pagination-container">
+    <button class="page-arrow-btn" disabled>
+      <i class="fa-solid fa-chevron-left"></i> Previous
+    </button>
+    <div class="page-numbers">
+      <span class="page-num active">1</span>
+      <span class="page-num">2</span>
+      <span class="page-num">3</span>
+    </div>
+    <button class="page-arrow-btn">
+      Next <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+
+</div>

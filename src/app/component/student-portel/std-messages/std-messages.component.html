@@ -1,0 +1,72 @@
+<div class="messages-page-wrapper portal-font-main">
+  <!-- Section Title -->
+  <div class="section-header">
+    <h2 class="section-title">Message Teacher</h2>
+    <p class="section-subtitle">Stay connected with your teachers and ask questions about lessons, assignments, or books.</p>
+  </div>
+
+  <!-- Chat container card -->
+  <div class="chat-main-card portal-card">
+    
+    <!-- Active Teacher Header -->
+    <div class="chat-header">
+      <div class="teacher-info-row">
+        <div class="teacher-avatar-container">
+          <img src="assets/img/client_1.png" [alt]="teacherName" class="teacher-avatar-img" />
+          <span class="online-indicator" *ngIf="isOnline"></span>
+        </div>
+        <div class="teacher-text-details">
+          <h3 class="teacher-display-name">{{ teacherName }}</h3>
+          <span class="teacher-display-role">{{ teacherRole }}</span>
+          <span class="teacher-status-text" *ngIf="isOnline">Online</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrollable Messages Window -->
+    <div class="chat-history-window" id="chat-messages-container">
+      <div class="chat-date-separator">
+        <span class="date-label">Today</span>
+      </div>
+
+      <div class="chat-bubble-wrapper" *ngFor="let message of messages" [class.student-sender]="message.sender === 'Student'" [class.teacher-sender]="message.sender === 'Teacher'">
+        
+        <!-- Avatar for teacher -->
+        <img src="assets/img/client_1.png" alt="Teacher Avatar" class="chat-avatar" *ngIf="message.sender === 'Teacher'" />
+        
+        <!-- Message box -->
+        <div class="message-bubble-block">
+          <div class="message-bubble">
+            <p class="message-text">{{ message.text }}</p>
+          </div>
+          <div class="message-meta-info">
+            <span class="message-time">{{ message.time }}</span>
+            <span class="message-status-ticks" *ngIf="message.sender === 'Student'">
+              <i class="fa-solid fa-check" [class.double-tick]="message.isRead"></i>
+              <i class="fa-solid fa-check offset-tick" *ngIf="message.isRead"></i>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Chat Prompt Input Bar -->
+    <form (submit)="sendMessage(); $event.preventDefault();" class="chat-input-bar">
+      <button type="button" class="attachment-btn" aria-label="Attach File">
+        <i class="fa-solid fa-paperclip"></i>
+      </button>
+      <input 
+        type="text" 
+        [(ngModel)]="newMessageText" 
+        name="messageInput" 
+        placeholder="Type your message..." 
+        class="message-text-input" 
+        autocomplete="off" />
+      <button type="submit" class="send-message-btn" aria-label="Send Message" [disabled]="!newMessageText.trim()">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+
+  </div>
+</div>

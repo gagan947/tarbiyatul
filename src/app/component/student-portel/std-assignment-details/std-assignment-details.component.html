@@ -1,0 +1,102 @@
+<div class="assignments-container portal-font-main">
+  <!-- If assignment not found -->
+  <div *ngIf="!assignment" class="no-assignment-card portal-card text-center">
+    <i class="fa-solid fa-triangle-exclamation orange-color" style="font-size: 40px; margin-bottom: 16px;"></i>
+    <h3>Assignment Not Found</h3>
+    <p>The requested assignment could not be loaded or does not exist.</p>
+    <button (click)="backToList()" class="portal-btn portal-btn-primary">
+      Back to Assignments
+    </button>
+  </div>
+
+  <!-- Assignment Details Page -->
+  <ng-container *ngIf="assignment">
+    <!-- Back Button -->
+    <button (click)="backToList()" class="back-link-btn">
+      <i class="fa-solid fa-chevron-left"></i> Assignment Details
+    </button>
+
+    <div class="assignment-detail-card portal-card">
+      <div class="detail-top-header">
+        <div class="detail-header-left">
+          <img [src]="assignment.coverImage" [alt]="assignment.bookTitle" class="detail-cover-img" />
+          <div class="detail-title-block">
+            <h2 class="detail-title">{{ assignment.title }}</h2>
+            <div class="detail-tags">
+              <span class="detail-meta-tag">{{ assignment.grade }}</span>
+              <span class="detail-meta-dot">•</span>
+              <span class="detail-meta-tag">{{ assignment.subject }}</span>
+              <span class="detail-meta-dot">•</span>
+              <span class="detail-meta-tag orange-color">{{ assignment.pagesRange }}</span>
+            </div>
+          </div>
+        </div>
+
+        <span class="status-badge" [class.badge-pending]="assignment.status === 'In Progress'" [class.badge-overdue]="assignment.status === 'Overdue'" [class.badge-completed]="assignment.status === 'Completed'">
+          {{ assignment.status }}
+        </span>
+      </div>
+
+      <!-- Properties Grid -->
+      <div class="detail-properties-grid">
+        <div class="property-box">
+          <span class="property-label">ASSIGNED BY</span>
+          <span class="property-value">{{ assignment.assignedBy }}</span>
+        </div>
+        <div class="property-box">
+          <span class="property-label">ASSIGNED DATE</span>
+          <span class="property-value">{{ assignment.assignedDate }}</span>
+        </div>
+        <div class="property-box">
+          <span class="property-label">DUE DATE</span>
+          <span class="property-value">{{ assignment.dueDate }}</span>
+        </div>
+        <div class="property-box">
+          <span class="property-label">BOOK TITLE</span>
+          <span class="property-value">{{ assignment.bookTitle }}</span>
+        </div>
+      </div>
+
+      <!-- Teacher Instructions -->
+      <div class="instructions-section">
+        <h3 class="section-subtitle-bold">
+          <i class="fa-solid fa-circle-info orange-color"></i> Teacher Instructions
+        </h3>
+        <ul class="instructions-list">
+          <li *ngFor="let step of assignment.instructions">{{ step }}</li>
+        </ul>
+      </div>
+
+      <!-- Warning Callout if exists -->
+      <div class="portal-callout callout-red" *ngIf="assignment.notice">
+        <i class="fa-solid fa-triangle-exclamation callout-icon"></i>
+        <div class="callout-content">
+          <h4 class="callout-title">Islamic Content Notice</h4>
+          <p class="callout-body">{{ assignment.notice }}</p>
+        </div>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="detail-actions-footer" *ngIf="assignment.status !== 'Completed'">
+        <button class="portal-btn portal-btn-primary action-btn-large">Continue Reading</button>
+        <button (click)="markAsCompleted()" class="portal-btn portal-btn-outline action-btn-large">Mark as Completed</button>
+      </div>
+      <div class="detail-actions-footer" *ngIf="assignment.status === 'Completed'">
+        <button class="portal-btn portal-btn-secondary action-btn-large" disabled>
+          <i class="fa-regular fa-circle-check"></i> Completed
+        </button>
+      </div>
+    </div>
+
+    <!-- Need Help Section -->
+    <div class="need-help-card portal-card">
+      <div class="need-help-content">
+        <h3 class="need-help-title">Need Help?</h3>
+        <p class="need-help-body">If you have any questions about this assignment, feel free to reach out to your teacher.</p>
+      </div>
+      <button (click)="navigateToMessages()" class="portal-btn portal-btn-outline message-teacher-btn">
+        Message Teacher
+      </button>
+    </div>
+  </ng-container>
+</div>
