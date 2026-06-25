@@ -1,0 +1,24 @@
+.ct_green_btns{
+    padding: 4px 20px;
+    border-radius: 100px;
+    background-color: #00820D;
+    border:1px solid #00820D;
+    color: #fff;
+}
+
+.ct_book_card_bg_12{
+    background-color: #fff;
+    box-shadow: 7px 7px 6.6px 0px #00000014;
+    padding: 13px 16px;
+    border-radius: 10px;
+}
+
+.ct_book_card_bg_12{
+    display: flex;
+    align-items: start;
+    gap: 15px;
+}
+
+.ct_book_card_title {
+    flex: 1;
+}
