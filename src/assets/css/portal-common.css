@@ -1,0 +1,230 @@
+/* Shared Styling for Student Portal */
+
+/* Colors & Variables */
+:root {
+  --portal-bg: #FBF8F4;
+  --portal-card-bg: #ffffff;
+  --portal-text-dark: #171E45;
+  --portal-text-gray: #6B7280;
+  --portal-text-light: #9CA3AF;
+  --portal-orange: #FC800A;
+  --portal-orange-hover: #E27208;
+  --portal-orange-light: #FFF2E6;
+  --portal-border: #EFEAE4;
+  --portal-red: #EF4444;
+  --portal-red-light: #FEE2E2;
+  --portal-green: #10B981;
+  --portal-green-light: #D1FAE5;
+  --portal-blue: #3B82F6;
+  --portal-blue-light: #DBEAFE;
+}
+
+/* Common Font styles */
+.portal-font-main {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Container Cards */
+.portal-card {
+  background-color: var(--portal-card-bg);
+  border: 1px solid var(--portal-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  margin-bottom: 24px;
+  box-sizing: border-box;
+}
+
+.portal-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.portal-card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--portal-text-dark);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Badges */
+.status-badge {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 20px;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.badge-completed {
+  background-color: #E6F9F1;
+  color: #10B981;
+}
+
+.badge-pending {
+  background-color: #FFF2E6;
+  color: #FC800A;
+}
+
+.badge-in-progress {
+  background-color: #EBF5FF;
+  color: #3B82F6;
+}
+
+.badge-overdue {
+  background-color: #FFF1F1;
+  color: #EF4444;
+}
+
+/* Callout Blocks */
+.portal-callout {
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  box-sizing: border-box;
+}
+
+.callout-orange {
+  background-color: #FFFDF9;
+  border: 1px solid #FFE6CC;
+}
+
+.callout-red {
+  background-color: #FFF5F5;
+  border: 1px solid #FEE2E2;
+}
+
+.callout-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.callout-orange .callout-icon {
+  color: var(--portal-orange);
+}
+
+.callout-red .callout-icon {
+  color: var(--portal-red);
+}
+
+.callout-content {
+  flex-grow: 1;
+}
+
+.callout-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--portal-text-dark);
+  margin: 0 0 6px 0;
+}
+
+.callout-body {
+  font-size: 13px;
+  color: var(--portal-text-gray);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Portal Buttons */
+.portal-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+}
+
+.portal-btn-primary {
+  background-color: var(--portal-orange);
+  color: #ffffff;
+}
+
+.portal-btn-primary:hover {
+  background-color: var(--portal-orange-hover);
+  box-shadow: 0 4px 12px rgba(252, 128, 10, 0.2);
+}
+
+.portal-btn-secondary {
+  background-color: var(--portal-orange-light);
+  color: var(--portal-orange);
+  border: 1px solid transparent;
+}
+
+.portal-btn-secondary:hover {
+  background-color: #FFE5CC;
+}
+
+.portal-btn-outline {
+  background-color: transparent;
+  color: var(--portal-orange);
+  border: 1px solid var(--portal-orange);
+}
+
+.portal-btn-outline:hover {
+  background-color: var(--portal-orange-light);
+}
+
+.portal-btn-danger {
+  background-color: var(--portal-red);
+  color: #ffffff;
+}
+
+.portal-btn-danger:hover {
+  background-color: #D32F2F;
+}
+
+.portal-btn-danger-light {
+  background-color: var(--portal-red-light);
+  color: var(--portal-red);
+}
+
+.portal-btn-danger-light:hover {
+  background-color: #FFCDD2;
+}
+
+/* Tabs Navigation */
+.portal-tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--portal-border);
+  padding-bottom: 12px;
+}
+
+.portal-tab-btn {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--portal-text-gray);
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.portal-tab-btn:hover {
+  color: var(--portal-orange);
+  background-color: var(--portal-orange-light);
+}
+
+.portal-tab-btn.active {
+  color: var(--portal-orange);
+  background-color: var(--portal-orange-light);
+  font-weight: 700;
+}

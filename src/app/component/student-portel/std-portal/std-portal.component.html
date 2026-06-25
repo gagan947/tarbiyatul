@@ -52,7 +52,7 @@
 
         <!-- Sidebar Footer -->
         <div class="sidebar-footer">
-            <a routerLink="/login" class="logout-btn">
+            <a href="javascript:void(0)" (click)="triggerLogoutPrompt($event)" class="logout-btn">
                 <i class="fa-solid fa-arrow-right-from-bracket logout-icon"></i>
                 <span>Logout</span>
             </a>
@@ -76,12 +76,116 @@
 
         <!-- Nested Router Outlet for Dashboard & Sub-pages -->
         <div class="portal-content-body">
-            <router-outlet></router-outlet>
+            <router-outlet (activate)="onSubComponentActivated($event)"></router-outlet>
         </div>
     </main>
 
-    <!-- RIGHT PROFILE PANEL -->
-    <aside class="portal-profile-panel">
+
+    <!-- ================= RIGHT PROFILE PANEL (DYNAMIC CONTEXT) ================= -->
+    
+    <!-- 1. RESOURCES PREVIEW SIDEBAR PANEL -->
+    <aside class="portal-profile-panel resources-sidebar-context" *ngIf="currentUrl.includes('/resources')">
+        <ng-container *ngIf="selectedResource; else noResourceSelected">
+            <div class="resource-preview-header">
+                <!-- Mascot / Mascot Head Image -->
+                <div class="mascot-img-wrapper">
+                    <!-- Standard placeholder or generic card cover -->
+                    <div class="mascot-avatar" [style.background-color]="selectedResource.logoBg">
+                        <i [class]="selectedResource.logoClass" [style.color]="selectedResource.logoColor" style="font-size: 40px;"></i>
+                    </div>
+                </div>
+                <h3 class="resource-preview-title">{{ selectedResource.title }}</h3>
+                <span class="resource-preview-badge">Reading Resource</span>
+                <p class="resource-preview-intro">{{ selectedResource.description }}</p>
+            </div>
+
+            <!-- Preview details -->
+            <div class="preview-details-list">
+                <div class="preview-details-item">
+                    <h4 class="preview-item-label">SUITABLE FOR</h4>
+                    <span class="suitability-tag">{{ selectedResource.suitableFor }}</span>
+                </div>
+
+                <div class="preview-details-item">
+                    <h4 class="preview-item-label">LEARNING AREAS</h4>
+                    <div class="learning-areas-tags">
+                        <span class="area-tag" *ngFor="let area of selectedResource.learningAreas">{{ area }}</span>
+                    </div>
+                </div>
+
+                <div class="preview-details-item">
+                    <h4 class="preview-item-label">RESOURCE FEATURES</h4>
+                    <ul class="features-checklist">
+                        <li *ngFor="let feature of selectedResource.features">
+                            <i class="fa-solid fa-check check-orange"></i>
+                            <span>{{ feature }}</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="preview-details-item">
+                    <h4 class="preview-item-label">WEBSITE PREVIEW</h4>
+                    <div class="website-preview-box">
+                        <img src="assets/img/family.png" alt="Website Preview" class="web-preview-img" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="resource-link-footer">
+                <a [href]="selectedResource.url" target="_blank" class="portal-btn portal-btn-primary full-width-btn text-center">
+                    Open Resource <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            </div>
+        </ng-container>
+        <ng-template #noResourceSelected>
+            <div class="no-selection-wrapper">
+                <i class="fa-solid fa-hand-pointer selection-icon"></i>
+                <p class="selection-text">Select a resource card to view its preview details here.</p>
+            </div>
+        </ng-template>
+    </aside>
+
+    <!-- 2. MESSAGE TEACHER THREADS SIDEBAR PANEL -->
+    <aside class="portal-profile-panel messages-sidebar-context" *ngIf="currentUrl.includes('/message-teacher')">
+        <div class="messages-panel-header">
+            <h2 class="profile-title">Messages</h2>
+            <button type="button" class="compose-btn" aria-label="Compose Message">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </button>
+        </div>
+
+        <!-- Search conversations bar -->
+        <div class="search-convo-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search conversations..." class="search-convo-input" />
+        </div>
+
+        <!-- Threads list -->
+        <div class="threads-list-scrollable">
+            <div class="thread-item-card" *ngFor="let thread of teacherThreads" [class.active-thread]="thread.name === 'Ustadh Hamza'">
+                <div class="avatar-col">
+                    <img [src]="thread.avatar" [alt]="thread.name" class="thread-avatar-img" />
+                    <span class="thread-online-dot" *ngIf="thread.online"></span>
+                </div>
+                
+                <div class="thread-info-col">
+                    <div class="thread-name-row">
+                        <h4 class="thread-teacher-name">{{ thread.name }}</h4>
+                        <span class="thread-time">{{ thread.time }}</span>
+                    </div>
+                    <span class="thread-subject">{{ thread.subject }}</span>
+                    <p class="thread-last-msg">{{ thread.lastMessage }}</p>
+                </div>
+
+                <div class="thread-badge-col" *ngIf="thread.unreadCount > 0">
+                    <span class="unread-badge">{{ thread.unreadCount }}</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 3. DEFAULT STUDENT PROFILE SIDEBAR PANEL -->
+    <aside class="portal-profile-panel default-sidebar-context" *ngIf="!currentUrl.includes('/resources') && !currentUrl.includes('/message-teacher')">
         <div class="profile-header">
             <h2 class="profile-title">Your Profile</h2>
         </div>
@@ -89,7 +193,6 @@
         <!-- Student Info Summary Card -->
         <div class="profile-summary-card">
             <div class="avatar-container">
-                <!-- Render a circular student profile avatar -->
                 <img src="assets/img/girl.png" alt="Ali Khan Avatar" class="profile-avatar-img" />
             </div>
             <div class="grade-badge">Grade 4</div>
@@ -162,4 +265,27 @@
             </ul>
         </div>
     </aside>
+</div>
+
+
+<!-- ================= LOGOUT CONFIRMATION MODAL OVERLAY ================= -->
+<div class="modal-backdrop-overlay" *ngIf="showLogoutModal" (click)="cancelLogout()">
+    <div class="logout-modal-card" (click)="$event.stopPropagation()">
+        <!-- Close circular icon -->
+        <button class="close-modal-circle" (click)="cancelLogout()" aria-label="Close dialog">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h3 class="logout-modal-title">You are about to LogOut</h3>
+        <p class="logout-modal-subtitle">Are you sure you want to logout ?</p>
+
+        <div class="logout-modal-actions">
+            <button (click)="cancelLogout()" class="portal-btn portal-btn-primary modal-btn-mistake">
+                No, This was a Mistake
+            </button>
+            <button (click)="confirmLogout()" class="portal-btn portal-btn-danger-light modal-btn-logout">
+                Yes, Log Me Out
+            </button>
+        </div>
+    </div>
 </div>

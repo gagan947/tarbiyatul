@@ -1,0 +1,111 @@
+<div class="resources-page-container portal-font-main">
+  <!-- Section Title -->
+  <div class="section-header">
+    <h2 class="section-title">Resources</h2>
+    <p class="section-subtitle">Access trusted educational websites recommended by your teachers.</p>
+  </div>
+
+  <!-- Filter Category Tabs -->
+  <div class="portal-tabs">
+    <button 
+      (click)="setFilter('All')" 
+      class="portal-tab-btn" 
+      [class.active]="selectedFilter === 'All'">All Resources</button>
+    <button 
+      (click)="setFilter('Reading')" 
+      class="portal-tab-btn" 
+      [class.active]="selectedFilter === 'Reading'">Reading</button>
+    <button 
+      (click)="setFilter('Mathematics')" 
+      class="portal-tab-btn" 
+      [class.active]="selectedFilter === 'Mathematics'">Mathematics</button>
+    <button 
+      (click)="setFilter('Science')" 
+      class="portal-tab-btn" 
+      [class.active]="selectedFilter === 'Science'">Science</button>
+  </div>
+
+  <!-- Sections of Resources -->
+  
+  <!-- MATHEMATICS SECTION -->
+  <div class="resource-section-block" *ngIf="selectedFilter === 'All' || selectedFilter === 'Mathematics'">
+    <h3 class="section-category-title">
+      <i class="fa-solid fa-calculator orange-color"></i> Mathematics Resources
+    </h3>
+    <div class="resources-grid">
+      <div 
+        class="resource-card portal-card" 
+        *ngFor="let res of resources | slice:0:4"
+        [class.active-highlight]="res.id === activeResourceId"
+        (click)="selectResource(res)">
+        
+        <div class="card-top-header">
+          <div class="resource-logo-box" [style.background-color]="res.logoBg">
+            <i [class]="res.logoClass" [style.color]="res.logoColor"></i>
+          </div>
+          <a [href]="res.url" target="_blank" class="external-link-icon" aria-label="Open Link" (click)="$event.stopPropagation();">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+
+        <h4 class="resource-card-name">{{ res.title }}</h4>
+        <p class="resource-card-desc">{{ res.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- READING SECTION -->
+  <div class="resource-section-block" *ngIf="selectedFilter === 'All' || selectedFilter === 'Reading'">
+    <h3 class="section-category-title">
+      <i class="fa-solid fa-book-open orange-color"></i> Reading Resources
+    </h3>
+    <div class="resources-grid">
+      <div 
+        class="resource-card portal-card" 
+        *ngFor="let res of resources | slice:4:10"
+        [class.active-highlight]="res.id === activeResourceId"
+        (click)="selectResource(res)">
+        
+        <div class="card-top-header">
+          <div class="resource-logo-box" [style.background-color]="res.logoBg">
+            <i [class]="res.logoClass" [style.color]="res.logoColor"></i>
+          </div>
+          <a [href]="res.url" target="_blank" class="external-link-icon" aria-label="Open Link" (click)="$event.stopPropagation();">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+
+        <h4 class="resource-card-name">{{ res.title }}</h4>
+        <p class="resource-card-desc">{{ res.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCIENCE SECTION -->
+  <div class="resource-section-block" *ngIf="selectedFilter === 'All' || selectedFilter === 'Science'">
+    <h3 class="section-category-title">
+      <i class="fa-solid fa-flask orange-color"></i> Science Resources
+    </h3>
+    <div class="resources-grid">
+      <div 
+        class="resource-card portal-card" 
+        *ngFor="let res of resources | slice:10:13"
+        [class.active-highlight]="res.id === activeResourceId"
+        (click)="selectResource(res)">
+        
+        <div class="card-top-header">
+          <div class="resource-logo-box" [style.background-color]="res.logoBg">
+            <i [class]="res.logoClass" [style.color]="res.logoColor"></i>
+          </div>
+          <a [href]="res.url" target="_blank" class="external-link-icon" aria-label="Open Link" (click)="$event.stopPropagation();">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+
+        <h4 class="resource-card-name">{{ res.title }}</h4>
+        <p class="resource-card-desc">{{ res.description }}</p>
+      </div>
+    </div>
+  </div>
+
+</div>

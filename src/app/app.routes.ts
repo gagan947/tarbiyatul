@@ -31,7 +31,12 @@ export const routes: Routes = [
     loadComponent: () => import('./component/student-portel/std-portal/std-portal.component').then(m => m.StdPortalComponent),
     children: [
       { path: '', redirectTo: 'std-dashboard', pathMatch: 'full' },
-      { path: 'std-dashboard', loadComponent: () => import('./component/student-portel/std-dashboard/std-dashboard.component').then(m => m.StdDashboardComponent) }
+      { path: 'std-dashboard', loadComponent: () => import('./component/student-portel/std-dashboard/std-dashboard.component').then(m => m.StdDashboardComponent) },
+      { path: 'my-books', loadComponent: () => import('./component/student-portel/std-my-books/std-my-books.component').then(m => m.StdMyBooksComponent) },
+      { path: 'assignments', loadComponent: () => import('./component/student-portel/std-assignments/std-assignments.component').then(m => m.StdAssignmentsComponent) },
+      { path: 'assignments/:id', loadComponent: () => import('./component/student-portel/std-assignment-details/std-assignment-details.component').then(m => m.StdAssignmentDetailsComponent) },
+      { path: 'message-teacher', loadComponent: () => import('./component/student-portel/std-messages/std-messages.component').then(m => m.StdMessagesComponent) },
+      { path: 'resources', loadComponent: () => import('./component/student-portel/std-resources/std-resources.component').then(m => m.StdResourcesComponent) }
     ]
   }
 ];
