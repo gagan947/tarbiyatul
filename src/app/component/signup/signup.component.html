@@ -1,118 +1,383 @@
-<section class="ct_inner_bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12"  data-aos="fade-down"
-            data-aos-duration="1000">
-                <h2 class="ct_fs_60 text-white">Sign up</h2>
-            </div>
-
-        </div>
-
+<div class="signup-wrapper">
+  <div class="signup-card-container">
+    
+    <!-- Title & Subtitle (Hidden in Success Step) -->
+    <div *ngIf="currentStep < 4" class="signup-page-header">
+      <h1 class="signup-main-title">Create an Account</h1>
+      <p class="signup-main-subtitle">Register your child in a few simple steps</p>
     </div>
 
-</section>
-
-<div class="ct_vision_mission ct_welcome_bg_star  ct_pt_120">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8 mx-auto"  data-aos="fade-down"
-      data-aos-duration="1000">
-        <div class="ct_white_card">
-          <h2 class="ct_fs_46 text-center mb-5 ">Sign up</h2>
-            <form action="#">
-              <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group mb-4">
-                        <label for="" class="mb-2 ct_fw_500">Student First Name<span class=""> *</span></label>
-                        <input type="text" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <!-- note: this is the dummy text of error you have to change it -->
-                        <!-- <span class="ct_error">Please Enter User Name</span> -->
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-4">
-                        <label for="" class="mb-2 ct_fw_500">Student Last Name<span class=""> *</span></label>
-                        <input type="text" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <!-- note: this is the dummy text of error you have to change it -->
-                        <!-- <span class="ct_error">Please Enter User Name</span> -->
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-4">
-                        <label for="" class="mb-2 ct_fw_500">School Name<span class=""> *</span></label>
-                        <input type="text" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <!-- note: this is the dummy text of error you have to change it -->
-                        <!-- <span class="ct_error">Please Enter User Name</span> -->
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-4">
-                        <label for="" class="mb-2 ct_fw_500">Class<span class=""> *</span></label>
-                        <input type="text" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <!-- note: this is the dummy text of error you have to change it -->
-                        <!-- <span class="ct_error">Please Enter User Name</span> -->
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-4">
-                        <label for="" class="mb-2 ct_fw_500">DOB<span class=""> *</span></label>
-                        <input type="date" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <!-- note: this is the dummy text of error you have to change it -->
-                        <!-- <span class="ct_error">Please Enter User Name</span> -->
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group mb-4">
-                        <label for="" class="mb-2 ct_fw_500">Contact No.<span class=""> *</span></label>
-                        <input type="number" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <!-- note: this is the dummy text of error you have to change it -->
-                        <!-- <span class="ct_error">Please Enter User Name</span> -->
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group mb-4">
-                        <label for="" class="mb-2 ct_fw_500">Parent Name<span class=""> *</span></label>
-                        <input type="text" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <!-- note: this is the dummy text of error you have to change it -->
-                        <!-- <span class="ct_error">Please Enter User Name</span> -->
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group mb-4">
-                        <label for="" class="mb-2 ct_fw_500">Email<span class=""> *</span></label>
-                        <input type="email" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <!-- note: this is the dummy text of error you have to change it -->
-                        <!-- <span class="ct_error">Please Enter User Name</span> -->
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-group mb-3">
-                        <label for="" class="mb-2 ct_fw_500">Create Password <span class=""> *</span></label>
-                       <div class="position-relative">
-                        <input type="text" class="form-control ct_login_input bg-transparent ct_border_1 ct_border_radius_50">
-                        <i class="fa-regular fa-eye ct_show_eye"></i>
-                       </div>
-                       <!-- note: this is the dummy text of error you have to change it -->
-                       <!-- <span class="ct_error">Please Enter Password</span> -->
-                    </div>
-                </div>
-
-              </div>
-             
-                <p class="mb-0 ct_color_8E8E8E">
-                    <label for="" class="d-flex align-items-center gap-2 ct_ff_roboto">
-                        <input type="checkbox" class="ct_custom_checkbox ct_ff_roboto">
-                        I have read and agree to the <a routerLink="/privacy_policy" class="ct_fw_600 ct_orange_text">Privacy Policy</a> and <a class="ct_fw_600 ct_orange_text">Terms & Conditions</a>
-                    </label>
-                </p>
-
-                <button class="ct_orange_btn w-100 justify-content-center ct_ff_Rowdies ct_fw_400 ct_btn_h_50 mt-4">Create Account</button>
-               <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-3">
-                <p class="mb-0 mt-0 ct_fw_400">Already registered?<a routerLink="/login" class=" ct_orange_text ct_fw_600">Login</a></p>
-               </div>
-            </form>
+    <!-- Step Progress Indicator (Hidden in Success Step) -->
+    <div *ngIf="currentStep < 4" class="step-progress-indicator mb-5">
+      
+      <!-- Step 1 Circle -->
+      <div class="step-progress-item" [ngClass]="{ 'active': currentStep >= 1 }">
+        <div class="step-circle" [ngClass]="{ 'completed': currentStep > 1 }">
+          <i *ngIf="currentStep > 1" class="fa-solid fa-check"></i>
+          <span *ngIf="currentStep === 1">1</span>
+        </div>
+        <div class="step-label-container">
+          <span class="step-label-title">Parent</span>
+          <span class="step-label-sub">Information</span>
         </div>
       </div>
+
+      <!-- Connector Line 1 -->
+      <div class="step-connector" [ngClass]="{ 'active': currentStep >= 2 }"></div>
+
+      <!-- Step 2 Circle -->
+      <div class="step-progress-item" [ngClass]="{ 'active': currentStep >= 2 }">
+        <div class="step-circle" [ngClass]="{ 'completed': currentStep > 2, 'inactive': currentStep < 2 }">
+          <i *ngIf="currentStep > 2" class="fa-solid fa-check"></i>
+          <span *ngIf="currentStep <= 2">2</span>
+        </div>
+        <div class="step-label-container">
+          <span class="step-label-title">Student</span>
+          <span class="step-label-sub">Information</span>
+        </div>
+      </div>
+
+      <!-- Connector Line 2 -->
+      <div class="step-connector" [ngClass]="{ 'active': currentStep >= 3 }"></div>
+
+      <!-- Step 3 Circle -->
+      <div class="step-progress-item" [ngClass]="{ 'active': currentStep >= 3 }">
+        <div class="step-circle" [ngClass]="{ 'inactive': currentStep < 3 }">
+          <span>3</span>
+        </div>
+        <div class="step-label-container">
+          <span class="step-label-title">Review &</span>
+          <span class="step-label-sub">Submit</span>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Main Card Body -->
+    <div class="signup-card">
+
+      <!-- Form steps -->
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+        
+        <!-- ================== STEP 1: PARENT INFORMATION ================== -->
+        <div *ngIf="currentStep === 1">
+          <h2 class="step-card-title mb-4">Parent Information</h2>
+
+          <div class="row">
+            <!-- First Name -->
+            <div class="col-md-6 form-group mb-4">
+              <label for="firstName" class="form-label">First Name</label>
+              <input 
+                type="text" 
+                id="firstName" 
+                formControlName="firstName" 
+                class="form-control-custom" 
+                placeholder="eg. Ahmed"
+                [ngClass]="{ 'is-invalid-custom': f['firstName'].invalid && (f['firstName'].touched || submitted) }"
+              />
+              <div *ngIf="f['firstName'].invalid && (f['firstName'].touched || submitted)" class="error-msg">
+                <span><i class="fa-solid fa-circle-info me-1"></i> First Name is required</span>
+              </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="col-md-6 form-group mb-4">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input 
+                type="text" 
+                id="lastName" 
+                formControlName="lastName" 
+                class="form-control-custom" 
+                placeholder="eg. Khan"
+                [ngClass]="{ 'is-invalid-custom': f['lastName'].invalid && (f['lastName'].touched || submitted) }"
+              />
+              <div *ngIf="f['lastName'].invalid && (f['lastName'].touched || submitted)" class="error-msg">
+                <span><i class="fa-solid fa-circle-info me-1"></i> Last Name is required</span>
+              </div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="col-md-6 form-group mb-4">
+              <label for="phone" class="form-label">Phone Number</label>
+              <div class="phone-input-group">
+                <span class="phone-prefix-badge">+966 <i class="fa-solid fa-chevron-down ms-1"></i></span>
+                <input 
+                  type="text" 
+                  id="phone" 
+                  formControlName="phone" 
+                  class="form-control-custom phone-input" 
+                  placeholder="50XXXXXXX"
+                  [ngClass]="{ 'is-invalid-custom': f['phone'].invalid && (f['phone'].touched || submitted) }"
+                />
+              </div>
+              <div *ngIf="f['phone'].invalid && (f['phone'].touched || submitted)" class="error-msg">
+                <span><i class="fa-solid fa-circle-info me-1"></i> Phone Number is required</span>
+              </div>
+            </div>
+
+            <!-- Email Address -->
+            <div class="col-md-6 form-group mb-4">
+              <label for="email" class="form-label">Email Address</label>
+              <input 
+                type="email" 
+                id="email" 
+                formControlName="email" 
+                class="form-control-custom" 
+                placeholder="eg. ahmed.khan@email.com"
+                [ngClass]="{ 'is-invalid-custom': f['email'].invalid && (f['email'].touched || submitted) }"
+              />
+              <div *ngIf="f['email'].invalid && (f['email'].touched || submitted)" class="error-msg">
+                <span *ngIf="f['email'].errors?.['required']">
+                  <i class="fa-solid fa-circle-info me-1"></i> Email address is required
+                </span>
+                <span *ngIf="f['email'].errors?.['email']">
+                  <i class="fa-solid fa-circle-info me-1"></i> Please enter a valid email address
+                </span>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="col-md-12 form-group mb-4">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-container">
+                <input 
+                  [type]="showPassword ? 'text' : 'password'" 
+                  id="password" 
+                  formControlName="password" 
+                  class="form-control-custom" 
+                  placeholder="••••••••"
+                  [ngClass]="{ 'is-invalid-custom': f['password'].invalid && (f['password'].touched || submitted) }"
+                />
+                <button 
+                  type="button" 
+                  class="password-toggle-btn" 
+                  (click)="togglePasswordVisibility()"
+                  aria-label="Toggle password visibility"
+                >
+                  <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                </button>
+              </div>
+              <div *ngIf="f['password'].invalid && (f['password'].touched || submitted)" class="error-msg">
+                <span *ngIf="f['password'].errors?.['required']">
+                  <i class="fa-solid fa-circle-info me-1"></i> Password is required
+                </span>
+                <span *ngIf="f['password'].errors?.['minlength']">
+                  <i class="fa-solid fa-circle-info me-1"></i> Password must be at least 6 characters
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 1 Footer Action -->
+          <div class="d-flex justify-content-end mt-4">
+            <button type="button" class="action-btn next-btn" (click)="nextStep()">
+              Next <i class="fa-solid fa-chevron-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================== STEP 2: STUDENT INFORMATION ================== -->
+        <div *ngIf="currentStep === 2">
+          <h2 class="step-card-title mb-4">Student Information</h2>
+
+          <div class="row">
+            <!-- Student First Name -->
+            <div class="col-md-6 form-group mb-4">
+              <label for="studentFirstName" class="form-label">First Name</label>
+              <input 
+                type="text" 
+                id="studentFirstName" 
+                formControlName="studentFirstName" 
+                class="form-control-custom" 
+                placeholder="eg. Ali"
+                [ngClass]="{ 'is-invalid-custom': f['studentFirstName'].invalid && (f['studentFirstName'].touched || submitted) }"
+              />
+              <div *ngIf="f['studentFirstName'].invalid && (f['studentFirstName'].touched || submitted)" class="error-msg">
+                <span><i class="fa-solid fa-circle-info me-1"></i> Student First Name is required</span>
+              </div>
+            </div>
+
+            <!-- Student Last Name -->
+            <div class="col-md-6 form-group mb-4">
+              <label for="studentLastName" class="form-label">Last Name</label>
+              <input 
+                type="text" 
+                id="studentLastName" 
+                formControlName="studentLastName" 
+                class="form-control-custom" 
+                placeholder="eg. Khan"
+                [ngClass]="{ 'is-invalid-custom': f['studentLastName'].invalid && (f['studentLastName'].touched || submitted) }"
+              />
+              <div *ngIf="f['studentLastName'].invalid && (f['studentLastName'].touched || submitted)" class="error-msg">
+                <span><i class="fa-solid fa-circle-info me-1"></i> Student Last Name is required</span>
+              </div>
+            </div>
+
+            <!-- Student DOB -->
+            <div class="col-md-6 form-group mb-4">
+              <label for="studentDob" class="form-label">Date of Birth</label>
+              <input 
+                type="date" 
+                id="studentDob" 
+                formControlName="studentDob" 
+                class="form-control-custom date-input"
+                [ngClass]="{ 'is-invalid-custom': f['studentDob'].invalid && (f['studentDob'].touched || submitted) }"
+              />
+              <div *ngIf="f['studentDob'].invalid && (f['studentDob'].touched || submitted)" class="error-msg">
+                <span><i class="fa-solid fa-circle-info me-1"></i> Student Date of Birth is required</span>
+              </div>
+            </div>
+
+            <!-- Student Grade Level -->
+            <div class="col-md-6 form-group mb-4">
+              <label for="studentGradeLevel" class="form-label">Grade Level</label>
+              <div class="select-container">
+                <select id="studentGradeLevel" formControlName="studentGradeLevel" class="form-control-custom select-custom">
+                  <option *ngFor="let grade of gradeLevels" [value]="grade">{{ grade }}</option>
+                </select>
+                <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+              </div>
+              <div *ngIf="f['studentGradeLevel'].invalid && (f['studentGradeLevel'].touched || submitted)" class="error-msg">
+                <span><i class="fa-solid fa-circle-info me-1"></i> Grade Level selection is required</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2 Footer Actions -->
+          <div class="d-flex justify-content-end gap-3 mt-4">
+            <button type="button" class="action-btn back-btn" (click)="prevStep()">
+              <i class="fa-solid fa-chevron-left me-2"></i> Back
+            </button>
+            <button type="button" class="action-btn next-btn" (click)="nextStep()">
+              Next <i class="fa-solid fa-chevron-right ms-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- ================== STEP 3: REVIEW & SUBMIT ================== -->
+        <div *ngIf="currentStep === 3">
+          
+          <!-- Parent Info Section -->
+          <div class="review-section-box mb-4">
+            <div class="review-section-header">
+              <h3 class="review-section-title">Parent Information</h3>
+              <button type="button" class="edit-section-btn" (click)="goToStep(1)">Edit</button>
+            </div>
+            <div class="review-grid">
+              <div class="review-item">
+                <span class="review-label">First Name</span>
+                <span class="review-value">{{ signupForm.value.firstName }}</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Last Name</span>
+                <span class="review-value">{{ signupForm.value.lastName }}</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Phone Number</span>
+                <span class="review-value">+966 {{ signupForm.value.phone }}</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Email Address</span>
+                <span class="review-value">{{ signupForm.value.email }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Student Info Section -->
+          <div class="review-section-box mb-4">
+            <div class="review-section-header">
+              <h3 class="review-section-title">Student Information</h3>
+              <button type="button" class="edit-section-btn" (click)="goToStep(2)">Edit</button>
+            </div>
+            <div class="review-grid">
+              <div class="review-item">
+                <span class="review-label">First Name</span>
+                <span class="review-value">{{ signupForm.value.studentFirstName }}</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Last Name</span>
+                <span class="review-value">{{ signupForm.value.studentLastName }}</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Date of Birth</span>
+                <span class="review-value">{{ signupForm.value.studentDob | date:'dd MMMM yyyy' }}</span>
+              </div>
+              <div class="review-item">
+                <span class="review-label">Grade Level</span>
+                <span class="review-value">{{ signupForm.value.studentGradeLevel }}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Terms Agreement Checkbox -->
+          <div class="form-group mb-4">
+            <label class="terms-checkbox-label">
+              <input type="checkbox" formControlName="agreeToTerms" class="terms-checkbox" />
+              <span class="terms-text">
+                I have read and agree to the <a routerLink="/privacy_policy" class="terms-link">Privacy Policy</a> and <a class="terms-link">Terms & Conditions</a>.
+              </span>
+            </label>
+            <div *ngIf="f['agreeToTerms'].invalid && submitted" class="error-msg">
+              <span><i class="fa-solid fa-circle-info me-1"></i> You must agree to the terms to submit.</span>
+            </div>
+          </div>
+
+          <!-- Alert error messages -->
+          <div *ngIf="errorMessage" class="alert alert-danger custom-alert mb-4">
+            <i class="fa-solid fa-circle-exclamation me-2"></i> {{ errorMessage }}
+          </div>
+
+          <!-- Review Footer Submit Actions -->
+          <div class="mt-4">
+            <button 
+              type="submit" 
+              class="signup-submit-btn w-100" 
+              [disabled]="isLoading || signupForm.invalid"
+            >
+              <span *ngIf="!isLoading">Submit Application</span>
+              <span *ngIf="isLoading" class="spinner-container">
+                <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                Submitting Application...
+              </span>
+            </button>
+            <p class="review-hint-text text-center mt-3">
+              After submission, your application will be reviewed. Admission confirmation and login details will be shared with the parent.
+            </p>
+          </div>
+
+        </div>
+
+      </form>
+
+      <!-- ================== STEP 4: SUCCESS VIEW ================== -->
+      <div *ngIf="currentStep === 4" class="success-screen-container text-center py-4">
+        
+        <!-- Checkmark Circle -->
+        <div class="success-check-icon mb-4">
+          <i class="fa-solid fa-check"></i>
+        </div>
+
+        <h2 class="success-title mb-2">Application Submitted Successfully</h2>
+        <p class="success-subtitle mb-4">Your application has been received and is currently under review.</p>
+
+        <!-- Highlight peach card -->
+        <div class="success-details-card">
+          <p class="success-details-text mb-3">
+            Once approved, login credentials will be sent to your registered email address. Approval may take 1–2 business days.
+          </p>
+          <div class="success-confirmation-badge">
+            <i class="fa-regular fa-envelope me-2"></i> Confirmation sent to: {{ signupForm.value.email }}
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Sign In Redirection (Hidden on Success Step) -->
+    <div *ngIf="currentStep < 4" class="login-footer mt-4 text-center">
+      Already have an account? <a routerLink="/login" class="login-link">Log In</a>
+    </div>
+
   </div>
 </div>
