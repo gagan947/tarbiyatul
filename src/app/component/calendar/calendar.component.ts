@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FooterComponent } from '../../shared components/footer/footer.component';
-import { HeaderComponent } from '../../shared components/header/header.component';
 declare var $: any;  // Declare jQuery for use
 declare var AOS: any; // Declare AOS for animations
 @Component({
@@ -10,7 +8,7 @@ declare var AOS: any; // Declare AOS for animations
     templateUrl: './calendar.component.html',
     styleUrls: ['./calendar.component.css'],
     standalone: true,
-    imports: [HeaderComponent, RouterLink, FooterComponent]
+    imports: [RouterLink]
 })
 export class CalendarComponent {
   private routerSub!: Subscription;

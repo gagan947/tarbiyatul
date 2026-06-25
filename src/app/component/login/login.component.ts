@@ -4,15 +4,13 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../core/services/api.service';
 import { LoginRequest, LoginResponse } from '../../core/models/login.model';
-import { HeaderComponent } from "src/app/shared components/header/header.component";
-import { FooterComponent } from "src/app/shared components/footer/footer.component";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, RouterLink, HeaderComponent, FooterComponent]
+  imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
