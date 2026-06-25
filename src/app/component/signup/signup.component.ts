@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../core/services/api.service';
 import { SignupRequest, SignupResponse } from '../../core/models/signup.model';
 
@@ -40,7 +40,8 @@ export class SignupComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +61,13 @@ export class SignupComponent implements OnInit {
       
       // Terms checkbox
       agreeToTerms: [false, [Validators.requiredTrue]]
+    });
+
+    // Check query parameters to set initial role selection
+    this.route.queryParams.subscribe(params => {
+      if (params['role']) {
+        this.signupForm.patchValue({ role: params['role'] });
+      }
     });
   }
 

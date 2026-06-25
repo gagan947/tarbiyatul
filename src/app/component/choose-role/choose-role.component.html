@@ -1,1 +1,42 @@
-<p>choose-role works!</p>
+<div class="auth-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 mx-auto">
+        <div class="auth-card-container">
+          <!-- Page Header -->
+          <div class="auth-page-header">
+            <h1 class="auth-title">Choose Role</h1>
+            <p class="auth-subtitle">Select how you want to continue</p>
+          </div>
+
+          <!-- Role Cards Grid -->
+          <div class="role-cards-container">
+            <!-- Student Role Card -->
+            <div class="role-card" [class.selected]="selectedRole === 'teacher'" (click)="selectRole('teacher')">
+              <div class="role-image-container">
+                <img src="assets/img/image 16.png" alt="Student" class="role-img" />
+              </div>
+              <h3 class="role-card-label">Teacher</h3>
+            </div>
+
+            <!-- Parent Role Card -->
+            <div class="role-card" [class.selected]="selectedRole === 'parent'" (click)="selectRole('parent')">
+              <div class="role-image-container">
+                <img src="assets/img/image 17.png" alt="Parent" class="role-img" />
+              </div>
+              <h3 class="role-card-label">Parent</h3>
+            </div>
+          </div>
+
+          <!-- Continue Button -->
+          <div class="continue-btn-container w-100 text-center mb-5">
+            <button type="button" class="auth-btn-primary continue-btn" (click)="onContinue()">
+              Continue
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

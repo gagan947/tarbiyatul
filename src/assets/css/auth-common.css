@@ -1,0 +1,230 @@
+/* Common CSS for Authentication and Role Selection pages */
+
+.auth-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FCF7EE;
+  padding: 200px 0;
+  box-sizing: border-box;
+}
+
+.auth-card-container {
+  width: 100%;
+}
+
+.ct_auth_white_bg {
+  background-color: #fff;
+  padding: 50px 82px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.auth-page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.auth-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 32px;
+  font-weight: 500;
+  color: #171E45;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #00000080;
+  line-height: 1.5;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/* Form Controls & Inputs */
+.form-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  color: #00000080;
+  margin-bottom: 0.5rem;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.form-control-custom {
+  width: 100%;
+  height: 52px;
+  padding: 0 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #1F2937;
+  background-color: #FFFDFB;
+  border: 1px solid #EFEAE4;
+  border-radius: 18px;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+}
+
+.form-control-custom::placeholder {
+  color: #9CA3AF;
+}
+
+.form-control-custom:focus {
+  border-color: #FC800A;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(252, 128, 10, 0.08);
+}
+
+.form-control-custom.is-invalid-custom {
+  border-color: #EF4444;
+  background-color: #FFFDFD;
+}
+
+.form-control-custom.is-invalid-custom:focus {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
+}
+
+/* Password Toggle Button */
+.password-toggle-btn {
+  position: absolute;
+  right: 18px;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #9CA3AF;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.password-toggle-btn:hover {
+  color: #4B5563;
+}
+
+/* Error validation styling */
+.error-msg {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  color: #EF4444;
+  margin-top: 0.4rem;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+/* Alert Boxes */
+.custom-alert {
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  padding: 0.75rem 1rem;
+  border: none;
+}
+
+.spinner-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Footer elements */
+.auth-footer {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #4B5563;
+  margin-top: 1.5rem;
+}
+
+.auth-link {
+  color: #FC800A;
+  font-weight: 700;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.auth-link:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
+/* Primary Button Styling */
+.auth-btn-primary {
+  width: 100%;
+  height: 52px;
+  background-color: #FC800A;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(252, 128, 10, 0.15);
+}
+
+.auth-btn-primary:hover:not(:disabled) {
+  background-color: #E27208;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(252, 128, 10, 0.25);
+}
+
+.auth-btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(252, 128, 10, 0.15);
+}
+
+.auth-btn-primary:disabled {
+  background-color: #FDBA74;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1600px) {
+  .auth-wrapper {
+    padding-block: 80px;
+  }
+}
+
+@media (max-width: 1450px) {
+  .auth-wrapper {
+    padding-block: 80px;
+  }
+}
+
+@media (max-width: 767px) {
+  .ct_auth_white_bg {
+    padding: 40px;
+  }
+
+  .auth-title {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 575px) {
+  .ct_auth_white_bg {
+    padding: 30px 15px;
+  }
+
+  .auth-subtitle {
+    font-size: 16px;
+  }
+}

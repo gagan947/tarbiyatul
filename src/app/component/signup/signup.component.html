@@ -1,14 +1,14 @@
-<div class="signup-wrapper">
+<div class="auth-wrapper">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <div class="signup-card-container">
+        <div class="auth-card-container">
     
     <div class="ct_auth_white_bg">
       <!-- Title & Subtitle (Hidden in Success Step) -->
-    <div *ngIf="currentStep < 4" class="signup-page-header">
-      <h1 class="signup-main-title">Create an Account</h1>
-      <p class="signup-main-subtitle opacity-50">Register your child in a few simple steps</p>
+    <div *ngIf="currentStep < 4" class="auth-page-header">
+      <h1 class="auth-title">Create an Account</h1>
+      <p class="auth-subtitle opacity-50">Register your child in a few simple steps</p>
     </div>
 
     <!-- Step Progress Indicator (Hidden in Success Step) -->
@@ -338,7 +338,7 @@
           <div class="mt-4">
             <button 
               type="submit" 
-              class="signup-submit-btn w-100" 
+              class="auth-btn-primary w-100" 
               
             >
               <span *ngIf="!isLoading">Submit Application</span>
@@ -383,8 +383,8 @@
     </div>
 
     <!-- Sign In Redirection (Hidden on Success Step) -->
-    <div *ngIf="currentStep < 4" class="login-footer mt-4 text-center">
-      Already have an account? <a routerLink="/login" class="login-link">Log In</a>
+    <div *ngIf="currentStep < 4" class="auth-footer mt-4 text-center">
+      Already have an account? <a routerLink="/login" class="auth-link">Log In</a>
     </div>
 
   </div>
