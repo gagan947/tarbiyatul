@@ -1,42 +1,21 @@
 /* Full Screen Layout wrapper */
 .login-wrapper {
-  min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FAF6F0;
-  padding: 2rem 1rem;
+  background-color: #FCF7EE;
+  padding: 200px  0;
   box-sizing: border-box;
 }
 
-.login-card-container {
-  width: 100%;
-  max-width: 580px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
-/* Card Styling */
-.login-card {
-  width: 100%;
-  /* background: #ffffff; */
-  border-radius: 24px;
-  /* Large premium rounded corners */
-  padding: 3rem 3.5rem;
-  /* box-shadow: 0 10px 30px rgba(180, 160, 140, 0.08), 0 1px 8px rgba(180, 160, 140, 0.04); */
-  box-sizing: border-box;
-  transition: all 0.3s ease;
 
-}
+
 
 /* Brand Header */
 .login-header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 2rem;
   text-align: center;
+  margin-bottom: 60px;
 }
 
 .brand-logo {
@@ -46,7 +25,7 @@
 }
 
 .brand-name {
-  font-family: 'Rowdies', 'Inter', sans-serif;
+  font-family:  'Inter', sans-serif;
   font-size: 28px;
   font-weight: 700;
   color: #FC800A;
@@ -56,7 +35,7 @@
 
 .login-title {
   font-family: 'Inter', sans-serif;
-  font-size: 22px;
+  font-size: 40px;
   font-weight: 500;
   color: #171E45;
   /* Dark blue/charcoal header */
@@ -65,19 +44,19 @@
 
 .login-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  color: #6B7280;
+  font-size: 18px;
+  color: #00000080;
   line-height: 1.5;
   margin-bottom: 0;
-  max-width: 320px;
+  text-align: center;
 }
 
 /* Input Fields Container and Controls */
 .form-label {
   font-family: 'Inter', sans-serif;
-  font-size: 13px;
-  font-weight: 600;
-  color: #4B5563;
+  font-size: 15px;
+  font-weight: 500;
+  color: #00000080;
   margin-bottom: 0.5rem;
 }
 
@@ -102,22 +81,19 @@
 .form-control-custom {
   width: 100%;
   height: 52px;
-  padding: 0 20px 0 48px;
+  padding: 0 20px;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
   color: #1F2937;
   background-color: #FFFDFB;
   border: 1px solid #EFEAE4;
-  border-radius: 30px;
-  /* Fully rounded capsules */
+  border-radius: 18px;
   outline: none;
   box-sizing: border-box;
   transition: all 0.25s ease;
 }
-
 .form-control-custom::placeholder {
   color: #9CA3AF;
-  font-weight: 400;
 }
 
 .form-control-custom:focus {
@@ -159,7 +135,7 @@
 .forgot-password-link {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
-  color: #B45309;
+  color: #FC800A;
   /* Warm brown/orange color for link */
   font-weight: 600;
   text-decoration: none;
@@ -173,8 +149,8 @@
 
 .forgot-password-link-sub {
   font-family: 'Inter', sans-serif;
-  font-size: 12px;
-  color: #B45309;
+  font-size: 14px;
+  color: #FC800A;
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -262,7 +238,7 @@
 }
 
 .signup-link {
-  color: #B45309;
+  color: #FC800A;
   font-weight: 600;
   text-decoration: none;
 }
@@ -277,19 +253,35 @@
   color: #9CA3AF;
   text-align: center;
 }
+.ct_auth_white_bg{
+  background-color: #fff;
+  padding: 82px;
+  border-radius: 10px;
+}
+
+
 
 /* Responsiveness adjustments */
-@media (max-width: 576px) {
-  .login-card {
-    padding: 2.25rem 1.75rem;
-    border-radius: 20px;
+@media (max-width:767px){
+  .ct_auth_white_bg{
+    padding: 40px;
   }
-
-  .brand-name {
-    font-size: 24px;
+  .login-title{
+    font-size: 32px;
   }
+   .login-card {
+    padding: 0px 15px;
+  }
+}
+@media (max-width: 575px) {
+ 
 
-  .login-title {
-    font-size: 20px;
+
+
+   .ct_auth_white_bg{
+    padding: 30px 15px;
+  }
+  .login-subtitle{
+    font-size: 16px;
   }
 }

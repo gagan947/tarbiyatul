@@ -1,8 +1,12 @@
 <div class="login-wrapper">
-  <div class="login-card-container">
+ <div class="container">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+       <div class="login-card-container">
     <div class="login-card">
 
-      <!-- Brand Logo Header -->
+      <div class="ct_auth_white_bg">
+         <!-- Brand Logo Header -->
       <div class="login-header">
         <h2 class="login-title">Welcome Back</h2>
         <p class="login-subtitle">Login to access your dashboard</p>
@@ -23,9 +27,7 @@
         <div class="form-group mb-4">
           <label for="email" class="form-label">Email Address</label>
           <div class="input-container">
-            <span class="input-icon">
-              <i class="fa-regular fa-envelope"></i>
-            </span>
+            
             <input type="email" id="email" formControlName="email" class="form-control-custom"
               placeholder="name@example.com"
               [ngClass]="{ 'is-invalid-custom': (f['email'].invalid && (f['email'].dirty || f['email'].touched || submitted)) }"
@@ -48,9 +50,7 @@
             <label for="password" class="form-label mb-0">Password</label>
           </div>
           <div class="input-container">
-            <span class="input-icon">
-              <i class="fa-solid fa-lock"></i>
-            </span>
+          
             <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
               class="form-control-custom" placeholder="••••••••"
               [ngClass]="{ 'is-invalid-custom': (f['password'].invalid && (f['password'].dirty || f['password'].touched || submitted)) }"
@@ -78,9 +78,16 @@
           </span>
         </button>
       </form>
+      </div>
       <div class="signup-footer mt-4">
         Don't have an account? <a routerLink="/signup" class="signup-link">Sign Up</a>
       </div>
     </div>
   </div>
+
+    </div>
+
+  </div>
+  
+ </div>
 </div>

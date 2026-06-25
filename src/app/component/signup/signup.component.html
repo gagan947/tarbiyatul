@@ -1,14 +1,18 @@
 <div class="signup-wrapper">
-  <div class="signup-card-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="signup-card-container">
     
-    <!-- Title & Subtitle (Hidden in Success Step) -->
+    <div class="ct_auth_white_bg">
+      <!-- Title & Subtitle (Hidden in Success Step) -->
     <div *ngIf="currentStep < 4" class="signup-page-header">
       <h1 class="signup-main-title">Create an Account</h1>
-      <p class="signup-main-subtitle">Register your child in a few simple steps</p>
+      <p class="signup-main-subtitle opacity-50">Register your child in a few simple steps</p>
     </div>
 
     <!-- Step Progress Indicator (Hidden in Success Step) -->
-    <div *ngIf="currentStep < 4" class="step-progress-indicator mb-5">
+    <div *ngIf="currentStep < 4" class="step-progress-indicator ">
       
       <!-- Step 1 Circle -->
       <div class="step-progress-item" [ngClass]="{ 'active': currentStep >= 1 }">
@@ -312,10 +316,13 @@
           <!-- Terms Agreement Checkbox -->
           <div class="form-group mb-4">
             <label class="terms-checkbox-label">
-              <input type="checkbox" formControlName="agreeToTerms" class="terms-checkbox" />
-              <span class="terms-text">
+             <div class="form-check ct_custom_check2">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                         <span class="terms-text">
                 I have read and agree to the <a routerLink="/privacy_policy" class="terms-link">Privacy Policy</a> and <a class="terms-link">Terms & Conditions</a>.
               </span>
+                    </div>
+             
             </label>
             <div *ngIf="f['agreeToTerms'].invalid && submitted" class="error-msg">
               <span><i class="fa-solid fa-circle-info me-1"></i> You must agree to the terms to submit.</span>
@@ -332,7 +339,7 @@
             <button 
               type="submit" 
               class="signup-submit-btn w-100" 
-              [disabled]="isLoading || signupForm.invalid"
+              
             >
               <span *ngIf="!isLoading">Submit Application</span>
               <span *ngIf="isLoading" class="spinner-container">
@@ -373,10 +380,17 @@
       </div>
 
     </div>
+    </div>
 
     <!-- Sign In Redirection (Hidden on Success Step) -->
     <div *ngIf="currentStep < 4" class="login-footer mt-4 text-center">
       Already have an account? <a routerLink="/login" class="login-link">Log In</a>
+    </div>
+
+  </div>
+
+      </div>
+
     </div>
 
   </div>
