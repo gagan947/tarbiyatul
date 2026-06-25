@@ -586,8 +586,15 @@
         border-color: #FC800A;
         vertical-align: middle;
     }
+    
 
 /* Responsive elements */
+
+@media  (max-width:1450px){
+  .signup-wrapper{
+    padding-block:130px
+  }
+}
 @media (max-width: 767px) {
  .step-progress-indicator{
         /* flex-direction: column; */
