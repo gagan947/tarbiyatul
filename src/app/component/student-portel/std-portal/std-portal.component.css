@@ -147,10 +147,10 @@
 
 .greeting-title {
   font-family: 'Inter', sans-serif;
-  font-size: 26px;
-  font-weight: 700;
-  color: #171E45;
-  margin: 0 0 6px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #241912;
+  margin-bottom: 0px;
 }
 
 .greeting-subtitle {
@@ -161,9 +161,9 @@
 }
 
 .action-circle-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   background-color: #ffffff;
   border: 1px solid #EFEAE4;
   color: #4B5563;

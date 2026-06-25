@@ -223,8 +223,10 @@
   color: #6B7280;
   margin: 0;
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: start;
+  gap: 0px;
+  line-height: 18px;
+  flex-direction: column;
   font-weight: 500;
 }
 
@@ -240,6 +242,7 @@
   height: 36px;
   padding: 0 16px;
   border-radius: 8px;
+  white-space: nowrap;
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   font-weight: 700;
@@ -412,7 +415,7 @@
 }
 
 /* Responsiveness */
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
     gap: 20px;
