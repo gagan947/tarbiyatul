@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   background-color: #FCF7EE;
-  padding: 200px  0;
+  padding: 200px 0;
   box-sizing: border-box;
 }
 
@@ -19,12 +19,12 @@
 /* Page Header */
 .signup-page-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .signup-main-title {
   font-family: 'Inter', sans-serif;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 500;
   color: #171E45;
   margin-bottom: 0.5rem;
@@ -32,7 +32,7 @@
 
 .signup-main-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   color: #000;
 }
 
@@ -97,11 +97,12 @@
   line-height: 1.2;
 }
 
-.step-progress-item.active .step-label-title ,.step-progress-item.active  .step-label-sub {
+.step-progress-item.active .step-label-title,
+.step-progress-item.active .step-label-sub {
   color: #FC800A;
 }
 
-.step-progress-item:not(.active) .step-circle.inactive ~ .step-label-container .step-label-title {
+.step-progress-item:not(.active) .step-circle.inactive~.step-label-container .step-label-title {
   color: #8A8A8D;
 }
 
@@ -112,7 +113,7 @@
   line-height: 1.2;
 }
 
-.step-progress-item:not(.active) .step-circle.inactive ~ .step-label-container .step-label-sub {
+.step-progress-item:not(.active) .step-circle.inactive~.step-label-container .step-label-sub {
   color: #8A8A8D;
 }
 
@@ -565,44 +566,46 @@
   align-items: center;
   justify-content: center;
 }
-.ct_auth_white_bg{
+
+.ct_auth_white_bg {
   background-color: #fff;
-  padding: 82px;
+  padding: 50px 82px;
   border-radius: 10px;
 }
 
-.ct_custom_check2  .form-check-input{
-          width: 18px;
-        height: 18px;
-    }
+.ct_custom_check2 .form-check-input {
+  width: 18px;
+  height: 18px;
+}
 
-    .ct_custom_check2 .form-check-input:checked {
-        background-color: #FC800A;
-        border-color: #FC800A;
-    }
+.ct_custom_check2 .form-check-input:checked {
+  background-color: #FC800A;
+  border-color: #FC800A;
+}
 
-    .ct_custom_check2 .form-check-input:focus {
-        box-shadow: unset;
-        border-color: #FC800A;
-        vertical-align: middle;
-    }
-    
+.ct_custom_check2 .form-check-input:focus {
+  box-shadow: unset;
+  border-color: #FC800A;
+  vertical-align: middle;
+}
+
 
 /* Responsive elements */
 
-@media  (max-width:1450px){
-  .signup-wrapper{
-    padding-block:130px
+@media (max-width:1450px) {
+  .signup-wrapper {
+    padding-block: 80px
   }
 }
+
 @media (max-width: 767px) {
- .step-progress-indicator{
-        /* flex-direction: column; */
-        align-items: flex-start;
-        gap: 0px;
-        padding-inline: 10px;
-    }
-  
+  .step-progress-indicator {
+    /* flex-direction: column; */
+    align-items: flex-start;
+    gap: 0px;
+    padding-inline: 10px;
+  }
+
   .step-connector {
     display: none;
   }
@@ -614,27 +617,32 @@
   .review-grid {
     grid-template-columns: 1fr;
   }
-  .step-circle{
+
+  .step-circle {
     width: 30px;
     height: 30px;
   }
-  .step-label-container span{
+
+  .step-label-container span {
     font-size: 12px;
   }
-  .ct_auth_white_bg{
+
+  .ct_auth_white_bg {
     padding: 40px;
   }
-  .signup-main-title{
+
+  .signup-main-title {
     font-size: 32px;
   }
 }
 
 
 @media (max-width: 575px) {
-   .ct_auth_white_bg{
+  .ct_auth_white_bg {
     padding: 30px 0px;
   }
-  .signup-main-subtitle{
+
+  .signup-main-subtitle {
     font-size: 16px;
   }
 }

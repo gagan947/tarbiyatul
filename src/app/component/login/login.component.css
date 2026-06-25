@@ -4,7 +4,7 @@
   align-items: center;
   justify-content: center;
   background-color: #FCF7EE;
-  padding: 200px  0;
+  padding: 200px 0;
   box-sizing: border-box;
 }
 
@@ -15,7 +15,7 @@
 /* Brand Header */
 .login-header {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .brand-logo {
@@ -25,7 +25,7 @@
 }
 
 .brand-name {
-  font-family:  'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-size: 28px;
   font-weight: 700;
   color: #FC800A;
@@ -35,7 +35,7 @@
 
 .login-title {
   font-family: 'Inter', sans-serif;
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 500;
   color: #171E45;
   /* Dark blue/charcoal header */
@@ -44,7 +44,7 @@
 
 .login-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 18px;
+  font-size: 16px;
   color: #00000080;
   line-height: 1.5;
   margin-bottom: 0;
@@ -92,6 +92,7 @@
   box-sizing: border-box;
   transition: all 0.25s ease;
 }
+
 .form-control-custom::placeholder {
   color: #9CA3AF;
 }
@@ -253,39 +254,44 @@
   color: #9CA3AF;
   text-align: center;
 }
-.ct_auth_white_bg{
+
+.ct_auth_white_bg {
   background-color: #fff;
-  padding: 82px;
+  padding: 50px 82px;
   border-radius: 10px;
 }
 
-@media  (max-width:1450px){
-  .login-wrappe{
-    padding-block:130px
+@media (max-width:1600px) {
+  .login-wrapper {
+    padding-block: 80px
   }
 }
 
 /* Responsiveness adjustments */
-@media (max-width:767px){
-  .ct_auth_white_bg{
+@media (max-width:767px) {
+  .ct_auth_white_bg {
     padding: 40px;
   }
-  .login-title{
+
+  .login-title {
     font-size: 32px;
   }
-   .login-card {
+
+  .login-card {
     padding: 0px 15px;
   }
 }
+
 @media (max-width: 575px) {
- 
 
 
 
-   .ct_auth_white_bg{
+
+  .ct_auth_white_bg {
     padding: 30px 15px;
   }
-  .login-subtitle{
+
+  .login-subtitle {
     font-size: 16px;
   }
 }
