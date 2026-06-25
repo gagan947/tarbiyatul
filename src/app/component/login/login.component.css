@@ -8,10 +8,6 @@
   box-sizing: border-box;
 }
 
-
-
-
-
 /* Brand Header */
 .login-header {
   text-align: center;
@@ -283,9 +279,6 @@
 }
 
 @media (max-width: 575px) {
-
-
-
 
   .ct_auth_white_bg {
     padding: 30px 15px;
