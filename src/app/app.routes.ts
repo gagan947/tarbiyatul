@@ -11,8 +11,8 @@ export const routes: Routes = [
   { path: 'admissionProcess', loadComponent: () => import('./component/admission-process/admission-process.component').then(m => m.AdmissionProcessComponent) },
   { path: 'fee', loadComponent: () => import('./component/fee/fee.component').then(m => m.FeeComponent) },
   { path: 'calendar', loadComponent: () => import('./component/calendar/calendar.component').then(m => m.CalendarComponent) },
-  { path: 'login', loadComponent: () => import('./component/login/login.component').then(m => m.LoginComponent) },
-  { path: 'choose-role', loadComponent: () => import('./component/choose-role/choose-role.component').then(m => m.ChooseRoleComponent) },
+  { path: 'login', loadComponent: () => import('./component/auth/login/login.component').then(m => m.LoginComponent) },
+  { path: 'choose-role', loadComponent: () => import('./component/auth/choose-role/choose-role.component').then(m => m.ChooseRoleComponent) },
   { path: 'contact', loadComponent: () => import('./component/contact-us/contact-us.component').then(m => m.ContactUsComponent) },
   { path: 'tech_support', loadComponent: () => import('./component/tech-support/tech-support.component').then(m => m.TechSupportComponent) },
   { path: 'privacy_policy', loadComponent: () => import('./component/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent) },
@@ -20,10 +20,17 @@ export const routes: Routes = [
   { path: 'faq', loadComponent: () => import('./component/faqs/faqs.component').then(m => m.FaqsComponent) },
   { path: 'eventsDetail', loadComponent: () => import('./component/events/events.component').then(m => m.EventsComponent) },
   { path: 'academicProgram', loadComponent: () => import('./component/academic-program/academic-program.component').then(m => m.AcademicProgramComponent) },
-  { path: 'forgotpassword', loadComponent: () => import('./component/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
-  { path: 'signup', loadComponent: () => import('./component/signup/signup.component').then(m => m.SignupComponent) },
+  { path: 'forgotpassword', loadComponent: () => import('./component/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
+  { path: 'signup', loadComponent: () => import('./component/auth/signup/signup.component').then(m => m.SignupComponent) },
   { path: 'announcement', loadComponent: () => import('./component/announcement/announcement.component').then(m => m.AnnouncementComponent) },
   { path: 'student_handbook', loadComponent: () => import('./component/student-handbook/student-handbook.component').then(m => m.StudentHandbookComponent) },
   { path: 'summerschool', loadComponent: () => import('./component/summer-school/summer-school.component').then(m => m.SummerSchoolComponent) },
-  { path: 'curriculum', loadComponent: () => import('./component/curriculum/curriculum.component').then(m => m.CurriculumComponent) }
+  { path: 'curriculum', loadComponent: () => import('./component/curriculum/curriculum.component').then(m => m.CurriculumComponent) },
+  { path: 'student', loadComponent: () => import('./component/student-portel/std-portal/std-portal.component').then(m => m.StdPortalComponent) },
+  {
+    path: 'student',
+    children: [
+      { path: 'std-dashboard', loadComponent: () => import('./component/student-portel/std-dashboard/std-dashboard.component').then(m => m.StdDashboardComponent) }
+    ]
+  }
 ];

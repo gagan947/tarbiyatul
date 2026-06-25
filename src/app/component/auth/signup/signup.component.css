@@ -1,0 +1,430 @@
+/* Step Progress Indicator Styles */
+.step-progress-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 60px;
+  box-sizing: border-box;
+  padding-inline: 15px;
+}
+
+.step-progress-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 2;
+  position: relative;
+}
+
+.step-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #FC800A;
+  border: 2px solid #FC800A;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.step-circle.completed {
+  background-color: #FC800A;
+  border-color: #FC800A;
+  color: #ffffff;
+}
+
+.step-circle.inactive {
+  background-color: #ffffff;
+  border: 2px solid #E5E7EB;
+  color: #9CA3AF;
+}
+
+.step-label-container {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.step-label-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  line-height: 1.2;
+}
+
+.step-progress-item.active .step-label-title,
+.step-progress-item.active .step-label-sub {
+  color: #FC800A;
+}
+
+.step-progress-item:not(.active) .step-circle.inactive~.step-label-container .step-label-title {
+  color: #8A8A8D;
+}
+
+.step-label-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #8A8A8D;
+  line-height: 1.2;
+}
+
+.step-progress-item:not(.active) .step-circle.inactive~.step-label-container .step-label-sub {
+  color: #8A8A8D;
+}
+
+.step-connector {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #E5E7EB;
+  margin: 0 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.step-connector.active {
+  background-color: #FC800A;
+}
+
+.step-card-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  color: #171E45;
+}
+
+/* Custom phone prefix inputs */
+.phone-input-group {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 1px solid #EFEAE4;
+  border-radius: 18px;
+  background-color: #FFFDFB;
+  overflow: hidden;
+  height: 52px;
+  transition: border-color 0.25s ease;
+}
+
+.phone-input-group:focus-within {
+  border-color: #FC800A;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(252, 128, 10, 0.08);
+}
+
+.phone-prefix-badge {
+  padding-left: 20px;
+  padding-right: 15px;
+  color: #4B5563;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  border-right: 1px solid #EFEAE4;
+  height: 100%;
+  background-color: #FFFDFB;
+  pointer-events: none;
+}
+
+.phone-input {
+  border: none !important;
+  border-radius: 0 !important;
+  padding-left: 15px !important;
+  height: 100% !important;
+  box-shadow: none !important;
+  flex-grow: 1;
+}
+
+/* Custom Select Dropdown Styling */
+.select-container {
+  position: relative;
+  width: 100%;
+}
+
+.select-custom {
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+  padding-right: 40px;
+}
+
+.select-arrow {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9CA3AF;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* Custom Date input type styling */
+.date-input {
+  cursor: pointer;
+}
+
+/* Action button configurations */
+.action-btn {
+  height: 48px;
+  padding: 0 28px;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  line-height: 14px;
+}
+
+.next-btn {
+  background-color: #FC800A;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(252, 128, 10, 0.15);
+}
+
+.next-btn:hover {
+  background-color: #E27208;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(252, 128, 10, 0.25);
+}
+
+.back-btn {
+  background-color: #FFF2E6;
+  color: #000;
+}
+
+.back-btn:hover {
+  background-color: #FFE5CC;
+}
+
+/* Review Step Styling */
+.review-section-box {
+  border: 1px solid #EFEAE4;
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  background-color: #FFFDFB;
+}
+
+.review-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #EFEAE4;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.review-section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #FC800A;
+  margin: 0;
+}
+
+.edit-section-btn {
+  background: #ffffff;
+  border: 1px solid #EFEAE4;
+  color: #6B7280;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-section-btn:hover {
+  border-color: #FC800A;
+  color: #FC800A;
+  background-color: #FFFDFB;
+}
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.review-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: #9CA3AF;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
+}
+
+.review-value {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #171E45;
+  font-weight: 600;
+}
+
+/* Terms agreements */
+.terms-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.terms-checkbox {
+  margin-top: 3px;
+  accent-color: #FC800A;
+  width: 16px;
+  height: 16px;
+}
+
+.terms-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #4B5563;
+  line-height: 1.4;
+}
+
+.terms-link {
+  color: #FC800A;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.terms-link:hover {
+  text-decoration: underline;
+}
+
+.review-hint-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #000000B2;
+  line-height: 1.5;
+}
+
+/* Success View Layouts */
+.success-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.success-check-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #FC800A;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0 4px 12px rgba(252, 128, 10, 0.25);
+}
+
+.success-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #171E45;
+}
+
+.success-subtitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #4B5563;
+}
+
+.success-details-card {
+  background-color: #FFF3EB;
+  border: 1px solid #FFE4D3;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 580px;
+  box-sizing: border-box;
+}
+
+.success-details-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: #7C2D12;
+  line-height: 1.6;
+}
+
+.success-confirmation-badge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #FFE4D3;
+  border-radius: 30px;
+  padding: 8px 20px;
+  color: #C2410C;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(194, 65, 12, 0.04);
+}
+
+.ct_custom_check2 .form-check-input {
+  width: 18px;
+  height: 18px;
+}
+
+.ct_custom_check2 .form-check-input:checked {
+  background-color: #FC800A;
+  border-color: #FC800A;
+}
+
+.ct_custom_check2 .form-check-input:focus {
+  box-shadow: unset;
+  border-color: #FC800A;
+  vertical-align: middle;
+}
+
+/* Responsive elements */
+@media (max-width: 767px) {
+  .step-progress-indicator {
+    align-items: flex-start;
+    gap: 0px;
+    padding-inline: 10px;
+  }
+
+  .step-connector {
+    display: none;
+  }
+
+  .signup-card {
+    padding: 0px 15px;
+  }
+
+  .review-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .step-circle {
+    width: 30px;
+    height: 30px;
+  }
+
+  .step-label-container span {
+    font-size: 12px;
+  }
+}

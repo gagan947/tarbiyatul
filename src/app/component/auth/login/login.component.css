@@ -1,0 +1,7 @@
+/* Login specific styles */
+
+@media (max-width: 767px) {
+  .login-card {
+    padding: 0px 15px;
+  }
+}
