@@ -71,7 +71,8 @@
                 <div class="d-flex justify-content-end mb-4">
                   <a routerLink="/forgotpassword" class="auth-link">Forgot Password?</a>
                 </div>
-                <button type="submit" class="auth-btn-primary w-100" [disabled]="isLoading || loginForm.invalid">
+                <!-- [disabled]="isLoading || loginForm.invalid" -->
+                <button type="submit" class="auth-btn-primary w-100">
                   <span *ngIf="!isLoading">Login</span>
                   <span *ngIf="isLoading" class="spinner-container">
                     <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
@@ -91,4 +92,4 @@
     </div>
 
   </div>
-</div>
+</div>

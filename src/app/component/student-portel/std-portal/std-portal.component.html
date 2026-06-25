@@ -1,0 +1,165 @@
+<div class="portal-container">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="portal-sidebar">
+        <!-- Brand Logo Section -->
+        <div class="sidebar-brand">
+            <img src="assets/img/logo.png" alt="TIAG Logo" class="brand-logo-img" />
+            <div class="brand-text">
+                <span class="brand-title">TIAG</span>
+                <span class="brand-sub">Islamic Education</span>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="sidebar-menu-wrapper">
+            <span class="menu-section-title">STUDENT PORTAL</span>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a routerLink="/student/std-dashboard" routerLinkActive="active" class="nav-item">
+                            <i class="fa-solid fa-house nav-icon"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/student/my-books" routerLinkActive="active" class="nav-item">
+                            <i class="fa-solid fa-book-open nav-icon"></i>
+                            <span>My Books</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/student/assignments" routerLinkActive="active" class="nav-item">
+                            <i class="fa-solid fa-file-invoice nav-icon"></i>
+                            <span>Assignments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/student/message-teacher" routerLinkActive="active" class="nav-item">
+                            <i class="fa-solid fa-comment-dots nav-icon"></i>
+                            <span>Message Teacher</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/student/resources" routerLinkActive="active" class="nav-item">
+                            <i class="fa-solid fa-folder-open nav-icon"></i>
+                            <span>Resources</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+            <a routerLink="/login" class="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket logout-icon"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- MIDDLE MAIN CONTENT -->
+    <main class="portal-main">
+        <!-- Common Portal Header -->
+        <header class="portal-header">
+            <div class="header-greeting">
+                <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
+                <p class="greeting-subtitle">Here's your learning progress for this week.</p>
+            </div>
+            <div class="header-actions">
+                <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Nested Router Outlet for Dashboard & Sub-pages -->
+        <div class="portal-content-body">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+
+    <!-- RIGHT PROFILE PANEL -->
+    <aside class="portal-profile-panel">
+        <div class="profile-header">
+            <h2 class="profile-title">Your Profile</h2>
+        </div>
+
+        <!-- Student Info Summary Card -->
+        <div class="profile-summary-card">
+            <div class="avatar-container">
+                <!-- Render a circular student profile avatar -->
+                <img src="assets/img/girl.png" alt="Ali Khan Avatar" class="profile-avatar-img" />
+            </div>
+            <div class="grade-badge">Grade 4</div>
+            <h3 class="student-name">Ali Khan</h3>
+            <p class="student-motto">"Seeking Knowledge Is An Obligation For Every Muslim."</p>
+
+            <!-- Profile Quick Actions -->
+            <div class="profile-quick-actions">
+                <button type="button" class="quick-action-btn" aria-label="ID Card">
+                    <i class="fa-regular fa-id-card"></i>
+                </button>
+                <button type="button" class="quick-action-btn" aria-label="Messages">
+                    <i class="fa-regular fa-comment-dots"></i>
+                </button>
+                <button type="button" class="quick-action-btn" aria-label="Alerts">
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- This Week Overview Section -->
+        <div class="week-overview-section">
+            <h3 class="panel-section-title">This Week Overview</h3>
+            <div class="overview-chart-container">
+                <div class="bar-chart">
+                    <div class="chart-bar-col">
+                        <div class="bar-fill" style="height: 35%;"></div>
+                        <span class="bar-label">mon</span>
+                    </div>
+                    <div class="chart-bar-col">
+                        <div class="bar-fill" style="height: 65%;"></div>
+                        <span class="bar-label">tue</span>
+                    </div>
+                    <div class="chart-bar-col active">
+                        <div class="bar-fill" style="height: 85%;"></div>
+                        <span class="bar-label">wed</span>
+                    </div>
+                    <div class="chart-bar-col">
+                        <div class="bar-fill" style="height: 45%;"></div>
+                        <span class="bar-label">thu</span>
+                    </div>
+                    <div class="chart-bar-col">
+                        <div class="bar-fill" style="height: 58%;"></div>
+                        <span class="bar-label">fri</span>
+                    </div>
+                    <div class="chart-bar-col">
+                        <div class="bar-fill" style="height: 25%;"></div>
+                        <span class="bar-label">sat</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Continue Reading Section -->
+        <div class="continue-reading-section">
+            <h3 class="panel-section-title">Continue Reading</h3>
+            <ul class="continue-books-list">
+                <li class="continue-book-item">
+                    <img src="assets/img/book_1.png" alt="Book Cover" class="book-mini-cover" />
+                    <a href="javascript:void(0)" class="book-progress-link">Daily Duas for Kids (Page 24 of 80)</a>
+                </li>
+                <li class="continue-book-item">
+                    <img src="assets/img/book_2.png" alt="Book Cover" class="book-mini-cover" />
+                    <a href="javascript:void(0)" class="book-progress-link">Daily Duas for Kids (Page 24 of 80)</a>
+                </li>
+                <li class="continue-book-item">
+                    <img src="assets/img/book_3.png" alt="Book Cover" class="book-mini-cover" />
+                    <a href="javascript:void(0)" class="book-progress-link">Daily Duas for Kids (Page 24 of 80)</a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+</div>

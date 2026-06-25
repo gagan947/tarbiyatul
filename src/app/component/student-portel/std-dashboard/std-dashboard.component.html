@@ -1,1 +1,139 @@
-<p>std-dashboard works!</p>
+<div class="progress-banner">
+  <div class="banner-content">
+    <h2 class="banner-title">Weekly Progress</h2>
+    <div class="progress-bar-wrapper">
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" [style.width.%]="progressPercentage"></div>
+      </div>
+    </div>
+    <div class="banner-footer-text">
+      <span class="left-text">You've Completed {{ progressPercentage }}% Of This Week's Tasks.</span>
+      <span class="right-text">Keep going!</span>
+    </div>
+  </div>
+  <!-- Sparkles decorative graphics on the right -->
+  <div class="banner-decorations">
+    <svg class="sparkle sparkle-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 0L14.7 9.3L24 12L14.7 14.7L12 24L9.3 14.7L0 12L9.3 9.3L12 0Z" fill="rgba(255, 255, 255, 0.45)"/>
+    </svg>
+    <svg class="sparkle sparkle-2" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 0L14.7 9.3L24 12L14.7 14.7L12 24L9.3 14.7L0 12L9.3 9.3L12 0Z" fill="rgba(255, 255, 255, 0.3)"/>
+    </svg>
+    <svg class="sparkle sparkle-3" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 0L14.7 9.3L24 12L14.7 14.7L12 24L9.3 14.7L0 12L9.3 9.3L12 0Z" fill="rgba(255, 255, 255, 0.25)"/>
+    </svg>
+  </div>
+</div>
+
+<div class="dashboard-grid">
+  
+  <!-- CARD 1: NEW ASSIGNMENTS -->
+  <div class="dashboard-card new-assignments-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-header-icon orange-bg">
+          <i class="fa-solid fa-book-open"></i>
+        </div>
+        <h2 class="card-title">New Assignments</h2>
+      </div>
+      <a href="javascript:void(0)" class="view-all-link">View All</a>
+    </div>
+    <div class="card-body">
+      <div class="assignments-list">
+        <div class="assignment-row" *ngFor="let ass of newAssignments">
+          <div class="assignment-info">
+            <img [src]="ass.image" alt="Book Cover" class="book-cover" />
+            <div class="book-details">
+              <h4 class="book-title">{{ ass.title }}</h4>
+              <p class="book-meta">
+                <span class="subject">{{ ass.subject }}</span>
+                <span class="meta-dot">•</span>
+                <span class="due-date">Due: {{ ass.due }}</span>
+              </p>
+            </div>
+          </div>
+          <button type="button" class="start-reading-btn">Start Reading</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2: ASSIGNMENT CHECKLIST -->
+  <div class="dashboard-card checklist-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-header-icon orange-bg">
+          <i class="fa-solid fa-file-invoice"></i>
+        </div>
+        <h2 class="card-title">Assignment Checklist</h2>
+      </div>
+      <a href="javascript:void(0)" class="view-all-link">View All</a>
+    </div>
+    <div class="card-body">
+      <div class="checklist-list">
+        <div class="checklist-row" *ngFor="let item of checklist; let i = index" (click)="toggleCheck(i)">
+          <div class="checklist-info">
+            <div class="custom-checkbox" [class.checked]="item.completed">
+              <i class="fa-solid fa-check check-icon" *ngIf="item.completed"></i>
+            </div>
+            <div class="checklist-text">
+              <h4 class="task-title" [class.task-completed]="item.completed">{{ item.title }}</h4>
+              <p class="task-subject">{{ item.subject }}</p>
+            </div>
+          </div>
+          <span class="status-badge" [ngClass]="item.completed ? 'badge-completed' : 'badge-pending'">
+            {{ item.completed ? 'Completed' : 'Pending' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3: TEACHER NOTES & ANNOUNCEMENTS -->
+  <div class="dashboard-card announcements-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-header-icon orange-bg">
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+        <h2 class="card-title">Teacher Notes & Announcements</h2>
+      </div>
+      <a href="javascript:void(0)" class="view-all-link">View All</a>
+    </div>
+    <div class="card-body">
+      <div class="announcement-callout">
+        <h3 class="callout-title">{{ announcement.title }}</h3>
+        <p class="callout-body">{{ announcement.body }}</p>
+        <div class="callout-footer">
+          <span class="teacher-name">— {{ announcement.teacher }}</span>
+          <span class="announcement-date">{{ announcement.date }}</span>
+        </div>
+        <div class="callout-bg-icon">
+          <i class="fa-solid fa-bullhorn"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 4: ISLAMIC CONTENT ALERT -->
+  <div class="dashboard-card alert-card">
+    <div class="card-header">
+      <div class="card-header-left">
+        <div class="card-header-icon orange-bg">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h2 class="card-title">Islamic Content Alert</h2>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="alert-callout">
+        <p class="callout-body">{{ alert.body }}</p>
+        <div class="callout-footer">
+          <span class="teacher-name">— {{ alert.teacher }}</span>
+          <span class="announcement-date">{{ alert.date }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

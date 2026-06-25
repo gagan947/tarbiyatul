@@ -21,6 +21,7 @@ import { HomePageFooterComponent } from './shared components/home-page-footer/ho
 export class AppComponent implements OnInit {
   title = 'tarbiyatul';
   isHome = false;
+  isStudentPortal = false;
 
   constructor(private router: Router) {}
 
@@ -30,6 +31,7 @@ export class AppComponent implements OnInit {
         // Dynamically toggle footer layout on the home route
         const url = event.urlAfterRedirects;
         this.isHome = url === '/' || url === '' || url.split('?')[0] === '/';
+        this.isStudentPortal = url.startsWith('/student');
         this.loadExternalScript();
       }
     });

@@ -43,39 +43,41 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.submitted = true;
-    this.errorMessage = null;
-    this.successMessage = null;
+    this.router.navigate(['/student']);
 
-    if (this.loginForm.invalid) {
-      return;
-    }
+    // this.submitted = true;
+    // this.errorMessage = null;
+    // this.successMessage = null;
 
-    this.isLoading = true;
-    const loginData: LoginRequest = this.loginForm.value;
+    // if (this.loginForm.invalid) {
+    //   return;
+    // }
 
-    this.apiService.post<LoginResponse>('users/auth/login', loginData)
-      .subscribe({
-        next: (response) => {
-          this.isLoading = false;
-          this.successMessage = 'Login successful! Redirecting...';
+    // this.isLoading = true;
+    // const loginData: LoginRequest = this.loginForm.value;
 
-          if (response.token) {
-            localStorage.setItem('token', response.token);
-          }
-          if (response.user) {
-            localStorage.setItem('user', JSON.stringify(response.user));
-          }
+    // this.apiService.post<LoginResponse>('users/auth/login', loginData)
+    //   .subscribe({
+    //     next: (response) => {
+    //       this.isLoading = false;
+    //       this.successMessage = 'Login successful! Redirecting...';
 
-          // Mock redirect to home page after success
-          setTimeout(() => {
-            this.router.navigate(['/']);
-          }, 1500);
-        },
-        error: (err: Error) => {
-          this.isLoading = false;
-          this.errorMessage = err.message || 'Login failed. Please check your credentials.';
-        }
-      });
+    //       if (response.token) {
+    //         localStorage.setItem('token', response.token);
+    //       }
+    //       if (response.user) {
+    //         localStorage.setItem('user', JSON.stringify(response.user));
+    //       }
+
+    //       // Mock redirect to home page after success
+    //       setTimeout(() => {
+    //         this.router.navigate(['/']);
+    //       }, 1500);
+    //     },
+    //     error: (err: Error) => {
+    //       this.isLoading = false;
+    //       this.errorMessage = err.message || 'Login failed. Please check your credentials.';
+    //     }
+    //   });
   }
 }

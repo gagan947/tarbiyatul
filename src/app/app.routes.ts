@@ -26,10 +26,11 @@ export const routes: Routes = [
   { path: 'student_handbook', loadComponent: () => import('./component/student-handbook/student-handbook.component').then(m => m.StudentHandbookComponent) },
   { path: 'summerschool', loadComponent: () => import('./component/summer-school/summer-school.component').then(m => m.SummerSchoolComponent) },
   { path: 'curriculum', loadComponent: () => import('./component/curriculum/curriculum.component').then(m => m.CurriculumComponent) },
-  { path: 'student', loadComponent: () => import('./component/student-portel/std-portal/std-portal.component').then(m => m.StdPortalComponent) },
   {
     path: 'student',
+    loadComponent: () => import('./component/student-portel/std-portal/std-portal.component').then(m => m.StdPortalComponent),
     children: [
+      { path: '', redirectTo: 'std-dashboard', pathMatch: 'full' },
       { path: 'std-dashboard', loadComponent: () => import('./component/student-portel/std-dashboard/std-dashboard.component').then(m => m.StdDashboardComponent) }
     ]
   }
