@@ -1,15 +1,14 @@
 /* Full Screen Layout wrapper */
 .login-wrapper {
-  min-height: 100vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FAF6F0; /* Soft warm light beige background matching the mockup */
+  background-color: #FAF6F0;
   padding: 2rem 1rem;
   box-sizing: border-box;
 }
 
-/* Container for Card and Page Footer */
 .login-card-container {
   width: 100%;
   max-width: 580px;
@@ -21,12 +20,14 @@
 /* Card Styling */
 .login-card {
   width: 100%;
-  background: #ffffff;
-  border-radius: 24px; /* Large premium rounded corners */
+  /* background: #ffffff; */
+  border-radius: 24px;
+  /* Large premium rounded corners */
   padding: 3rem 3.5rem;
-  box-shadow: 0 10px 30px rgba(180, 160, 140, 0.08), 0 1px 8px rgba(180, 160, 140, 0.04);
+  /* box-shadow: 0 10px 30px rgba(180, 160, 140, 0.08), 0 1px 8px rgba(180, 160, 140, 0.04); */
   box-sizing: border-box;
   transition: all 0.3s ease;
+
 }
 
 /* Brand Header */
@@ -36,14 +37,6 @@
   align-items: center;
   margin-bottom: 2rem;
   text-align: center;
-}
-
-.brand-logo-title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 1.25rem;
 }
 
 .brand-logo {
@@ -56,15 +49,17 @@
   font-family: 'Rowdies', 'Inter', sans-serif;
   font-size: 28px;
   font-weight: 700;
-  color: #FC800A; /* TIA Orange brand color */
+  color: #FC800A;
+  /* TIA Orange brand color */
   letter-spacing: -0.5px;
 }
 
 .login-title {
   font-family: 'Inter', sans-serif;
   font-size: 22px;
-  font-weight: 700;
-  color: #171E45; /* Dark blue/charcoal header */
+  font-weight: 500;
+  color: #171E45;
+  /* Dark blue/charcoal header */
   margin-bottom: 0.5rem;
 }
 
@@ -113,7 +108,8 @@
   color: #1F2937;
   background-color: #FFFDFB;
   border: 1px solid #EFEAE4;
-  border-radius: 30px; /* Fully rounded capsules */
+  border-radius: 30px;
+  /* Fully rounded capsules */
   outline: none;
   box-sizing: border-box;
   transition: all 0.25s ease;
@@ -163,7 +159,8 @@
 .forgot-password-link {
   font-family: 'Inter', sans-serif;
   font-size: 12px;
-  color: #B45309; /* Warm brown/orange color for link */
+  color: #B45309;
+  /* Warm brown/orange color for link */
   font-weight: 600;
   text-decoration: none;
   transition: opacity 0.2s ease;
@@ -203,10 +200,12 @@
 .login-btn {
   width: 100%;
   height: 52px;
-  background-color: #FC800A; /* Brand primary orange */
+  background-color: #FC800A;
+  /* Brand primary orange */
   color: #ffffff;
   border: none;
-  border-radius: 30px; /* Capsule buttons */
+  border-radius: 30px;
+  /* Capsule buttons */
   font-family: 'Inter', sans-serif;
   font-size: 15px;
   font-weight: 700;
@@ -230,7 +229,8 @@
 }
 
 .login-btn:disabled {
-  background-color: #FDBA74; /* Soft orange for disabled state */
+  background-color: #FDBA74;
+  /* Soft orange for disabled state */
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
@@ -284,7 +284,7 @@
     padding: 2.25rem 1.75rem;
     border-radius: 20px;
   }
-  
+
   .brand-name {
     font-size: 24px;
   }
