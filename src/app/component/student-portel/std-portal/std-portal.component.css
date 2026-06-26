@@ -10,7 +10,7 @@
 .portal-sidebar {
   background-color: #ffffff;
   border-right: 1px solid #EFEAE4;
-  padding: 35px 24px;
+  padding: 35px 24px 10px;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -39,17 +39,17 @@
 }
 
 .brand-title {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
-  color: #171E45;
+  color: #FC800A;
   letter-spacing: -0.5px;
   line-height: 1.1;
 }
 
 .brand-sub {
-  font-size: 11px;
-  color: #FC800A;
-  font-weight: 600;
+  font-size: 12px;
+  color: #595959;
+  font-weight: 500;
 }
 
 .sidebar-menu-wrapper {
@@ -57,12 +57,13 @@
 }
 
 .menu-section-title {
-  font-size: 11px;
-  font-weight: 700;
-  color: #9CA3AF;
+  font-size: 15px;
+  font-weight: 600;
+  padding-inline: 16px;
+  color:#3F3F3F ;
   letter-spacing: 0.8px;
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .sidebar-nav ul {
@@ -104,7 +105,7 @@
 
 .sidebar-footer {
   border-top: 1px solid #EFEAE4;
-  padding-top: 25px;
+  padding-top: 8px;
 }
 
 .logout-btn {
@@ -520,17 +521,17 @@
 }
 
 .logout-modal-title {
-  font-size: 26px;
-  font-weight: 750;
-  color: #171E45;
+  font-size: 28px;
+  font-weight: 500;
+  color: #000;
   margin: 0 0 10px 0;
   font-family: 'Inter', sans-serif;
   letter-spacing: -0.5px;
 }
 
 .logout-modal-subtitle {
-  font-size: 15px;
-  color: #6B7280;
+  font-size: 16px;
+  color: #666666;
   margin: 0 0 35px 0;
   font-weight: 500;
 }
@@ -552,7 +553,7 @@
   padding: 14px 20px;
   font-size: 14px;
   border-radius: 14px;
-  font-weight: 700;
+  font-weight: 500;
   border: none;
   cursor: pointer;
 }
