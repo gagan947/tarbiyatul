@@ -22,6 +22,7 @@ export class AppComponent implements OnInit {
   title = 'tarbiyatul';
   isHome = false;
   isStudentPortal = false;
+  isParentPortal = false;
 
   constructor(private router: Router) {}
 
@@ -32,6 +33,7 @@ export class AppComponent implements OnInit {
         const url = event.urlAfterRedirects;
         this.isHome = url === '/' || url === '' || url.split('?')[0] === '/';
         this.isStudentPortal = url.startsWith('/student');
+        this.isParentPortal = url.startsWith('/parent');
         this.loadExternalScript();
       }
     });

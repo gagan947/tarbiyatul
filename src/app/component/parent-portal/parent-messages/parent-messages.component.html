@@ -1,0 +1,118 @@
+<div class="ct_px_28">
+  <div class="messages-page-wrapper portal-font-main">
+  <!-- Section Title -->
+  <div class="section-header">
+    <h2 class="section-title">Message Teacher</h2>
+    <p class="section-subtitle">Stay connected with your teachers and ask questions about lessons, assignments, or books.</p>
+  </div>
+
+  <!-- Chat container card -->
+<div class="ct_chat_main_container position-relative">
+    <div class="chat-main-card portal-card">
+    
+    <!-- Active Teacher Header -->
+    <div class="chat-header">
+      <div class="teacher-info-row">
+        <i class="fa-solid fa-angle-left d-block d-md-none"></i>
+        <div class="teacher-avatar-container">
+          <img src="assets/img/client_1.png" [alt]="teacherName" class="teacher-avatar-img" />
+          <span class="online-indicator" *ngIf="isOnline"></span>
+        </div>
+        <div class="teacher-text-details">
+          <h3 class="teacher-display-name">{{ teacherName }}</h3>
+          <span class="teacher-display-role">{{ teacherRole }}</span>
+          <span class="teacher-status-text" *ngIf="isOnline">Online</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scrollable Messages Window -->
+    <div class="chat-history-window" id="chat-messages-container">
+      <div class="chat-date-separator">
+        <span class="date-label">Today</span>
+      </div>
+
+      <div class="chat-bubble-wrapper" *ngFor="let message of messages" [class.student-sender]="message.sender === 'Student'" [class.teacher-sender]="message.sender === 'Teacher'">
+        
+        <!-- Avatar for teacher -->
+        <img src="assets/img/client_1.png" alt="Teacher Avatar" class="chat-avatar" *ngIf="message.sender === 'Teacher'" />
+        
+        <!-- Message box -->
+        <div class="message-bubble-block">
+          <div class="message-bubble">
+            <p class="message-text">{{ message.text }}</p>
+          </div>
+          <div class="message-meta-info">
+            <span class="message-time">{{ message.time }}</span>
+            <span class="message-status-ticks" *ngIf="message.sender === 'Student'">
+              <i class="fa-solid fa-check" [class.double-tick]="message.isRead"></i>
+              <i class="fa-solid fa-check offset-tick" *ngIf="message.isRead"></i>
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Chat Prompt Input Bar -->
+    <form (submit)="sendMessage(); $event.preventDefault();" class="chat-input-bar">
+      <button type="button" class="attachment-btn" aria-label="Attach File">
+        <i class="fa-solid fa-paperclip"></i>
+      </button>
+      <input 
+        type="text" 
+        [(ngModel)]="newMessageText" 
+        name="messageInput" 
+        placeholder="Type your message..." 
+        class="message-text-input" 
+        autocomplete="off" />
+      <button type="submit" class="send-message-btn" aria-label="Send Message" [disabled]="!newMessageText.trim()">
+        <i class="fa-solid fa-paper-plane"></i>
+      </button>
+    </form>
+
+  </div>
+    <aside class="portal-profile-panel messages-sidebar-context" >
+       <div class="ct_p_20">
+         <div class="messages-panel-header">
+            <h2 class="profile-title mb-0">Messages</h2>
+        </div>
+
+        <!-- Search conversations bar -->
+        <div class="search-convo-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search conversations..." class="search-convo-input" />
+        </div>
+       </div>
+
+        <!-- Threads list -->
+        <div class="threads-list-scrollable">
+            <div class="thread-item-card" *ngFor="let thread of teacherThreads" [class.active-thread]="thread.name === 'Ustadh Hamza'">
+                <div class="avatar-col">
+                    <img [src]="thread.avatar" [alt]="thread.name" class="thread-avatar-img" />
+                    <span class="thread-online-dot" *ngIf="thread.online"></span>
+                </div>
+                
+                <div class="thread-info-col">
+                    <div class="thread-name-row">
+                        <h4 class="thread-teacher-name">{{ thread.name }}</h4>
+                        <span class="thread-time">{{ thread.time }}</span>
+                    </div>
+                    <span class="thread-subject">{{ thread.subject }}</span>
+                   <div class="d-flex align-items-center justify-content-between gap-2">
+                     <p class="thread-last-msg">{{ thread.lastMessage }}</p>
+                        <div class="thread-badge-col" *ngIf="thread.unreadCount > 0">
+                    <span class="unread-badge">{{ thread.unreadCount }}</span>
+                </div>
+                   </div>
+                </div>
+
+            
+            </div>
+        </div>
+    </aside>
+</div>
+</div>
+
+
+</div>
