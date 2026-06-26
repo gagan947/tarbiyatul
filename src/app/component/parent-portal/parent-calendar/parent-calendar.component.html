@@ -7,32 +7,32 @@
   <div class="row g-4">
     <!-- Left Sidebar: Small Calendar & Upcoming Events -->
     <div class="col-xl-3 col-lg-4">
-      <div class="dashboard-card p-4 h-100" style="border-radius: 16px;">
+      <div class="dashboard-card p-4 h-100 cal-card-rounded">
         
         <!-- Small Calendar Picker -->
         <div class="small-calendar-wrapper mb-5">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="mb-0 fw-semibold" style="font-size: 18px;">January 2021</h4>
+            <h4 class="mb-0 fw-semibold cal-header-title">January 2021</h4>
             <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-secondary rounded-circle" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-angle-left" style="font-size: 10px;"></i></button>
-              <button class="btn btn-sm btn-outline-secondary rounded-circle" style="width: 28px; height: 28px; padding: 0; display: flex; align-items: center; justify-content: center;"><i class="fa-solid fa-angle-right" style="font-size: 10px;"></i></button>
+              <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle"><i class="fa-solid fa-angle-left cal-icon-xs"></i></button>
+              <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle"><i class="fa-solid fa-angle-right cal-icon-xs"></i></button>
             </div>
           </div>
           
           <div class="small-calendar-grid">
-            <div class="d-flex justify-content-between text-muted mb-3" style="font-size: 12px;">
+            <div class="d-flex justify-content-between text-muted mb-3 cal-days-header">
               <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
             </div>
             <!-- Mock dates for small calendar -->
-            <div class="d-flex justify-content-between mb-3" style="font-size: 14px; font-weight: 500;">
+            <div class="d-flex justify-content-between mb-3 cal-days-row">
               <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
             </div>
-            <div class="d-flex justify-content-between mb-3" style="font-size: 14px; font-weight: 500;">
+            <div class="d-flex justify-content-between mb-3 cal-days-row">
               <span>22</span><span>23</span><span>24</span><span>25</span>
-              <span style="background-color: #F68B1F; color: white; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-top: -3px;">26</span>
+              <span class="cal-active-day-circle">26</span>
               <span>27</span><span>28</span>
             </div>
-            <div class="d-flex justify-content-between mb-3" style="font-size: 14px; font-weight: 500;">
+            <div class="d-flex justify-content-between mb-3 cal-days-row">
               <span>29</span><span>30</span><span>31</span><span></span><span></span><span></span><span></span>
             </div>
           </div>
@@ -40,52 +40,52 @@
 
         <!-- Upcoming Events List -->
         <div>
-          <h4 class="mb-4 fw-semibold" style="font-size: 18px;">Upcoming Events</h4>
+          <h4 class="mb-4 fw-semibold cal-header-title">Upcoming Events</h4>
           
-          <div class="upcoming-event-item mb-3 p-3 rounded" style="box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #F5F5F5;">
+          <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card">
             <div class="d-flex align-items-center gap-3">
-              <div class="date-badge text-center" style="min-width: 50px;">
-                <span class="d-block" style="font-size: 24px; font-weight: 700; color: #F68B1F; line-height: 1;">14</span>
+              <div class="date-badge text-center cal-date-badge-wrapper">
+                <span class="d-block cal-date-text-orange">14</span>
               </div>
               <div>
-                <h5 class="mb-1 fw-semibold" style="font-size: 14px;">Stretegy Design Development</h5>
-                <span class="text-muted" style="font-size: 12px;">5:00 PM</span>
+                <h5 class="mb-1 fw-semibold cal-event-title">Stretegy Design Development</h5>
+                <span class="text-muted cal-event-time">5:00 PM</span>
               </div>
             </div>
           </div>
           
-          <div class="upcoming-event-item mb-3 p-3 rounded" style="box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #F5F5F5;">
+          <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card">
             <div class="d-flex align-items-center gap-3">
-              <div class="date-badge text-center" style="min-width: 50px;">
-                <span class="d-block" style="font-size: 24px; font-weight: 700; color: #A855F7; line-height: 1;">19</span>
+              <div class="date-badge text-center cal-date-badge-wrapper">
+                <span class="d-block cal-date-text-purple">19</span>
               </div>
               <div>
-                <h5 class="mb-1 fw-semibold" style="font-size: 14px;">Design For Humanity</h5>
-                <span class="text-muted" style="font-size: 12px;">5:00 PM</span>
+                <h5 class="mb-1 fw-semibold cal-event-title">Design For Humanity</h5>
+                <span class="text-muted cal-event-time">5:00 PM</span>
               </div>
             </div>
           </div>
           
-          <div class="upcoming-event-item mb-3 p-3 rounded" style="box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #F5F5F5;">
+          <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card">
             <div class="d-flex align-items-center gap-3">
-              <div class="date-badge text-center" style="min-width: 50px;">
-                <span class="d-block" style="font-size: 24px; font-weight: 700; color: #10B981; line-height: 1;">27</span>
+              <div class="date-badge text-center cal-date-badge-wrapper">
+                <span class="d-block cal-date-text-green">27</span>
               </div>
               <div>
-                <h5 class="mb-1 fw-semibold" style="font-size: 14px;">App Design Course</h5>
-                <span class="text-muted" style="font-size: 12px;">5:00 PM</span>
+                <h5 class="mb-1 fw-semibold cal-event-title">App Design Course</h5>
+                <span class="text-muted cal-event-time">5:00 PM</span>
               </div>
             </div>
           </div>
           
-          <div class="upcoming-event-item p-3 rounded" style="box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid #F5F5F5;">
+          <div class="upcoming-event-item p-3 rounded cal-event-card">
             <div class="d-flex align-items-center gap-3">
-              <div class="date-badge text-center" style="min-width: 50px;">
-                <span class="d-block" style="font-size: 24px; font-weight: 700; color: #3B82F6; line-height: 1;">29</span>
+              <div class="date-badge text-center cal-date-badge-wrapper">
+                <span class="d-block cal-date-text-blue">29</span>
               </div>
               <div>
-                <h5 class="mb-1 fw-semibold" style="font-size: 14px;">Stretegy Design Development</h5>
-                <span class="text-muted" style="font-size: 12px;">5:00 PM</span>
+                <h5 class="mb-1 fw-semibold cal-event-title">Stretegy Design Development</h5>
+                <span class="text-muted cal-event-time">5:00 PM</span>
               </div>
             </div>
           </div>
@@ -96,26 +96,26 @@
 
     <!-- Right Main Calendar Grid -->
     <div class="col-xl-9 col-lg-8">
-      <div class="dashboard-card bg-white h-100 overflow-hidden" style="border: 1px solid #E5E7EB; border-radius: 12px;">
+      <div class="dashboard-card bg-white h-100 overflow-hidden cal-main-grid-card">
         <!-- Header -->
         <div class="calendar-grid-header d-flex text-center border-bottom bg-white">
-          <div class="flex-fill py-3 border-end" style="font-size: 14px; font-weight: 500;">Monday</div>
-          <div class="flex-fill py-3 border-end" style="font-size: 14px; font-weight: 500;">Tuesday</div>
-          <div class="flex-fill py-3 border-end" style="font-size: 14px; font-weight: 500;">Wednesday</div>
-          <div class="flex-fill py-3 border-end" style="font-size: 14px; font-weight: 500;">Thursday</div>
-          <div class="flex-fill py-3 border-end" style="font-size: 14px; font-weight: 500;">Friday</div>
-          <div class="flex-fill py-3 border-end" style="font-size: 14px; font-weight: 500;">Saturday</div>
-          <div class="flex-fill py-3" style="font-size: 14px; font-weight: 500;">Sunday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Monday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Tuesday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Wednesday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Thursday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Friday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Saturday</div>
+          <div class="flex-fill py-3 cal-main-day-header">Sunday</div>
         </div>
         
         <!-- Grid Body -->
         <div class="calendar-grid-body d-flex flex-column h-100">
           
           <!-- Week 1 -->
-          <div class="calendar-week d-flex border-bottom" style="min-height: 120px;">
+          <div class="calendar-week d-flex border-bottom cal-week-row">
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">1</span>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #FEF3C7; border-left: 3px solid #F59E0B; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-yellow">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">2</span>
@@ -128,7 +128,7 @@
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">5</span>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #D1FAE5; border-left: 3px solid #10B981; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-green">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">6</span>
@@ -139,17 +139,17 @@
           </div>
           
           <!-- Week 2 -->
-          <div class="calendar-week d-flex border-bottom" style="min-height: 120px;">
+          <div class="calendar-week d-flex border-bottom cal-week-row">
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">8</span>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">9</span>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #DBEAFE; border-left: 3px solid #3B82F6; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-blue">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">10</span>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #F3E8FF; border-left: 3px solid #A855F7; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-purple">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">11</span>
@@ -162,12 +162,12 @@
             </div>
             <div class="calendar-day flex-fill p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">14</span>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #D1FAE5; border-left: 3px solid #10B981; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-green">Design Workshop</div>
             </div>
           </div>
           
           <!-- Week 3 -->
-          <div class="calendar-week d-flex border-bottom" style="min-height: 120px;">
+          <div class="calendar-week d-flex border-bottom cal-week-row">
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">15</span>
             </div>
@@ -179,12 +179,12 @@
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">18</span>
-              <div class="event-pill px-2 py-1 rounded mb-1" style="background-color: #FCE7F3; border-left: 3px solid #EC4899; font-size: 10px;">Design Workshop</div>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #FFE4E6; border-left: 3px solid #F43F5E; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded mb-1 cal-pill cal-pill-pink">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-red">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">19</span>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #FEF3C7; border-left: 3px solid #F59E0B; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-yellow">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">20</span>
@@ -195,15 +195,15 @@
           </div>
           
           <!-- Week 4 -->
-          <div class="calendar-week d-flex border-bottom" style="min-height: 120px;">
+          <div class="calendar-week d-flex border-bottom cal-week-row">
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">22</span>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #FCE7F3; border-left: 3px solid #EC4899; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-pink">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">23</span>
-              <div class="event-pill px-2 py-1 rounded mb-1" style="background-color: #FEF9C3; border-left: 3px solid #EAB308; font-size: 10px;">Design Workshop</div>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #DBEAFE; border-left: 3px solid #3B82F6; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded mb-1 cal-pill cal-pill-yellow-light">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-blue">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">24</span>
@@ -211,7 +211,7 @@
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">25</span>
             </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative" style="background-color: #FDBA74;">
+            <div class="calendar-day flex-fill border-end p-2 position-relative cal-active-grid-day">
               <span class="day-number fw-semibold mb-1 d-inline-block text-white">26</span>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
@@ -223,7 +223,7 @@
           </div>
           
           <!-- Week 5 -->
-          <div class="calendar-week d-flex" style="min-height: 120px;">
+          <div class="calendar-week d-flex cal-week-row">
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">29</span>
             </div>
@@ -232,7 +232,7 @@
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block">31</span>
-              <div class="event-pill px-2 py-1 rounded" style="background-color: #D1FAE5; border-left: 3px solid #10B981; font-size: 10px;">Design Workshop</div>
+              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-green">Design Workshop</div>
             </div>
             <div class="calendar-day flex-fill border-end p-2 position-relative">
               <span class="day-number fw-semibold mb-1 d-inline-block text-muted">1</span>
@@ -247,7 +247,7 @@
               <span class="day-number fw-semibold mb-1 d-inline-block text-muted">4</span>
             </div>
           </div>
-
+          
         </div>
       </div>
     </div>

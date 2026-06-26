@@ -1,0 +1,218 @@
+/* parent-dashboard.component.css */
+
+.dash-banner {
+  background-color: #1A1F45;
+  border-radius: 16px;
+}
+
+.dash-avatar-wrapper {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.dash-banner-title {
+  font-size: 28px;
+}
+
+.dash-progress-track {
+  height: 12px;
+  border-radius: 6px;
+}
+
+.dash-progress-bar {
+  background-color: #F68B1F;
+  border-radius: 6px;
+}
+
+.dash-progress-text {
+  font-size: 13px;
+}
+
+.dash-score-value {
+  font-size: 42px;
+  line-height: 1;
+}
+
+/* Stats Cards */
+.dash-card-borderless {
+  border: none;
+  border-radius: 16px;
+}
+
+.dash-card-shadow {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.dash-card-purple {
+  background-color: #EDEFFF;
+}
+
+.dash-icon-wrapper-purple {
+  background-color: rgba(139, 149, 255, 0.2);
+  color: #8B95FF;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.dash-card-blue {
+  background-color: #EEF8FA;
+}
+
+.dash-icon-wrapper-blue {
+  background-color: rgba(103, 198, 227, 0.2);
+  color: #67C6E3;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.dash-card-orange {
+  background-color: #FFF2E5;
+}
+
+.dash-icon-wrapper-orange {
+  background-color: rgba(246, 139, 31, 0.2);
+  color: #F68B1F;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.dash-card-green {
+  background-color: #EEFBE5;
+}
+
+.dash-icon-wrapper-green {
+  background-color: rgba(125, 211, 85, 0.2);
+  color: #7DD355;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.dash-stat-value {
+  font-size: 28px;
+  color: #1A1F45;
+}
+
+.dash-stat-label {
+  font-size: 14px;
+}
+
+/* Recent Assignments */
+.dash-section-title {
+  font-size: 18px;
+}
+
+.dash-link-orange {
+  color: #F68B1F;
+  font-size: 14px;
+}
+
+.dash-table {
+  color: #1A1F45;
+}
+
+.dash-table-th {
+  font-size: 12px;
+}
+
+.dash-book-cover {
+  width: 32px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.dash-table-td-text {
+  font-size: 14px;
+}
+
+.dash-table-td-score {
+  color: #3B82F6;
+  font-size: 14px;
+}
+
+.dash-table-border-top {
+  border-color: #F8F9FA !important;
+}
+
+.dash-badge-completed {
+  background-color: #D1FAE5;
+  color: #10B981;
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.dash-badge-progress {
+  background-color: #FEF9C3;
+  color: #EAB308;
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.dash-badge-overdue {
+  background-color: #FEE2E2;
+  color: #EF4444;
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.dash-badge-notstarted {
+  background-color: #F3F4F6;
+  color: #6B7280;
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+/* Upcoming Events */
+.dash-event-icon-box {
+  min-width: 24px;
+}
+
+.dash-event-title {
+  font-size: 14px;
+}
+
+.dash-event-meta {
+  font-size: 12px;
+}
+
+/* Quick Actions */
+.dash-quick-title {
+  font-size: 16px;
+}
+
+.dash-quick-icon-bg {
+  width: 32px;
+  height: 32px;
+  background-color: #F8F9FA;
+}
+
+.dash-quick-icon {
+  font-size: 12px;
+}
+
+.dash-quick-text {
+  font-size: 13px;
+}
+
+/* Amount Due */
+.dash-amount-label {
+  font-size: 14px;
+  color: #1A1F45;
+  letter-spacing: 0.5px;
+}
+
+.dash-amount-value {
+  color: #F68B1F;
+  font-size: 32px;
+}

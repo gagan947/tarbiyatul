@@ -1,0 +1,203 @@
+.hb-card {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  background-color: white;
+}
+
+.hb-header-text {
+  font-size: 16px;
+}
+
+.hb-icon-size-sm {
+  font-size: 14px;
+}
+
+.hb-icon-size-md {
+  font-size: 16px;
+}
+
+/* Unpaid State */
+.hb-unpaid-graphic-container {
+  width: 140px;
+  height: 140px;
+}
+
+.hb-unpaid-circle-bg {
+  background-color: #FDF2F2;
+}
+
+.hb-unpaid-box {
+  width: 90px;
+  height: 110px;
+  background-color: #FCE8E8;
+  border: 2px solid white;
+}
+
+.hb-unpaid-lock-box {
+  width: 45px;
+  height: 50px;
+  background-color: #E53E3E;
+  color: white;
+  font-size: 20px;
+}
+
+.hb-unpaid-question-badge {
+  width: 16px;
+  height: 16px;
+  background-color: #E53E3E;
+  color: white;
+  font-size: 8px;
+}
+
+.hb-card-title {
+  font-size: 22px;
+}
+
+.hb-card-subtitle {
+  max-width: 280px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.hb-unpaid-alert {
+  background-color: #FDF5F5;
+  border: 1px solid #FCE8E8;
+}
+
+.hb-unpaid-alert-icon {
+  color: #E53E3E;
+  font-size: 18px;
+}
+
+.hb-unpaid-alert-title {
+  color: #E53E3E;
+  font-size: 14px;
+}
+
+.hb-unpaid-alert-text {
+  color: #E53E3E;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.hb-btn-orange {
+  background-color: #F68B1F;
+  border-radius: 8px;
+  font-size: 16px;
+  box-shadow: 0 4px 12px rgba(246, 139, 31, 0.3);
+}
+
+.hb-btn-orange:hover {
+  background-color: #e07a16;
+}
+
+.hb-info-box-blue {
+  background-color: #F0F4F8;
+  border-radius: 8px;
+}
+
+.hb-info-icon-circle-blue {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+}
+
+.hb-info-icon-blue {
+  color: #3B82F6;
+  font-size: 10px;
+}
+
+.hb-info-list-blue {
+  font-size: 12px;
+  color: #3B82F6 !important;
+  font-weight: 500;
+}
+
+/* Paid State */
+.hb-paid-circle-bg {
+  background-color: #F0FDF4;
+}
+
+.hb-paid-sparkle {
+  color: #10B981;
+  font-size: 12px;
+}
+
+.hb-paid-box {
+  width: 80px;
+  height: 110px;
+  background-color: #10B981;
+  border: 2px solid white;
+}
+
+.hb-paid-check-circle {
+  width: 36px;
+  height: 36px;
+  color: #10B981;
+  font-size: 18px;
+}
+
+.hb-file-box {
+  background-color: white;
+  border: 1px solid #E5E7EB;
+}
+
+.hb-pdf-icon-box {
+  width: 45px;
+  height: 50px;
+  background-color: #FDF2F2;
+  border: 1px solid #FCA5A5;
+}
+
+.hb-pdf-icon {
+  color: #EF4444;
+  font-size: 18px;
+}
+
+.hb-pdf-badge {
+  color: white;
+  background-color: #EF4444;
+  font-size: 8px;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.hb-file-title {
+  font-size: 14px;
+}
+
+.hb-file-desc {
+  font-size: 12px;
+}
+
+.hb-file-meta {
+  font-size: 10px;
+}
+
+.hb-btn-green {
+  background-color: #10B981;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.hb-btn-green:hover {
+  background-color: #0d9e6f;
+  color: white;
+}
+
+.hb-info-box-green {
+  background-color: #F0FDF4;
+  border-radius: 8px;
+}
+
+.hb-info-icon-green {
+  color: #10B981;
+  font-size: 14px;
+}
+
+.hb-info-list-green {
+  font-size: 12px;
+  color: #10B981;
+  font-weight: 500;
+}

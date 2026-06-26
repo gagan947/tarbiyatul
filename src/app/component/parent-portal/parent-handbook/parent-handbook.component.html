@@ -10,42 +10,42 @@
     
     <!-- Left Column: Unpaid State -->
     <div class="col-xl-6">
-      <div class="dashboard-card h-100 d-flex flex-column" style="border-radius: 16px; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.03); background-color: white;">
+      <div class="dashboard-card hb-card h-100 d-flex flex-column">
         
         <div class="p-4 p-md-5 d-flex flex-column align-items-center text-center flex-grow-1">
           <!-- Header -->
           <div class="w-100 text-start mb-5">
-            <h5 class="fw-semibold mb-0 d-flex align-items-center gap-2" style="font-size: 16px;">
-              <i class="fa-solid fa-lock text-danger" style="font-size: 14px;"></i> If Tuition Is Unpaid
+            <h5 class="fw-semibold mb-0 d-flex align-items-center gap-2 hb-header-text">
+              <i class="fa-solid fa-lock text-danger hb-icon-size-sm"></i> If Tuition Is Unpaid
             </h5>
           </div>
 
           <!-- Graphic -->
-          <div class="mb-4 position-relative d-inline-flex justify-content-center align-items-center" style="width: 140px; height: 140px;">
-            <div class="position-absolute w-100 h-100 rounded-circle" style="background-color: #FDF2F2;"></div>
-            <div class="position-relative d-flex justify-content-center align-items-center rounded shadow-sm" style="width: 90px; height: 110px; background-color: #FCE8E8; border: 2px solid white;">
-               <div class="rounded d-flex justify-content-center align-items-center" style="width: 45px; height: 50px; background-color: #E53E3E; color: white; font-size: 20px;">
+          <div class="mb-4 position-relative d-inline-flex justify-content-center align-items-center hb-unpaid-graphic-container">
+            <div class="position-absolute w-100 h-100 rounded-circle hb-unpaid-circle-bg"></div>
+            <div class="position-relative d-flex justify-content-center align-items-center rounded shadow-sm hb-unpaid-box">
+               <div class="rounded d-flex justify-content-center align-items-center hb-unpaid-lock-box">
                  <i class="fa-solid fa-lock"></i>
                </div>
-               <div class="position-absolute bottom-0 end-0 translate-middle-x mb-2 me-n2 rounded-circle d-flex justify-content-center align-items-center" style="width: 16px; height: 16px; background-color: #E53E3E; color: white; font-size: 8px;">
+               <div class="position-absolute bottom-0 end-0 translate-middle-x mb-2 me-n2 rounded-circle d-flex justify-content-center align-items-center hb-unpaid-question-badge">
                  <i class="fa-solid fa-question"></i>
                </div>
             </div>
           </div>
 
           <!-- Text content -->
-          <h3 class="fw-bold mb-2" style="font-size: 22px;">Handbook is Locked</h3>
-          <p class="text-muted mb-5" style="max-width: 280px; font-size: 14px; line-height: 1.5;">
+          <h3 class="fw-bold mb-2 hb-card-title">Handbook is Locked</h3>
+          <p class="text-muted mb-5 hb-card-subtitle">
             Please pay your outstanding tuition fee to access the Parent Handbook.
           </p>
 
           <!-- Alert Box -->
-          <div class="w-100 text-start p-3 mb-4 rounded" style="background-color: #FDF5F5; border: 1px solid #FCE8E8;">
+          <div class="w-100 text-start p-3 mb-4 rounded hb-unpaid-alert">
             <div class="d-flex gap-3">
-              <i class="fa-regular fa-bell mt-1" style="color: #E53E3E; font-size: 18px;"></i>
+              <i class="fa-regular fa-bell mt-1 hb-unpaid-alert-icon"></i>
               <div>
-                <h6 class="mb-1 fw-bold" style="color: #E53E3E; font-size: 14px;">Payment Reminder</h6>
-                <p class="mb-0" style="color: #E53E3E; font-size: 12px; line-height: 1.4;">
+                <h6 class="mb-1 fw-bold hb-unpaid-alert-title">Payment Reminder</h6>
+                <p class="mb-0 hb-unpaid-alert-text">
                   Your tuition payment is overdue. Please complete the payment to unlock the Parent Handbook.
                 </p>
               </div>
@@ -53,17 +53,17 @@
           </div>
 
           <!-- Button -->
-          <button routerLink="/parent/payments" class="btn w-100 fw-bold text-white py-3" style="background-color: #F68B1F; border-radius: 8px; font-size: 16px; box-shadow: 0 4px 12px rgba(246, 139, 31, 0.3);">
+          <button routerLink="/parent/payments" class="btn w-100 fw-bold text-white py-3 hb-btn-orange">
             Pay Tuition Now
           </button>
         </div>
         
         <!-- Bottom Info Box -->
-        <div class="p-3 mx-4 mx-md-5 mb-4 rounded d-flex gap-3 align-items-center" style="background-color: #F0F4F8; border-radius: 8px;">
-           <div class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm" style="width: 28px; height: 28px; min-width: 28px;">
-             <i class="fa-solid fa-lock" style="color: #3B82F6; font-size: 10px;"></i>
+        <div class="p-3 mx-4 mx-md-5 mb-4 rounded d-flex gap-3 align-items-center hb-info-box-blue">
+           <div class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm hb-info-icon-circle-blue">
+             <i class="fa-solid fa-lock hb-info-icon-blue"></i>
            </div>
-           <ul class="mb-0 ps-3 text-primary" style="font-size: 12px; color: #3B82F6 !important; font-weight: 500;">
+           <ul class="mb-0 ps-3 hb-info-list-blue">
              <li>The handbook remains locked.</li>
              <li>Download access is unavailable.</li>
            </ul>
@@ -74,63 +74,63 @@
 
     <!-- Right Column: Paid State -->
     <div class="col-xl-6">
-      <div class="dashboard-card h-100 d-flex flex-column" style="border-radius: 16px; border: none; box-shadow: 0 4px 20px rgba(0,0,0,0.03); background-color: white;">
+      <div class="dashboard-card hb-card h-100 d-flex flex-column">
         
         <div class="p-4 p-md-5 d-flex flex-column align-items-center text-center flex-grow-1">
           <!-- Header -->
           <div class="w-100 text-start mb-5">
-            <h5 class="fw-semibold mb-0 d-flex align-items-center gap-2" style="font-size: 16px;">
-              <i class="fa-solid fa-circle-check" style="color: #10B981; font-size: 16px;"></i> If Tuition Is Paid
+            <h5 class="fw-semibold mb-0 d-flex align-items-center gap-2 hb-header-text">
+              <i class="fa-solid fa-circle-check hb-info-icon-green hb-icon-size-md"></i> If Tuition Is Paid
             </h5>
           </div>
 
           <!-- Graphic -->
-          <div class="mb-4 position-relative d-inline-flex justify-content-center align-items-center" style="width: 140px; height: 140px;">
-            <div class="position-absolute w-100 h-100 rounded-circle" style="background-color: #F0FDF4;"></div>
-            <div class="position-absolute top-0 start-0 translate-middle mt-2 ms-2" style="color: #10B981; font-size: 12px;"><i class="fa-solid fa-sparkles"></i></div>
-            <div class="position-relative d-flex justify-content-center align-items-center rounded shadow-sm" style="width: 80px; height: 110px; background-color: #10B981; border: 2px solid white;">
-               <div class="bg-white rounded-circle d-flex justify-content-center align-items-center" style="width: 36px; height: 36px; color: #10B981; font-size: 18px;">
+          <div class="mb-4 position-relative d-inline-flex justify-content-center align-items-center hb-unpaid-graphic-container">
+            <div class="position-absolute w-100 h-100 rounded-circle hb-paid-circle-bg"></div>
+            <div class="position-absolute top-0 start-0 translate-middle mt-2 ms-2 hb-paid-sparkle"><i class="fa-solid fa-sparkles"></i></div>
+            <div class="position-relative d-flex justify-content-center align-items-center rounded shadow-sm hb-paid-box">
+               <div class="bg-white rounded-circle d-flex justify-content-center align-items-center hb-paid-check-circle">
                  <i class="fa-solid fa-check"></i>
                </div>
             </div>
           </div>
 
           <!-- Text content -->
-          <h3 class="fw-bold mb-2" style="font-size: 22px;">Handbook is Available</h3>
-          <p class="text-muted mb-5" style="max-width: 280px; font-size: 14px; line-height: 1.5;">
+          <h3 class="fw-bold mb-2 hb-card-title">Handbook is Available</h3>
+          <p class="text-muted mb-5 hb-card-subtitle">
             You can now download the Parent Handbook and read important information.
           </p>
 
           <!-- File Box -->
-          <div class="w-100 text-start p-3 mb-4 rounded d-flex justify-content-between align-items-center" style="background-color: white; border: 1px solid #E5E7EB;">
+          <div class="w-100 text-start p-3 mb-4 rounded d-flex justify-content-between align-items-center hb-file-box">
             <div class="d-flex align-items-center gap-3">
-              <div class="rounded d-flex flex-column justify-content-center align-items-center" style="width: 45px; height: 50px; background-color: #FDF2F2; border: 1px solid #FCA5A5;">
-                <i class="fa-solid fa-file-pdf mb-1" style="color: #EF4444; font-size: 18px;"></i>
-                <span class="fw-bold" style="color: white; background-color: #EF4444; font-size: 8px; padding: 2px 6px; border-radius: 2px;">PDF</span>
+              <div class="rounded d-flex flex-column justify-content-center align-items-center hb-pdf-icon-box">
+                <i class="fa-solid fa-file-pdf mb-1 hb-pdf-icon"></i>
+                <span class="fw-bold hb-pdf-badge">PDF</span>
               </div>
               <div>
-                <h6 class="mb-1 fw-bold" style="font-size: 14px;">Parent Handbook</h6>
-                <p class="text-muted mb-0" style="font-size: 12px;">School Policies, Guidelines and Important Information</p>
+                <h6 class="mb-1 fw-bold hb-file-title">Parent Handbook</h6>
+                <p class="text-muted mb-0 hb-file-desc">School Policies, Guidelines and Important Information</p>
               </div>
             </div>
             <div class="text-end text-muted">
-              <span class="d-block" style="font-size: 10px;">PDF File</span>
-              <span class="d-block" style="font-size: 10px;">2.4 MB</span>
+              <span class="d-block hb-file-meta">PDF File</span>
+              <span class="d-block hb-file-meta">2.4 MB</span>
             </div>
           </div>
 
           <!-- Button -->
-          <button class="btn w-100 fw-bold text-white py-3" style="background-color: #10B981; border-radius: 8px; font-size: 16px;">
+          <button class="btn w-100 fw-bold text-white py-3 hb-btn-green">
             <i class="fa-solid fa-download me-2"></i> Download Handbook
           </button>
         </div>
         
         <!-- Bottom Info Box -->
-        <div class="p-3 mx-4 mx-md-5 mb-4 rounded d-flex gap-3 align-items-center" style="background-color: #F0FDF4; border-radius: 8px;">
-           <div class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm" style="width: 28px; height: 28px; min-width: 28px;">
-             <i class="fa-solid fa-circle-check" style="color: #10B981; font-size: 14px;"></i>
+        <div class="p-3 mx-4 mx-md-5 mb-4 rounded d-flex gap-3 align-items-center hb-info-box-green">
+           <div class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm hb-info-icon-circle-blue">
+             <i class="fa-solid fa-circle-check hb-info-icon-green"></i>
            </div>
-           <ul class="mb-0 ps-3" style="font-size: 12px; color: #10B981; font-weight: 500;">
+           <ul class="mb-0 ps-3 hb-info-list-green">
              <li>The handbook becomes available.</li>
              <li>Parents can download the Parent Handbook PDF.</li>
            </ul>
