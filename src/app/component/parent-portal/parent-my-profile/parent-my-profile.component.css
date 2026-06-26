@@ -4,6 +4,10 @@
   font-size: 12px;
   font-weight: 500;
 }
+.dashboard-card {
+  background-color: #fff;
+  padding: 40px;
+}
 
 .prof-children-stat-box {
   background-color: #FDF9F3;
@@ -76,6 +80,7 @@
 .prof-child-name {
   font-size: 18px;
   font-weight: 600;
+  font-family: 'Inter',sans-serif;
 }
 
 .prof-badge-grade {

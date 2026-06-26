@@ -71,7 +71,7 @@
 }
 
 .detail-meta-tag {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   color: #6F767E;
 }
@@ -199,7 +199,25 @@ border-radius: 16px;
   border-radius: 12px;
   padding: 10px 24px;
 }
+.teacher_feedback{
+  background-color: #EFFFF4;
+  border: 1px solid #F3F4F6;
+}
+.teacher_feedback h3{
+  color: #00B536;
+}
+.teacher_feedback h5{
+  font-size: 25px;
+  font-family: 'Inter',sans-serif;
+  font-weight: 600;
+  color: #00B536;
+  margin-bottom: 0px;
+}
+.teacher_feedback .score p{
+  color: #00B536;
+  font-size: 18px;
 
+}
 @media (max-width: 991px) {
   .detail-properties-grid {
     grid-template-columns: repeat(2, 1fr);

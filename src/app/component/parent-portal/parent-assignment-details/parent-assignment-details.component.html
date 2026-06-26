@@ -18,10 +18,10 @@
       </a>
 
     <div class="assignment-detail-card portal-card">
-      <div class="detail-top-header">
-        <div class="detail-header-left">
+      <div class="detail-top-header flex-wrap gap-3">
+        <div class="detail-header-left flex-wrap">
           <img [src]="assignment.coverImage" [alt]="assignment.bookTitle" class="detail-cover-img" />
-          <div class="detail-title-block">
+          <div class="detail-title-block ">
             <h2 class="detail-title">{{ assignment.title }}</h2>
             <div>
                <div class="detail-tags">
@@ -38,7 +38,7 @@
           </div>
         </div>
 
-        <span class="status-badge" [class.badge-pending]="assignment.status === 'In Progress'" [class.badge-overdue]="assignment.status === 'Overdue'" [class.badge-completed]="assignment.status === 'Completed'">
+        <span class="status-badge text-nowrap" [class.badge-pending]="assignment.status === 'In Progress'" [class.badge-overdue]="assignment.status === 'Overdue'" [class.badge-completed]="assignment.status === 'Completed'">
           {{ assignment.status }}
         </span>
       </div>
@@ -89,27 +89,32 @@
       </div>
 
       <!-- Action Footer -->
-      <div class="detail-actions-footer" *ngIf="assignment.status !== 'Completed'">
-        <button class="portal-btn portal-btn-primary action-btn-large">Continue Reading</button>
-        <button (click)="markAsCompleted()" class="portal-btn portal-btn-outline action-btn-large">Mark as Completed</button>
+    
+    </div>
+
+     <!-- Need Help Section -->
+    <div class="need-help-card portal-card teacher_feedback gap-3 flex-wrap">
+      <div class="need-help-content">
+        <h3 class="need-help-title">Teacher Feedback</h3>
+        <p class="need-help-body">Excellent work! You have shown a clear understanding of the lesson and completed the reading with great attention.</p>
       </div>
-      <div class="detail-actions-footer" *ngIf="assignment.status === 'Completed'">
-        <button class="portal-btn portal-btn-secondary action-btn-large" disabled>
-          <i class="fa-regular fa-circle-check"></i> Completed
-        </button>
+      <div class="score">
+        <h5>16/20</h5>
+        <p class="mb-0">Scores</p>
       </div>
     </div>
 
-    <!-- Need Help Section -->
-    <div class="need-help-card portal-card">
+     <div class="need-help-card portal-card flex-wrap gap-3">
       <div class="need-help-content">
         <h3 class="need-help-title">Need Help?</h3>
         <p class="need-help-body">If you have any questions about this assignment, feel free to reach out to your teacher.</p>
       </div>
-      <button routerLink="/parent/message-teacher" class="portal-btn portal-btn-outline message-teacher-btn">
+      <button routerLink="/parent/message-teacher" class="portal-btn portal-btn-outline message-teacher-btn ct_orange_outline">
         Message Teacher
       </button>
     </div>
+
+   
   </ng-container>
 </div>
 </div>

@@ -45,9 +45,9 @@ export class ParentAssignmentDetailsComponent implements OnInit {
       subject: 'Islamic Studies',
       instructions: [
         'Read pages 10–20 carefully',
-        'Focus on key lessons from the story of Prophet Yusuf (AS)',
-        'Complete the reflection activity before the due date',
-        'Understand moral lessons and apply them to daily life'
+        'Focus on key lessons',
+        'Complete before due date',
+        'Understand moral lessons'
       ],
       notice: 'This reading contains sections that require teacher guidance. Please avoid pages 15–16 and follow your teacher\'s instructions.'
     },

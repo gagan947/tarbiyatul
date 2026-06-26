@@ -21,6 +21,13 @@
   color: #686AFF;
   background: #686AFF08;
 }
+
+.section-title {
+  font-size: 20px;
+  font-family: 'Inter',sans-serif;
+  font-weight: 600;
+  color: #000000;
+}
 @media (max-width:767px){
   .portal-messatge-container aside.portal-profile-panel{
     position: absolute;

@@ -6,32 +6,25 @@
     <p class="text-muted mb-0">Download and read important school policies, guidelines and information.</p>
   </div>
 
-  <div class="row g-4">
+  <div class="row g-4 mb-5">
     
-    <!-- Left Column: Unpaid State -->
-    <div class="col-xl-6">
+    <!-- -->
+    <div class="col-xl-6 mx-auto">
       <div class="dashboard-card hb-card h-100 d-flex flex-column">
         
-        <div class="p-4 p-md-5 d-flex flex-column align-items-center text-center flex-grow-1">
+        <div class="d-flex flex-column align-items-center text-center flex-grow-1">
           <!-- Header -->
           <div class="w-100 text-start mb-5">
             <h5 class="fw-semibold mb-0 d-flex align-items-center gap-2 hb-header-text">
-              <i class="fa-solid fa-lock text-danger hb-icon-size-sm"></i> If Tuition Is Unpaid
+             <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M2 7V5C2 2.24042 4.24043 0 7 0C9.75957 0 12 2.24042 12 5V7C13.1046 7 14 7.89543 14 9V14C14 15.1038 13.1038 16 12 16H2C0.89617 16 0 15.1038 0 14V9C0 7.89617 0.89617 7 2 7ZM10 5V7H4V5C4 3.34425 5.34425 2 7 2C8.65574 2 10 3.34425 10 5Z" fill="#EF4444"/>
+</svg>
+ If Tuition Is Unpaid
             </h5>
           </div>
 
           <!-- Graphic -->
-          <div class="mb-4 position-relative d-inline-flex justify-content-center align-items-center hb-unpaid-graphic-container">
-            <div class="position-absolute w-100 h-100 rounded-circle hb-unpaid-circle-bg"></div>
-            <div class="position-relative d-flex justify-content-center align-items-center rounded shadow-sm hb-unpaid-box">
-               <div class="rounded d-flex justify-content-center align-items-center hb-unpaid-lock-box">
-                 <i class="fa-solid fa-lock"></i>
-               </div>
-               <div class="position-absolute bottom-0 end-0 translate-middle-x mb-2 me-n2 rounded-circle d-flex justify-content-center align-items-center hb-unpaid-question-badge">
-                 <i class="fa-solid fa-question"></i>
-               </div>
-            </div>
-          </div>
+          <img src="../../../../assets/img/tution_lock.png" alt="">
 
           <!-- Text content -->
           <h3 class="fw-bold mb-2 hb-card-title">Handbook is Locked</h3>
@@ -44,7 +37,7 @@
             <div class="d-flex gap-3">
               <i class="fa-regular fa-bell mt-1 hb-unpaid-alert-icon"></i>
               <div>
-                <h6 class="mb-1 fw-bold hb-unpaid-alert-title">Payment Reminder</h6>
+                <h6 class="mb-1  hb-unpaid-alert-title">Payment Reminder</h6>
                 <p class="mb-0 hb-unpaid-alert-text">
                   Your tuition payment is overdue. Please complete the payment to unlock the Parent Handbook.
                 </p>
@@ -53,47 +46,43 @@
           </div>
 
           <!-- Button -->
-          <button routerLink="/parent/payments" class="btn w-100 fw-bold text-white py-3 hb-btn-orange">
+          <button routerLink="/parent/payments" class="btn w-100 fw-bold text-white py-3 mt-4 hb-btn-orange">
             Pay Tuition Now
           </button>
         </div>
-        
-        <!-- Bottom Info Box -->
-        <div class="p-3 mx-4 mx-md-5 mb-4 rounded d-flex gap-3 align-items-center hb-info-box-blue">
+      </div>
+       <!-- Bottom Info Box -->
+        <div class="p-3 mt-3  rounded d-flex gap-3 align-items-center hb-info-box-blue">
            <div class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm hb-info-icon-circle-blue">
-             <i class="fa-solid fa-lock hb-info-icon-blue"></i>
+             <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M1.6 5.6V4C1.6 1.79234 3.39234 0 5.6 0C7.80766 0 9.6 1.79234 9.6 4V5.6C10.4831 5.6 11.2 6.31694 11.2 7.2V11.2C11.2 12.0831 10.4831 12.8 9.6 12.8H1.6C0.716936 12.8 0 12.0831 0 11.2V7.2C0 6.31694 0.716936 5.6 1.6 5.6ZM8 4V5.6H3.2V4C3.2 2.6754 4.2754 1.6 5.6 1.6C6.9246 1.6 8 2.6754 8 4Z" fill="#1E3A8A"/>
+</svg>
+
            </div>
            <ul class="mb-0 ps-3 hb-info-list-blue">
              <li>The handbook remains locked.</li>
              <li>Download access is unavailable.</li>
            </ul>
         </div>
-
-      </div>
     </div>
 
-    <!-- Right Column: Paid State -->
-    <div class="col-xl-6">
+    <!--show if paid -->
+    <div class="col-xl-6 ">
       <div class="dashboard-card hb-card h-100 d-flex flex-column">
         
-        <div class="p-4 p-md-5 d-flex flex-column align-items-center text-center flex-grow-1">
+        <div class=" d-flex flex-column align-items-center text-center flex-grow-1">
           <!-- Header -->
           <div class="w-100 text-start mb-5">
             <h5 class="fw-semibold mb-0 d-flex align-items-center gap-2 hb-header-text">
-              <i class="fa-solid fa-circle-check hb-info-icon-green hb-icon-size-md"></i> If Tuition Is Paid
+             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8 16C12.4153 16 16 12.4153 16 8C16 3.58468 12.4153 0 8 0C3.58468 0 0 3.58468 0 8C0 12.4153 3.58468 16 8 16ZM11.707 6.707C12.086 6.31462 12.0806 5.69092 11.6948 5.30518C11.3091 4.91945 10.6854 4.91403 10.293 5.293L7 8.586L5.707 7.293C5.31462 6.91403 4.69092 6.91945 4.30518 7.30518C3.91945 7.69092 3.91403 8.31462 4.293 8.707L6.293 10.707C6.6835 11.0974 7.3165 11.0974 7.707 10.707L11.707 6.707Z" fill="#22C55E"/>
+</svg>
+ If Tuition Is Paid
             </h5>
           </div>
 
           <!-- Graphic -->
-          <div class="mb-4 position-relative d-inline-flex justify-content-center align-items-center hb-unpaid-graphic-container">
-            <div class="position-absolute w-100 h-100 rounded-circle hb-paid-circle-bg"></div>
-            <div class="position-absolute top-0 start-0 translate-middle mt-2 ms-2 hb-paid-sparkle"><i class="fa-solid fa-sparkles"></i></div>
-            <div class="position-relative d-flex justify-content-center align-items-center rounded shadow-sm hb-paid-box">
-               <div class="bg-white rounded-circle d-flex justify-content-center align-items-center hb-paid-check-circle">
-                 <i class="fa-solid fa-check"></i>
-               </div>
-            </div>
-          </div>
+          <img src="../../../../assets/img/tution_paid.png" alt="">
 
           <!-- Text content -->
           <h3 class="fw-bold mb-2 hb-card-title">Handbook is Available</h3>
@@ -125,8 +114,10 @@
           </button>
         </div>
         
+      
+      </div>
         <!-- Bottom Info Box -->
-        <div class="p-3 mx-4 mx-md-5 mb-4 rounded d-flex gap-3 align-items-center hb-info-box-green">
+        <div class="p-3 mt-3 rounded d-flex gap-3 align-items-center hb-info-box-green">
            <div class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm hb-info-icon-circle-blue">
              <i class="fa-solid fa-circle-check hb-info-icon-green"></i>
            </div>
@@ -136,7 +127,6 @@
            </ul>
         </div>
 
-      </div>
     </div>
     
   </div>

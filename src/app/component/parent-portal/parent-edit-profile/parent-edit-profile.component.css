@@ -1,0 +1,13 @@
+.back-link{
+    color: #FC800A;
+    font-size: 16px;
+}
+.dashboard-card{
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 16px;
+}
+.form-control-custom{
+    border-radius: 8px;
+    background-color: #fff;
+}

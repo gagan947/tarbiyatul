@@ -28,7 +28,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 240px);
+  height: calc(100vh - 196px);
   min-height: 500px;
   margin-bottom: 0;
   overflow: hidden;
@@ -254,6 +254,7 @@
   border-radius: 12px;
   padding: 0 20px;
   font-size: 14px;
+  width: 100%;
   color: #1F2937;
   outline: none;
   background-color: #FBF8F4;
@@ -276,6 +277,7 @@
   cursor: pointer;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   justify-content: center;
   font-size: 16px;
   transition: all 0.2s ease;
