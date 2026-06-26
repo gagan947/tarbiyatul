@@ -41,5 +41,22 @@ export const routes: Routes = [
       { path: 'edit-profile', loadComponent: () => import('./component/student-portel/std-edit-profile/std-edit-profile.component').then(m => m.StdEditProfileComponent) },
       { path: 'my-profile', loadComponent: () => import('./component/student-portel/std-my-profile/std-my-profile.component').then(m => m.StdMyProfileComponent) }
     ]
+  },
+  {
+    path: 'parent',
+    loadComponent: () => import('./component/parent-portal/parent-portal/parent-portal.component').then(m => m.ParentPortalComponent),
+    children: [
+      { path: '', redirectTo: 'my-profile', pathMatch: 'full' },
+      { path: 'my-profile', loadComponent: () => import('./component/parent-portal/parent-my-profile/parent-my-profile.component').then(m => m.ParentMyProfileComponent) },
+      { path: 'dashboard', loadComponent: () => import('./component/parent-portal/parent-dashboard/parent-dashboard.component').then(m => m.ParentDashboardComponent) },
+      { path: 'assignments', loadComponent: () => import('./component/parent-portal/parent-assignments/parent-assignments.component').then(m => m.ParentAssignmentsComponent) },
+      { path: 'assignments/:id', loadComponent: () => import('./component/parent-portal/parent-assignment-details/parent-assignment-details.component').then(m => m.ParentAssignmentDetailsComponent) },
+      { path: 'payments', loadComponent: () => import('./component/parent-portal/parent-payments/parent-payments.component').then(m => m.ParentPaymentsComponent) },
+      { path: 'handbook', loadComponent: () => import('./component/parent-portal/parent-handbook/parent-handbook.component').then(m => m.ParentHandbookComponent) },
+      { path: 'edit-profile', loadComponent: () => import('./component/parent-portal/parent-edit-profile/parent-edit-profile.component').then(m => m.ParentEditProfileComponent) },
+      { path: 'change-password', loadComponent: () => import('./component/parent-portal/parent-change-password/parent-change-password.component').then(m => m.ParentChangePasswordComponent) },
+      { path: 'calendar', loadComponent: () => import('./component/parent-portal/parent-calendar/parent-calendar.component').then(m => m.ParentCalendarComponent) },
+      { path: 'message-teacher', loadComponent: () => import('./component/parent-portal/parent-messages/parent-messages.component').then(m => m.ParentMessagesComponent) }
+    ]
   }
 ];

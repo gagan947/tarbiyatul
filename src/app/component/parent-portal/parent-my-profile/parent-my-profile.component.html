@@ -1,0 +1,126 @@
+<div class="ct_px_28 profile-container pb-5">
+  <div class="d-flex align-items-start justify-content-between flex-wrap gap-3 mb-4 pt-2">
+    <div>
+      <h2 class="section-title mb-1">My Profile</h2>
+      <p class="text-muted mb-0">View and manage your personal information and your children's details.</p>
+    </div>
+    <div class="d-flex gap-3">
+      <a routerLink="/parent/edit-profile" class="portal-btn portal-btn-outline px-4">
+        <i class="fa-solid fa-pen me-2"></i> Edit Profile
+      </a>
+      <a routerLink="/parent/change-password" class="portal-btn portal-btn-outline px-4">
+        <i class="fa-solid fa-gear me-2"></i> Change Password
+      </a>
+    </div>
+  </div>
+
+  <div class="dashboard-card form-card mb-5">
+    <div class="p-4 d-flex justify-content-between flex-wrap gap-4 align-items-center">
+      <div class="row g-4 flex-grow-1">
+        <div class="col-md-6 col-xl-3">
+          <div class="profile-info-group">
+            <span class="info-label text-uppercase text-muted d-block mb-1"
+              style="font-size: 12px; font-weight: 500;">FIRST NAME</span>
+            <span class="info-value fw-semibold">Ayesha</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-3">
+          <div class="profile-info-group">
+            <span class="info-label text-uppercase text-muted d-block mb-1"
+              style="font-size: 12px; font-weight: 500;">LAST NAME</span>
+            <span class="info-value fw-semibold">Ahmed</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-4">
+          <div class="profile-info-group">
+            <span class="info-label text-uppercase text-muted d-block mb-1"
+              style="font-size: 12px; font-weight: 500;">EMAIL ADDRESS</span>
+            <span class="info-value fw-semibold">fatima.ahmed&amp;example.com</span>
+          </div>
+        </div>
+        <div class="col-md-6 col-xl-2">
+          <div class="profile-info-group">
+            <span class="info-label text-uppercase text-muted d-block mb-1"
+              style="font-size: 12px; font-weight: 500;">PHONE NUMBER</span>
+            <span class="info-value fw-semibold">+1 (555) 123-4567</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="children-stat-box"
+        style="background-color: #FDF9F3; border: 1px solid #F3E5D4; border-radius: 12px; padding: 15px 25px; display: flex; align-items: center; gap: 15px; min-width: 200px;">
+        <div class="stat-icon-wrapper"
+          style="background-color: #FCE8D5; color: #E77A17; width: 50px; height: 50px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px;">
+          <i class="fa-solid fa-user-group"></i>
+        </div>
+        <div>
+          <span class="stat-label text-muted d-block" style="font-size: 14px;">Total Children</span>
+          <span class="stat-value" style="font-size: 28px; font-weight: 700; color: #E77A17;">2</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-4 d-flex align-items-center gap-3">
+    <div class="section-icon"
+      style="background-color: #FDF9F3; color: #E77A17; width: 40px; height: 40px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-size: 16px;">
+      <i class="fa-solid fa-border-all"></i>
+    </div>
+    <div>
+      <h3 class="section-title mb-0" style="font-size: 18px; font-weight: 600;">My Children</h3>
+      <p class="text-muted mb-0" style="font-size: 14px;">Here are your registered children in the system.</p>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Child Card 1 -->
+    <div class="col-md-6 col-xl-4">
+      <div class="dashboard-card text-center p-4 h-100"
+        style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+        <div class="avatar-container mb-3 d-inline-block position-relative" style="width: 100px; height: 100px;">
+          <img src="assets/img/client_1.png" alt="Fatima Ahmed"
+            class="rounded-circle w-100 h-100 object-fit-cover shadow-sm" style="border: 3px solid white;" />
+        </div>
+        <h4 class="child-name mb-2" style="font-size: 18px; font-weight: 600;">Fatima Ahmed</h4>
+        <span class="badge rounded-pill mb-4"
+          style="background-color: #EBF8F2; color: #10B981; font-weight: 500; padding: 6px 16px; font-size: 12px;">1st
+          Grade</span>
+
+        <div class="d-flex justify-content-between text-start border-top pt-3 mt-2"
+          style="border-color: #F0F0F0 !important;">
+          <span class="text-muted" style="font-size: 12px;">DATE OF BIRTH</span>
+          <span class="fw-semibold" style="font-size: 13px;">25 Jul 2017</span>
+        </div>
+        <div class="d-flex justify-content-between text-start pt-2 mt-1">
+          <span class="text-muted" style="font-size: 12px;">Gender</span>
+          <span class="fw-semibold" style="font-size: 13px;">Male</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Child Card 2 -->
+    <div class="col-md-6 col-xl-4">
+      <div class="dashboard-card text-center p-4 h-100"
+        style="border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+        <div class="avatar-container mb-3 d-inline-block position-relative" style="width: 100px; height: 100px;">
+          <img src="assets/img/client_2.png" alt="Ayesha Khan"
+            class="rounded-circle w-100 h-100 object-fit-cover shadow-sm" style="border: 3px solid white;" />
+        </div>
+        <h4 class="child-name mb-2" style="font-size: 18px; font-weight: 600;">Ayesha Khan</h4>
+        <span class="badge rounded-pill mb-4"
+          style="background-color: #EBF8F2; color: #10B981; font-weight: 500; padding: 6px 16px; font-size: 12px;">2nd
+          Grade</span>
+
+        <div class="d-flex justify-content-between text-start border-top pt-3 mt-2"
+          style="border-color: #F0F0F0 !important;">
+          <span class="text-muted" style="font-size: 12px;">DATE OF BIRTH</span>
+          <span class="fw-semibold" style="font-size: 13px;">25 Jul 2017</span>
+        </div>
+        <div class="d-flex justify-content-between text-start pt-2 mt-1">
+          <span class="text-muted" style="font-size: 12px;">Gender</span>
+          <span class="fw-semibold" style="font-size: 13px;">Female</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
