@@ -1,0 +1,99 @@
+/* parent-my-profile.component.css */
+
+.prof-info-label {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.prof-children-stat-box {
+  background-color: #FDF9F3;
+  border: 1px solid #F3E5D4;
+  border-radius: 12px;
+  padding: 15px 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-width: 200px;
+}
+
+.prof-stat-icon-wrapper {
+  background-color: #FCE8D5;
+  color: #E77A17;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+.prof-stat-label {
+  font-size: 14px;
+}
+
+.prof-stat-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #E77A17;
+}
+
+.prof-section-icon {
+  background-color: #FDF9F3;
+  color: #E77A17;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+
+.prof-section-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.prof-section-desc {
+  font-size: 14px;
+}
+
+.prof-child-card {
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.prof-avatar-container {
+  width: 100px;
+  height: 100px;
+}
+
+.prof-avatar-img {
+  border: 3px solid white;
+}
+
+.prof-child-name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.prof-badge-grade {
+  background-color: #EBF8F2;
+  color: #10B981;
+  font-weight: 500;
+  padding: 6px 16px;
+  font-size: 12px;
+}
+
+.prof-meta-border {
+  border-color: #F0F0F0 !important;
+}
+
+.prof-meta-label {
+  font-size: 12px;
+}
+
+.prof-meta-value {
+  font-size: 13px;
+}

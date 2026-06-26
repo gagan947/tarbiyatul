@@ -1,0 +1,178 @@
+/* parent-payments.component.css */
+
+.pay-dashboard-card-borderless {
+  border: none;
+  border-radius: 16px;
+}
+
+.pay-card-purple {
+  background-color: #EDEFFF;
+}
+
+.pay-card-blue {
+  background-color: #EEF8FA;
+}
+
+.pay-card-green {
+  background-color: #EEFBE5;
+}
+
+.pay-icon-wrapper-purple {
+  background-color: rgba(139, 149, 255, 0.2);
+  color: #8B95FF;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.pay-icon-wrapper-blue {
+  background-color: rgba(103, 198, 227, 0.2);
+  color: #67C6E3;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.pay-icon-wrapper-green {
+  background-color: rgba(125, 211, 85, 0.2);
+  color: #7DD355;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.pay-value-text {
+  font-size: 28px;
+  color: #1A1F45;
+}
+
+.pay-value-text-date {
+  font-size: 24px;
+  color: #1A1F45;
+}
+
+.pay-label-text {
+  font-size: 14px;
+}
+
+.pay-filter-card {
+  border-radius: 12px;
+  border: 1px solid #E5E7EB;
+}
+
+.pay-tab-link-active {
+  color: #F68B1F;
+  border-bottom: 2px solid #F68B1F;
+  font-size: 14px;
+}
+
+.pay-tab-link {
+  font-size: 14px;
+}
+
+.pay-dropdown-btn {
+  border-color: #E5E7EB;
+  border-radius: 6px;
+  padding: 6px 16px;
+}
+
+.pay-table-card {
+  border-radius: 16px;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.pay-table-wrapper {
+  color: #1A1F45;
+  margin-bottom: 0;
+}
+
+.pay-table-header-row {
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.pay-table-th {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+}
+
+.pay-table-row {
+  border-bottom: 1px solid #F8F9FA;
+}
+
+.pay-td-text {
+  font-size: 14px;
+}
+
+.pay-badge-pending {
+  background-color: #FEF9C3;
+  color: #EAB308;
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.pay-badge-overdue {
+  background-color: #FEE2E2;
+  color: #EF4444;
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.pay-badge-paid {
+  background-color: #D1FAE5;
+  color: #10B981;
+  font-weight: 500;
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.pay-btn-paynow {
+  background-color: #F68B1F;
+  border-color: #F68B1F;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 6px 20px;
+  width: 140px;
+}
+
+.pay-btn-paynow:hover {
+  background-color: #e07a16;
+}
+
+.pay-btn-receipt {
+  color: #F68B1F;
+  border-color: #F68B1F;
+  font-weight: 500;
+  border-radius: 6px;
+  padding: 6px 16px;
+  width: 140px;
+}
+
+.pay-btn-receipt:hover {
+  background-color: #F68B1F;
+  color: white;
+}
+
+.pay-pagination-text {
+  font-size: 14px;
+}
+
+.pay-pagination-icon {
+  font-size: 12px;
+}
+
+.pay-page-btn-active {
+  background-color: #F68B1F;
+  color: white;
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+}
+
+.pay-page-btn {
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+}

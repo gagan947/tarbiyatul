@@ -10,48 +10,48 @@
   <div class="row g-4 mb-4">
     <!-- Card 1 -->
     <div class="col-xl-4 col-md-4">
-      <div class="dashboard-card p-4 h-100" style="background-color: #EDEFFF; border: none; border-radius: 16px;">
-        <div class="stat-icon-wrapper mb-4 d-inline-flex align-items-center justify-content-center rounded" style="background-color: rgba(139, 149, 255, 0.2); color: #8B95FF; width: 44px; height: 44px; font-size: 20px;">
+      <div class="dashboard-card p-4 h-100 pay-card-purple pay-dashboard-card-borderless">
+        <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded pay-icon-wrapper-purple">
           <i class="fa-solid fa-wallet"></i>
         </div>
-        <h3 class="mb-1 fw-bold" style="font-size: 28px; color: #1A1F45;">$350.00</h3>
-        <p class="mb-0 text-muted" style="font-size: 14px;">Outstanding Tuition Balance</p>
+        <h3 class="mb-1 fw-bold pay-value-text">$350.00</h3>
+        <p class="mb-0 text-muted pay-label-text">Outstanding Tuition Balance</p>
       </div>
     </div>
     <!-- Card 2 -->
     <div class="col-xl-4 col-md-4">
-      <div class="dashboard-card p-4 h-100" style="background-color: #EEF8FA; border: none; border-radius: 16px;">
-        <div class="stat-icon-wrapper mb-4 d-inline-flex align-items-center justify-content-center rounded" style="background-color: rgba(103, 198, 227, 0.2); color: #67C6E3; width: 44px; height: 44px; font-size: 20px;">
+      <div class="dashboard-card p-4 h-100 pay-card-blue pay-dashboard-card-borderless">
+        <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded pay-icon-wrapper-blue">
           <i class="fa-solid fa-clipboard-list"></i>
         </div>
-        <h3 class="mb-1 fw-bold" style="font-size: 28px; color: #1A1F45;">18</h3>
-        <p class="mb-0 text-muted" style="font-size: 14px;">Total paid this year</p>
+        <h3 class="mb-1 fw-bold pay-value-text">18</h3>
+        <p class="mb-0 text-muted pay-label-text">Total paid this year</p>
       </div>
     </div>
     <!-- Card 3 -->
     <div class="col-xl-4 col-md-4">
-      <div class="dashboard-card p-4 h-100" style="background-color: #EEFBE5; border: none; border-radius: 16px;">
-        <div class="stat-icon-wrapper mb-4 d-inline-flex align-items-center justify-content-center rounded" style="background-color: rgba(125, 211, 85, 0.2); color: #7DD355; width: 44px; height: 44px; font-size: 20px;">
+      <div class="dashboard-card p-4 h-100 pay-card-green pay-dashboard-card-borderless">
+        <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded pay-icon-wrapper-green">
           <i class="fa-solid fa-triangle-exclamation"></i>
         </div>
-        <h3 class="mb-1 fw-bold" style="font-size: 24px; color: #1A1F45;">31 May 2025</h3>
-        <p class="mb-0 text-muted" style="font-size: 14px;">Next due date</p>
+        <h3 class="mb-1 fw-bold pay-value-text-date">31 May 2025</h3>
+        <p class="mb-0 text-muted pay-label-text">Next due date</p>
       </div>
     </div>
   </div>
 
   <!-- Filter Tabs and Year Select -->
-  <div class="dashboard-card bg-white p-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3" style="border-radius: 12px; border: 1px solid #E5E7EB;">
+  <div class="dashboard-card bg-white p-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3 pay-filter-card">
     <div class="d-flex gap-4 overflow-auto px-2">
-      <a href="javascript:void(0)" class="text-decoration-none fw-semibold pb-2" style="color: #F68B1F; border-bottom: 2px solid #F68B1F; font-size: 14px;">All</a>
-      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2" style="font-size: 14px;">Paid</a>
-      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2" style="font-size: 14px;">Pending</a>
-      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2" style="font-size: 14px;">Overdue</a>
+      <a href="javascript:void(0)" class="text-decoration-none fw-semibold pb-2 pay-tab-link-active">All</a>
+      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2 pay-tab-link">Paid</a>
+      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2 pay-tab-link">Pending</a>
+      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2 pay-tab-link">Overdue</a>
     </div>
     
     <div>
       <div class="dropdown">
-        <button class="btn btn-outline-secondary btn-sm dropdown-toggle text-muted" type="button" style="border-color: #E5E7EB; border-radius: 6px; padding: 6px 16px;" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-outline-secondary btn-sm dropdown-toggle text-muted pay-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
           2026
         </button>
       </div>
@@ -59,93 +59,93 @@
   </div>
 
   <!-- Payments Table -->
-  <div class="dashboard-card bg-white p-4" style="border-radius: 16px; border: 1px solid #E5E7EB; box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+  <div class="dashboard-card bg-white p-4 pay-table-card">
     <div class="table-responsive">
-      <table class="table align-middle table-borderless" style="color: #1A1F45; margin-bottom: 0;">
+      <table class="table align-middle table-borderless pay-table-wrapper">
         <thead>
-          <tr style="border-bottom: 1px solid #F3F4F6;">
-            <th class="text-uppercase text-muted fw-medium pb-3 pt-1" style="font-size: 11px; letter-spacing: 0.5px;">MONTH</th>
-            <th class="text-uppercase text-muted fw-medium pb-3 pt-1" style="font-size: 11px; letter-spacing: 0.5px;">TUITION FEE</th>
-            <th class="text-uppercase text-muted fw-medium pb-3 pt-1" style="font-size: 11px; letter-spacing: 0.5px;">BOOK FEE</th>
-            <th class="text-uppercase text-muted fw-medium pb-3 pt-1" style="font-size: 11px; letter-spacing: 0.5px;">TOTAL</th>
-            <th class="text-uppercase text-muted fw-medium pb-3 pt-1" style="font-size: 11px; letter-spacing: 0.5px;">STATUS</th>
-            <th class="text-uppercase text-muted fw-medium pb-3 pt-1" style="font-size: 11px; letter-spacing: 0.5px;">DUE DATE</th>
-            <th class="text-uppercase text-muted fw-medium pb-3 pt-1" style="font-size: 11px; letter-spacing: 0.5px;">ACTION</th>
+          <tr class="pay-table-header-row">
+            <th class="text-uppercase text-muted fw-medium pb-3 pt-1 pay-table-th">MONTH</th>
+            <th class="text-uppercase text-muted fw-medium pb-3 pt-1 pay-table-th">TUITION FEE</th>
+            <th class="text-uppercase text-muted fw-medium pb-3 pt-1 pay-table-th">BOOK FEE</th>
+            <th class="text-uppercase text-muted fw-medium pb-3 pt-1 pay-table-th">TOTAL</th>
+            <th class="text-uppercase text-muted fw-medium pb-3 pt-1 pay-table-th">STATUS</th>
+            <th class="text-uppercase text-muted fw-medium pb-3 pt-1 pay-table-th">DUE DATE</th>
+            <th class="text-uppercase text-muted fw-medium pb-3 pt-1 pay-table-th">ACTION</th>
           </tr>
         </thead>
         <tbody>
           <!-- Row 1 -->
-          <tr style="border-bottom: 1px solid #F8F9FA;">
-            <td class="py-4 fw-bold" style="font-size: 14px;">May 2025</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$300</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$50</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$350</td>
+          <tr class="pay-table-row">
+            <td class="py-4 fw-bold pay-td-text">May 2025</td>
+            <td class="py-4 text-muted pay-td-text">$300</td>
+            <td class="py-4 text-muted pay-td-text">$50</td>
+            <td class="py-4 text-muted pay-td-text">$350</td>
             <td class="py-4">
-              <span class="badge rounded-pill" style="background-color: #FEF9C3; color: #EAB308; font-weight: 500; padding: 6px 12px; font-size: 12px;">Pending</span>
+              <span class="badge rounded-pill pay-badge-pending">Pending</span>
             </td>
-            <td class="py-4 text-muted" style="font-size: 14px;">May 20, 2025</td>
+            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
             <td class="py-4">
-              <button class="btn btn-sm text-white" style="background-color: #F68B1F; border-color: #F68B1F; font-weight: 500; border-radius: 6px; padding: 6px 20px; width: 140px;">Pay Now</button>
+              <button class="btn btn-sm text-white pay-btn-paynow">Pay Now</button>
             </td>
           </tr>
           
           <!-- Row 2 -->
-          <tr style="border-bottom: 1px solid #F8F9FA;">
-            <td class="py-4 fw-bold" style="font-size: 14px;">April 2025</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$300</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$50</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$350</td>
+          <tr class="pay-table-row">
+            <td class="py-4 fw-bold pay-td-text">April 2025</td>
+            <td class="py-4 text-muted pay-td-text">$300</td>
+            <td class="py-4 text-muted pay-td-text">$50</td>
+            <td class="py-4 text-muted pay-td-text">$350</td>
             <td class="py-4">
-              <span class="badge rounded-pill" style="background-color: #FEE2E2; color: #EF4444; font-weight: 500; padding: 6px 12px; font-size: 12px;">Overdue</span>
+              <span class="badge rounded-pill pay-badge-overdue">Overdue</span>
             </td>
-            <td class="py-4 text-muted" style="font-size: 14px;">May 20, 2025</td>
+            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
             <td class="py-4">
-              <button class="btn btn-sm text-white" style="background-color: #F68B1F; border-color: #F68B1F; font-weight: 500; border-radius: 6px; padding: 6px 20px; width: 140px;">Pay Now</button>
+              <button class="btn btn-sm text-white pay-btn-paynow">Pay Now</button>
             </td>
           </tr>
           
           <!-- Row 3 -->
-          <tr style="border-bottom: 1px solid #F8F9FA;">
-            <td class="py-4 fw-bold" style="font-size: 14px;">Mar 2025</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$300</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$50</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$350</td>
+          <tr class="pay-table-row">
+            <td class="py-4 fw-bold pay-td-text">Mar 2025</td>
+            <td class="py-4 text-muted pay-td-text">$300</td>
+            <td class="py-4 text-muted pay-td-text">$50</td>
+            <td class="py-4 text-muted pay-td-text">$350</td>
             <td class="py-4">
-              <span class="badge rounded-pill" style="background-color: #D1FAE5; color: #10B981; font-weight: 500; padding: 6px 12px; font-size: 12px;">Paid</span>
+              <span class="badge rounded-pill pay-badge-paid">Paid</span>
             </td>
-            <td class="py-4 text-muted" style="font-size: 14px;">May 20, 2025</td>
+            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
             <td class="py-4">
-              <button class="btn btn-outline-warning btn-sm" style="color: #F68B1F; border-color: #F68B1F; font-weight: 500; border-radius: 6px; padding: 6px 16px; width: 140px;">Download Receipt</button>
+              <button class="btn btn-outline-warning btn-sm pay-btn-receipt">Download Receipt</button>
             </td>
           </tr>
           
           <!-- Row 4 -->
-          <tr style="border-bottom: 1px solid #F8F9FA;">
-            <td class="py-4 fw-bold" style="font-size: 14px;">Feb 2025</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$300</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$50</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$350</td>
+          <tr class="pay-table-row">
+            <td class="py-4 fw-bold pay-td-text">Feb 2025</td>
+            <td class="py-4 text-muted pay-td-text">$300</td>
+            <td class="py-4 text-muted pay-td-text">$50</td>
+            <td class="py-4 text-muted pay-td-text">$350</td>
             <td class="py-4">
-              <span class="badge rounded-pill" style="background-color: #D1FAE5; color: #10B981; font-weight: 500; padding: 6px 12px; font-size: 12px;">Paid</span>
+              <span class="badge rounded-pill pay-badge-paid">Paid</span>
             </td>
-            <td class="py-4 text-muted" style="font-size: 14px;">May 20, 2025</td>
+            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
             <td class="py-4">
-              <button class="btn btn-outline-warning btn-sm" style="color: #F68B1F; border-color: #F68B1F; font-weight: 500; border-radius: 6px; padding: 6px 16px; width: 140px;">Download Receipt</button>
+              <button class="btn btn-outline-warning btn-sm pay-btn-receipt">Download Receipt</button>
             </td>
           </tr>
           
           <!-- Row 5 -->
           <tr>
-            <td class="py-4 fw-bold" style="font-size: 14px;">Jan 2025</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$300</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$50</td>
-            <td class="py-4 text-muted" style="font-size: 14px;">$350</td>
+            <td class="py-4 fw-bold pay-td-text">Jan 2025</td>
+            <td class="py-4 text-muted pay-td-text">$300</td>
+            <td class="py-4 text-muted pay-td-text">$50</td>
+            <td class="py-4 text-muted pay-td-text">$350</td>
             <td class="py-4">
-              <span class="badge rounded-pill" style="background-color: #D1FAE5; color: #10B981; font-weight: 500; padding: 6px 12px; font-size: 12px;">Paid</span>
+              <span class="badge rounded-pill pay-badge-paid">Paid</span>
             </td>
-            <td class="py-4 text-muted" style="font-size: 14px;">May 20, 2025</td>
+            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
             <td class="py-4">
-              <button class="btn btn-outline-warning btn-sm" style="color: #F68B1F; border-color: #F68B1F; font-weight: 500; border-radius: 6px; padding: 6px 16px; width: 140px;">Download Receipt</button>
+              <button class="btn btn-outline-warning btn-sm pay-btn-receipt">Download Receipt</button>
             </td>
           </tr>
 
@@ -156,16 +156,16 @@
 
   <!-- Pagination -->
   <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
-    <button class="btn btn-link text-muted text-decoration-none" style="font-size: 14px;">
-      <i class="fa-solid fa-chevron-left me-1" style="font-size: 12px;"></i> Previous
+    <button class="btn btn-link text-muted text-decoration-none pay-pagination-text">
+      <i class="fa-solid fa-chevron-left me-1 pay-pagination-icon"></i> Previous
     </button>
     <div class="d-flex gap-2">
-      <button class="btn btn-sm" style="background-color: #F68B1F; color: white; border-radius: 6px; width: 32px; height: 32px;">1</button>
-      <button class="btn btn-sm btn-outline-secondary" style="border-radius: 6px; width: 32px; height: 32px;">2</button>
-      <button class="btn btn-sm btn-outline-secondary" style="border-radius: 6px; width: 32px; height: 32px;">3</button>
+      <button class="btn btn-sm pay-page-btn-active">1</button>
+      <button class="btn btn-sm btn-outline-secondary pay-page-btn">2</button>
+      <button class="btn btn-sm btn-outline-secondary pay-page-btn">3</button>
     </div>
-    <button class="btn btn-link text-dark text-decoration-none fw-medium" style="font-size: 14px;">
-      Next <i class="fa-solid fa-chevron-right ms-1" style="font-size: 12px;"></i>
+    <button class="btn btn-link text-dark text-decoration-none fw-medium pay-pagination-text">
+      Next <i class="fa-solid fa-chevron-right ms-1 pay-pagination-icon"></i>
     </button>
   </div>
 
