@@ -15,7 +15,7 @@
       <div class="teacher-info-row">
         <i class="fa-solid fa-angle-left d-block d-md-none"></i>
         <div class="teacher-avatar-container">
-          <img src="assets/img/client_1.png" [alt]="teacherName" class="teacher-avatar-img" />
+          <img src="assets/img/chat_user_2.png" [alt]="teacherName" class="teacher-avatar-img" />
           <span class="online-indicator" *ngIf="isOnline"></span>
         </div>
         <div class="teacher-text-details">
@@ -35,7 +35,7 @@
       <div class="chat-bubble-wrapper" *ngFor="let message of messages" [class.student-sender]="message.sender === 'Student'" [class.teacher-sender]="message.sender === 'Teacher'">
         
         <!-- Avatar for teacher -->
-        <img src="assets/img/client_1.png" alt="Teacher Avatar" class="chat-avatar" *ngIf="message.sender === 'Teacher'" />
+        <img src="assets/img/chat_user_1.png" alt="Teacher Avatar" class="chat-avatar" *ngIf="message.sender === 'Teacher'" />
         
         <!-- Message box -->
         <div class="message-bubble-block">

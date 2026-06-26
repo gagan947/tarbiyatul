@@ -66,7 +66,7 @@ export class StdMessagesComponent implements OnInit {
       subject: 'Islamic Studies',
       lastMessage: 'Please complete page 20 and...',
       time: '10:30 AM',
-      avatar: 'assets/img/client_1.png',
+      avatar: 'assets/img/chat_user_1.png',
       unreadCount: 2,
       online: true
     },
@@ -75,7 +75,7 @@ export class StdMessagesComponent implements OnInit {
       subject: 'Mathematics',
       lastMessage: 'Great work on fractions!',
       time: '9:15 AM',
-      avatar: 'assets/img/client_2.png',
+      avatar: 'assets/img/chat_user_2.png',
       unreadCount: 1,
       online: true
     },
@@ -84,7 +84,7 @@ export class StdMessagesComponent implements OnInit {
       subject: 'Science',
       lastMessage: 'Don\'t forget to submit your...',
       time: 'Yesterday',
-      avatar: 'assets/img/client_3.png',
+      avatar: 'assets/img/chat_user_3.png',
       unreadCount: 1,
       online: false
     },
@@ -93,16 +93,16 @@ export class StdMessagesComponent implements OnInit {
       subject: 'English',
       lastMessage: 'Check the reading comprehension...',
       time: 'Yesterday',
-      avatar: 'assets/img/client_2.png',
+      avatar: 'assets/img/chat_user_4.png',
       unreadCount: 0,
       online: false
     },
     {
       name: 'School Support',
-      subject: 'Support',
+      subject: '',
       lastMessage: 'How can we help you?',
       time: '2 days ago',
-      avatar: 'assets/img/client_1.png',
+      avatar: 'assets/img/chat_user_5.png',
       unreadCount: 0,
       online: false
     }

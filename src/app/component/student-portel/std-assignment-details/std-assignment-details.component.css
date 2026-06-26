@@ -199,7 +199,16 @@ border-radius: 16px;
   border-radius: 12px;
   padding: 10px 24px;
 }
-
+.ct_orange_outline{
+  border-color: #FC800A;
+  background-color: #FC800A08;
+  color: #FC800A;
+}
+.ct_blue_outline_btn{
+  border-color: #686AFF;
+  color: #686AFF;
+  background: #686AFF08;
+}
 @media (max-width: 991px) {
   .detail-properties-grid {
     grid-template-columns: repeat(2, 1fr);

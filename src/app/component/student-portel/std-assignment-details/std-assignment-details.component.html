@@ -91,7 +91,7 @@
       <!-- Action Footer -->
       <div class="detail-actions-footer" *ngIf="assignment.status !== 'Completed'">
         <button class="portal-btn portal-btn-primary action-btn-large">Continue Reading</button>
-        <button (click)="markAsCompleted()" class="portal-btn portal-btn-outline action-btn-large">Mark as Completed</button>
+        <button (click)="markAsCompleted()" class="portal-btn portal-btn-outline action-btn-large ct_blue_outline_btn">Mark as Completed</button>
       </div>
       <div class="detail-actions-footer" *ngIf="assignment.status === 'Completed'">
         <button class="portal-btn portal-btn-secondary action-btn-large" disabled>
@@ -106,7 +106,7 @@
         <h3 class="need-help-title">Need Help?</h3>
         <p class="need-help-body">If you have any questions about this assignment, feel free to reach out to your teacher.</p>
       </div>
-      <button (click)="navigateToMessages()" class="portal-btn portal-btn-outline message-teacher-btn">
+      <button (click)="navigateToMessages()" class="portal-btn portal-btn-outline message-teacher-btn ct_orange_outline">
         Message Teacher
       </button>
     </div>

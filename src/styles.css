@@ -4,14 +4,23 @@
 .portal-messatge-container aside.portal-profile-panel {
   border-radius: 15px;
   padding: 0px;
-   height: calc(100dvh - 240px);
+   height: calc(100dvh - 196px);
    width: 330px;
 }
 .portal-messatge-container .ct_chat_main_container {
     gap: 20px !important;
 }
 
-
+.ct_orange_outline{
+  border-color: #FC800A;
+  background-color: #FC800A08;
+  color: #FC800A;
+}
+.ct_blue_outline_btn{
+  border-color: #686AFF;
+  color: #686AFF;
+  background: #686AFF08;
+}
 @media (max-width:767px){
   .portal-messatge-container aside.portal-profile-panel{
     position: absolute;
