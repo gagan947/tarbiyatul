@@ -36,7 +36,10 @@ export const routes: Routes = [
       { path: 'assignments', loadComponent: () => import('./component/student-portel/std-assignments/std-assignments.component').then(m => m.StdAssignmentsComponent) },
       { path: 'assignments/:id', loadComponent: () => import('./component/student-portel/std-assignment-details/std-assignment-details.component').then(m => m.StdAssignmentDetailsComponent) },
       { path: 'message-teacher', loadComponent: () => import('./component/student-portel/std-messages/std-messages.component').then(m => m.StdMessagesComponent) },
-      { path: 'resources', loadComponent: () => import('./component/student-portel/std-resources/std-resources.component').then(m => m.StdResourcesComponent) }
+      { path: 'resources', loadComponent: () => import('./component/student-portel/std-resources/std-resources.component').then(m => m.StdResourcesComponent) },
+      { path: 'change-password', loadComponent: () => import('./component/student-portel/std-change-password/std-change-password.component').then(m => m.StdChangePasswordComponent) },
+      { path: 'edit-profile', loadComponent: () => import('./component/student-portel/std-edit-profile/std-edit-profile.component').then(m => m.StdEditProfileComponent) },
+      { path: 'my-profile', loadComponent: () => import('./component/student-portel/std-my-profile/std-my-profile.component').then(m => m.StdMyProfileComponent) }
     ]
   }
 ];

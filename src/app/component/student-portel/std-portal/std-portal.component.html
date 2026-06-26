@@ -1,4 +1,4 @@
-<div class="portal-container" [class.portal-messatge-container]="currentUrl.includes('/message-teacher')">
+<div class="portal-container" [class.portal-messatge-container]="currentUrl.includes('/message-teacher') || currentUrl.includes('/edit-profile') || currentUrl.includes('/change-password') || currentUrl.includes('/my-profile')">
 
     <!-- LEFT SIDEBAR -->
     <aside class="portal-sidebar">
@@ -23,7 +23,7 @@
                         </a>
                     </li>
                     <li>
-                        <a routerLink="/student/my-books" routerLinkActive="active" class="nav-item">
+                        <a routerLinkActive="active" class="nav-item">
                             <i class="fa-solid fa-book-open nav-icon"></i>
                             <span>My Books</span>
                         </a>
@@ -65,10 +65,10 @@
         <header class="portal-header">
             <div class="d-flex align-items-center gap-3">
                 <i class="fa-solid fa-bars d-lg-none d-block" style="font-size: 20px;"></i>
-                 <div class="header-greeting">
-                <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
-                <p class="greeting-subtitle">Here's your learning progress for this week.</p>
-            </div>
+                <div class="header-greeting">
+                    <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
+                    <p class="greeting-subtitle">Here's your learning progress for this week.</p>
+                </div>
             </div>
             <div class="header-actions">
                 <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications">
@@ -85,7 +85,7 @@
 
 
     <!-- ================= RIGHT PROFILE PANEL (DYNAMIC CONTEXT) ================= -->
-    
+
     <!-- 1. RESOURCES PREVIEW SIDEBAR PANEL -->
     <aside class="portal-profile-panel resources-sidebar-context" *ngIf="currentUrl.includes('/resources')">
         <ng-container *ngIf="selectedResource; else noResourceSelected">
@@ -95,7 +95,7 @@
                     <!-- Standard placeholder or generic card cover -->
                     <div class="mascot-avatar">
                         <!-- <i [class]="selectedResource.logoClass" [style.color]="selectedResource.logoColor" style="font-size: 40px;"></i> -->
-                         <img src="../../../../assets/img/academy_logo_1.png" alt="">
+                        <img src="../../../../assets/img/academy_logo_1.png" alt="">
                     </div>
                 </div>
                 <h3 class="resource-preview-title">{{ selectedResource.title }}</h3>
@@ -136,7 +136,8 @@
             </div>
 
             <div class="resource-link-footer">
-                <a [href]="selectedResource.url" target="_blank" class="portal-btn portal-btn-primary full-width-btn text-center">
+                <a [href]="selectedResource.url" target="_blank"
+                    class="portal-btn portal-btn-primary full-width-btn text-center">
                     Open Resource <i class="fa-solid fa-arrow-up-right-from-square"></i>
                 </a>
             </div>
@@ -150,13 +151,14 @@
     </aside>
 
     <!-- 2. MESSAGE TEACHER THREADS SIDEBAR PANEL -->
-  
+
 
     <!-- 3. DEFAULT STUDENT PROFILE SIDEBAR PANEL -->
-    <aside class="portal-profile-panel default-sidebar-context" *ngIf="!currentUrl.includes('/resources') && !currentUrl.includes('/message-teacher')">
+    <aside class="portal-profile-panel default-sidebar-context"
+        *ngIf="!currentUrl.includes('/resources') && !currentUrl.includes('/message-teacher') && !currentUrl.includes('/edit-profile') && !currentUrl.includes('/change-password') && !currentUrl.includes('/my-profile')">
         <div class="profile-header d-flex align-items-center justify-content-between gap-2">
             <h2 class="profile-title">Your Profile</h2>
-           <i class="fa-solid fa-xmark d-block d-xxl-none" style="font-size: 20px;"></i>
+            <i class="fa-solid fa-xmark d-block d-xxl-none" style="font-size: 20px;"></i>
         </div>
 
         <!-- Student Info Summary Card -->
@@ -169,16 +171,19 @@
             <p class="student-motto">"Seeking Knowledge Is An Obligation For Every Muslim."</p>
 
             <!-- Profile Quick Actions -->
-            <div class="profile-quick-actions">
-                <button type="button" class="quick-action-btn" aria-label="ID Card">
-                    <i class="fa-regular fa-id-card"></i>
-                </button>
-                <button type="button" class="quick-action-btn" aria-label="Messages">
-                    <i class="fa-regular fa-comment-dots"></i>
-                </button>
-                <button type="button" class="quick-action-btn" aria-label="Alerts">
-                    <i class="fa-regular fa-bell"></i>
-                </button>
+            <div class="profile-quick-actions mt-3 mb-2">
+                <div class="quick-action-item">
+                    <button type="button" routerLink="/student/my-profile" class="quick-action-btn" aria-label="My Profile">
+                        <i class="fa-regular fa-id-card"></i>
+                    </button>
+                    <span class="quick-action-label">My Profile</span>
+                </div>
+                <div class="quick-action-item">
+                    <button type="button" routerLink="/student/change-password" class="quick-action-btn" aria-label="Change Password">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </button>
+                    <span class="quick-action-label">Change Password</span>
+                </div>
             </div>
         </div>
 

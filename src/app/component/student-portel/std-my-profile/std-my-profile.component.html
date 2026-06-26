@@ -1,0 +1,81 @@
+<div class="ct_px_28 profile-container pb-5">
+  <div class="page-header mb-4 pt-2">
+    <h2 class="page-title">My Profile</h2>
+    <p class="page-subtitle">Manage your personal information and view your student details.</p>
+  </div>
+
+  <div class="profile-banner-card mb-4">
+    <div class="banner-img-container">
+      <img src="assets/img/mosque-banner.png" alt="" class="banner-img"
+        onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg, #E2D3C4 0%, #B8A08E 100%)';" />
+    </div>
+    <div class="profile-avatar-section">
+      <div class="d-flex align-items-end gap-4">
+        <div class="avatar-wrapper">
+          <img src="assets/img/boy.jpg" alt="Profile" class="avatar-img" />
+        </div>
+        <div class="student-info-brief mb-2">
+          <h3 class="student-name-large mb-1">Ali Khan</h3>
+          <span class="grade-badge-sm">Grade 4</span>
+        </div>
+      </div>
+      <button type="button" routerLink="/student/edit-profile" class="portal-btn portal-btn-outline edit-btn">
+        Edit Profile
+      </button>
+    </div>
+  </div>
+
+  <div class="row g-4 mb-4">
+    <div class="col-lg-6">
+      <div class="dashboard-card info-card h-100">
+        <div class="card-header-icon orange-bg-light mb-4">
+          <i class="fa-regular fa-user text-orange"></i>
+        </div>
+        <h3 class="section-title">Student Information</h3>
+
+        <ul class="info-list">
+          <li class="info-item">
+            <span class="info-label"><i class="fa-regular fa-address-card me-2 text-muted"></i>Full Name</span>
+            <span class="info-value">Ali Khan</span>
+          </li>
+          <li class="info-item">
+            <span class="info-label"><i class="fa-solid fa-graduation-cap me-2 text-muted"></i>Class / Grade</span>
+            <span class="info-value">Grade 4</span>
+          </li>
+          <li class="info-item">
+            <span class="info-label"><i class="fa-regular fa-calendar me-2 text-muted"></i>Date of Birth</span>
+            <span class="info-value">15 March 2017</span>
+          </li>
+          <li class="info-item">
+            <span class="info-label"><i class="fa-solid fa-person me-2 text-muted"></i>Gender</span>
+            <span class="info-value">Male</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-lg-6">
+      <div class="dashboard-card info-card h-100">
+        <div class="card-header-icon orange-bg-light mb-4">
+          <i class="fa-solid fa-user-group text-orange"></i>
+        </div>
+        <h3 class="section-title">Parent Information</h3>
+
+        <ul class="info-list">
+          <li class="info-item">
+            <span class="info-label"><i class="fa-regular fa-user me-2 text-muted"></i>Parent Name</span>
+            <span class="info-value">Ahmed Khan</span>
+          </li>
+          <li class="info-item">
+            <span class="info-label"><i class="fa-solid fa-phone me-2 text-muted"></i>Phone Number</span>
+            <span class="info-value">+1 (610) 555-4587</span>
+          </li>
+          <li class="info-item">
+            <span class="info-label"><i class="fa-regular fa-envelope me-2 text-muted"></i>Email Address</span>
+            <span class="info-value">ahmed.khan&#64;email.com</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
