@@ -1,4 +1,4 @@
-<div class="portal-container">
+<div class="portal-container" [class.portal-messatge-container]="currentUrl.includes('/message-teacher')">
 
     <!-- LEFT SIDEBAR -->
     <aside class="portal-sidebar">
@@ -63,13 +63,16 @@
     <main class="portal-main">
         <!-- Common Portal Header -->
         <header class="portal-header">
-            <div class="header-greeting">
+            <div class="d-flex align-items-center gap-3">
+                <i class="fa-solid fa-bars d-lg-none d-block" style="font-size: 20px;"></i>
+                 <div class="header-greeting">
                 <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
                 <p class="greeting-subtitle">Here's your learning progress for this week.</p>
             </div>
+            </div>
             <div class="header-actions">
                 <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications">
-                    <i class="fa-solid fa-bell"></i>
+                    <img src="../../../../assets/img/boy.jpg" alt="" class="w-100 h-100 rounded">
                 </button>
             </div>
         </header>
@@ -90,8 +93,9 @@
                 <!-- Mascot / Mascot Head Image -->
                 <div class="mascot-img-wrapper">
                     <!-- Standard placeholder or generic card cover -->
-                    <div class="mascot-avatar" [style.background-color]="selectedResource.logoBg">
-                        <i [class]="selectedResource.logoClass" [style.color]="selectedResource.logoColor" style="font-size: 40px;"></i>
+                    <div class="mascot-avatar">
+                        <!-- <i [class]="selectedResource.logoClass" [style.color]="selectedResource.logoColor" style="font-size: 40px;"></i> -->
+                         <img src="../../../../assets/img/academy_logo_1.png" alt="">
                     </div>
                 </div>
                 <h3 class="resource-preview-title">{{ selectedResource.title }}</h3>
@@ -146,54 +150,19 @@
     </aside>
 
     <!-- 2. MESSAGE TEACHER THREADS SIDEBAR PANEL -->
-    <aside class="portal-profile-panel messages-sidebar-context" *ngIf="currentUrl.includes('/message-teacher')">
-        <div class="messages-panel-header">
-            <h2 class="profile-title">Messages</h2>
-            <button type="button" class="compose-btn" aria-label="Compose Message">
-                <i class="fa-regular fa-pen-to-square"></i>
-            </button>
-        </div>
-
-        <!-- Search conversations bar -->
-        <div class="search-convo-container">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" placeholder="Search conversations..." class="search-convo-input" />
-        </div>
-
-        <!-- Threads list -->
-        <div class="threads-list-scrollable">
-            <div class="thread-item-card" *ngFor="let thread of teacherThreads" [class.active-thread]="thread.name === 'Ustadh Hamza'">
-                <div class="avatar-col">
-                    <img [src]="thread.avatar" [alt]="thread.name" class="thread-avatar-img" />
-                    <span class="thread-online-dot" *ngIf="thread.online"></span>
-                </div>
-                
-                <div class="thread-info-col">
-                    <div class="thread-name-row">
-                        <h4 class="thread-teacher-name">{{ thread.name }}</h4>
-                        <span class="thread-time">{{ thread.time }}</span>
-                    </div>
-                    <span class="thread-subject">{{ thread.subject }}</span>
-                    <p class="thread-last-msg">{{ thread.lastMessage }}</p>
-                </div>
-
-                <div class="thread-badge-col" *ngIf="thread.unreadCount > 0">
-                    <span class="unread-badge">{{ thread.unreadCount }}</span>
-                </div>
-            </div>
-        </div>
-    </aside>
+  
 
     <!-- 3. DEFAULT STUDENT PROFILE SIDEBAR PANEL -->
     <aside class="portal-profile-panel default-sidebar-context" *ngIf="!currentUrl.includes('/resources') && !currentUrl.includes('/message-teacher')">
-        <div class="profile-header">
+        <div class="profile-header d-flex align-items-center justify-content-between gap-2">
             <h2 class="profile-title">Your Profile</h2>
+           <i class="fa-solid fa-xmark d-block d-xxl-none" style="font-size: 20px;"></i>
         </div>
 
         <!-- Student Info Summary Card -->
         <div class="profile-summary-card">
             <div class="avatar-container">
-                <img src="assets/img/girl.png" alt="Ali Khan Avatar" class="profile-avatar-img" />
+                <img src="assets/img/boy.jpg" alt="Ali Khan Avatar" class="profile-avatar-img" />
             </div>
             <div class="grade-badge">Grade 4</div>
             <h3 class="student-name">Ali Khan</h3>

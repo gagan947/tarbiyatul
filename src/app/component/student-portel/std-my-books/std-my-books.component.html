@@ -1,7 +1,8 @@
-<div class="my-books-container portal-font-main">
+<div class="ct_px_28">
+  <div class="my-books-container portal-font-main ">
   <!-- Section Title -->
   <div class="section-header">
-    <h2 class="section-title">My Bookshelf</h2>
+    <h2 class="section-title">My Books</h2>
     <p class="section-subtitle">Track your reading progress and view Islamic studies textbooks.</p>
   </div>
 
@@ -12,9 +13,9 @@
       class="portal-tab-btn" 
       [class.active]="selectedFilter === 'All'">All Books</button>
     <button 
-      (click)="setFilter('Reading')" 
+      (click)="setFilter('Pending')" 
       class="portal-tab-btn" 
-      [class.active]="selectedFilter === 'Reading'">Reading</button>
+      [class.active]="selectedFilter === 'Pending'">Currently Reading</button>
     <button 
       (click)="setFilter('Completed')" 
       class="portal-tab-btn" 
@@ -22,7 +23,7 @@
     <button 
       (click)="setFilter('Pending')" 
       class="portal-tab-btn" 
-      [class.active]="selectedFilter === 'Pending'">To Read</button>
+      [class.active]="selectedFilter === 'Pending'">Not Started</button>
   </div>
 
   <!-- Grid of books -->
@@ -39,7 +40,6 @@
         <span class="book-category">{{ book.category }} • {{ book.grade }}</span>
         <h3 class="book-title">{{ book.title }}</h3>
         
-        <!-- Progress section -->
         <div class="book-progress-wrapper">
           <div class="progress-info">
             <span class="progress-percentage">{{ book.progress }}% Complete</span>
@@ -50,7 +50,6 @@
           </div>
         </div>
 
-        <!-- Action buttons -->
         <div class="book-actions">
           <button class="portal-btn portal-btn-primary book-action-btn">
             <i class="fa-solid" [class.fa-book-open]="book.status !== 'Completed'" [class.fa-rotate-right]="book.status === 'Completed'"></i>
@@ -60,4 +59,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

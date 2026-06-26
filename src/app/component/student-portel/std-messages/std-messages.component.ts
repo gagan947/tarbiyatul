@@ -1,7 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+interface TeacherThread {
+  name: string;
+  subject: string;
+  lastMessage: string;
+  time: string;
+  avatar: string;
+  unreadCount: number;
+  online: boolean;
+}
 interface Message {
   sender: 'Teacher' | 'Student';
   text: string;
@@ -52,7 +60,53 @@ export class StdMessagesComponent implements OnInit {
   ];
 
   newMessageText = '';
-
+  teacherThreads: TeacherThread[] = [
+    {
+      name: 'Ustadh Hamza',
+      subject: 'Islamic Studies',
+      lastMessage: 'Please complete page 20 and...',
+      time: '10:30 AM',
+      avatar: 'assets/img/client_1.png',
+      unreadCount: 2,
+      online: true
+    },
+    {
+      name: 'Ms. Fatima',
+      subject: 'Mathematics',
+      lastMessage: 'Great work on fractions!',
+      time: '9:15 AM',
+      avatar: 'assets/img/client_2.png',
+      unreadCount: 1,
+      online: true
+    },
+    {
+      name: 'Mr. Ahmed',
+      subject: 'Science',
+      lastMessage: 'Don\'t forget to submit your...',
+      time: 'Yesterday',
+      avatar: 'assets/img/client_3.png',
+      unreadCount: 1,
+      online: false
+    },
+    {
+      name: 'Ms. Sarah',
+      subject: 'English',
+      lastMessage: 'Check the reading comprehension...',
+      time: 'Yesterday',
+      avatar: 'assets/img/client_2.png',
+      unreadCount: 0,
+      online: false
+    },
+    {
+      name: 'School Support',
+      subject: 'Support',
+      lastMessage: 'How can we help you?',
+      time: '2 days ago',
+      avatar: 'assets/img/client_1.png',
+      unreadCount: 0,
+      online: false
+    }
+  ];
   ngOnInit(): void {
     // Scroll chat to bottom on load
     setTimeout(() => this.scrollToBottom(), 50);

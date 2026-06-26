@@ -1,4 +1,5 @@
-<div class="messages-page-wrapper portal-font-main">
+<div class="ct_px_28">
+  <div class="messages-page-wrapper portal-font-main">
   <!-- Section Title -->
   <div class="section-header">
     <h2 class="section-title">Message Teacher</h2>
@@ -6,11 +7,13 @@
   </div>
 
   <!-- Chat container card -->
-  <div class="chat-main-card portal-card">
+<div class="ct_chat_main_container position-relative">
+    <div class="chat-main-card portal-card">
     
     <!-- Active Teacher Header -->
     <div class="chat-header">
       <div class="teacher-info-row">
+        <i class="fa-solid fa-angle-left d-block d-md-none"></i>
         <div class="teacher-avatar-container">
           <img src="assets/img/client_1.png" [alt]="teacherName" class="teacher-avatar-img" />
           <span class="online-indicator" *ngIf="isOnline"></span>
@@ -69,4 +72,47 @@
     </form>
 
   </div>
+    <aside class="portal-profile-panel messages-sidebar-context" >
+       <div class="ct_p_20">
+         <div class="messages-panel-header">
+            <h2 class="profile-title mb-0">Messages</h2>
+        </div>
+
+        <!-- Search conversations bar -->
+        <div class="search-convo-container">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" placeholder="Search conversations..." class="search-convo-input" />
+        </div>
+       </div>
+
+        <!-- Threads list -->
+        <div class="threads-list-scrollable">
+            <div class="thread-item-card" *ngFor="let thread of teacherThreads" [class.active-thread]="thread.name === 'Ustadh Hamza'">
+                <div class="avatar-col">
+                    <img [src]="thread.avatar" [alt]="thread.name" class="thread-avatar-img" />
+                    <span class="thread-online-dot" *ngIf="thread.online"></span>
+                </div>
+                
+                <div class="thread-info-col">
+                    <div class="thread-name-row">
+                        <h4 class="thread-teacher-name">{{ thread.name }}</h4>
+                        <span class="thread-time">{{ thread.time }}</span>
+                    </div>
+                    <span class="thread-subject">{{ thread.subject }}</span>
+                   <div class="d-flex align-items-center justify-content-between gap-2">
+                     <p class="thread-last-msg">{{ thread.lastMessage }}</p>
+                        <div class="thread-badge-col" *ngIf="thread.unreadCount > 0">
+                    <span class="unread-badge">{{ thread.unreadCount }}</span>
+                </div>
+                   </div>
+                </div>
+
+            
+            </div>
+        </div>
+    </aside>
+</div>
+</div>
+
+
 </div>

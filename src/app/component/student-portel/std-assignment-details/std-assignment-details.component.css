@@ -5,9 +5,9 @@
 .back-link-btn {
   background: none;
   border: none;
-  font-size: 14px;
-  font-weight: 700;
-  color: #6B7280;
+  font-size: 16px;
+  font-weight: 400;
+  color: #FC800A;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -57,9 +57,11 @@
 
 .detail-title {
   font-size: 20px;
-  font-weight: 700;
-  color: #171E45;
+  font-weight: 600;
+  color: #000;
   margin: 0;
+  font-family: 'Inter',sans-serif;
+  text-decoration: underline;
 }
 
 .detail-tags {
@@ -69,9 +71,9 @@
 }
 
 .detail-meta-tag {
-  font-size: 13px;
-  font-weight: 600;
-  color: #6B7280;
+  font-size: 14px;
+  font-weight: 400;
+  color: #6F767E;
 }
 
 .detail-meta-dot {
@@ -88,41 +90,47 @@
 }
 
 .property-box {
-  background-color: #FFFDFB;
-  border: 1px solid #EFEAE4;
+  background-color: #FFFFFF;
+  border: 1px solid #D8D8D866;
+  box-shadow: 0px 4px 20px 0px #0000000D;
+
   border-radius: 12px;
-  padding: 16px;
+  padding: 16px 20px;
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
 .property-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: #9CA3AF;
-  letter-spacing: 0.5px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #6F767E;
 }
 
 .property-value {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 500;
   color: #171E45;
 }
 
 /* Instructions */
 .instructions-section {
   margin-bottom: 30px;
+  background-color: #fff;
+  padding: 24px;
+  box-shadow: 0px 4px 20px 0px #0000000D;
+border-radius: 16px;
 }
 
 .section-subtitle-bold {
-  font-size: 16px;
-  font-weight: 700;
-  color: #171E45;
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
   margin: 0 0 16px 0;
   display: flex;
   align-items: center;
   gap: 8px;
+  font-family: 'Inter',sans-serif;
 }
 
 .instructions-list {
@@ -138,7 +146,7 @@
   position: relative;
   padding-left: 20px;
   font-size: 14px;
-  color: #4B5563;
+  color: #000;
   line-height: 1.5;
 }
 
@@ -174,15 +182,16 @@
 }
 
 .need-help-title {
-  font-size: 16px;
-  font-weight: 700;
-  color: #171E45;
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  font-family: "Inter",sans-serif;
   margin: 0 0 6px 0;
 }
 
 .need-help-body {
-  font-size: 13px;
-  color: #6B7280;
+  font-size: 16px;
+  color: #6F767E;
   margin: 0;
 }
 
