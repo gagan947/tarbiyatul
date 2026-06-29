@@ -28,7 +28,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 196px);
+  height: calc(100dvh - 196px);
   min-height: 500px;
   margin-bottom: 0;
   overflow: hidden;

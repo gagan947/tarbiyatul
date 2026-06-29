@@ -152,7 +152,7 @@ border-radius: 16px;
 
 .instructions-list li::before {
   content: "•";
-  color: #FC800A;
+  color: #000;
   font-size: 18px;
   position: absolute;
   left: 0;
