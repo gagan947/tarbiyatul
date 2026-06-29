@@ -1,39 +1,37 @@
 <div class="ct_px_28 profile-container pb-5">
   <div class="mb-4 pt-2">
     <h2 class="section-title mb-1">School Calendar</h2>
-    <p class="text-muted mb-0">Stay updated with upcoming school events, holidays, meetings, and important academic dates.</p>
+    <p class="text-muted mb-0">Stay updated with upcoming school events, holidays, meetings, and important academic
+      dates.</p>
   </div>
 
   <div class="row g-4">
     <!-- Left Sidebar: Small Calendar & Upcoming Events -->
     <div class="col-xl-3 col-lg-4">
       <div class="dashboard-card p-4 h-100 cal-card-rounded">
-        
+
         <!-- Small Calendar Picker -->
         <div class="small-calendar-wrapper mb-5">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="mb-0 fw-semibold cal-header-title">January 2021</h4>
+            <h4 class="mb-0 fw-semibold cal-header-title">{{ monthNames[currentMonth] }} {{ currentYear }}</h4>
             <div class="d-flex gap-2">
-              <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle"><i class="fa-solid fa-angle-left cal-icon-xs"></i></button>
-              <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle"><i class="fa-solid fa-angle-right cal-icon-xs"></i></button>
+              <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle" (click)="prevMonth()"><i
+                  class="fa-solid fa-angle-left cal-icon-xs"></i></button>
+              <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle" (click)="nextMonth()"><i
+                  class="fa-solid fa-angle-right cal-icon-xs"></i></button>
             </div>
           </div>
-          
+
           <div class="small-calendar-grid">
             <div class="d-flex justify-content-between text-muted mb-3 cal-days-header">
               <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
             </div>
-            <!-- Mock dates for small calendar -->
-            <div class="d-flex justify-content-between mb-3 cal-days-row">
-              <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
-            </div>
-            <div class="d-flex justify-content-between mb-3 cal-days-row">
-              <span>22</span><span>23</span><span>24</span><span>25</span>
-              <span class="cal-active-day-circle">26</span>
-              <span>27</span><span>28</span>
-            </div>
-            <div class="d-flex justify-content-between mb-3 cal-days-row">
-              <span>29</span><span>30</span><span>31</span><span></span><span></span><span></span><span></span>
+            <!-- Dynamic dates for small calendar -->
+            <div class="d-flex justify-content-between mb-3 cal-days-row" *ngFor="let week of weeks">
+              <span *ngFor="let day of week"
+                [ngClass]="{'cal-active-day-circle text-white': day.isToday, 'text-muted': !day.isCurrentMonth}">
+                {{ day.date }}
+              </span>
             </div>
           </div>
         </div>
@@ -41,51 +39,15 @@
         <!-- Upcoming Events List -->
         <div>
           <h4 class="mb-4 fw-semibold cal-header-title">Upcoming Events</h4>
-          
-          <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card">
+
+          <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card" *ngFor="let event of upcomingEvents">
             <div class="d-flex align-items-center gap-3">
               <div class="date-badge text-center cal-date-badge-wrapper">
-                <span class="d-block cal-date-text-orange">14</span>
+                <span class="d-block cal-date-text-{{event.colorClass}}">{{event.date.getDate()}}</span>
               </div>
               <div>
-                <h5 class="mb-1 fw-semibold cal-event-title">Stretegy Design Development</h5>
-                <span class="text-muted cal-event-time">5:00 PM</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card">
-            <div class="d-flex align-items-center gap-3">
-              <div class="date-badge text-center cal-date-badge-wrapper">
-                <span class="d-block cal-date-text-purple">19</span>
-              </div>
-              <div>
-                <h5 class="mb-1 fw-semibold cal-event-title">Design For Humanity</h5>
-                <span class="text-muted cal-event-time">5:00 PM</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card">
-            <div class="d-flex align-items-center gap-3">
-              <div class="date-badge text-center cal-date-badge-wrapper">
-                <span class="d-block cal-date-text-green">27</span>
-              </div>
-              <div>
-                <h5 class="mb-1 fw-semibold cal-event-title">App Design Course</h5>
-                <span class="text-muted cal-event-time">5:00 PM</span>
-              </div>
-            </div>
-          </div>
-          
-          <div class="upcoming-event-item p-3 rounded cal-event-card">
-            <div class="d-flex align-items-center gap-3">
-              <div class="date-badge text-center cal-date-badge-wrapper">
-                <span class="d-block cal-date-text-blue">29</span>
-              </div>
-              <div>
-                <h5 class="mb-1 fw-semibold cal-event-title">Stretegy Design Development</h5>
-                <span class="text-muted cal-event-time">5:00 PM</span>
+                <h5 class="mb-1 fw-semibold cal-event-title">{{event.title}}</h5>
+                <span class="text-muted cal-event-time">{{event.time}}</span>
               </div>
             </div>
           </div>
@@ -107,147 +69,25 @@
           <div class="flex-fill py-3 border-end cal-main-day-header">Saturday</div>
           <div class="flex-fill py-3 cal-main-day-header">Sunday</div>
         </div>
-        
+
         <!-- Grid Body -->
         <div class="calendar-grid-body d-flex flex-column h-100">
-          
-          <!-- Week 1 -->
-          <div class="calendar-week d-flex border-bottom cal-week-row">
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">1</span>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-yellow">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">2</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">3</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">4</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">5</span>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-green">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">6</span>
-            </div>
-            <div class="calendar-day flex-fill p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">7</span>
+
+          <!-- Dynamic Weeks -->
+          <div class="calendar-week d-flex cal-week-row" *ngFor="let week of weeks; let last = last"
+            [class.border-bottom]="!last">
+            <div class="calendar-day flex-fill p-2 position-relative" *ngFor="let day of week; let lastDay = last"
+              [class.border-end]="!lastDay" [class.cal-active-grid-day]="day.isToday">
+              <span class="day-number fw-semibold mb-1 d-inline-block" [class.text-white]="day.isToday"
+                [class.text-muted]="!day.isCurrentMonth && !day.isToday">
+                {{ day.date }}
+              </span>
+              <div class="event-pill px-2 py-1 rounded mb-1 cal-pill" [ngClass]="'cal-pill-' + event.colorClass"
+                *ngFor="let event of day.events">
+                {{ event.title }}
+              </div>
             </div>
           </div>
-          
-          <!-- Week 2 -->
-          <div class="calendar-week d-flex border-bottom cal-week-row">
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">8</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">9</span>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-blue">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">10</span>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-purple">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">11</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">12</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">13</span>
-            </div>
-            <div class="calendar-day flex-fill p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">14</span>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-green">Design Workshop</div>
-            </div>
-          </div>
-          
-          <!-- Week 3 -->
-          <div class="calendar-week d-flex border-bottom cal-week-row">
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">15</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">16</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">17</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">18</span>
-              <div class="event-pill px-2 py-1 rounded mb-1 cal-pill cal-pill-pink">Design Workshop</div>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-red">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">19</span>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-yellow">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">20</span>
-            </div>
-            <div class="calendar-day flex-fill p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">21</span>
-            </div>
-          </div>
-          
-          <!-- Week 4 -->
-          <div class="calendar-week d-flex border-bottom cal-week-row">
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">22</span>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-pink">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">23</span>
-              <div class="event-pill px-2 py-1 rounded mb-1 cal-pill cal-pill-yellow-light">Design Workshop</div>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-blue">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">24</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">25</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative cal-active-grid-day">
-              <span class="day-number fw-semibold mb-1 d-inline-block text-white">26</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">27</span>
-            </div>
-            <div class="calendar-day flex-fill p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">28</span>
-            </div>
-          </div>
-          
-          <!-- Week 5 -->
-          <div class="calendar-week d-flex cal-week-row">
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">29</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">30</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block">31</span>
-              <div class="event-pill px-2 py-1 rounded cal-pill cal-pill-green">Design Workshop</div>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block text-muted">1</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block text-muted">2</span>
-            </div>
-            <div class="calendar-day flex-fill border-end p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block text-muted">3</span>
-            </div>
-            <div class="calendar-day flex-fill p-2 position-relative">
-              <span class="day-number fw-semibold mb-1 d-inline-block text-muted">4</span>
-            </div>
-          </div>
-          
         </div>
       </div>
     </div>

@@ -1,7 +1,10 @@
 <div class="portal-container" [class.portal-messatge-container]="currentUrl.includes('/message-teacher') || currentUrl.includes('/edit-profile') || currentUrl.includes('/change-password') || currentUrl.includes('/my-profile')">
 
+    <!-- MOBILE SIDEBAR OVERLAY -->
+    <div class="sidebar-backdrop-overlay d-lg-none" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
+
     <!-- LEFT SIDEBAR -->
-    <aside class="portal-sidebar">
+    <aside class="portal-sidebar" [class.active]="isSidebarOpen">
         <!-- Brand Logo Section -->
         <div class="sidebar-brand">
             <img src="assets/img/logo.png" alt="TIAG Logo" class="brand-logo-img" />
@@ -15,7 +18,7 @@
         <div class="sidebar-menu-wrapper">
             <span class="menu-section-title">STUDENT PORTAL</span>
             <nav class="sidebar-nav">
-                <ul>
+                <ul (click)="isSidebarOpen = false">
                     <li>
                         <a routerLink="/student/std-dashboard" routerLinkActive="active" class="nav-item">
                             <i class="fa-solid fa-house nav-icon"></i>
@@ -64,14 +67,14 @@
         <!-- Common Portal Header -->
         <header class="portal-header">
             <div class="d-flex align-items-center gap-3">
-                <i class="fa-solid fa-bars d-lg-none d-block" style="font-size: 20px;"></i>
+                <i class="fa-solid fa-bars d-lg-none d-block" style="font-size: 20px; cursor: pointer;" (click)="toggleSidebar()"></i>
                 <div class="header-greeting">
                     <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
                     <p class="greeting-subtitle">Here's your learning progress for this week.</p>
                 </div>
             </div>
             <div class="header-actions">
-                <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications">
+                <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications" (click)="toggleProfileSidebar()">
                     <img src="../../../../assets/img/boy.jpg" alt="" class="w-100 h-100 rounded">
                 </button>
             </div>
@@ -86,8 +89,11 @@
 
     <!-- ================= RIGHT PROFILE PANEL (DYNAMIC CONTEXT) ================= -->
 
+    <!-- PROFILE SIDEBAR OVERLAY -->
+    <div class="sidebar-backdrop-overlay d-lg-none" *ngIf="isProfileSidebarOpen" (click)="toggleProfileSidebar()"></div>
+
     <!-- 1. RESOURCES PREVIEW SIDEBAR PANEL -->
-    <aside class="portal-profile-panel resources-sidebar-context" *ngIf="currentUrl.includes('/resources')">
+    <aside class="portal-profile-panel resources-sidebar-context" *ngIf="currentUrl.includes('/resources')" [class.active]="isProfileSidebarOpen">
         <ng-container *ngIf="selectedResource; else noResourceSelected">
             <div class="resource-preview-header">
                 <!-- Mascot / Mascot Head Image -->
@@ -155,10 +161,11 @@
 
     <!-- 3. DEFAULT STUDENT PROFILE SIDEBAR PANEL -->
     <aside class="portal-profile-panel default-sidebar-context"
-        *ngIf="!currentUrl.includes('/resources') && !currentUrl.includes('/message-teacher') && !currentUrl.includes('/edit-profile') && !currentUrl.includes('/change-password') && !currentUrl.includes('/my-profile')">
+        *ngIf="!currentUrl.includes('/resources') && !currentUrl.includes('/message-teacher') && !currentUrl.includes('/edit-profile') && !currentUrl.includes('/change-password') && !currentUrl.includes('/my-profile')"
+        [class.active]="isProfileSidebarOpen">
         <div class="profile-header d-flex align-items-center justify-content-between gap-2">
             <h2 class="profile-title">Your Profile</h2>
-            <i class="fa-solid fa-xmark d-block d-xxl-none" style="font-size: 20px;"></i>
+            <i class="fa-solid fa-xmark d-block d-xxl-none" style="font-size: 20px; cursor: pointer;" (click)="toggleProfileSidebar()"></i>
         </div>
 
         <!-- Student Info Summary Card -->

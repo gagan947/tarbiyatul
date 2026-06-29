@@ -28,6 +28,8 @@ export class ParentPortalComponent implements OnInit {
   showLogoutModal = false;
   currentUrl = '';
   selectedResource: any = null;
+  isSidebarOpen = false;
+  isProfileSidebarOpen = false;
 
   // Mock list of teachers matching Messages tab details
   teacherThreads: TeacherThread[] = [
@@ -112,5 +114,13 @@ export class ParentPortalComponent implements OnInit {
   confirmLogout(): void {
     this.showLogoutModal = false;
     this.router.navigate(['/login']);
+  }
+
+  toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  toggleProfileSidebar(): void {
+    this.isProfileSidebarOpen = !this.isProfileSidebarOpen;
   }
 }

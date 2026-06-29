@@ -942,4 +942,17 @@ margin-bottom: 12px;
   to { transform: scale(1); opacity: 1; }
 }
 
+/* ================= MOBILE SIDEBAR OVERLAY ================= */
+.sidebar-backdrop-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(23, 30, 69, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 9998;
+  animation: fadeIn 0.25s ease-out;
+}
+
 
