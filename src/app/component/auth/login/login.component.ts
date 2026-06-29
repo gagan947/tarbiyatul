@@ -43,7 +43,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.router.navigate(['/student']);
+    const email = this.loginForm.get('email')?.value;
+    if (email === 'teacher@tiag.com') {
+      this.router.navigate(['/teacher']);
+    } else if (email === 'parent@tiag.com') {
+      this.router.navigate(['/parent']);
+    } else {
+      this.router.navigate(['/student']);
+    }
 
     // this.submitted = true;
     // this.errorMessage = null;

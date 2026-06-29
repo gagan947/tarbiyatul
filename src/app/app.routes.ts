@@ -58,5 +58,18 @@ export const routes: Routes = [
       { path: 'calendar', loadComponent: () => import('./component/parent-portal/parent-calendar/parent-calendar.component').then(m => m.ParentCalendarComponent) },
       { path: 'message-teacher', loadComponent: () => import('./component/parent-portal/parent-messages/parent-messages.component').then(m => m.ParentMessagesComponent) }
     ]
+  },
+  {
+    path: 'teacher',
+    loadComponent: () => import('./component/teacher-portal/teacher-portal/teacher-portal.component').then(m => m.TeacherPortalComponent),
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', loadComponent: () => import('./component/teacher-portal/teacher-dashboard/teacher-dashboard.component').then(m => m.TeacherDashboardComponent) },
+      { path: 'assignments', loadComponent: () => import('./component/teacher-portal/teacher-assignments/teacher-assignments.component').then(m => m.TeacherAssignmentsComponent) },
+      { path: 'assignments/:id', loadComponent: () => import('./component/teacher-portal/teacher-assignment-details/teacher-assignment-details.component').then(m => m.TeacherAssignmentDetailsComponent) },
+      { path: 'students', loadComponent: () => import('./component/teacher-portal/teacher-students/teacher-students.component').then(m => m.TeacherStudentsComponent) },
+      { path: 'students/:id', loadComponent: () => import('./component/teacher-portal/teacher-student-details/teacher-student-details.component').then(m => m.TeacherStudentDetailsComponent) },
+      { path: 'message-teacher', loadComponent: () => import('./component/teacher-portal/teacher-messages/teacher-messages.component').then(m => m.TeacherMessagesComponent) }
+    ]
   }
 ];

@@ -23,6 +23,7 @@ export class AppComponent implements OnInit {
   isHome = false;
   isStudentPortal = false;
   isParentPortal = false;
+  isTeacherPortal = false;
 
   constructor(private router: Router) {}
 
@@ -34,6 +35,7 @@ export class AppComponent implements OnInit {
         this.isHome = url === '/' || url === '' || url.split('?')[0] === '/';
         this.isStudentPortal = url.startsWith('/student');
         this.isParentPortal = url.startsWith('/parent');
+        this.isTeacherPortal = url.startsWith('/teacher');
         this.loadExternalScript();
       }
     });

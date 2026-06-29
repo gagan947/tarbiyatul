@@ -1,0 +1,53 @@
+<div class="ct_px_28 profile-container pb-5 pt-3">
+  
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0 fw-semibold dash-section-title" style="font-size: 24px;">My Students</h2>
+  </div>
+
+  <div class="dashboard-card h-100 dash-card-shadow">
+    <div class="table-responsive">
+      <table class="table align-middle dash-table">
+        <thead>
+          <tr>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th">Student</th>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th">Grade</th>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th">Parent Name</th>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th">Status</th>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 text-end dash-table-th">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let student of students; let i = index">
+            <td class="border-0 py-3" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
+              <div class="d-flex align-items-center gap-3">
+                <img [src]="student.avatar" alt="Avatar" class="dash-book-cover student-avatar" />
+                <span class="fw-semibold dash-table-td-text">{{ student.name }}</span>
+              </div>
+            </td>
+
+            <td class="border-0 py-3 fw-semibold dash-table-td-text" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
+              {{ student.grade }}
+            </td>
+            <td class="border-0 py-3 fw-semibold dash-table-td-text text-muted" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
+              {{ student.parentName }}
+            </td>
+            <td class="border-0 py-3" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
+              <span class="badge" 
+                    [class.dash-badge-completed]="student.status === 'Active'"
+                    [class.dash-badge-progress]="student.status === 'Needs Attention'">
+                {{ student.status }}
+              </span>
+            </td>
+            <td class="border-0 py-3 text-end" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
+              <div class="d-flex justify-content-end">
+                <button class="btn btn-sm portal-btn-primary px-3 rounded-pill" (click)="viewDetails(student.id)">
+                  View Details
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

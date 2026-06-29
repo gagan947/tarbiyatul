@@ -1,0 +1,250 @@
+/* Force rebuild teacher dashboard */
+
+.dash-banner {
+  background-color: #171E45;
+  border-radius: 16px;
+}
+.dash-banner h3{
+  font-size: 18px;
+  font-family: 'Inter',sans-serif;
+  font-weight: 500;
+}
+.dash-avatar-wrapper {
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+.dashboard-card {
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 20px;
+}
+.dash-banner-title {
+  font-size: 24px;
+    font-family: 'Inter',sans-serif;
+}
+
+.dash-progress-track {
+  height: 12px;
+  border-radius: 6px;
+}
+
+.dash-progress-bar {
+  background-color: #F68B1F;
+  border-radius: 6px;
+}
+
+.dash-progress-text {
+  font-size: 13px;
+}
+
+.dash-score-value {
+  font-size: 35px;
+  line-height: 1;
+  font-family: 'Inter',sans-serif;
+}
+
+/* Stats Cards */
+.dash-card-borderless {
+  border: none;
+  border-radius: 16px;
+}
+
+.dash-card-shadow {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.dash-card-purple {
+  background-color: #EDEFFF;
+}
+
+.dash-icon-wrapper-purple {
+  background-color: rgba(139, 149, 255, 0.2);
+  color: #8B95FF;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.dash-card-blue {
+  background-color: #EEF8FA;
+}
+
+.dash-icon-wrapper-blue {
+  background-color: rgba(103, 198, 227, 0.2);
+  color: #67C6E3;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.dash-card-orange {
+  background-color: #FFF2E5;
+}
+
+.dash-icon-wrapper-orange {
+  background-color: rgba(246, 139, 31, 0.2);
+  color: #F68B1F;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.dash-card-green {
+  background-color: #EEFBE5;
+}
+
+.dash-icon-wrapper-green {
+  background-color: rgba(125, 211, 85, 0.2);
+  color: #7DD355;
+  width: 44px;
+  height: 44px;
+  font-size: 20px;
+}
+
+.dash-stat-value {
+  font-size: 26px;
+  color: #1A1F45;
+  font-family: "Inter",sans-serif;
+}
+
+.dash-stat-label {
+  font-size: 14px;
+}
+
+/* Recent Assignments */
+.dash-section-title {
+  font-size: 16px;
+  font-family: 'Inter',sans-serif;
+}
+
+.dash-link-orange {
+  color: #F68B1F;
+  font-size: 14px;
+}
+
+.dash-table {
+  color: #1A1F45;
+}
+
+.dash-table-th {
+  font-size: 14px;
+  border-bottom: 1px solid #00000012 !important;
+  white-space: nowrap;
+}
+
+.dash-book-cover {
+  width: 32px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.dash-table-td-text {
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.dash-table-td-score {
+  color: #3B82F6;
+  font-size: 14px;
+}
+
+.dash-table-border-top {
+  border-color: #F8F9FA !important;
+}
+
+.dash-badge-completed {
+  background-color: #DCFCE7;
+  color: #15803D;
+  font-weight: 600;
+  padding: 10px 16px;
+  font-size: 12px;
+  display: inline-block;
+  border-radius: 6px;
+    border: 1px solid #15803D;
+}
+
+.dash-badge-progress {
+  background-color: #FFFCEB;
+  color: #FFD900;
+    font-weight: 600;
+  padding: 10px 16px;
+  font-size: 12px;
+  border: 1px solid #FFD900;
+  display: inline-block;
+  border-radius: 6px;
+}
+
+.dash-badge-overdue {
+  background-color: #FFE6E6;
+  color: #FF1A1A;
+   font-weight: 600;
+  padding: 10px 16px;
+  font-size: 12px;
+  display: inline-block;
+  border-radius: 6px;
+  border: 1px solid #FF1A1A;
+}
+
+.dash-badge-notstarted {
+  background-color: #E6E6E6B2;
+  color: #6F767E;
+   font-weight: 600;
+  padding: 10px 16px;
+  font-size: 12px;
+  display: inline-block;
+  border-radius: 6px;
+  border: 1px solid #6F767E;
+}
+
+
+/* Upcoming Events */
+.dash-event-icon-box {
+  min-width: 24px;
+}
+
+.dash-event-title {
+  font-size: 14px;
+  font-family: 'Inter',sans-serif;
+}
+
+.dash-event-meta {
+  font-size: 13px;
+}
+
+/* Quick Actions */
+.dash-quick-title {
+  font-size: 16px;
+  font-family: 'Inter',sans-serif;
+}
+
+.dash-quick-icon-bg {
+  width: 32px;
+  height: 32px;
+  background-color: #F8F9FA;
+}
+
+.dash-quick-icon {
+  font-size: 12px;
+}
+
+.dash-quick-text {
+  font-size: 13px;
+}
+
+/* Amount Due */
+.dash-amount-label {
+  font-size: 16px;
+  color: #1F2937;
+  font-family: 'Inter',sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.dash-amount-value {
+  color: #FF6B00;
+   font-family: 'Inter',sans-serif;
+  font-size: 24px;
+}

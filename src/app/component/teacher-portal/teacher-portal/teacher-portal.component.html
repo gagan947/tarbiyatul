@@ -1,0 +1,107 @@
+<div class="portal-container portal-messatge-container">
+
+    <!-- MOBILE SIDEBAR OVERLAY -->
+    <div class="sidebar-backdrop-overlay d-lg-none" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="portal-sidebar" [class.active]="isSidebarOpen">
+        <!-- Brand Logo Section -->
+        <div class="sidebar-brand">
+            <img src="assets/img/logo.png" alt="TIAG Logo" class="brand-logo-img" />
+            <div class="brand-text">
+                <span class="brand-title">TIAG</span>
+                <span class="brand-sub">Islamic Education</span>
+            </div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <div class="sidebar-menu-wrapper">
+            <span class="menu-section-title">TEACHER PORTAL</span>
+            <nav class="sidebar-nav">
+                <ul (click)="isSidebarOpen = false">
+                    <li>
+                        <a routerLink="/teacher/dashboard" routerLinkActive="active" class="nav-item">
+                            <i class="fa-solid fa-house nav-icon"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/teacher/assignments" routerLinkActive="active" class="nav-item">
+                            <i class="fa-solid fa-file-invoice nav-icon"></i>
+                            <span>Assignments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/teacher/students" routerLinkActive="active" class="nav-item">
+                            <i class="fa-solid fa-users nav-icon"></i>
+                            <span>Students</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/teacher/message-teacher" routerLinkActive="active" class="nav-item">
+                            <i class="fa-regular fa-envelope nav-icon"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-footer">
+            <a href="javascript:void(0)" (click)="triggerLogoutPrompt($event)" class="logout-btn">
+                <i class="fa-solid fa-arrow-right-from-bracket logout-icon"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+    </aside>
+
+    <!-- MIDDLE MAIN CONTENT -->
+    <main class="portal-main">
+        <!-- Common Portal Header -->
+        <header class="portal-header">
+            <div class="d-flex align-items-center gap-3">
+                <i class="fa-solid fa-bars d-lg-none d-block fs-5" (click)="toggleSidebar()" style="cursor: pointer;"></i>
+                <div class="header-greeting">
+                    <h1 class="greeting-title">Assalamualaikum, Teacher 👋</h1>
+                    <p class="greeting-subtitle">Here's your class overview for this week.</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications" (click)="toggleProfileSidebar()">
+                    <img src="../../../../assets/img/boy.jpg" alt="" class="w-100 h-100 rounded-circle object-fit-cover">
+                </button>
+            </div>
+        </header>
+
+        <!-- Nested Router Outlet for Dashboard & Sub-pages -->
+        <div class="portal-content-body">
+            <router-outlet (activate)="onSubComponentActivated($event)"></router-outlet>
+        </div>
+    </main>
+
+
+
+
+
+<!-- ================= LOGOUT CONFIRMATION MODAL OVERLAY ================= -->
+<div class="modal-backdrop-overlay" *ngIf="showLogoutModal" (click)="cancelLogout()">
+    <div class="logout-modal-card" (click)="$event.stopPropagation()">
+        <!-- Close circular icon -->
+        <button class="close-modal-circle" (click)="cancelLogout()" aria-label="Close dialog">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+        <h3 class="logout-modal-title">You are about to LogOut</h3>
+        <p class="logout-modal-subtitle">Are you sure you want to logout ?</p>
+
+        <div class="logout-modal-actions">
+            <button (click)="cancelLogout()" class="portal-btn portal-btn-primary modal-btn-mistake">
+                No, This was a Mistake
+            </button>
+            <button (click)="confirmLogout()" class="portal-btn portal-btn-danger-light modal-btn-logout">
+                Yes, Log Me Out
+            </button>
+        </div>
+    </div>
+</div>
