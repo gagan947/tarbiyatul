@@ -102,10 +102,7 @@
   background-color: #e07a16;
 }
 
-.hb-info-box-blue {
-  background-color: #F0F4F8;
-  border-radius: 8px;
-}
+
 
 .hb-info-icon-circle-blue {
   width: 28px;
@@ -159,6 +156,7 @@
   height: 50px;
   background-color: #FDF2F2;
   border: 1px solid #FCA5A5;
+  flex-shrink: 0;
 }
 
 .hb-pdf-icon {

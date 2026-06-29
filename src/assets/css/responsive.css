@@ -409,4 +409,12 @@
     /* .ct_banner_section{
         height: 750px;
     } */
+     .ct_flex_col_575{
+        flex-direction: column;
+        align-items: start!important;
+        width: 100%;
+     }
+     .ct_w_100_575{
+        width: 100%;
+     }
 }

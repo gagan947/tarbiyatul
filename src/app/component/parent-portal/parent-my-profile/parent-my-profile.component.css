@@ -76,7 +76,9 @@
 .prof-avatar-img {
   border: 3px solid white;
 }
-
+.info-value {
+  word-break: break-word;
+}
 .prof-child-name {
   font-size: 18px;
   font-weight: 600;
