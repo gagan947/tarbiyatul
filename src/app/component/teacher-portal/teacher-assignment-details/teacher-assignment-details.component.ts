@@ -124,6 +124,12 @@ export class TeacherAssignmentDetailsComponent implements OnInit {
     this.router.navigate(['/teacher/assignments']);
   }
 
+  viewStudentRecords(): void {
+    if (this.assignment) {
+      this.router.navigate(['/teacher/assignments', this.assignment.id, 'submissions']);
+    }
+  }
+
   submitGrade(): void {
     if (this.assignment) {
       alert(`Grade published for ${this.assignment.title}`);

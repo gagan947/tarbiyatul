@@ -66,10 +66,14 @@ export const routes: Routes = [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'dashboard', loadComponent: () => import('./component/teacher-portal/teacher-dashboard/teacher-dashboard.component').then(m => m.TeacherDashboardComponent) },
       { path: 'assignments', loadComponent: () => import('./component/teacher-portal/teacher-assignments/teacher-assignments.component').then(m => m.TeacherAssignmentsComponent) },
+      { path: 'assignments/new', loadComponent: () => import('./component/teacher-portal/teacher-create-assignment/teacher-create-assignment.component').then(m => m.TeacherCreateAssignmentComponent) },
       { path: 'assignments/:id', loadComponent: () => import('./component/teacher-portal/teacher-assignment-details/teacher-assignment-details.component').then(m => m.TeacherAssignmentDetailsComponent) },
+      { path: 'assignments/:id/submissions', loadComponent: () => import('./component/teacher-portal/teacher-assignment-submissions/teacher-assignment-submissions.component').then(m => m.TeacherAssignmentSubmissionsComponent) },
+      { path: 'assignments/:id/submissions/:studentId', loadComponent: () => import('./component/teacher-portal/teacher-student-assignment-details/teacher-student-assignment-details.component').then(m => m.TeacherStudentAssignmentDetailsComponent) },
       { path: 'students', loadComponent: () => import('./component/teacher-portal/teacher-students/teacher-students.component').then(m => m.TeacherStudentsComponent) },
       { path: 'students/:id', loadComponent: () => import('./component/teacher-portal/teacher-student-details/teacher-student-details.component').then(m => m.TeacherStudentDetailsComponent) },
-      { path: 'message-teacher', loadComponent: () => import('./component/teacher-portal/teacher-messages/teacher-messages.component').then(m => m.TeacherMessagesComponent) }
+      { path: 'message-teacher', loadComponent: () => import('./component/teacher-portal/teacher-messages/teacher-messages.component').then(m => m.TeacherMessagesComponent) },
+      { path: 'calendar', loadComponent: () => import('./component/teacher-portal/teacher-calendar/teacher-calendar.component').then(m => m.TeacherCalendarComponent) },
     ]
   }
 ];

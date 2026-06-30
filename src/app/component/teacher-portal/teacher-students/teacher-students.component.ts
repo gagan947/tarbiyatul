@@ -4,11 +4,10 @@ import { RouterModule, Router } from '@angular/router';
 
 interface Student {
   id: number;
+  rollNo: string;
+  avatar: string;
   name: string;
   grade: string;
-  parentName: string;
-  avatar: string;
-  status: 'Active' | 'Needs Attention';
 }
 
 @Component({
@@ -22,35 +21,38 @@ export class TeacherStudentsComponent {
   students: Student[] = [
     {
       id: 1,
-      name: 'Ali Khan',
-      grade: 'Grade 4',
-      parentName: 'Ali Khan (Parent)',
+      rollNo: 'STU-1001',
       avatar: 'assets/img/boy.jpg',
-      status: 'Active'
+      name: 'Ali Khan',
+      grade: 'Grade 1'
     },
     {
       id: 2,
-      name: 'Sarah Ahmed',
-      grade: 'Grade 4',
-      parentName: 'Mr. Ahmed',
-      avatar: 'assets/img/client_2.png',
-      status: 'Needs Attention'
+      rollNo: 'STU-1001',
+      avatar: 'assets/img/boy.jpg',
+      name: 'Ali Khan',
+      grade: 'Grade 4'
     },
     {
       id: 3,
-      name: 'Omar Abdullah',
-      grade: 'Grade 4',
-      parentName: 'Mrs. Abdullah',
-      avatar: 'assets/img/client_3.png',
-      status: 'Active'
+      rollNo: 'STU-1001',
+      avatar: 'assets/img/boy.jpg',
+      name: 'Ali Khan',
+      grade: 'Grade 2'
     },
     {
       id: 4,
-      name: 'Aisha Rahman',
-      grade: 'Grade 4',
-      parentName: 'Mr. Rahman',
-      avatar: 'assets/img/client_1.png',
-      status: 'Active'
+      rollNo: 'STU-1001',
+      avatar: 'assets/img/boy.jpg',
+      name: 'Ali Khan',
+      grade: 'Grade 3'
+    },
+    {
+      id: 5,
+      rollNo: 'STU-1001',
+      avatar: 'assets/img/boy.jpg',
+      name: 'Ali Khan',
+      grade: 'Grade 1'
     }
   ];
 
