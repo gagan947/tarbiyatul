@@ -82,13 +82,75 @@
                 <i class="fa-solid fa-bars d-lg-none d-block fs-5" (click)="toggleSidebar()" style="cursor: pointer;"></i>
                 <div class="header-greeting">
                     <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
-                    <p class="greeting-subtitle">Here's your learning progress for this week.</p>
+                    <p class="greeting-subtitle">Welcome to your Parent Portal</p>
                 </div>
             </div>
-            <div class="header-actions">
-                <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications" (click)="toggleProfileSidebar()">
-                    <img src="../../../../assets/img/boy.jpg" alt="" class="w-100 h-100 rounded">
+            <div class="header-actions d-flex align-items-center gap-4">
+                
+                <!-- Notifications Dropdown -->
+                <div class="dropdown">
+                    <button type="button" class="btn btn-link text-dark p-0 position-relative border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-bell" style="font-size: 20px; color: #4B5563;"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end shadow border-0 p-0" style="width: 320px; border-radius: 12px; margin-top: 15px;">
+                        <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+                            <h6 class="mb-0 fw-semibold">Notifications(4)</h6>
+                            <a href="javascript:void(0)" class="text-decoration-none" style="color: #F68B1F; font-size: 13px; font-weight: 500;">Mark as read</a>
+                        </div>
+                        <div class="notification-list p-0" style="max-height: 350px; overflow-y: auto;">
+                            <!-- Notification Item -->
+                            <div class="d-flex gap-3 p-3 border-bottom position-relative" style="cursor: pointer;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 fw-semibold" style="font-size: 14px; color: #1A1F45;">Tuition Payment Due</h6>
+                                    <p class="mb-0 text-muted" style="font-size: 13px;">Your monthly tuition payment is now due.</p>
+                                </div>
+                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                    <span class="text-muted" style="font-size: 12px;">3m</span>
+                                    <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background-color: #8B5CF6;"></span>
+                                </div>
+                            </div>
+                            <!-- Notification Item -->
+                            <div class="d-flex gap-3 p-3 border-bottom position-relative" style="cursor: pointer;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 fw-semibold" style="font-size: 14px; color: #1A1F45;">Tuition Payment Received</h6>
+                                    <p class="mb-0 text-muted" style="font-size: 13px;">Your tuition payment has been successfully processed.</p>
+                                </div>
+                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                    <span class="text-muted" style="font-size: 12px;">3m</span>
+                                    <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background-color: #8B5CF6;"></span>
+                                </div>
+                            </div>
+                            <!-- Notification Item -->
+                            <div class="d-flex gap-3 p-3 border-bottom position-relative" style="cursor: pointer;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 fw-semibold" style="font-size: 14px; color: #1A1F45;">Parent Meeting Reminder</h6>
+                                    <p class="mb-0 text-muted" style="font-size: 13px;">Parent-Teacher Meeting is scheduled for this week.</p>
+                                </div>
+                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                    <span class="text-muted" style="font-size: 12px;">3m</span>
+                                </div>
+                            </div>
+                            <!-- Notification Item -->
+                            <div class="d-flex gap-3 p-3 position-relative" style="cursor: pointer;">
+                                <div class="flex-grow-1">
+                                    <h6 class="mb-1 fw-semibold" style="font-size: 14px; color: #1A1F45;">Parent Handbook Available</h6>
+                                    <p class="mb-0 text-muted" style="font-size: 13px;">Your Parent Handbook is now available for download</p>
+                                </div>
+                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                    <span class="text-muted" style="font-size: 12px;">3m</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Dropdown/Button -->
+                <button class="btn btn-link text-decoration-none text-dark d-flex align-items-center gap-2 p-0 border-0 bg-transparent" (click)="toggleProfileSidebar()">
+                    <img src="assets/img/boy.jpg" alt="Profile" class="rounded-circle object-fit-cover" style="width: 36px; height: 36px;">
+                    <span class="fw-medium d-none d-sm-block" style="font-size: 14px; color: #1A1F45;">Fatima Ahmed</span>
+                    <i class="fa-solid fa-angle-down text-muted d-none d-sm-block" style="font-size: 12px;"></i>
                 </button>
+
             </div>
         </header>
 
