@@ -4,18 +4,12 @@ import { Router, RouterModule } from '@angular/router';
 
 interface Assignment {
   id: number;
-  title: string;
-  assignedBy: string;
-  assignedDate: string;
-  dueDate: string;
+  bookCover: string;
   bookTitle: string;
-  pagesRange: string;
-  status: 'In Progress' | 'Overdue' | 'Completed';
-  coverImage: string;
-  grade: string;
+  requiredReading: string;
   subject: string;
-  instructions: string[];
-  notice?: string;
+  grade: string;
+  dueDate: string;
 }
 
 @Component({
@@ -29,104 +23,58 @@ export class TeacherAssignmentsComponent {
   assignments: Assignment[] = [
     {
       id: 1,
-      title: 'Stories of the Prophets – Reflection Activity',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: '25 May, 2025',
+      bookCover: 'assets/img/book_1.png',
       bookTitle: 'Stories of the Prophets',
-      pagesRange: 'Pages 10 – 20',
-      status: 'In Progress',
-      coverImage: 'assets/img/book_1.png',
-      grade: 'Grade 4',
+      requiredReading: 'Read Pages 10–20',
       subject: 'Islamic Studies',
-      instructions: [
-        'Read pages 10–20 carefully',
-        'Focus on key lessons from the story of Prophet Yusuf (AS)',
-        'Complete the reflection activity before the due date',
-        'Understand moral lessons and apply them to daily life'
-      ],
-      notice: 'This reading contains sections that require teacher guidance. Please avoid pages 15–16 and follow your teacher\'s instructions.'
+      grade: 'Grade 3',
+      dueDate: 'May 20, 2025'
     },
     {
       id: 2,
-      title: 'Stories of the Prophets – Reflection Activity',
-      assignedBy: 'Mr. Ahmed',
-      assignedDate: '18 May, 2025',
-      dueDate: '25 May, 2025',
-      bookTitle: 'Stories of the Prophets',
-      pagesRange: 'Pages 10 – 20',
-      status: 'Overdue',
-      coverImage: 'assets/img/book_2.png',
-      grade: 'Grade 4',
-      subject: 'Islamic Studies',
-      instructions: [
-        'Read pages 10–20 carefully',
-        'Complete before the due date'
-      ],
-      notice: 'This reading contains sections that require teacher guidance. Please avoid pages 15–16 and follow your teacher\'s instructions.'
+      bookCover: 'assets/img/book_2.png',
+      bookTitle: 'Fractions Worksheet',
+      requiredReading: 'Exercise 4A & 4B',
+      subject: 'Mathematics',
+      grade: 'Grade 2',
+      dueDate: 'May 16, 2025'
     },
     {
       id: 3,
-      title: 'Fractions and Decimals – Worksheet 4',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: '25 May, 2025',
-      bookTitle: 'Arabic Writing Workbook',
-      pagesRange: 'Pages 10 – 20',
-      status: 'Completed',
-      coverImage: 'assets/img/book_3.png',
-      grade: 'Grade 4',
-      subject: 'Mathematics',
-      instructions: [
-        'Complete all questions on Worksheet 4',
-        'Verify your answers using the guide'
-      ]
+      bookCover: 'assets/img/book_3.png',
+      bookTitle: 'Dua Memorization',
+      requiredReading: 'Surah Al-Kahf 1-20',
+      subject: 'Islamic Studies',
+      grade: 'Grade 3',
+      dueDate: 'May 2, 2025'
     },
     {
       id: 4,
-      title: 'Fractions and Decimals – Worksheet 4',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: '25 May, 2025',
-      bookTitle: 'Arabic Writing Workbook',
-      pagesRange: 'Pages 10 – 20',
-      status: 'Completed',
-      coverImage: 'assets/img/book_1.png',
+      bookCover: 'assets/img/book_1.png',
+      bookTitle: 'Eplore Science',
+      requiredReading: 'Read Pages 15–22',
+      subject: 'Science',
+      grade: 'Grade 1',
+      dueDate: 'May 14, 2025'
+    },
+    {
+      id: 5,
+      bookCover: 'assets/img/book_2.png',
+      bookTitle: 'Quran Reading Practice',
+      requiredReading: 'Surah Al-Kahf 1-20',
+      subject: 'Islamic Studies',
       grade: 'Grade 4',
-      subject: 'Mathematics',
-      instructions: [
-        'Complete all questions on Worksheet 4'
-      ]
+      dueDate: 'May 26, 2025'
     }
   ];
 
-  selectedFilter: 'All' | 'Pending' | 'Completed' | 'Overdue' = 'All';
-  currentPage = 1;
-  totalPages = 3;
-
   constructor(private router: Router) {}
-
-  filteredAssignments(): Assignment[] {
-    if (this.selectedFilter === 'All') {
-      return this.assignments;
-    }
-    if (this.selectedFilter === 'Pending') {
-      return this.assignments.filter(a => a.status === 'In Progress');
-    }
-    if (this.selectedFilter === 'Completed') {
-      return this.assignments.filter(a => a.status === 'Completed');
-    }
-    if (this.selectedFilter === 'Overdue') {
-      return this.assignments.filter(a => a.status === 'Overdue');
-    }
-    return this.assignments;
-  }
-
-  setFilter(filter: 'All' | 'Pending' | 'Completed' | 'Overdue'): void {
-    this.selectedFilter = filter;
-  }
 
   viewDetails(assignmentId: number): void {
     this.router.navigate(['/teacher/assignments', assignmentId]);
+  }
+
+  createAssignment(): void {
+    this.router.navigate(['/teacher/assignments/new']);
   }
 }

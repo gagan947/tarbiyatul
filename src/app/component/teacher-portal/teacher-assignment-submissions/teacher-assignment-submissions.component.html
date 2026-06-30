@@ -1,8 +1,9 @@
 <div class="ct_px_28 profile-container pb-5 pt-3">
   
-  <div class="mb-4 pt-2">
-    <h4 class="mb-1 fw-bold fs-4" style="color: #1A1F45;">Students</h4>
-    <p class="text-muted mb-0" style="font-size: 15px;">View your assigned students and access their basic information.</p>
+  <div class="d-flex align-items-center mb-4 pt-2">
+    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2 fw-semibold" style="color: #F68B1F;" (click)="goBack()">
+      <i class="fa-solid fa-angle-left"></i> Student Assignment Records
+    </button>
   </div>
 
   <div class="d-flex flex-wrap flex-md-nowrap gap-3 mb-4">
@@ -12,7 +13,7 @@
     </div>
     <div class="dropdown">
       <button class="btn btn-outline-secondary d-flex justify-content-between align-items-center bg-white" type="button" style="width: 140px; height: 48px; border-radius: 8px; border-color: rgba(0,0,0,0.1); color: #6F767E;">
-        <span class="d-flex align-items-center gap-2"><i class="fa-solid fa-filter" style="font-size: 14px;"></i> All Grade</span>
+        <span class="d-flex align-items-center gap-2"><i class="fa-solid fa-filter" style="font-size: 14px;"></i> All Status</span>
         <i class="fa-solid fa-angle-down" style="font-size: 12px;"></i>
       </button>
     </div>
@@ -27,30 +28,44 @@
             <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">ROLL NO.</th>
             <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">PROFILE</th>
             <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">STUDENT NAME</th>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">GRADE</th>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 pe-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">ACTION</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">STATUS</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">SCORE</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 pe-4 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">ACTION</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let student of students; let i = index">
+          <tr *ngFor="let item of submissions; let i = index">
             <td class="border-0 py-4 px-4 fw-bold" style="color: #1A1F45; font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              {{ i + 1 }}
+              {{ item.id }}
             </td>
             <td class="border-0 py-4 fw-bold" style="color: #1A1F45; font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              {{ student.rollNo }}
+              {{ item.rollNo }}
             </td>
             <td class="border-0 py-4" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              <img [src]="student.avatar" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;" />
+              <img [src]="item.avatar" alt="Avatar" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover;" />
             </td>
             <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              {{ student.name }}
+              {{ item.name }}
+            </td>
+            <td class="border-0 py-4" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              <span class="badge rounded-pill" 
+                    [ngStyle]="{
+                      'background-color': item.status === 'REVIEWED' ? '#EEF8FA' : item.status === 'PENDING' ? '#FFF2E5' : '#EEFBE5',
+                      'color': item.status === 'REVIEWED' ? '#3B82F6' : item.status === 'PENDING' ? '#F68B1F' : '#15803D',
+                      'padding': '6px 16px',
+                      'font-size': '10px',
+                      'font-weight': '700',
+                      'letter-spacing': '0.5px'
+                    }">
+                {{ item.status }}
+              </span>
             </td>
             <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              {{ student.grade }}
+              {{ item.score }}
             </td>
-            <td class="border-0 py-4 pe-4" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              <button class="btn btn-link p-0 text-decoration-none" style="color: #3B82F6;" (click)="viewDetails(student.id)">
-                <i class="fa-regular fa-eye fs-5"></i>
+            <td class="border-0 py-4 pe-4 text-center" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              <button class="btn btn-outline-warning rounded-pill px-4 fw-medium text-nowrap" style="color: #F68B1F; border-color: rgba(246,139,31,0.5); font-size: 13px;" (click)="viewDetails(item.id)">
+                View Details
               </button>
             </td>
           </tr>

@@ -6,9 +6,8 @@ interface AssignmentHistory {
   id: number;
   title: string;
   subject: string;
-  status: 'Completed' | 'In Progress' | 'Overdue' | 'Not Started';
+  status: 'REVIEWED' | 'PENDING' | 'COMPLETED';
   score: string;
-  dueDate: string;
 }
 
 @Component({
@@ -23,39 +22,53 @@ export class TeacherStudentDetailsComponent implements OnInit {
   
   // Mock Data
   student = {
-    name: 'Ali Khan',
-    grade: 'Grade 4',
-    parentName: 'Ali Khan (Parent)',
-    avatar: 'assets/img/boy.jpg',
-    status: 'Active',
-    email: 'ali.khan@example.com',
-    attendance: '95%'
+    firstName: 'Ali',
+    lastName: 'Khan',
+    rollNumber: 'STU-2024-001',
+    grade: '5th',
+    dateOfBirth: '15 March 2012',
+    gender: 'Male',
+    parentName: 'Ahmed Khan',
+    parentEmail: 'ahmedkhan@email.com',
+    parentPhone: '+1 (610) 977-1700',
+    avatar: 'assets/img/boy.jpg'
   };
 
   history: AssignmentHistory[] = [
     {
       id: 1,
-      title: 'Stories Of The Prophets',
+      title: 'Stories of the Prophets',
       subject: 'Islamic Studies',
-      status: 'Completed',
-      score: '95/100',
-      dueDate: 'May 20, 2025'
+      status: 'REVIEWED',
+      score: '95/100'
     },
     {
       id: 2,
-      title: 'The World Of Plants',
-      subject: 'Science',
-      status: 'In Progress',
-      score: '--',
-      dueDate: 'May 25, 2025'
+      title: 'Fractions Practice',
+      subject: 'Mathematics',
+      status: 'REVIEWED',
+      score: '88/100'
     },
     {
       id: 3,
-      title: 'Fractions And Decimals',
-      subject: 'Mathematics',
-      status: 'Overdue',
-      score: '--',
-      dueDate: 'May 18, 2025'
+      title: 'Science Reading',
+      subject: 'Science',
+      status: 'PENDING',
+      score: '—'
+    },
+    {
+      id: 4,
+      title: 'Quran Memorization',
+      subject: 'Islamic Studies',
+      status: 'REVIEWED',
+      score: '91/100'
+    },
+    {
+      id: 5,
+      title: 'Pillars of Islam',
+      subject: 'Islamic Studies',
+      status: 'COMPLETED',
+      score: '—'
     }
   ];
 
@@ -69,14 +82,6 @@ export class TeacherStudentDetailsComponent implements OnInit {
       this.studentId = +params['id'];
       // In a real application, fetch student details and history using this.studentId
     });
-  }
-
-  openChat() {
-    this.router.navigate(['/teacher/message-teacher']);
-  }
-
-  assignTask() {
-    this.router.navigate(['/teacher/assignments']);
   }
 
   goBack() {

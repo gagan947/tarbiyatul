@@ -1,78 +1,123 @@
 <div class="ct_px_28 profile-container pb-5 pt-3">
   
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div class="d-flex align-items-center gap-3">
-      <button class="btn btn-sm btn-outline-secondary rounded-circle" style="width: 36px; height: 36px;" (click)="goBack()">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
-      <h2 class="mb-0 fw-semibold dash-section-title" style="font-size: 24px;">Student Profile</h2>
-    </div>
+  <div class="d-flex align-items-center mb-4">
+    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2 fw-semibold" style="color: #F68B1F;" (click)="goBack()">
+      <i class="fa-solid fa-angle-left"></i> Student Details
+    </button>
   </div>
 
-  <div class="dashboard-card mb-4 dash-card-shadow">
-    <div class="row align-items-center">
-      <div class="col-xl-6 col-lg-5 d-flex align-items-center gap-4 mb-4 mb-lg-0">
-        <img [src]="student.avatar" alt="Avatar" class="student-profile-img" />
-        <div>
-          <h3 class="mb-1 fw-bold" style="font-size: 22px;">{{ student.name }}</h3>
-          <p class="mb-1 text-muted">{{ student.grade }}</p>
-          <div class="d-flex gap-3 text-muted flex-wrap" style="font-size: 14px;">
-            <span><i class="fa-regular fa-envelope me-1"></i> {{ student.email }}</span>
-            <span><i class="fa-solid fa-clipboard-user me-1"></i> {{ student.attendance }} Attendance</span>
+  <div class="row g-4 mb-4">
+    <!-- Student Information Card -->
+    <div class="col-xl-7 col-lg-6">
+      <div class="dashboard-card h-100 dash-card-shadow p-4" style="border-radius: 16px;">
+        <h4 class="mb-3 fw-semibold dash-section-title" style="font-size: 18px; color: #1A1F45;">Student Information</h4>
+        <hr class="mt-0 mb-4" style="opacity: 0.1;">
+        
+        <div class="row align-items-center">
+          <div class="col-md-4 mb-4 mb-md-0 d-flex justify-content-center justify-content-md-start">
+            <img [src]="student.avatar" alt="Avatar" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover;" />
+          </div>
+          <div class="col-md-8">
+            <div class="row g-4">
+              <div class="col-sm-6">
+                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">FIRST NAME</span>
+                <span class="fw-semibold" style="color: #1A1F45;">{{ student.firstName }}</span>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">LAST NAME</span>
+                <span class="fw-semibold" style="color: #1A1F45;">{{ student.lastName }}</span>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">ROLL NUMBER</span>
+                <span class="fw-semibold" style="color: #1A1F45;">{{ student.rollNumber }}</span>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">GRADE</span>
+                <span class="fw-semibold" style="color: #1A1F45;">{{ student.grade }}</span>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">DATE OF BIRTH</span>
+                <span class="fw-semibold" style="color: #1A1F45;">{{ student.dateOfBirth }}</span>
+              </div>
+              <div class="col-sm-6">
+                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">GENDER</span>
+                <span class="fw-semibold" style="color: #1A1F45;">{{ student.gender }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-xl-6 col-lg-7 d-flex justify-content-lg-end gap-2 flex-wrap">
-        <button class="portal-btn portal-btn-outline px-4 rounded-pill text-nowrap" (click)="openChat()">
-          <i class="fa-regular fa-comment-dots"></i> Message Student
-        </button>
-        <button class="portal-btn portal-btn-outline px-4 rounded-pill text-nowrap" (click)="openChat()">
-          <i class="fa-solid fa-user-group"></i> Contact Parent
-        </button>
-        <button class="portal-btn portal-btn-primary px-4 rounded-pill text-nowrap" (click)="assignTask()">
-          <i class="fa-solid fa-plus"></i> Assign Task
-        </button>
+    </div>
+
+    <!-- Parent Information Card -->
+    <div class="col-xl-5 col-lg-6">
+      <div class="dashboard-card h-100 dash-card-shadow p-4" style="border-radius: 16px;">
+        <h4 class="mb-3 fw-semibold dash-section-title" style="font-size: 18px; color: #1A1F45;">Parent Information</h4>
+        <hr class="mt-0 mb-4" style="opacity: 0.1;">
+        
+        <div class="d-flex flex-column gap-4">
+          <div>
+            <span class="text-uppercase text-muted fw-semibold d-block mb-2" style="font-size: 11px;">PARENT NAME</span>
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-regular fa-user text-muted"></i>
+              <span class="fw-semibold" style="color: #1A1F45;">{{ student.parentName }}</span>
+            </div>
+          </div>
+          <div>
+            <span class="text-uppercase text-muted fw-semibold d-block mb-2" style="font-size: 11px;">EMAIL ADDRESS</span>
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-regular fa-envelope text-muted"></i>
+              <span class="fw-semibold" style="color: #1A1F45;">{{ student.parentEmail }}</span>
+            </div>
+          </div>
+          <div>
+            <span class="text-uppercase text-muted fw-semibold d-block mb-2" style="font-size: 11px;">PHONE NUMBER</span>
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-phone text-muted" style="font-size: 13px;"></i>
+              <span class="fw-semibold" style="color: #1A1F45;">{{ student.parentPhone }}</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <h4 class="mb-3 fw-semibold dash-section-title" style="font-size: 18px;">Assignment History</h4>
-  
-  <div class="dashboard-card h-100 dash-card-shadow">
+  <div class="dashboard-card dash-card-shadow p-4" style="border-radius: 16px;">
+    <h4 class="mb-4 fw-semibold dash-section-title" style="font-size: 18px; color: #1A1F45;">Assignment Records</h4>
+    
     <div class="table-responsive">
-      <table class="table align-middle dash-table">
+      <table class="table align-middle dash-table mb-0">
         <thead>
           <tr>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th">Assignment</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th">Subject</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th">Due Date</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th">Status</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 text-end dash-table-th">Score</th>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">ASSIGNMENT TITLE</th>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">SUBJECT</th>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">SCORE</th>
+            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">STATUS</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of history; let i = index">
-            <td class="border-0 py-3 fw-semibold dash-table-td-text" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
+            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
               {{ item.title }}
             </td>
-            <td class="border-0 py-3 fw-semibold dash-table-td-text text-muted" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
+            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
               {{ item.subject }}
             </td>
-            <td class="border-0 py-3 dash-table-td-text text-muted" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
-              {{ item.dueDate }}
+            <td class="border-0 py-4 text-center text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              {{ item.score }}
             </td>
-            <td class="border-0 py-3" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0">
-              <span class="badge" 
-                    [class.dash-badge-completed]="item.status === 'Completed'"
-                    [class.dash-badge-progress]="item.status === 'In Progress'"
-                    [class.dash-badge-overdue]="item.status === 'Overdue'"
-                    [class.dash-badge-notstarted]="item.status === 'Not Started'">
+            <td class="border-0 py-4 text-center" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              <span class="badge rounded-pill" 
+                    [ngStyle]="{
+                      'background-color': item.status === 'REVIEWED' ? '#EEF8FA' : item.status === 'PENDING' ? '#FFF2E5' : '#EEFBE5',
+                      'color': item.status === 'REVIEWED' ? '#3B82F6' : item.status === 'PENDING' ? '#F68B1F' : '#15803D',
+                      'padding': '6px 12px',
+                      'font-size': '10px',
+                      'font-weight': '700',
+                      'letter-spacing': '0.5px'
+                    }">
                 {{ item.status }}
               </span>
-            </td>
-            <td class="border-0 py-3 text-end fw-bold" [class.border-top]="i !== 0" [class.dash-table-border-top]="i !== 0"
-                [ngStyle]="{'color': item.status === 'Completed' ? '#3B82F6' : '#1A1F45'}">
-              {{ item.score }}
             </td>
           </tr>
         </tbody>

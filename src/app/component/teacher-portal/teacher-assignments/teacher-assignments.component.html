@@ -1,155 +1,84 @@
 <div class="ct_px_28 profile-container pb-5 pt-3">
   
-  <!-- Header -->
   <div class="mb-4 pt-2">
-    <h2 class="section-title mb-1">Assignments</h2>
-    <p class="text-muted mb-0">View all assignments and their status</p>
+    <h4 class="mb-1 fw-bold fs-4" style="color: #1A1F45;">Assignments</h4>
+    <p class="text-muted mb-0" style="font-size: 15px;">View your assigned students and access their basic information.</p>
   </div>
 
-  <!-- Filter Tabs and Month Select -->
-  <div class="dashboard-card bg-white p-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3 assign-filter-card">
-    <div class="d-flex gap-3 flex-wrap overflow-auto px-2">
-      <a href="javascript:void(0)" class="text-decoration-none px-sm-4 px-2 fw-semibold pb-2 assign-tab-link-active">All</a>
-      <a href="javascript:void(0)" class="text-decoration-none px-sm-4 px-2 text-muted fw-medium pb-2 assign-tab-link">In Progress</a>
-      <a href="javascript:void(0)" class="text-decoration-none px-sm-4 px-2 text-muted fw-medium pb-2 assign-tab-link">Completed</a>
-      <a href="javascript:void(0)" class="text-decoration-none px-sm-4 px-2 text-muted fw-medium pb-2 assign-tab-link">Not Started</a>
-      <a href="javascript:void(0)" class="text-decoration-none px-sm-4 px-2 text-muted fw-medium pb-2 assign-tab-link">Over Due</a>
-    </div>
-    
-    <div>
+  <div class="d-flex flex-wrap flex-md-nowrap gap-3 mb-4 justify-content-between">
+    <div class="d-flex flex-grow-1 gap-3">
+      <div class="flex-grow-1 position-relative" style="max-width: 600px;">
+        <i class="fa-solid fa-magnifying-glass position-absolute text-muted" style="left: 16px; top: 50%; transform: translateY(-50%);"></i>
+        <input type="text" class="form-control ps-5 py-2" placeholder="Search..." style="border-radius: 8px; border-color: rgba(0,0,0,0.1); height: 48px;">
+      </div>
       <div class="dropdown">
-        <button class="btn btn-outline-secondary btn-sm dropdown-toggle text-muted assign-dropdown-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          June
+        <button class="btn btn-outline-secondary d-flex justify-content-between align-items-center bg-white" type="button" style="width: 140px; height: 48px; border-radius: 8px; border-color: rgba(0,0,0,0.1); color: #6F767E;">
+          <span class="d-flex align-items-center gap-2"><i class="fa-solid fa-filter" style="font-size: 14px;"></i> All Grade</span>
+          <i class="fa-solid fa-angle-down" style="font-size: 12px;"></i>
         </button>
       </div>
     </div>
+    
+    <button class="portal-btn text-white px-4 fw-semibold" style="height: 48px; border-radius: 8px; background-color: #F68B1F; border: none;" (click)="createAssignment()">
+      New Assign
+    </button>
   </div>
 
-  <!-- Assignments Table -->
-  <div class="dashboard-card bg-white assign-table-card">
+  <div class="dashboard-card dash-card-shadow p-0 overflow-hidden mb-4" style="border-radius: 16px;">
     <div class="table-responsive">
-      <table class="table align-middle table-borderless assign-table-wrapper">
+      <table class="table align-middle dash-table mb-0">
         <thead>
-          <tr class="assign-table-header-row">
-            <th class="text-uppercase text-muted fw-medium  assign-table-th">BOOK COVER</th>
-            <th class="text-uppercase text-muted fw-medium  assign-table-th">BOOK TITLE</th>
-            <th class="text-uppercase text-muted fw-medium  assign-table-th">REQUIRED READING</th>
-            <th class="text-uppercase text-muted fw-medium  assign-table-th">SUBJECT</th>
-            <th class="text-uppercase text-muted fw-medium  assign-table-th">STATUS</th>
-            <th class="text-uppercase text-muted fw-medium  assign-table-th">SCORE</th>
-            <th class="text-uppercase text-muted fw-medium  assign-table-th">DUE DATE</th>
-            <th class="text-uppercase text-muted fw-medium  assign-table-th">ACTION</th>
+          <tr>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 px-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">BOOK COVER</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">BOOK TITLE</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">REQUIRED READING</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">SUBJECT</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">GRADE</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">DUE DATE</th>
+            <th class="text-uppercase text-muted border-0 fw-medium py-4 pe-4 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">ACTION</th>
           </tr>
         </thead>
         <tbody>
-          <!-- Row 1 -->
-          <tr class="assign-table-row">
-            <td class="py-3">
-              <img src="assets/img/book_1.png" alt="Book" class="assign-book-cover" />
+          <tr *ngFor="let item of assignments; let i = index">
+            <td class="border-0 py-4 px-4" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              <img [src]="item.bookCover" alt="Book" class="shadow-sm" style="width: 48px; height: 64px; border-radius: 6px; object-fit: cover;" />
             </td>
-            <td class="py-3 fw-semibold assign-book-title">Stories of the Prophets</td>
-            <td class="py-3 text-muted assign-text-muted">Read Pages 10–20</td>
-            <td class="py-3 text-muted assign-text-muted">Islamic Studies</td>
-            <td class="py-3">
-              <span class="badge  assign-badge-completed">Completed</span>
+            <td class="border-0 py-4 fw-bold" style="color: #1A1F45; font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              {{ item.bookTitle }}
             </td>
-            <td class="py-3 fw-semibold assign-score-text">16/20</td>
-            <td class="py-3 text-muted assign-text-muted">May 20, 2025</td>
-            <td class="py-3">
-              <button routerLink="/teacher/assignments/1" class="btn btn-outline-warning btn-sm assign-btn-view">View Details</button>
+            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              {{ item.requiredReading }}
             </td>
-          </tr>
-          
-          <!-- Row 2 -->
-          <tr class="assign-table-row">
-            <td class="py-3">
-              <img src="assets/img/book_2.png" alt="Book" class="assign-book-cover" />
+            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              {{ item.subject }}
             </td>
-            <td class="py-3 fw-bold assign-book-title">Fractions Worksheet</td>
-            <td class="py-3 text-muted assign-text-muted">Exercise 4A & 4B</td>
-            <td class="py-3 text-muted assign-text-muted">Mathematics</td>
-            <td class="py-3">
-              <span class="badge  assign-badge-progress">In Progress</span>
+            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              {{ item.grade }}
             </td>
-            <td class="py-3 fw-bold assign-score-text">--</td>
-            <td class="py-3 text-muted assign-text-muted">May 16, 2025</td>
-            <td class="py-3">
-              <button routerLink="/teacher/assignments/2" class="btn btn-outline-warning btn-sm assign-btn-view">View Details</button>
+            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              {{ item.dueDate }}
+            </td>
+            <td class="border-0 py-4 pe-4 text-center" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+              <button class="btn btn-outline-warning rounded-pill px-4 fw-medium text-nowrap" style="color: #F68B1F; border-color: rgba(246,139,31,0.5); font-size: 13px;" (click)="viewDetails(item.id)">
+                View Details
+              </button>
             </td>
           </tr>
-          
-          <!-- Row 3 -->
-          <tr class="assign-table-row">
-            <td class="py-3">
-              <img src="assets/img/book_3.png" alt="Book" class="assign-book-cover" />
-            </td>
-            <td class="py-3 fw-bold assign-book-title">Dua Memorization</td>
-            <td class="py-3 text-muted assign-text-muted">Surah Al-Kahf 1-20</td>
-            <td class="py-3 text-muted assign-text-muted">Islamic Studies</td>
-            <td class="py-3">
-              <span class="badge  assign-badge-overdue">Overdue</span>
-            </td>
-            <td class="py-3 fw-bold assign-score-text">--</td>
-            <td class="py-3 text-muted assign-text-muted">May 2, 2025</td>
-            <td class="py-3">
-              <button routerLink="/teacher/assignments/3" class="btn btn-outline-warning btn-sm assign-btn-view">View Details</button>
-            </td>
-          </tr>
-          
-          <!-- Row 4 -->
-          <tr class="assign-table-row">
-            <td class="py-3">
-              <img src="assets/img/book_2.png" alt="Book" class="assign-book-cover" />
-            </td>
-            <td class="py-3 fw-bold assign-book-title">Eplore Science</td>
-            <td class="py-3 text-muted assign-text-muted">Read Pages 15–22</td>
-            <td class="py-3 text-muted assign-text-muted">Science</td>
-            <td class="py-3">
-              <span class="badge  assign-badge-notstarted">Not Started</span>
-            </td>
-            <td class="py-3 fw-bold assign-score-text">--</td>
-            <td class="py-3 text-muted assign-text-muted">May 14, 2025</td>
-            <td class="py-3">
-              <button routerLink="/teacher/assignments/4" class="btn btn-outline-warning btn-sm assign-btn-view">View Details</button>
-            </td>
-          </tr>
-          
-          <!-- Row 5 -->
-          <tr>
-            <td class="py-3">
-              <img src="assets/img/book_1.png" alt="Book" class="assign-book-cover" />
-            </td>
-            <td class="py-3 fw-bold assign-book-title">Quran Reading Practice</td>
-            <td class="py-3 text-muted assign-text-muted">Surah Al-Kahf 1-20</td>
-            <td class="py-3 text-muted assign-text-muted">Islamic Studies</td>
-            <td class="py-3">
-              <span class="badge  assign-badge-completed">Completed</span>
-            </td>
-            <td class="py-3 fw-bold assign-score-text">37/50</td>
-            <td class="py-3 text-muted assign-text-muted">May 26, 2025</td>
-            <td class="py-3">
-              <button routerLink="/teacher/assignments/5" class="btn btn-outline-warning btn-sm assign-btn-view">View Details</button>
-            </td>
-          </tr>
-
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Pagination -->
-  <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
-    <button class="btn btn-link text-muted text-decoration-none assign-pagination-text">
-      <i class="fa-solid fa-chevron-left me-1 assign-pagination-icon"></i> Previous
-    </button>
+  <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 14px; margin-bottom: 24px;">
+    <span>Showing 1-10 of 145 applications</span>
     <div class="d-flex gap-2">
-      <button class="btn btn-sm assign-page-btn-active">1</button>
-      <button class="btn btn-sm btn-outline-secondary assign-page-btn">2</button>
-      <button class="btn btn-sm btn-outline-secondary assign-page-btn">3</button>
+      <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted" style="width: 32px; height: 32px;"><i class="fa-solid fa-angle-left"></i></button>
+      <button class="btn btn-sm text-white d-flex align-items-center justify-content-center border-0" style="width: 32px; height: 32px; background-color: #9C5100;">1</button>
+      <button class="btn btn-sm bg-white d-flex align-items-center justify-content-center shadow-sm border-0 text-muted" style="width: 32px; height: 32px;">2</button>
+      <button class="btn btn-sm bg-white d-flex align-items-center justify-content-center shadow-sm border-0 text-muted" style="width: 32px; height: 32px;">3</button>
+      <button class="btn btn-sm bg-white d-flex align-items-center justify-content-center shadow-sm border-0 text-muted" style="width: 32px; height: 32px;">4</button>
+      <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted" style="width: 32px; height: 32px;"><i class="fa-solid fa-angle-right"></i></button>
     </div>
-    <button class="btn btn-link text-dark text-decoration-none fw-medium assign-pagination-text">
-      Next <i class="fa-solid fa-chevron-right ms-1 assign-pagination-icon"></i>
-    </button>
   </div>
 
 </div>

@@ -6,7 +6,7 @@
 
 .cal-header-title {
   font-size: 18px;
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 600;
 }
 
@@ -53,7 +53,8 @@
 .cal-date-badge-wrapper {
   min-width: 50px;
 }
-.cal-date-badge-wrapper{
+
+.cal-date-badge-wrapper {
   width: 50px;
   height: 50px;
   border-radius: 10px;
@@ -61,8 +62,9 @@
   align-items: center;
   justify-content: center;
   background-color: #FEFCEE;
-  
+
 }
+
 .cal-date-text-orange {
   font-size: 24px;
   font-weight: 700;
@@ -70,9 +72,10 @@
   line-height: 1;
 
 }
+
 .small-calendar-grid div {
-    display: grid !important;
-    grid-template-columns: repeat(7, 1fr);
+  display: grid !important;
+  grid-template-columns: repeat(7, 1fr);
 }
 
 .cal-date-text-purple {
@@ -98,7 +101,7 @@
 
 .cal-event-title {
   font-size: 14px;
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
 .cal-event-time {
@@ -161,6 +164,7 @@
 .cal-active-grid-day {
   background-color: #FDBA74;
 }
+
 .dashboard-card {
   background-color: #fff;
   padding: 20px;
