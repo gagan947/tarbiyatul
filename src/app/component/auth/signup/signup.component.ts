@@ -131,8 +131,7 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-
-    this.router.navigate(['/login']);
+    this.router.navigate(['/parent']);
     //   this.submitted = true;
     //   this.errorMessage = null;
 

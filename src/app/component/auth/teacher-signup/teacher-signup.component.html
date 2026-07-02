@@ -1,0 +1,273 @@
+<div class="auth-wrapper">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="auth-card-container">
+
+          <div class="ct_auth_white_bg">
+            <!-- Title & Subtitle (Hidden in Success Step) -->
+            <div *ngIf="currentStep < 3" class="auth-page-header">
+              <h1 class="auth-title">Create an Account</h1>
+              <p class="auth-subtitle opacity-50">Create your teacher account by providing your personal and professional information.</p>
+            </div>
+
+            <!-- Step Progress Indicator (Hidden in Success Step) -->
+            <div *ngIf="currentStep < 3" class="step-progress-indicator">
+
+              <!-- Step 1 Circle -->
+              <div class="step-progress-item" [ngClass]="{ 'active': currentStep >= 1 }">
+                <div class="step-circle" [ngClass]="{ 'completed': currentStep > 1 }">
+                  <i *ngIf="currentStep > 1" class="fa-solid fa-check"></i>
+                  <span *ngIf="currentStep === 1">1</span>
+                </div>
+                <div class="step-label-container">
+                  <span class="step-label-title">Personal</span>
+                  <span class="step-label-sub">Information</span>
+                </div>
+              </div>
+
+              <!-- Connector Line -->
+              <div class="step-connector" [ngClass]="{ 'active': currentStep >= 2 }"></div>
+
+              <!-- Step 2 Circle -->
+              <div class="step-progress-item" [ngClass]="{ 'active': currentStep >= 2 }">
+                <div class="step-circle" [ngClass]="{ 'inactive': currentStep < 2 }">
+                  <span>2</span>
+                </div>
+                <div class="step-label-container">
+                  <span class="step-label-title">Professional</span>
+                  <span class="step-label-sub">Information</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Main Card Body -->
+            <div class="signup-card">
+
+              <!-- Form steps -->
+              <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+
+                <!-- ================== STEP 1: PERSONAL INFORMATION ================== -->
+                <div *ngIf="currentStep === 1">
+                  <h2 class="step-card-title mb-4">Personal Information</h2>
+
+                  <div class="row">
+                    <!-- First Name -->
+                    <div class="col-md-6 form-group mb-4">
+                      <label for="firstName" class="form-label">First Name</label>
+                      <input type="text" id="firstName" formControlName="firstName" class="form-control-custom"
+                        placeholder="eg. Ahmed"
+                        [ngClass]="{ 'is-invalid-custom': f['firstName'].invalid && (f['firstName'].touched || submitted) }" />
+                      <div *ngIf="f['firstName'].invalid && (f['firstName'].touched || submitted)" class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> First Name is required</span>
+                      </div>
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="col-md-6 form-group mb-4">
+                      <label for="lastName" class="form-label">Last Name</label>
+                      <input type="text" id="lastName" formControlName="lastName" class="form-control-custom"
+                        placeholder="eg. Khan"
+                        [ngClass]="{ 'is-invalid-custom': f['lastName'].invalid && (f['lastName'].touched || submitted) }" />
+                      <div *ngIf="f['lastName'].invalid && (f['lastName'].touched || submitted)" class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Last Name is required</span>
+                      </div>
+                    </div>
+
+                    <!-- Phone Number -->
+                    <div class="col-md-6 form-group mb-4">
+                      <label for="phone" class="form-label">Phone Number</label>
+                      <div class="phone-input-group">
+                        <span class="phone-prefix-badge">+966 <i class="fa-solid fa-chevron-down ms-1"></i></span>
+                        <input type="text" id="phone" formControlName="phone" class="form-control-custom phone-input"
+                          placeholder="50XXXXXXX"
+                          [ngClass]="{ 'is-invalid-custom': f['phone'].invalid && (f['phone'].touched || submitted) }" />
+                      </div>
+                      <div *ngIf="f['phone'].invalid && (f['phone'].touched || submitted)" class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Phone Number is required</span>
+                      </div>
+                    </div>
+
+                    <!-- Email Address -->
+                    <div class="col-md-6 form-group mb-4">
+                      <label for="email" class="form-label">Email Address</label>
+                      <input type="email" id="email" formControlName="email" class="form-control-custom"
+                        placeholder="eg. ahmed.khan@email.com"
+                        [ngClass]="{ 'is-invalid-custom': f['email'].invalid && (f['email'].touched || submitted) }" />
+                      <div *ngIf="f['email'].invalid && (f['email'].touched || submitted)" class="error-msg">
+                        <span *ngIf="f['email'].errors?.['required']">
+                          <i class="fa-solid fa-circle-info me-1"></i> Email address is required
+                        </span>
+                        <span *ngIf="f['email'].errors?.['email']">
+                          <i class="fa-solid fa-circle-info me-1"></i> Please enter a valid email address
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Date of Birth -->
+                    <div class="col-md-6 form-group mb-4">
+                      <label for="dob" class="form-label">Date of Birth</label>
+                      <input type="date" id="dob" formControlName="dob" class="form-control-custom date-input"
+                        [ngClass]="{ 'is-invalid-custom': f['dob'].invalid && (f['dob'].touched || submitted) }" />
+                      <div *ngIf="f['dob'].invalid && (f['dob'].touched || submitted)" class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Date of Birth is required</span>
+                      </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="col-md-6 form-group mb-4">
+                      <label for="gender" class="form-label">Gender</label>
+                      <div class="select-container">
+                        <select id="gender" formControlName="gender" class="form-control-custom select-custom">
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                        </select>
+                        <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                      </div>
+                      <div *ngIf="f['gender'].invalid && (f['gender'].touched || submitted)" class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Gender is required</span>
+                      </div>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-md-12 form-group mb-4">
+                      <label for="password" class="form-label">Password</label>
+                      <div class="input-container">
+                        <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                          class="form-control-custom" placeholder="••••••••"
+                          [ngClass]="{ 'is-invalid-custom': f['password'].invalid && (f['password'].touched || submitted) }" />
+                        <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()"
+                          aria-label="Toggle password visibility">
+                          <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                        </button>
+                      </div>
+                      <div *ngIf="f['password'].invalid && (f['password'].touched || submitted)" class="error-msg">
+                        <span *ngIf="f['password'].errors?.['required']">
+                          <i class="fa-solid fa-circle-info me-1"></i> Password is required
+                        </span>
+                        <span *ngIf="f['password'].errors?.['minlength']">
+                          <i class="fa-solid fa-circle-info me-1"></i> Password must be at least 6 characters
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Step 1 Footer Action -->
+                  <div class="d-flex justify-content-end mt-4">
+                    <button type="button" class="action-btn next-btn" (click)="nextStep()">
+                      Next <i class="fa-solid fa-chevron-right ms-2"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- ================== STEP 2: PROFESSIONAL INFORMATION ================== -->
+                <div *ngIf="currentStep === 2">
+                  <h2 class="step-card-title mb-4">Professional Information</h2>
+
+                  <div class="row">
+                    <!-- Qualification -->
+                    <div class="col-md-12 form-group mb-4">
+                      <label for="qualification" class="form-label">Qualification</label>
+                      <input type="text" id="qualification" formControlName="qualification" class="form-control-custom"
+                        placeholder="eg. M.Ed in Education"
+                        [ngClass]="{ 'is-invalid-custom': f['qualification'].invalid && (f['qualification'].touched || submitted) }" />
+                      <div *ngIf="f['qualification'].invalid && (f['qualification'].touched || submitted)" class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Qualification is required</span>
+                      </div>
+                    </div>
+
+                    <!-- Teaching Experience -->
+                    <div class="col-md-6 form-group mb-4">
+                      <label for="experience" class="form-label">Teaching Experience</label>
+                      <input type="text" id="experience" formControlName="experience" class="form-control-custom"
+                        placeholder="eg. 5 years"
+                        [ngClass]="{ 'is-invalid-custom': f['experience'].invalid && (f['experience'].touched || submitted) }" />
+                      <div *ngIf="f['experience'].invalid && (f['experience'].touched || submitted)" class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Teaching Experience is required</span>
+                      </div>
+                    </div>
+
+                    <!-- Applying for Grade -->
+                    <div class="col-md-6 form-group mb-4">
+                      <label for="applyingGrade" class="form-label">Applying for Grade</label>
+                      <input type="text" id="applyingGrade" formControlName="applyingGrade" class="form-control-custom"
+                        placeholder="eg. 1st grade"
+                        [ngClass]="{ 'is-invalid-custom': f['applyingGrade'].invalid && (f['applyingGrade'].touched || submitted) }" />
+                      <div *ngIf="f['applyingGrade'].invalid && (f['applyingGrade'].touched || submitted)" class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Applying for Grade is required</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Alert error messages -->
+                  <div *ngIf="errorMessage" class="alert alert-danger custom-alert mb-4">
+                    <i class="fa-solid fa-circle-exclamation me-2"></i> {{ errorMessage }}
+                  </div>
+
+                  <!-- Step 2 Footer Actions -->
+                  <div class="d-flex justify-content-between align-items-center mt-4">
+                    <button type="button" class="action-btn back-btn" (click)="prevStep()">
+                      <i class="fa-solid fa-chevron-left me-2"></i> Back
+                    </button>
+                    <button type="submit" class="auth-btn-primary" style="width: auto; padding: 0 35px;">
+                      <span *ngIf="!isLoading">Submit Application</span>
+                      <span *ngIf="isLoading" class="spinner-container">
+                        <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                        Submitting...
+                      </span>
+                    </button>
+                  </div>
+                  <p class="review-hint-text text-center mt-4" style="font-size: 13px; color: #8A8A8D;">
+                    After submission, your application will be reviewed.
+                  </p>
+                </div>
+
+              </form>
+
+              <!-- ================== STEP 3: SUCCESS VIEW ================== -->
+              <div *ngIf="currentStep === 3" class="success-screen-container text-center py-4">
+
+                <!-- Checkmark Circle -->
+                <div class="success-check-icon mb-4">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+
+                <h2 class="success-title mb-2">Application Submitted Successfully</h2>
+                <p class="success-subtitle mb-4">Your application has been received and is currently under review.</p>
+
+                <!-- Highlight peach card -->
+                <div class="success-details-card">
+                  <p class="success-details-text mb-3">
+                    Once approved, login credentials will be sent to your registered email address. Approval may take
+                    1–2 business days.
+                  </p>
+                  <div class="success-confirmation-badge">
+                    <i class="fa-regular fa-envelope me-2"></i> Confirmation sent to: {{ signupForm.value.email }}
+                  </div>
+                </div>
+
+                <div class="mt-5 text-center">
+                  <a routerLink="/login" class="auth-btn-primary d-inline-flex align-items-center justify-content-center text-decoration-none" style="max-width: 240px; margin: 0 auto;">
+                    Go to Login
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Sign In Redirection (Hidden on Success Step) -->
+          <div *ngIf="currentStep < 3" class="auth-footer mt-4 text-center">
+            Already have an account? <a routerLink="/login" class="auth-link">Log In</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
