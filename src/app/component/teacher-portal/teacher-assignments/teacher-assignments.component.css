@@ -154,3 +154,17 @@
   width: 32px;
   height: 32px;
 }
+
+.view-det-btn{
+color: #FC800A; 
+border-color: #FC800A;
+ font-size: 14px;
+  border-radius: 9px;
+   padding: 8px 14px;
+  transition: 0.4 ease all;
+}
+
+.view-det-btn:hover {
+    background-color: #FC800A;
+    color: white;
+}

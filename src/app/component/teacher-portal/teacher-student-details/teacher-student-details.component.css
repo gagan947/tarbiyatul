@@ -80,3 +80,15 @@
   border-radius: 6px;
   border: 1px solid #6F767E;
 }
+
+
+.ct_text_para{
+  color: #6F767E;
+}
+
+.ct_custom_badge_status{
+  padding: 8px 18px;
+  font-weight: 600;
+  font-size: 12px;
+  border-radius:99px;
+}

@@ -1,37 +1,38 @@
 <div class="ct_px_28 profile-container pb-5 pt-3">
   
   <div class="d-flex align-items-center mb-4 pt-2">
-    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2 fw-semibold" style="color: #F68B1F;" (click)="goBack()">
+    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2 ct_fw_400 ct_fs_16" style="color: #FC800A;" (click)="goBack()">
       <i class="fa-solid fa-angle-left"></i> Create Assignment
     </button>
   </div>
 
-  <div class="dashboard-card dash-card-shadow p-4 p-md-5" style="border-radius: 16px;">
+  <div class="dashboard-card dash-card-shadow p-4 p-md-5 bg-white" style="border-radius: 16px; box-shadow: 0px 1px 10px 0px #061F611F;
+">
     
     <div class="row g-4 mb-4">
       <div class="col-12">
-        <label class="form-label fw-medium text-dark" style="font-size: 14px;">Assignment Title</label>
-        <input type="text" class="form-control py-2 px-3" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
+        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Assignment Title</label>
+        <input type="text" class="form-control ct_input" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
       </div>
 
       <div class="col-12">
-        <label class="form-label fw-medium text-dark" style="font-size: 14px;">Book Title</label>
-        <input type="text" class="form-control py-2 px-3" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
+        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Book Title</label>
+        <input type="text" class="form-control ct_input" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
       </div>
 
       <div class="col-12">
-        <label class="form-label fw-medium text-dark" style="font-size: 14px;">Required reading</label>
-        <input type="text" class="form-control py-2 px-3" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
+        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Required reading</label>
+        <input type="text" class="form-control ct_input" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
       </div>
 
       <div class="col-md-4">
-        <label class="form-label fw-medium text-dark" style="font-size: 14px;">Subject</label>
-        <input type="text" class="form-control py-2 px-3" placeholder="--:-- --" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
+        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Subject</label>
+        <input type="text" class="form-control ct_input" placeholder="--:-- --" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
       </div>
 
       <div class="col-md-4">
-        <label class="form-label fw-medium text-dark" style="font-size: 14px;">Target Grade</label>
-        <select class="form-select py-2 px-3 text-muted" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
+        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Target Grade</label>
+        <select class="form-select ct_input text-muted" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
           <option selected disabled>Select Grade</option>
           <option value="1">Grade 1</option>
           <option value="2">Grade 2</option>
@@ -41,33 +42,33 @@
       </div>
 
       <div class="col-md-4">
-        <label class="form-label fw-medium text-dark" style="font-size: 14px;">Due Date</label>
-        <input type="date" class="form-control py-2 px-3 text-muted" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
+        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Due Date</label>
+        <input type="date" class="form-control ct_input text-muted" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
       </div>
 
       <div class="col-12">
-        <label class="form-label fw-medium text-dark" style="font-size: 14px;">Reading Instructions</label>
-        <textarea class="form-control py-3 px-3" rows="5" placeholder="Provide detailed Reading Instructions" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"></textarea>
+        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Reading Instructions</label>
+        <textarea class="form-control ct_input ct_input_textarea" rows="5" placeholder="Provide detailed Reading Instructions" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"></textarea>
       </div>
 
       <div class="col-12 pt-2">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <label class="form-label fw-medium text-dark mb-0" style="font-size: 14px;">Enable Islamic Content Alert</label>
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2 m4px;">Enable Islamic Content Alert</label>
           <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="islamicAlert" checked style="height: 24px; width: 48px; background-color: #F68B1F; border-color: #F68B1F; cursor: pointer;">
+            <input class="form-check-input" type="checkbox" role="switch" id="islamicAlert" checked >
           </div>
         </div>
-        <textarea class="form-control py-3 px-3" rows="3" placeholder="Alert Description" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"></textarea>
+        <textarea class="form-control ct_input ct_input_textarea" rows="3" placeholder="Alert Description" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"></textarea>
       </div>
     </div>
     
   </div>
 
-  <div class="d-flex justify-content-end gap-3 mt-4">
-    <button class="portal-btn text-warning px-4 fw-medium" style="background-color: transparent; border: 1px solid #F68B1F; border-radius: 8px; color: #F68B1F !important;" (click)="goBack()">
+  <div class="d-flex justify-content-end gap-3 mt-5">
+    <button class="portal-btn  text-warning px-4 fw-medium" style="background-color: transparent; border: 1px solid #FC800A; border-radius: 8px; color: #FC800A !important;" (click)="goBack()">
       Cancel
     </button>
-    <button class="portal-btn text-white px-4 fw-medium" style="background-color: #F68B1F; border: none; border-radius: 8px;" (click)="goBack()">
+    <button class="portal-btn ct_gradient_btn  px-4 " style="border-radius: 8px;" (click)="goBack()">
       Create Assignment
     </button>
   </div>

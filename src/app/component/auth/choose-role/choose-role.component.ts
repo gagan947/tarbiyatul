@@ -21,6 +21,10 @@ export class ChooseRoleComponent implements OnInit {
   }
 
   onContinue(): void {
-    this.router.navigate(['/signup']);
+    if (this.selectedRole === 'teacher') {
+      this.router.navigate(['/teacher-signup']);
+    } else {
+      this.router.navigate(['/signup']);
+    }
   }
 }

@@ -33,7 +33,7 @@
 }
 
 .cal-active-day-circle {
-    background-color: #F68B1F;
+    background-color: #FF9228;
     color: white;
     width: 24px;
     height: 24px;
@@ -67,8 +67,8 @@
 
 .cal-date-text-orange {
     font-size: 24px;
-    font-weight: 700;
-    color: #F68B1F;
+    font-weight: 600;
+    color: #FF9228;
     line-height: 1;
 
 }
@@ -80,21 +80,21 @@
 
 .cal-date-text-purple {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
     color: #A855F7;
     line-height: 1;
 }
 
 .cal-date-text-green {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
     color: #10B981;
     line-height: 1;
 }
 
 .cal-date-text-blue {
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 600;
     color: #3B82F6;
     line-height: 1;
 }

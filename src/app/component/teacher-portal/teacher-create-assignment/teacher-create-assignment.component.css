@@ -1,0 +1,50 @@
+.ct_form_label{
+    color: #6F767E;
+    text-transform: capitalize;
+    
+
+}
+
+.ct_input_textarea{
+    resize: vertical;
+}
+
+.form-switch .form-check-input:focus{
+    box-shadow: none;
+
+}
+
+
+/* .form-switch .form-check-input{
+    height: 24px; 
+    width: 48px;
+     background-color: #fff; 
+     border-color: #F68B1F;
+      cursor: pointer;
+    }
+
+    .form-switch .form-check-input:checked{
+        background-color: #fff; 
+        border-color: #F68B1F;
+    } */
+
+
+
+ .form-switch .form-check-input:checked {
+  background-color: #F68B1F !important;
+  border-color: #F68B1F !important;
+}
+
+.form-switch .form-check-input:focus {
+  box-shadow: unset;
+}
+
+.form-switch.form-switch .form-check-input:focus {
+  background-image: url("../../../../assets/img/circle_dot.png");
+  border-color: #F68B1F;
+}
+
+.form-switch .form-check-input {
+ height: 24px; 
+    width: 48px;
+}

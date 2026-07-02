@@ -10,38 +10,39 @@
     <!-- Student Information Card -->
     <div class="col-xl-7 col-lg-6">
       <div class="dashboard-card h-100 dash-card-shadow p-4" style="border-radius: 16px;">
-        <h4 class="mb-3 fw-semibold dash-section-title" style="font-size: 18px; color: #1A1F45;">Student Information</h4>
-        <hr class="mt-0 mb-4" style="opacity: 0.1;">
+       
         
-        <div class="row align-items-center">
-          <div class="col-md-4 mb-4 mb-md-0 d-flex justify-content-center justify-content-md-start">
+        <div class="d-lg-flex gap-4">
+          <div class="">
             <img [src]="student.avatar" alt="Avatar" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover;" />
           </div>
-          <div class="col-md-8">
+          <div class="">
+             <h4 class="mb-3 ct_fs_18 ct_fw_600 dash-section-title ct_ff_inter"  >Student Information</h4>
+        <hr class="mt-0 mb-4" style="border-color: #E0C0AF;">
             <div class="row g-4">
               <div class="col-sm-6">
-                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">FIRST NAME</span>
-                <span class="fw-semibold" style="color: #1A1F45;">{{ student.firstName }}</span>
+                <span class="text-uppercase text-muted ct_fw_600 ct_fs_12 d-block mb-0" style="color: #6F767E;">FIRST NAME</span>
+                <span class="ct_fw_500 ct_fs_16" style="color: #293D54;">{{ student.firstName }}</span>
               </div>
               <div class="col-sm-6">
-                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">LAST NAME</span>
-                <span class="fw-semibold" style="color: #1A1F45;">{{ student.lastName }}</span>
+                <span class="text-uppercase text-muted ct_fw_600 ct_fs_12 d-block mb-0" style="color: #6F767E;">LAST NAME</span>
+                <span class="ct_fw_500 ct_fs_16" style="color: #293D54;">{{ student.lastName }}</span>
               </div>
               <div class="col-sm-6">
-                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">ROLL NUMBER</span>
-                <span class="fw-semibold" style="color: #1A1F45;">{{ student.rollNumber }}</span>
+                <span class="text-uppercase text-muted ct_fw_600 ct_fs_12 d-block mb-0" style="color: #6F767E;">ROLL NUMBER</span>
+                <span class="ct_fw_500 ct_fs_16" style="color: #293D54;">{{ student.rollNumber }}</span>
               </div>
               <div class="col-sm-6">
-                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">GRADE</span>
-                <span class="fw-semibold" style="color: #1A1F45;">{{ student.grade }}</span>
+                <span class="text-uppercase text-muted ct_fw_600 ct_fs_12 d-block mb-0" style="color: #6F767E;">GRADE</span>
+                <span class="ct_fw_500 ct_fs_16" style="color: #293D54;">{{ student.grade }}</span>
               </div>
               <div class="col-sm-6">
-                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">DATE OF BIRTH</span>
-                <span class="fw-semibold" style="color: #1A1F45;">{{ student.dateOfBirth }}</span>
+                <span class="text-uppercase text-muted ct_fw_600 ct_fs_12 d-block mb-0" style="color: #6F767E;">DATE OF BIRTH</span>
+                <span class="ct_fw_500 ct_fs_16" style="color: #293D54;">{{ student.dateOfBirth }}</span>
               </div>
               <div class="col-sm-6">
-                <span class="text-uppercase text-muted fw-semibold d-block mb-1" style="font-size: 11px;">GENDER</span>
-                <span class="fw-semibold" style="color: #1A1F45;">{{ student.gender }}</span>
+                <span class="text-uppercase  ct_fw_600 ct_fs_12 d-block mb-1" style="color: #6F767E;">GENDER</span>
+                <span class="ct_fw_500 ct_fs_16" style="color: #293D54;">{{ student.gender }}</span>
               </div>
             </div>
           </div>
@@ -52,29 +53,38 @@
     <!-- Parent Information Card -->
     <div class="col-xl-5 col-lg-6">
       <div class="dashboard-card h-100 dash-card-shadow p-4" style="border-radius: 16px;">
-        <h4 class="mb-3 fw-semibold dash-section-title" style="font-size: 18px; color: #1A1F45;">Parent Information</h4>
-        <hr class="mt-0 mb-4" style="opacity: 0.1;">
+       <h4 class="mb-3 ct_fs_18 ct_fw_600 dash-section-title ct_ff_inter"  >Parent Information</h4>
+         <hr class="mt-0 mb-4" style="border-color: #E0C0AF;">
         
         <div class="d-flex flex-column gap-4">
           <div>
-            <span class="text-uppercase text-muted fw-semibold d-block mb-2" style="font-size: 11px;">PARENT NAME</span>
+            <span class="text-uppercase text-muted ct_fw_600 ct_fs_12 d-block mb-2" style="font-size: 11px;">PARENT NAME</span>
             <div class="d-flex align-items-center gap-2">
-              <i class="fa-regular fa-user text-muted"></i>
-              <span class="fw-semibold" style="color: #1A1F45;">{{ student.parentName }}</span>
+             <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6 6C5.175 6 4.46875 5.70625 3.88125 5.11875C3.29375 4.53125 3 3.825 3 3C3 2.175 3.29375 1.46875 3.88125 0.88125C4.46875 0.29375 5.175 0 6 0C6.825 0 7.53125 0.29375 8.11875 0.88125C8.70625 1.46875 9 2.175 9 3C9 3.825 8.70625 4.53125 8.11875 5.11875C7.53125 5.70625 6.825 6 6 6ZM0 12V9.9C0 9.475 0.109375 9.08437 0.328125 8.72812C0.546875 8.37187 0.8375 8.1 1.2 7.9125C1.975 7.525 2.7625 7.23438 3.5625 7.04063C4.3625 6.84688 5.175 6.75 6 6.75C6.825 6.75 7.6375 6.84688 8.4375 7.04063C9.2375 7.23438 10.025 7.525 10.8 7.9125C11.1625 8.1 11.4531 8.37187 11.6719 8.72812C11.8906 9.08437 12 9.475 12 9.9V12H0ZM1.5 10.5H10.5V9.9C10.5 9.7625 10.4656 9.6375 10.3969 9.525C10.3281 9.4125 10.2375 9.325 10.125 9.2625C9.45 8.925 8.76875 8.67188 8.08125 8.50313C7.39375 8.33438 6.7 8.25 6 8.25C5.3 8.25 4.60625 8.33438 3.91875 8.50313C3.23125 8.67188 2.55 8.925 1.875 9.2625C1.7625 9.325 1.67188 9.4125 1.60312 9.525C1.53437 9.6375 1.5 9.7625 1.5 9.9V10.5ZM6 4.5C6.4125 4.5 6.76562 4.35312 7.05937 4.05937C7.35312 3.76562 7.5 3.4125 7.5 3C7.5 2.5875 7.35312 2.23438 7.05937 1.94062C6.76562 1.64687 6.4125 1.5 6 1.5C5.5875 1.5 5.23438 1.64687 4.94063 1.94062C4.64688 2.23438 4.5 2.5875 4.5 3C4.5 3.4125 4.64688 3.76562 4.94063 4.05937C5.23438 4.35312 5.5875 4.5 6 4.5Z" fill="#293D54"/>
+</svg>
+
+              <span class="ct_fs_16 ct_fw_500" style="color: #293D54;">{{ student.parentName }}</span>
             </div>
           </div>
           <div>
-            <span class="text-uppercase text-muted fw-semibold d-block mb-2" style="font-size: 11px;">EMAIL ADDRESS</span>
+            <span class="text-uppercase text-muted ct_fw_600 ct_fs_12 d-block mb-2" style="font-size: 11px;">EMAIL ADDRESS</span>
             <div class="d-flex align-items-center gap-2">
-              <i class="fa-regular fa-envelope text-muted"></i>
-              <span class="fw-semibold" style="color: #1A1F45;">{{ student.parentEmail }}</span>
+             <svg width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M1.5 12C1.0875 12 0.734375 11.8531 0.440625 11.5594C0.146875 11.2656 0 10.9125 0 10.5V1.5C0 1.0875 0.146875 0.734375 0.440625 0.440625C0.734375 0.146875 1.0875 0 1.5 0H13.5C13.9125 0 14.2656 0.146875 14.5594 0.440625C14.8531 0.734375 15 1.0875 15 1.5V10.5C15 10.9125 14.8531 11.2656 14.5594 11.5594C14.2656 11.8531 13.9125 12 13.5 12H1.5ZM7.5 6.75L1.5 3V10.5H13.5V3L7.5 6.75ZM7.5 5.25L13.5 1.5H1.5L7.5 5.25ZM1.5 3V1.5V3V10.5V3Z" fill="#293D54"/>
+</svg>
+
+              <span class="ct_fs_16 ct_fw_500" style="color: #293D54;">{{ student.parentEmail }}</span>
             </div>
           </div>
           <div>
             <span class="text-uppercase text-muted fw-semibold d-block mb-2" style="font-size: 11px;">PHONE NUMBER</span>
             <div class="d-flex align-items-center gap-2">
-              <i class="fa-solid fa-phone text-muted" style="font-size: 13px;"></i>
-              <span class="fw-semibold" style="color: #1A1F45;">{{ student.parentPhone }}</span>
+             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.7125 13.5C11.15 13.5 9.60625 13.1594 8.08125 12.4781C6.55625 11.7969 5.16875 10.8313 3.91875 9.58125C2.66875 8.33125 1.70312 6.94375 1.02188 5.41875C0.340625 3.89375 0 2.35 0 0.7875C0 0.5625 0.075 0.375 0.225 0.225C0.375 0.075 0.5625 0 0.7875 0H3.825C4 0 4.15625 0.059375 4.29375 0.178125C4.43125 0.296875 4.5125 0.4375 4.5375 0.6L5.025 3.225C5.05 3.425 5.04375 3.59375 5.00625 3.73125C4.96875 3.86875 4.9 3.9875 4.8 4.0875L2.98125 5.925C3.23125 6.3875 3.52813 6.83437 3.87188 7.26562C4.21562 7.69688 4.59375 8.1125 5.00625 8.5125C5.39375 8.9 5.8 9.25937 6.225 9.59062C6.65 9.92188 7.1 10.225 7.575 10.5L9.3375 8.7375C9.45 8.625 9.59688 8.54062 9.77812 8.48438C9.95937 8.42813 10.1375 8.4125 10.3125 8.4375L12.9 8.9625C13.075 9.0125 13.2188 9.10312 13.3313 9.23438C13.4438 9.36563 13.5 9.5125 13.5 9.675V12.7125C13.5 12.9375 13.425 13.125 13.275 13.275C13.125 13.425 12.9375 13.5 12.7125 13.5ZM2.26875 4.5L3.50625 3.2625L3.1875 1.5H1.51875C1.58125 2.0125 1.66875 2.51875 1.78125 3.01875C1.89375 3.51875 2.05625 4.0125 2.26875 4.5ZM8.98125 11.2125C9.46875 11.425 9.96562 11.5938 10.4719 11.7188C10.9781 11.8438 11.4875 11.925 12 11.9625V10.3125L10.2375 9.95625L8.98125 11.2125Z" fill="#293D54"/>
+</svg>
+
+              <span class="ct_fs_16 ct_fw_500" style="color: #293D54;">{{ student.parentPhone }}</span>
             </div>
           </div>
         </div>
@@ -83,38 +93,35 @@
   </div>
 
   <div class="dashboard-card dash-card-shadow p-4" style="border-radius: 16px;">
-    <h4 class="mb-4 fw-semibold dash-section-title" style="font-size: 18px; color: #1A1F45;">Assignment Records</h4>
+   <h4 class="mb-3 ct_fs_18 ct_fw_600 dash-section-title ct_ff_inter"  >Assignment Records</h4>
     
     <div class="table-responsive">
       <table class="table align-middle dash-table mb-0">
         <thead>
           <tr>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">ASSIGNMENT TITLE</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">SUBJECT</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">SCORE</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">STATUS</th>
+            <th class="text-uppercase ct_text_para border-0 ct_fs_14 ct_fw_600 pb-3 dash-table-th" style=" border-bottom: 1px solid #E0C0AF !important;">ASSIGNMENT TITLE</th>
+            <th class="text-uppercase ct_text_para border-0 ct_fs_14 ct_fw_600 pb-3 dash-table-th" style=" border-bottom: 1px solid #E0C0AF !important;">SUBJECT</th>
+            <th class="text-uppercase ct_text_para border-0 ct_fs_14 ct_fw_600 pb-3 dash-table-th text-center" style=" border-bottom: 1px solid #E0C0AF !important;">SCORE</th>
+            <th class="text-uppercase ct_text_para border-0 ct_fs_14 ct_fw_600 pb-3 dash-table-th text-center" style=" border-bottom: 1px solid #E0C0AF !important;">STATUS</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of history; let i = index">
-            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+            <td class="border-0 py-4 ct_text_para ct_fs_16"  [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
               {{ item.title }}
             </td>
-            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+            <td class="border-0 py-4 ct_text_para ct_fs_16"  [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
               {{ item.subject }}
             </td>
-            <td class="border-0 py-4 text-center text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+            <td class="border-0 py-4 text-center ct_text_para ct_fs_16"  [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
               {{ item.score }}
             </td>
-            <td class="border-0 py-4 text-center" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              <span class="badge rounded-pill" 
+            <td class="border-0 py-4 text-center" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
+              <span class="ct_custom_badge_status" 
                     [ngStyle]="{
-                      'background-color': item.status === 'REVIEWED' ? '#EEF8FA' : item.status === 'PENDING' ? '#FFF2E5' : '#EEFBE5',
-                      'color': item.status === 'REVIEWED' ? '#3B82F6' : item.status === 'PENDING' ? '#F68B1F' : '#15803D',
-                      'padding': '6px 12px',
-                      'font-size': '10px',
-                      'font-weight': '700',
-                      'letter-spacing': '0.5px'
+                      'background-color': item.status === 'REVIEWED' ? '#0267EB1A' : item.status === 'PENDING' ? '#FF7A001A' : '#00B5361A',
+                      'color': item.status === 'REVIEWED' ? '#0267EB' : item.status === 'PENDING' ? '#FF7A00' : '#00B536',
+                     
                     }">
                 {{ item.status }}
               </span>
