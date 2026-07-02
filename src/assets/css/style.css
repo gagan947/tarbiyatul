@@ -1033,6 +1033,10 @@ select:-webkit-autofill:focus {
     right: 15px;
     width: 18px !important;
 }
+
+.ct_pe_40{
+    padding-right: 40px;
+}
 .ct_error{
     color: #ff0000;
     margin-top: 2px;

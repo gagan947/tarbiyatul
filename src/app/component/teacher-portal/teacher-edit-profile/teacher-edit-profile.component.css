@@ -1,0 +1,27 @@
+.ct_p_32{
+    padding: 32px;
+}
+
+.ct_form_label{
+    color: #6F767E;
+    text-transform: capitalize;
+
+}
+
+.ct_custom_input {
+    height: 48px;
+    border-radius: 8px;
+  border: 1px solid #6B728033;
+    background-color: #fff;
+   color: #6F767E;
+    font-size: 14px;
+}
+.ct_custom_input:focus{
+    border-color: #FC800A;
+    box-shadow: none;
+}
+
+.ct_custom_input:disabled{
+    background: #EDEDED;
+border: 1px solid #6B728033;
+}
