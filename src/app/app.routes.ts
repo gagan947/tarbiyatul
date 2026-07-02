@@ -74,6 +74,8 @@ export const routes: Routes = [
       { path: 'students/:id', loadComponent: () => import('./component/teacher-portal/teacher-student-details/teacher-student-details.component').then(m => m.TeacherStudentDetailsComponent) },
       { path: 'message-teacher', loadComponent: () => import('./component/teacher-portal/teacher-messages/teacher-messages.component').then(m => m.TeacherMessagesComponent) },
       { path: 'calendar', loadComponent: () => import('./component/teacher-portal/teacher-calendar/teacher-calendar.component').then(m => m.TeacherCalendarComponent) },
+      { path: 'edit-profile', loadComponent: () => import('./component/teacher-portal/teacher-edit-profile/teacher-edit-profile.component').then(m => m.TeacherEditProfileComponent) },
+      { path: 'change-password', loadComponent: () => import('./component/teacher-portal/teacher-change-password/teacher-change-password.component').then(m => m.TeacherChangePasswordComponent) }
     ]
   }
 ];
