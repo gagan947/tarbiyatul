@@ -37,6 +37,13 @@ export class AppComponent implements OnInit {
         this.isParentPortal = url.startsWith('/parent');
         this.isTeacherPortal = url.startsWith('/teacher');
         this.loadExternalScript();
+
+        // Scroll to top on page change
+        window.scrollTo(0, 0);
+        const portalMains = document.querySelectorAll('.portal-main');
+        portalMains.forEach(el => {
+          el.scrollTop = 0;
+        });
       }
     });
   }
