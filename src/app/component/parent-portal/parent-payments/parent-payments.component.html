@@ -54,10 +54,22 @@
   <!-- Filter Tabs and Year Select -->
   <div class="dashboard-card bg-white p-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3 pay-filter-card">
     <div class="d-flex gap-3 flex-wrap px-2">
-      <a href="javascript:void(0)" class="text-decoration-none fw-semibold pb-2 px-sm-4 px-2 pay-tab-link-active">All</a>
-      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2 px-sm-4 px-2 pay-tab-link">Paid</a>
-      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2 px-sm-4 px-2 pay-tab-link">Pending</a>
-      <a href="javascript:void(0)" class="text-decoration-none text-muted fw-medium pb-2 px-sm-4 px-2 pay-tab-link">Overdue</a>
+      <a href="javascript:void(0)" 
+         (click)="setFilter('All')"
+         [ngClass]="selectedFilter === 'All' ? 'pay-tab-link-active' : 'pay-tab-link text-muted'"
+         class="text-decoration-none fw-semibold pb-2 px-sm-4 px-2">All</a>
+      <a href="javascript:void(0)" 
+         (click)="setFilter('Paid')"
+         [ngClass]="selectedFilter === 'Paid' ? 'pay-tab-link-active' : 'pay-tab-link text-muted'"
+         class="text-decoration-none fw-semibold pb-2 px-sm-4 px-2">Paid</a>
+      <a href="javascript:void(0)" 
+         (click)="setFilter('Pending')"
+         [ngClass]="selectedFilter === 'Pending' ? 'pay-tab-link-active' : 'pay-tab-link text-muted'"
+         class="text-decoration-none fw-semibold pb-2 px-sm-4 px-2">Pending</a>
+      <a href="javascript:void(0)" 
+         (click)="setFilter('Overdue')"
+         [ngClass]="selectedFilter === 'Overdue' ? 'pay-tab-link-active' : 'pay-tab-link text-muted'"
+         class="text-decoration-none fw-semibold pb-2 px-sm-4 px-2">Overdue</a>
     </div>
     
     <div>
@@ -85,81 +97,25 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Row 1 -->
-          <tr class="pay-table-row">
-            <td class="py-4 fw-semibold pay-td-text">May 2025</td>
-            <td class="py-4 text-muted pay-td-text">⃁300</td>
-            <td class="py-4 text-muted pay-td-text">⃁50</td>
-            <td class="py-4 text-muted pay-td-text">⃁350</td>
+          <tr *ngFor="let payment of filteredPayments()" class="pay-table-row">
+            <td class="py-4 fw-semibold pay-td-text">{{ payment.month }}</td>
+            <td class="py-4 text-muted pay-td-text">⃁{{ payment.tuitionFee }}</td>
+            <td class="py-4 text-muted pay-td-text">⃁{{ payment.bookFee }}</td>
+            <td class="py-4 text-muted pay-td-text">⃁{{ payment.total }}</td>
             <td class="py-4">
-              <span class="badge  pay-badge-pending">Pending</span>
+              <span class="badge" 
+                    [ngClass]="{
+                      'pay-badge-pending': payment.status === 'Pending',
+                      'pay-badge-overdue': payment.status === 'Overdue',
+                      'pay-badge-paid': payment.status === 'Paid'
+                    }">{{ payment.status }}</span>
             </td>
-            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
+            <td class="py-4 text-muted pay-td-text">{{ payment.dueDate }}</td>
             <td class="py-4">
-              <button class="btn btn-sm text-white pay-btn-paynow">Pay Now</button>
-            </td>
-          </tr>
-          
-          <!-- Row 2 -->
-          <tr class="pay-table-row">
-            <td class="py-4 fw-semibold pay-td-text">April 2025</td>
-            <td class="py-4 text-muted pay-td-text">⃁300</td>
-            <td class="py-4 text-muted pay-td-text">⃁50</td>
-            <td class="py-4 text-muted pay-td-text">⃁350</td>
-            <td class="py-4">
-              <span class="badge  pay-badge-overdue">Overdue</span>
-            </td>
-            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
-            <td class="py-4">
-              <button class="btn btn-sm text-white pay-btn-paynow">Pay Now</button>
+              <button *ngIf="payment.status !== 'Paid'" class="btn btn-sm text-white pay-btn-paynow">Pay Now</button>
+              <button *ngIf="payment.status === 'Paid'" class="btn btn-outline-warning btn-sm pay-btn-receipt">Download Receipt</button>
             </td>
           </tr>
-          
-          <!-- Row 3 -->
-          <tr class="pay-table-row">
-            <td class="py-4 fw-semibold pay-td-text">Mar 2025</td>
-            <td class="py-4 text-muted pay-td-text">⃁300</td>
-            <td class="py-4 text-muted pay-td-text">⃁50</td>
-            <td class="py-4 text-muted pay-td-text">⃁350</td>
-            <td class="py-4">
-              <span class="badge  pay-badge-paid">Paid</span>
-            </td>
-            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
-            <td class="py-4">
-              <button class="btn btn-outline-warning btn-sm pay-btn-receipt">Download Receipt</button>
-            </td>
-          </tr>
-          
-          <!-- Row 4 -->
-          <tr class="pay-table-row">
-            <td class="py-4 fw-semibold pay-td-text">Feb 2025</td>
-            <td class="py-4 text-muted pay-td-text">⃁300</td>
-            <td class="py-4 text-muted pay-td-text">⃁50</td>
-            <td class="py-4 text-muted pay-td-text">⃁350</td>
-            <td class="py-4">
-              <span class="badge  pay-badge-paid">Paid</span>
-            </td>
-            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
-            <td class="py-4">
-              <button class="btn btn-outline-warning btn-sm pay-btn-receipt">Download Receipt</button>
-            </td>
-          </tr>
-          
-          <!-- Row 5 -->
-          <tr>
-            <td class="py-4 fw-semibold pay-td-text">Jan 2025</td>
-            <td class="py-4 text-muted pay-td-text">⃁300</td>
-            <td class="py-4 text-muted pay-td-text">⃁50</td>
-            <td class="py-4 text-muted pay-td-text">⃁350</td>
-            <td class="py-4">
-              <span class="badge  pay-badge-paid">Paid</span>
-            </td>
-            <td class="py-4 text-muted pay-td-text">May 20, 2025</td>
-            <td class="py-4">
-              <button class="btn btn-outline-warning btn-sm pay-btn-receipt">Download Receipt</button>
-            </td>
-          </tr>
-
         </tbody>
       </table>
     </div>
