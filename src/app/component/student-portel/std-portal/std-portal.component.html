@@ -1,4 +1,5 @@
-<div class="portal-container" [class.portal-messatge-container]="currentUrl.includes('/message-teacher') || currentUrl.includes('/edit-profile') || currentUrl.includes('/change-password') || currentUrl.includes('/my-profile')">
+<div class="portal-container"
+    [class.portal-messatge-container]="currentUrl.includes('/message-teacher') || currentUrl.includes('/edit-profile') || currentUrl.includes('/change-password') || currentUrl.includes('/my-profile')">
 
     <!-- MOBILE SIDEBAR OVERLAY -->
     <div class="sidebar-backdrop-overlay d-lg-none" *ngIf="isSidebarOpen" (click)="toggleSidebar()"></div>
@@ -67,15 +68,17 @@
         <!-- Common Portal Header -->
         <header class="portal-header">
             <div class="d-flex align-items-center gap-3">
-                <i class="fa-solid fa-bars d-lg-none d-block" style="font-size: 20px; cursor: pointer;" (click)="toggleSidebar()"></i>
+                <i class="fa-solid fa-bars d-lg-none d-block" style="font-size: 20px; cursor: pointer;"
+                    (click)="toggleSidebar()"></i>
                 <div class="header-greeting d-sm-block d-none">
                     <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
                     <p class="greeting-subtitle">Here's your learning progress for this week.</p>
                 </div>
             </div>
             <div class="header-actions">
-                <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications" (click)="toggleProfileSidebar()">
-                    <img src="../../../../assets/img/boy.jpg" alt="" class="w-100 h-100 rounded">
+                <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications"
+                    (click)="toggleProfileSidebar()">
+                    <img src="assets/img/boy.jpg" alt="" class="w-100 h-100 rounded">
                 </button>
             </div>
         </header>
@@ -93,7 +96,8 @@
     <div class="sidebar-backdrop-overlay d-lg-none" *ngIf="isProfileSidebarOpen" (click)="toggleProfileSidebar()"></div>
 
     <!-- 1. RESOURCES PREVIEW SIDEBAR PANEL -->
-    <aside class="portal-profile-panel resources-sidebar-context" *ngIf="currentUrl.includes('/resources')" [class.active]="isProfileSidebarOpen">
+    <aside class="portal-profile-panel resources-sidebar-context" *ngIf="currentUrl.includes('/resources')"
+        [class.active]="isProfileSidebarOpen">
         <ng-container *ngIf="selectedResource; else noResourceSelected">
             <div class="resource-preview-header">
                 <!-- Mascot / Mascot Head Image -->
@@ -101,7 +105,7 @@
                     <!-- Standard placeholder or generic card cover -->
                     <div class="mascot-avatar">
                         <!-- <i [class]="selectedResource.logoClass" [style.color]="selectedResource.logoColor" style="font-size: 40px;"></i> -->
-                        <img src="../../../../assets/img/academy_logo_1.png" alt="">
+                        <img src="assets/img/academy_logo_1.png" alt="">
                     </div>
                 </div>
                 <h3 class="resource-preview-title">{{ selectedResource.title }}</h3>
@@ -165,7 +169,8 @@
         [class.active]="isProfileSidebarOpen">
         <div class="profile-header d-flex align-items-center justify-content-between gap-2">
             <h2 class="profile-title">Your Profile</h2>
-            <i class="fa-solid fa-xmark d-block d-xxl-none" style="font-size: 20px; cursor: pointer;" (click)="toggleProfileSidebar()"></i>
+            <i class="fa-solid fa-xmark d-block d-xxl-none" style="font-size: 20px; cursor: pointer;"
+                (click)="toggleProfileSidebar()"></i>
         </div>
 
         <!-- Student Info Summary Card -->
@@ -180,20 +185,28 @@
             <!-- Profile Quick Actions -->
             <div class="profile-quick-actions mt-3 mb-2">
                 <div class="quick-action-item">
-                    <button type="button" routerLink="/student/my-profile" class="quick-action-btn" aria-label="My Profile">
+                    <button type="button" routerLink="/student/my-profile" class="quick-action-btn"
+                        aria-label="My Profile">
                         <svg width="19" height="17" viewBox="0 0 19 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M11.3 0.5C14.6939 0.5 16.3913 0.5 17.4452 1.6205C18.4991 2.741 18.5 4.5437 18.5 8.15C18.5 11.7563 18.5 13.559 17.4452 14.6795C16.3904 15.8 14.6939 15.8 11.3 15.8H7.7C4.3061 15.8 2.6087 15.8 1.5548 14.6795C0.5009 13.559 0.5 11.7563 0.5 8.15C0.5 4.5437 0.5 2.741 1.5548 1.6205C2.6096 0.5 4.3061 0.5 7.7 0.5H11.3Z" stroke="black" stroke-linejoin="round"/>
-<path d="M3.2002 11.3C4.6483 9.3767 8.0188 9.2714 9.5002 11.3M12.2002 5.9H15.8002M12.2002 9.5H14.0002M7.9243 6.575C7.9243 6.99272 7.75836 7.39332 7.46299 7.68869C7.16762 7.98406 6.76701 8.15 6.3493 8.15C5.93158 8.15 5.53097 7.98406 5.2356 7.68869C4.94023 7.39332 4.7743 6.99272 4.7743 6.575C4.7743 6.15728 4.94023 5.75668 5.2356 5.46131C5.53097 5.16594 5.93158 5 6.3493 5C6.76701 5 7.16762 5.16594 7.46299 5.46131C7.75836 5.75668 7.9243 6.15728 7.9243 6.575Z" stroke="black" stroke-linecap="round"/>
-</svg>
+                            <path
+                                d="M11.3 0.5C14.6939 0.5 16.3913 0.5 17.4452 1.6205C18.4991 2.741 18.5 4.5437 18.5 8.15C18.5 11.7563 18.5 13.559 17.4452 14.6795C16.3904 15.8 14.6939 15.8 11.3 15.8H7.7C4.3061 15.8 2.6087 15.8 1.5548 14.6795C0.5009 13.559 0.5 11.7563 0.5 8.15C0.5 4.5437 0.5 2.741 1.5548 1.6205C2.6096 0.5 4.3061 0.5 7.7 0.5H11.3Z"
+                                stroke="black" stroke-linejoin="round" />
+                            <path
+                                d="M3.2002 11.3C4.6483 9.3767 8.0188 9.2714 9.5002 11.3M12.2002 5.9H15.8002M12.2002 9.5H14.0002M7.9243 6.575C7.9243 6.99272 7.75836 7.39332 7.46299 7.68869C7.16762 7.98406 6.76701 8.15 6.3493 8.15C5.93158 8.15 5.53097 7.98406 5.2356 7.68869C4.94023 7.39332 4.7743 6.99272 4.7743 6.575C4.7743 6.15728 4.94023 5.75668 5.2356 5.46131C5.53097 5.16594 5.93158 5 6.3493 5C6.76701 5 7.16762 5.16594 7.46299 5.46131C7.75836 5.75668 7.9243 6.15728 7.9243 6.575Z"
+                                stroke="black" stroke-linecap="round" />
+                        </svg>
 
                     </button>
                     <span class="quick-action-label">My Profile</span>
                 </div>
                 <div class="quick-action-item">
-                    <button type="button" routerLink="/student/change-password" class="quick-action-btn" aria-label="Change Password">
+                    <button type="button" routerLink="/student/change-password" class="quick-action-btn"
+                        aria-label="Change Password">
                         <svg width="16" height="13" viewBox="0 0 16 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M8 5V8M6.701 5.75L9.299 7.25M9.299 5.75L6.70025 7.25M4.049 5V8M2.75 5.75L5.348 7.25M5.348 5.75L2.75 7.25M11.951 5V8M10.652 5.75L13.25 7.25M13.25 5.75L10.6512 7.25M15.5 6.5C15.5 9.32825 15.5 10.7427 14.621 11.621C13.742 12.4992 12.3282 12.5 9.5 12.5H6.5C3.67175 12.5 2.25725 12.5 1.379 11.621C0.50075 10.742 0.5 9.32825 0.5 6.5C0.5 3.67175 0.5 2.25725 1.379 1.379C2.258 0.50075 3.67175 0.5 6.5 0.5H9.5C12.3282 0.5 13.7427 0.5 14.621 1.379C15.1115 1.86875 15.3283 2.525 15.4235 3.5" stroke="black" stroke-linecap="round"/>
-</svg>
+                            <path
+                                d="M8 5V8M6.701 5.75L9.299 7.25M9.299 5.75L6.70025 7.25M4.049 5V8M2.75 5.75L5.348 7.25M5.348 5.75L2.75 7.25M11.951 5V8M10.652 5.75L13.25 7.25M13.25 5.75L10.6512 7.25M15.5 6.5C15.5 9.32825 15.5 10.7427 14.621 11.621C13.742 12.4992 12.3282 12.5 9.5 12.5H6.5C3.67175 12.5 2.25725 12.5 1.379 11.621C0.50075 10.742 0.5 9.32825 0.5 6.5C0.5 3.67175 0.5 2.25725 1.379 1.379C2.258 0.50075 3.67175 0.5 6.5 0.5H9.5C12.3282 0.5 13.7427 0.5 14.621 1.379C15.1115 1.86875 15.3283 2.525 15.4235 3.5"
+                                stroke="black" stroke-linecap="round" />
+                        </svg>
 
                     </button>
                     <span class="quick-action-label">Change Password</span>
