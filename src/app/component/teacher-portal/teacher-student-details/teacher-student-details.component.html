@@ -99,32 +99,29 @@
       <table class="table align-middle dash-table mb-0">
         <thead>
           <tr>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th" style="font-size: 12px; border-bottom: 1px solid #E0C0AF !important;">ASSIGNMENT TITLE</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th" style="font-size: 12px; border-bottom: 1px solid #E0C0AF !important;">SUBJECT</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid #E0C0AF !important;">SCORE</th>
-            <th class="text-uppercase text-muted border-0 fw-medium pb-3 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid #E0C0AF !important;">STATUS</th>
+            <th class="text-uppercase ct_text_para border-0 ct_fs_14 ct_fw_600 pb-3 dash-table-th" style=" border-bottom: 1px solid #E0C0AF !important;">ASSIGNMENT TITLE</th>
+            <th class="text-uppercase ct_text_para border-0 ct_fs_14 ct_fw_600 pb-3 dash-table-th" style=" border-bottom: 1px solid #E0C0AF !important;">SUBJECT</th>
+            <th class="text-uppercase ct_text_para border-0 ct_fs_14 ct_fw_600 pb-3 dash-table-th text-center" style=" border-bottom: 1px solid #E0C0AF !important;">SCORE</th>
+            <th class="text-uppercase ct_text_para border-0 ct_fs_14 ct_fw_600 pb-3 dash-table-th text-center" style=" border-bottom: 1px solid #E0C0AF !important;">STATUS</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of history; let i = index">
-            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
+            <td class="border-0 py-4 ct_text_para ct_fs_16"  [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
               {{ item.title }}
             </td>
-            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
+            <td class="border-0 py-4 ct_text_para ct_fs_16"  [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
               {{ item.subject }}
             </td>
-            <td class="border-0 py-4 text-center text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
+            <td class="border-0 py-4 text-center ct_text_para ct_fs_16"  [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
               {{ item.score }}
             </td>
             <td class="border-0 py-4 text-center" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? '#EFF4FF' : ''">
-              <span class="badge rounded-pill" 
+              <span class="ct_custom_badge_status" 
                     [ngStyle]="{
-                      'background-color': item.status === 'REVIEWED' ? '#EEF8FA' : item.status === 'PENDING' ? '#FFF2E5' : '#EEFBE5',
-                      'color': item.status === 'REVIEWED' ? '#0267EB' : item.status === 'PENDING' ? '#F68B1F' : '#15803D',
-                      'padding': '6px 12px',
-                      'font-size': '12px',
-                      'font-weight': '600',
-                      'letter-spacing': '0.5px'
+                      'background-color': item.status === 'REVIEWED' ? '#0267EB1A' : item.status === 'PENDING' ? '#FF7A001A' : '#00B5361A',
+                      'color': item.status === 'REVIEWED' ? '#0267EB' : item.status === 'PENDING' ? '#FF7A00' : '#00B536',
+                     
                     }">
                 {{ item.status }}
               </span>

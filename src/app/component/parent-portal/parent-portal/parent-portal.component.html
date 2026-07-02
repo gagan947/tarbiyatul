@@ -87,56 +87,80 @@
             </div>
             <div class="header-actions d-flex align-items-center gap-4">
                 
-                <!-- Notifications Dropdown -->
+               <!-- Notifications Dropdown -->
                 <div class="dropdown">
-                    <button type="button" class="btn btn-link text-dark p-0 position-relative border-0 bg-transparent" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-bell" style="font-size: 20px; color: #4B5563;"></i>
+                    <button type="button" class="btn btn-link text-dark p-0 position-relative border-0 bg-transparent "
+                        data-bs-toggle="dropdown" aria-expanded="false">
+
+                        <a href="#" class="notification-dropdown">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19.25 5.95704C19.25 7.7262 17.8108 9.16537 16.0417 9.16537C14.2725 9.16537 12.8333 7.7262 12.8333 5.95704C12.8333 4.18787 14.2725 2.7487 16.0417 2.7487C17.8108 2.7487 19.25 4.18787 19.25 5.95704ZM17.4167 10.8062C16.9583 10.9254 16.5 10.9987 16.0417 10.9987C14.7053 10.9963 13.4243 10.4643 12.4793 9.51936C11.5344 8.57439 11.0024 7.29343 11 5.95704C11 4.60954 11.5317 3.39037 12.375 2.48287C12.2086 2.27895 11.9989 2.11471 11.761 2.00212C11.5232 1.88953 11.2632 1.83142 11 1.83204C9.99167 1.83204 9.16667 2.65704 9.16667 3.66537V3.9312C6.44417 4.73787 4.58333 7.24037 4.58333 10.082V15.582L2.75 17.4154V18.332H19.25V17.4154L17.4167 15.582V10.8062ZM11 21.082C12.0175 21.082 12.8333 20.2662 12.8333 19.2487H9.16667C9.16667 19.7349 9.35982 20.2013 9.70364 20.5451C10.0475 20.8889 10.5138 21.082 11 21.082Z"
+                                    fill="#343434" />
+                            </svg>
+                        </a>
+
+
+
                     </button>
-                    <div class="dropdown-menu dropdown-menu-end shadow border-0 p-0" style="width: 320px; border-radius: 12px; margin-top: 15px;">
+                    <div class="dropdown-menu dropdown-menu-end shadow border-0 p-0"
+                        style="width: 350px; border-radius: 12px; margin-top: 15px;">
                         <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
-                            <h6 class="mb-0 fw-semibold">Notifications(4)</h6>
-                            <a href="javascript:void(0)" class="text-decoration-none" style="color: #F68B1F; font-size: 13px; font-weight: 500;">Mark as read</a>
+                            <h6 class="mb-0 ct_fw_500 ct_fs_18 ct_ff_inter">Notifications(4)</h6>
+                            <a href="javascript:void(0)" class="text-decoration-none"
+                                style="color: #F68B1F; font-size: 13px; font-weight: 500;">Mark as read</a>
                         </div>
-                        <div class="notification-list p-0" style="max-height: 350px; overflow-y: auto;">
+                        <div class="notification-list p-0 ct_custom_scroll"
+                            style="max-height: 350px; overflow-y: auto;">
                             <!-- Notification Item -->
                             <div class="d-flex gap-3 p-3 border-bottom position-relative" style="cursor: pointer;">
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1 fw-semibold" style="font-size: 14px; color: #1A1F45;">Tuition Payment Due</h6>
-                                    <p class="mb-0 text-muted" style="font-size: 13px;">Your monthly tuition payment is now due.</p>
+                                    <h6 class="mb-1 ct_ff_inter ct_fs_16 ct_fw_500 ct_text_dark">Tuition Payment Due
+                                    </h6>
+                                    <p class="mb-0 text-muted ct_fs_14">Your monthly tuition payment is now due.</p>
                                 </div>
-                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                <div class="d-flex flex-column align-items-center gap-3">
                                     <span class="text-muted" style="font-size: 12px;">3m</span>
-                                    <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background-color: #8B5CF6;"></span>
+                                    <span class="d-inline-block rounded-circle"
+                                        style="width: 6px; height: 6px; background-color: #8B5CF6;"></span>
                                 </div>
                             </div>
                             <!-- Notification Item -->
                             <div class="d-flex gap-3 p-3 border-bottom position-relative" style="cursor: pointer;">
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1 fw-semibold" style="font-size: 14px; color: #1A1F45;">Tuition Payment Received</h6>
-                                    <p class="mb-0 text-muted" style="font-size: 13px;">Your tuition payment has been successfully processed.</p>
+                                    <h6 class="mb-1 ct_ff_inter ct_fs_16 ct_fw_500 ct_text_dark">Tuition Payment
+                                        Received</h6>
+                                    <p class="mb-0 text-muted ct_fs_14">Your tuition payment has been successfully
+                                        processed.</p>
                                 </div>
-                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                <div class="d-flex flex-column align-items-center gap-3">
                                     <span class="text-muted" style="font-size: 12px;">3m</span>
-                                    <span class="d-inline-block rounded-circle" style="width: 6px; height: 6px; background-color: #8B5CF6;"></span>
+                                    <span class="d-inline-block rounded-circle"
+                                        style="width: 6px; height: 6px; background-color: #8B5CF6;"></span>
                                 </div>
                             </div>
                             <!-- Notification Item -->
                             <div class="d-flex gap-3 p-3 border-bottom position-relative" style="cursor: pointer;">
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1 fw-semibold" style="font-size: 14px; color: #1A1F45;">Parent Meeting Reminder</h6>
-                                    <p class="mb-0 text-muted" style="font-size: 13px;">Parent-Teacher Meeting is scheduled for this week.</p>
+                                    <h6 class="mb-1 ct_ff_inter ct_fs_16 ct_fw_500 ct_text_dark">Parent Meeting Reminder
+                                    </h6>
+                                    <p class="mb-0 text-muted ct_fs_14">Parent-Teacher Meeting is scheduled for this
+                                        week.</p>
                                 </div>
-                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                <div class="d-flex flex-column align-items-center gap-3">
                                     <span class="text-muted" style="font-size: 12px;">3m</span>
                                 </div>
                             </div>
                             <!-- Notification Item -->
                             <div class="d-flex gap-3 p-3 position-relative" style="cursor: pointer;">
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-1 fw-semibold" style="font-size: 14px; color: #1A1F45;">Parent Handbook Available</h6>
-                                    <p class="mb-0 text-muted" style="font-size: 13px;">Your Parent Handbook is now available for download</p>
+                                    <h6 class="mb-1 ct_ff_inter ct_fs_16 ct_fw_500 ct_text_dark">Parent Handbook
+                                        Available</h6>
+                                    <p class="mb-0 text-muted ct_fs_14">Your Parent Handbook is now available for
+                                        download</p>
                                 </div>
-                                <div class="d-flex flex-column align-items-end justify-content-between">
+                                <div class="d-flex flex-column align-items-center gap-3">
                                     <span class="text-muted" style="font-size: 12px;">3m</span>
                                 </div>
                             </div>
@@ -144,12 +168,64 @@
                     </div>
                 </div>
 
+            
                 <!-- Profile Dropdown/Button -->
-                <button class="btn btn-link text-decoration-none text-dark d-flex align-items-center gap-2 p-0 border-0 bg-transparent" (click)="toggleProfileSidebar()">
-                    <img src="assets/img/boy.jpg" alt="Profile" class="rounded-circle object-fit-cover" style="width: 36px; height: 36px;">
-                    <span class="fw-medium d-none d-sm-block" style="font-size: 14px; color: #1A1F45;">Fatima Ahmed</span>
-                    <i class="fa-solid fa-angle-down text-muted d-none d-sm-block" style="font-size: 12px;"></i>
-                </button>
+                <div class="ct_right_dropdown dropdown notification-dropdown">
+                    <button id="dropdownMenuButton" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                        aria-expanded="false" class="p-0">
+                        <div class="d-flex align-items-center gap-2">
+                            <img src="assets/img/boy.jpg" alt="Profile" class="rounded-circle object-fit-cover"
+                                style="width: 25px; height: 25px;">
+                            <div class="align-items-end d-flex flex-column ">
+
+
+                                <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
+                                    Fatima Ahmed
+                                </small>
+                            </div>
+
+
+                        </div>
+                        <i class="fa-solid fa-angle-down ct_text_para"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li>
+                            <a class="dropdown-item" routerLink="#">
+                                <div class="d-flex align-items-center gap-2">
+                            <img src="assets/img/boy.jpg" alt="Profile" class="rounded-circle object-fit-cover"
+                                style="width: 25px; height: 25px;">
+                            <div class="align-items-end d-flex flex-column ">
+
+
+                                <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
+                                    Fatima Ahmed
+                                </small>
+                            </div>
+
+
+                        </div>
+                            </a>
+                        </li>
+                         <li>
+                            <a class="dropdown-item" routerLink="#">
+                                <div class="d-flex align-items-center gap-2">
+                            <img src="assets/img/boy.jpg" alt="Profile" class="rounded-circle object-fit-cover"
+                                style="width: 25px; height: 25px;">
+                            <div class="align-items-end d-flex flex-column ">
+
+
+                                <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
+                                    Fatima Ahmed
+                                </small>
+                            </div>
+
+
+                        </div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
 
             </div>
         </header>

@@ -45,6 +45,9 @@
                   
                   </ul>
                 </div>
+
+
+                
               </div>
 
  
@@ -63,7 +66,7 @@
         <tbody>
           <tr *ngFor="let student of students; let i = index">
             <td class="">
-              {{ i + 1 }}
+            <span class="ct_text_dark">{{ i + 1 }}</span>
             </td>
             <td class="">
              <span class="ct_text_dark"> {{ student.rollNo }}</span>
@@ -90,8 +93,8 @@
       </table>
     </div>
  
-
-  <div class="d-flex justify-content-between align-items-center text-muted mt-4" style="font-size: 14px; margin-bottom: 24px;">
+<hr class="mt-4" style="border-top: 1px solid #E0C0AF4D;">
+  <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 14px; margin-bottom: 24px; ">
     <span class="ct_text_dark">Showing 1-10 of 145 applications</span>
     <div class="d-flex gap-2">
       <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted" style="width: 32px; height: 32px;"><i class="fa-solid fa-angle-left"></i></button>

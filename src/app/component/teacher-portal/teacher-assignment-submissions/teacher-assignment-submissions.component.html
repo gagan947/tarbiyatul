@@ -50,19 +50,21 @@
       <table class="table align-middle dash-table mb-0">
         <thead>
           <tr>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 px-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">S.NO</th>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">ROLL NO.</th>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">PROFILE</th>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">STUDENT NAME</th>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">STATUS</th>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 dash-table-th" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">SCORE</th>
-            <th class="text-uppercase text-muted border-0 fw-medium py-4 pe-4 dash-table-th text-center" style="font-size: 12px; border-bottom: 1px solid rgba(0,0,0,0.05) !important;">ACTION</th>
+            <th class="" >S.NO</th>
+            <th class="" >ROLL NO.</th>
+            <th class="" >PROFILE</th>
+            <th class="" >STUDENT NAME</th>
+            <th class="" >STATUS</th>
+            <th class="" >SCORE</th>
+            <th class="" >ACTION</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of submissions; let i = index">
             <td >
-              {{ item.id }}
+            <span class="ct_text_dark">
+              {{ i + 1 }}
+            </span>
             </td>
             <td >
              <span class="ct_text_dark">
@@ -79,13 +81,11 @@
               {{ item.name }}
             </td>
             <td >
-              <span class="badge rounded-pill" 
+              <span class="ct_custom_badge_status" 
                     [ngStyle]="{
-                      'background-color': item.status === 'REVIEWED' ? '#EEF8FA' : item.status === 'PENDING' ? '#FFF2E5' : '#EEFBE5',
-                      'color': item.status === 'REVIEWED' ? '#3B82F6' : item.status === 'PENDING' ? '#F68B1F' : '#15803D',
-                      'padding': '5px 12px',
-                      'font-size': '12px',
-                      'font-weight': '600',
+                      'background-color': item.status === 'REVIEWED' ? '#0267EB1A' : item.status === 'PENDING' ? '#FF7A001A' : '#00B5361A',
+                      'color': item.status === 'REVIEWED' ? '#0267EB' : item.status === 'PENDING' ? '#FF7A00' : '#00B536',
+                  
                
                     }">
                 {{ item.status }}
@@ -105,7 +105,8 @@
     </div>
  
 
-  <div class="d-flex justify-content-between align-items-center text-muted mt-4" style="font-size: 14px; margin-bottom: 24px;">
+<hr class="mt-4" style="border-top: 1px solid #E0C0AF4D;">
+  <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 14px; margin-bottom: 24px; ">
     <span class="ct_text_dark">Showing 1-10 of 145 applications</span>
     <div class="d-flex gap-2">
       <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted" style="width: 32px; height: 32px;"><i class="fa-solid fa-angle-left"></i></button>
