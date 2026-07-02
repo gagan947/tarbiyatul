@@ -219,6 +219,21 @@ border-radius: 16px;
   font-size: 18px;
 
 }
+
+.assignment-detail-banner:after {
+    content: "";
+    position: absolute;
+    right: 0px;
+    width: 100%;
+    height: 300px;
+     background-image: url(../../../../assets/img/star_group.png);
+    max-width: 300px;
+    background-position: right top;
+    background-size: contain;
+    top: 0px;
+    /* z-index: -1; */
+}
+
 @media (max-width: 991px) {
   .detail-properties-grid {
     grid-template-columns: repeat(2, 1fr);

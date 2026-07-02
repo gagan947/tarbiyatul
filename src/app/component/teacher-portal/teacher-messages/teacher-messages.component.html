@@ -1,4 +1,4 @@
-<div class="ct_px_28">
+<div class="ct_px_28 profile-container  pt-3">
   <div class="messages-page-wrapper portal-font-main pt-0">
   <!-- Section Title -->
   <div class="section-header">
@@ -13,15 +13,15 @@
     <!-- Active Teacher Header -->
     <div class="chat-header">
       <div class="teacher-info-row">
-        <i class="fa-solid fa-angle-left d-block d-md-none"></i>
+        <i class="fa-solid fa-angle-left d-block d-md-none chat-icon"></i>
         <div class="teacher-avatar-container">
           <img src="assets/img/boy.jpg" [alt]="studentName" class="teacher-avatar-img" />
-          <span class="online-indicator" *ngIf="isOnline"></span>
+        
         </div>
         <div class="teacher-text-details">
           <h3 class="teacher-display-name">{{ studentName }}</h3>
           <span class="teacher-display-role">{{ studentRole }}</span>
-          <span class="teacher-status-text" *ngIf="isOnline">Online</span>
+          <span class="teacher-status-text" *ngIf="isOnline">  <span class="online-indicator me-1" *ngIf="isOnline"></span>Online</span>
         </div>
       </div>
     </div>

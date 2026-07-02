@@ -18,6 +18,7 @@ interface Student {
   styleUrl: './teacher-students.component.css'
 })
 export class TeacherStudentsComponent {
+  imgUrl:any 
   students: Student[] = [
     {
       id: 1,
@@ -60,5 +61,9 @@ export class TeacherStudentsComponent {
 
   viewDetails(studentId: number) {
     this.router.navigate(['/teacher/students', studentId]);
+  }
+
+  openImg(std:any){
+    this.imgUrl = std.avatar
   }
 }

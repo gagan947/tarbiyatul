@@ -20,6 +20,7 @@ interface Assignment {
   styleUrl: './teacher-assignments.component.css'
 })
 export class TeacherAssignmentsComponent {
+    imgUrl:any 
   assignments: Assignment[] = [
     {
       id: 1,
@@ -76,5 +77,9 @@ export class TeacherAssignmentsComponent {
 
   createAssignment(): void {
     this.router.navigate(['/teacher/assignments/new']);
+  }
+
+    openImg(std:any){
+    this.imgUrl = std.avatar
   }
 }

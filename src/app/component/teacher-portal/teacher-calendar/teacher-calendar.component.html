@@ -1,17 +1,18 @@
-<div class="ct_px_28 profile-container pb-5">
+
+<div class="ct_px_28 pt-3 profile-container pb-5">
     <div class="mb-4 pt-2">
         <h2 class="section-title mb-1">School Calendar</h2>
         <p class="text-muted mb-0">Stay updated with upcoming school events, holidays, meetings, and important academic
             dates.</p>
     </div>
 
-    <div class="row g-4">
+    <div class="row">
         <!-- Left Sidebar: Small Calendar & Upcoming Events -->
-        <div class="col-xxl-3 col-xl-4 col-lg-5">
+        <div class="col-xxl-3 col-xl-4 col-lg-5 mb-4">
             <div class="dashboard-card p-4 h-100 cal-card-rounded">
 
                 <!-- Small Calendar Picker -->
-                <div class="small-calendar-wrapper mb-5">
+                <div class="small-calendar-wrapper mb-3">
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <h4 class="mb-0 fw-semibold cal-header-title">{{ monthNames[currentMonth] }} {{ currentYear }}
                         </h4>
@@ -37,6 +38,7 @@
                     </div>
                 </div>
 
+                <hr style="border-color:  #E4E5E7" class="MT-2">
                 <!-- Upcoming Events List -->
                 <div>
                     <h4 class="mb-4 fw-semibold cal-header-title">Upcoming Events</h4>
@@ -59,7 +61,7 @@
         </div>
 
         <!-- Right Main Calendar Grid -->
-        <div class="col-xxl-9 col-xl-8 col-lg-7">
+        <div class="col-xxl-9 col-xl-8 col-lg-7 mb-4">
             <div class="dashboard-card bg-white h-100 overflow-hidden cal-main-grid-card">
                 <!-- Header -->
                 <div class="calendar-grid-header d-flex text-center border-bottom bg-white">

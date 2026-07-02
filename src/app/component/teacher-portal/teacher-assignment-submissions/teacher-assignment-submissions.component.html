@@ -1,26 +1,52 @@
 <div class="ct_px_28 profile-container pb-5 pt-3">
   
   <div class="d-flex align-items-center mb-4 pt-2">
-    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2 fw-semibold" style="color: #F68B1F;" (click)="goBack()">
+    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2 ct_fw_400 ct_fs_16" style="color: #FC800A;" (click)="goBack()">
       <i class="fa-solid fa-angle-left"></i> Student Assignment Records
     </button>
   </div>
 
-  <div class="d-flex flex-wrap flex-md-nowrap gap-3 mb-4">
-    <div class="flex-grow-1 position-relative">
-      <i class="fa-solid fa-magnifying-glass position-absolute text-muted" style="left: 16px; top: 50%; transform: translateY(-50%);"></i>
-      <input type="text" class="form-control ps-5 py-2" placeholder="Search..." style="border-radius: 8px; border-color: rgba(0,0,0,0.1); height: 48px;">
-    </div>
-    <div class="dropdown">
-      <button class="btn btn-outline-secondary d-flex justify-content-between align-items-center bg-white" type="button" style="width: 140px; height: 48px; border-radius: 8px; border-color: rgba(0,0,0,0.1); color: #6F767E;">
-        <span class="d-flex align-items-center gap-2"><i class="fa-solid fa-filter" style="font-size: 14px;"></i> All Status</span>
-        <i class="fa-solid fa-angle-down" style="font-size: 12px;"></i>
-      </button>
-    </div>
-  </div>
+ <div class="d-flex justify-content-between align-items-center mt-3 ct_flex_col_575 gap-sm-5 gap-3">
+                <!-- Search -->
+                <div class="search-box w-100" style="">
+                  <div class="input-group position-relative">
+                    <input type="text" class="form-control ct_input ps-5" placeholder="Search...">
 
-  <div class="dashboard-card dash-card-shadow p-0 overflow-hidden mb-4" style="border-radius: 16px;">
-    <div class="table-responsive">
+                    <i class="fas fa-search ct_show_left " style="color: #6b6b6b;"></i>
+                  </div>
+                </div>
+
+                <!-- Filters -->
+                <div class="dropdown ct_w_100_575">
+                  <button class="btn filter-dropdown dropdown-toggle ct_w_100_575" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+           <svg class="me-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12.5833 0.5H0.5L4.30145 5.25183C4.53787 5.54733 4.66667 5.9145 4.66667 6.293V11.75C4.66667 12.2102 5.03975 12.5833 5.5 12.5833H7.58333C8.04358 12.5833 8.41667 12.2102 8.41667 11.75V6.293C8.41667 5.9145 8.5455 5.54733 8.78192 5.25183L12.5833 0.5Z" stroke="#919EAB" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+
+
+                     All Status  <svg class="ms-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M18 9L12 15L6 9" stroke="#919EAB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+
+                  </button>
+                  <ul class="dropdown-menu" style="">
+                    <li>
+                      <a class="dropdown-item" href="#">Pending</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="#"> Approved</a>
+                    </li>
+                      <li>
+                      <a class="dropdown-item" href="#">Rejected </a>
+                    </li>
+                  
+                  
+                  </ul>
+                </div>
+              </div>
+
+ 
+    <div class="table-responsive ct_custom_table mt-4">
       <table class="table align-middle dash-table mb-0">
         <thead>
           <tr>
@@ -35,36 +61,41 @@
         </thead>
         <tbody>
           <tr *ngFor="let item of submissions; let i = index">
-            <td class="border-0 py-4 px-4 fw-bold" style="color: #1A1F45; font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+            <td >
               {{ item.id }}
             </td>
-            <td class="border-0 py-4 fw-bold" style="color: #1A1F45; font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              {{ item.rollNo }}
+            <td >
+             <span class="ct_text_dark">
+               {{ item.rollNo }}
+             </span>
             </td>
-            <td class="border-0 py-4" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              <img [src]="item.avatar" alt="Avatar" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover;" />
+            <td >
+              <a href="#" data-bs-toggle="modal" data-bs-target="#profileModal" >
+
+                <img [src]="item.avatar" alt="Avatar" class="rounded-circle" style="width: 48px; height: 48px; object-fit: cover;" />
+              </a>
             </td>
-            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+            <td >
               {{ item.name }}
             </td>
-            <td class="border-0 py-4" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+            <td >
               <span class="badge rounded-pill" 
                     [ngStyle]="{
                       'background-color': item.status === 'REVIEWED' ? '#EEF8FA' : item.status === 'PENDING' ? '#FFF2E5' : '#EEFBE5',
                       'color': item.status === 'REVIEWED' ? '#3B82F6' : item.status === 'PENDING' ? '#F68B1F' : '#15803D',
-                      'padding': '6px 16px',
-                      'font-size': '10px',
-                      'font-weight': '700',
-                      'letter-spacing': '0.5px'
+                      'padding': '5px 12px',
+                      'font-size': '12px',
+                      'font-weight': '600',
+               
                     }">
                 {{ item.status }}
               </span>
             </td>
-            <td class="border-0 py-4 text-muted" style="font-size: 14px;" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
+            <td >
               {{ item.score }}
             </td>
-            <td class="border-0 py-4 pe-4 text-center" [class.border-top]="i !== 0" [style.border-top-color]="i !== 0 ? 'rgba(0,0,0,0.05)' : ''">
-              <button class="btn btn-outline-warning rounded-pill px-4 fw-medium text-nowrap" style="color: #F68B1F; border-color: rgba(246,139,31,0.5); font-size: 13px;" (click)="viewDetails(item.id)">
+            <td >
+              <button class="btn text-nowrap" style="color: #FC800A; border-color: #FC800A; font-size: 14px; border-radius: 9px; padding: 8px 14px;" (click)="viewDetails(item.id)">
                 View Details
               </button>
             </td>
@@ -72,10 +103,10 @@
         </tbody>
       </table>
     </div>
-  </div>
+ 
 
-  <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 14px; margin-bottom: 24px;">
-    <span>Showing 1-10 of 145 applications</span>
+  <div class="d-flex justify-content-between align-items-center text-muted mt-4" style="font-size: 14px; margin-bottom: 24px;">
+    <span class="ct_text_dark">Showing 1-10 of 145 applications</span>
     <div class="d-flex gap-2">
       <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted" style="width: 32px; height: 32px;"><i class="fa-solid fa-angle-left"></i></button>
       <button class="btn btn-sm text-white d-flex align-items-center justify-content-center border-0" style="width: 32px; height: 32px; background-color: #9C5100;">1</button>
@@ -86,4 +117,25 @@
     </div>
   </div>
 
+
+
+
+  <!-- Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+     
+   
+        <div class="modal-header border-0">
+        <h1 class="modal-title ct_fs_20 ct_fw_600 ct_ff_inter" id="staticBackdropLabel"> Image Preview</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+     
+      <div class="modal-body p-0 mx-3 mb-3" style="background-color: #f5f5f5; border-radius: 4px;">
+        <img src="assets/img/boy.jpg" class="w-100 object-fit-contain" style="height: 400px;">
+      </div>
+     
+    </div>
+  </div>
+</div>
 </div>
