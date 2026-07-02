@@ -2062,6 +2062,7 @@ box-shadow: none;
   text-align: center;
   z-index: 1;
   transition: color .4s ease;
+  line-height: 1;
 }
 
 
@@ -2102,4 +2103,3 @@ box-shadow: none;
   .ct_px_28{
     padding-inline: 28px;
   }
-  

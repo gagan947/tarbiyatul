@@ -1,10 +1,11 @@
-<div class="ct_px_28">
+<div class="ct_px_28 mt-4">
   <div class="assignments-container portal-font-main">
   <!-- If assignment not found -->
   <div *ngIf="!assignment" class="no-assignment-card portal-card text-center">
-    <i class="fa-solid fa-triangle-exclamation orange-color" style="font-size: 40px; margin-bottom: 16px;"></i>
-    <h3>Assignment Not Found</h3>
-    <p>The requested assignment could not be loaded or does not exist.</p>
+       <i class="fa-solid fa-triangle-exclamation orange-color not-found-icon fs-2 mb-3"></i>
+
+    <h3 class="ct_ff_inter mb-0">Assignment Not Found</h3>
+    <p class="mb-3">The requested assignment could not be loaded or does not exist.</p>
     <button (click)="backToList()" class="portal-btn portal-btn-primary">
       Back to Assignments
     </button>
