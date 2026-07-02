@@ -425,7 +425,7 @@
 /* Layout responsiveness */
 @media (max-width: 1400px) {
   .portal-container {
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 260px 1fr;
   }
 
   .portal-profile-panel {
