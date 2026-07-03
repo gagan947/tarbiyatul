@@ -1006,3 +1006,9 @@
   z-index: 9998;
   animation: fadeIn 0.25s ease-out;
 }
+
+@media (max-width: 575px) {
+.logout-modal-actions {
+ flex-direction: column;
+}
+}
