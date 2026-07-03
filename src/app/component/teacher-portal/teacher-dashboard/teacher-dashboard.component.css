@@ -1,7 +1,5 @@
 /* Force rebuild teacher dashboard */
-h1, h2, h3, h4, h5, h6{
-   font-family: "Inter", sans-serif;
-}
+
 .dash-banner {
   background-color: #171E45;
   border-radius: 16px;
@@ -112,8 +110,8 @@ h1, h2, h3, h4, h5, h6{
 .dash-stat-value {
   font-size: 26px;
   color: #000;
-  font-family: "Inter",sans-serif;
-  font-weight: 600;
+ 
+  font-weight: 300;
 }
 
 .dash-stat-label {
@@ -123,9 +121,9 @@ h1, h2, h3, h4, h5, h6{
 
 /* Recent Assignments */
 .dash-section-title {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: 'Inter',sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+
 }
 
 .dash-link-orange {

@@ -42,7 +42,8 @@
 .pay-value-text {
   font-size: 26px;
   color: #2E2E48;
-  font-family: "inter",sans-serif;
+  font-weight: 300;
+ 
 }
 
 .pay-value-text-date {

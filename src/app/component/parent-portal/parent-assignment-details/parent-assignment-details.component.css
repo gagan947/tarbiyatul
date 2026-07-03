@@ -5,8 +5,8 @@
 .back-link-btn {
   background: none;
   border: none;
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 300;
   color: #FC800A;
   cursor: pointer;
   display: inline-flex;
@@ -15,6 +15,7 @@
   margin-bottom: 20px;
   padding: 0;
   transition: color 0.2s ease;
+  font-family: 'Rowdies', sans-serif;
 }
 
 .back-link-btn:hover {
@@ -57,10 +58,10 @@
 
 .detail-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 300;
   color: #000;
   margin: 0;
-  font-family: 'Inter',sans-serif;
+
   text-decoration: underline;
 }
 
@@ -124,13 +125,13 @@ border-radius: 16px;
 
 .section-subtitle-bold {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
   color: #000;
   margin: 0 0 16px 0;
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'Inter',sans-serif;
+ 
 }
 
 .instructions-list {
@@ -183,9 +184,9 @@ border-radius: 16px;
 
 .need-help-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 300;
   color: #000;
-  font-family: "Inter",sans-serif;
+
   margin: 0 0 6px 0;
 }
 
@@ -208,8 +209,8 @@ border-radius: 16px;
 }
 .teacher_feedback h5{
   font-size: 25px;
-  font-family: 'Inter',sans-serif;
-  font-weight: 600;
+
+  font-weight: 300;
   color: #00B536;
   margin-bottom: 0px;
 }

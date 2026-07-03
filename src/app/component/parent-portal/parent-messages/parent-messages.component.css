@@ -81,9 +81,9 @@
 
 .teacher-display-name {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
   color: #000;
-  font-family: 'Inter',sans-serif;
+
   margin: 0;
 }
 
@@ -433,8 +433,8 @@
 
 .thread-teacher-name {
   font-size: 14px;
-  font-weight: 500;
-  font-family: 'Inter',sans-serif;
+  font-weight: 300;
+
   color: #000;
   margin: 0;
 }
@@ -501,8 +501,8 @@
 .profile-title{
   font-size: 16px;
   color: #000;
-  font-weight: 600;
-  font-family: 'Inter',sans-serif;
+  font-weight: 300;
+
 }
 
 .ct_p_20{
