@@ -58,12 +58,13 @@
 
 .menu-section-title {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 300;
   padding-inline: 16px;
   color: #3F3F3F;
   letter-spacing: 0.8px;
   display: block;
   margin-bottom: 10px;
+  font-family: 'Rowdies', sans-serif;
 }
 
 .sidebar-nav ul {
@@ -151,9 +152,8 @@
 }
 
 .greeting-title {
-  font-family: 'Inter', sans-serif;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
   color: #241912;
   margin-bottom: 0px;
 }
@@ -215,9 +215,8 @@
 }
 
 .profile-title {
-  font-family: 'Inter', sans-serif;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
   color: #202020;
   margin: 0;
 }
@@ -329,9 +328,8 @@
 }
 
 .panel-section-title {
-  font-family: 'Inter', sans-serif;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 300;
   color: #202020;
   margin: 0 0 18px 0;
 }
@@ -616,9 +614,8 @@
 
 .resource-preview-title {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 300;
   color: #000;
-  font-family: 'Inter', sans-serif;
   margin: 0 0 10px 0;
 }
 
@@ -657,10 +654,9 @@
 
 .preview-item-label {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 300;
   color: #000000;
   letter-spacing: 0.5px;
-  font-family: 'Inter', sans-serif;
   margin-bottom: 12px;
 }
 

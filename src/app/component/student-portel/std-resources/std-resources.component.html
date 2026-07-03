@@ -101,7 +101,10 @@
             </a>
           </div>
 
-          <h4 class="resource-card-name">{{ res.title }}</h4>
+          <a  [href]="res.url"   target="_blank"  aria-label="Open Link"
+              (click)="$event.stopPropagation()">
+            <h4 class="resource-card-name">{{ res.title }}</h4>
+          </a>
           <p class="resource-card-desc">{{ res.description }}</p>
         </div>
       </div>
@@ -185,8 +188,10 @@
               <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </a>
           </div>
-
-          <h4 class="resource-card-name">{{ res.title }}</h4>
+          <a  [href]="res.url"   target="_blank"  aria-label="Open Link"
+              (click)="$event.stopPropagation()">
+            <h4 class="resource-card-name">{{ res.title }}</h4>
+          </a>
           <p class="resource-card-desc">{{ res.description }}</p>
         </div>
       </div>

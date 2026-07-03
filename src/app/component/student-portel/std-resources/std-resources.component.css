@@ -10,10 +10,9 @@ body{
 }
 
 .section-title {
-  font-size: 20px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 300;
   color: #000;
-  font-family: "Inter",sans-serif;
   margin: 0 0 6px 0;
 }
 
@@ -35,11 +34,10 @@ body{
 
 .section-category-title {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
   color: #171E45;
   margin: 0 0 20px 0;
   display: flex;
-  font-family: "Iner",sans-serif;
   align-items: center;
   gap: 10px;
 }
@@ -114,9 +112,8 @@ body{
 
 .resource-card-name {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
   color: #000;
-  font-family: 'Inter',sans-serif;
   margin: 0 0 8px 0;
   text-decoration: underline;
 }
