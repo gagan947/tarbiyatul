@@ -59,7 +59,7 @@
 
 .menu-section-title {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 300;
   padding-inline: 16px;
   color: #3F3F3F;
   letter-spacing: 0.8px;
@@ -152,9 +152,9 @@
 }
 
 .greeting-title {
-  font-family: 'Inter', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+ 
+  font-size: 20px;
+  font-weight: 300;
   color: #241912;
   margin-bottom: 0px;
 }
@@ -549,10 +549,10 @@
 
 .logout-modal-title {
   font-size: 28px;
-  font-weight: 500;
+  font-weight: 300;
   color: #000;
   margin: 0 0 10px 0;
-  font-family: 'Inter', sans-serif;
+  /* font-family: 'Inter', sans-serif; */
   letter-spacing: -0.5px;
 }
 
@@ -900,7 +900,7 @@
 
 .thread-teacher-name {
   font-size: 13px;
-  font-weight: 700;
+  /* font-weight: 700; */
   color: #171E45;
   margin: 0;
 }

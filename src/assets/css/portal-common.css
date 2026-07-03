@@ -126,10 +126,10 @@
 
 .callout-title {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
   color: var(--portal-text-dark);
   margin: 0 0 6px 0;
-  font-family: "Inter",sans-serif;
+  /* font-family: "Inter",sans-serif; */
 }
 
 .callout-body {
