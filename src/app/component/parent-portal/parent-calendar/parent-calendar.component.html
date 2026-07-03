@@ -1,6 +1,7 @@
 <div class="ct_px_28 profile-container pb-5 mt-4">
   <div class="mb-4 pt-2">
-    <h2 class="section-title mb-1">School Calendar</h2>
+
+     <h4 class="mb-1 ct_fs_24 ct_fw_300" style="color: #000;">School Calendar</h4>
     <p class="text-muted mb-0">Stay updated with upcoming school events, holidays, meetings, and important academic
       dates.</p>
   </div>
@@ -13,7 +14,7 @@
         <!-- Small Calendar Picker -->
         <div class="small-calendar-wrapper mb-5">
           <div class="d-flex justify-content-between align-items-center mb-4">
-            <h4 class="mb-0 fw-semibold cal-header-title">{{ monthNames[currentMonth] }} {{ currentYear }}</h4>
+            <h4 class="mb-0  cal-header-title">{{ monthNames[currentMonth] }} {{ currentYear }}</h4>
             <div class="d-flex gap-2">
               <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle" (click)="prevMonth()"><i
                   class="fa-solid fa-angle-left cal-icon-xs"></i></button>
@@ -38,7 +39,7 @@
 
         <!-- Upcoming Events List -->
         <div>
-          <h4 class="mb-4 fw-semibold cal-header-title">Upcoming Events</h4>
+          <h4 class="mb-4  cal-header-title">Upcoming Events</h4>
 
           <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card" *ngFor="let event of upcomingEvents">
             <div class="d-flex align-items-center gap-3">

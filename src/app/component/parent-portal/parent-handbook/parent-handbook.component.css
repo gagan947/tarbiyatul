@@ -8,7 +8,7 @@
 
 .hb-header-text {
   font-size: 18px;
-  font-family: 'Inter',sans-serif;
+font-weight: 300;
   color: #000000;
 
 }
@@ -56,8 +56,8 @@
 
 .hb-card-title {
   font-size: 20px;
-  font-weight: 600;
-  font-family: 'Inter',sans-serif;
+  font-weight: 300;
+
 }
 
 .hb-card-subtitle {
@@ -174,8 +174,8 @@
 
 .hb-file-title {
   font-size: 16px;
-  font-family: "Inter",sans-serif;
-  font-weight: 600;
+ 
+  font-weight: 300;
 }
 
 .hb-file-desc {

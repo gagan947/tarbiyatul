@@ -56,7 +56,8 @@
 
 .prof-section-title {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 300;
+   font-family: "Rowdies", sans-serif;
 }
 
 .prof-section-desc {
@@ -81,8 +82,8 @@
 }
 .prof-child-name {
   font-size: 18px;
-  font-weight: 600;
-  font-family: 'Inter',sans-serif;
+  font-weight: 300;
+
 }
 
 .prof-badge-grade {

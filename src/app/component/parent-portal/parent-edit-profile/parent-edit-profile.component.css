@@ -11,3 +11,22 @@
     border-radius: 8px;
     background-color: #fff;
 }
+.back-link-btn {
+  background: none;
+  border: none;
+  font-size: 18px;
+  font-weight: 300;
+  color: #FC800A;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 0;
+  transition: color 0.2s ease;
+  font-family: 'Rowdies', sans-serif;
+}
+
+.back-link-btn:hover {
+  color: #FC800A;
+}

@@ -52,7 +52,7 @@ export class TeacherAssignmentsComponent {
     {
       id: 4,
       bookCover: 'assets/img/book_1.png',
-      bookTitle: 'Eplore Science',
+      bookTitle: 'Explore Science',
       requiredReading: 'Read Pages 15–22',
       subject: 'Science',
       grade: 'Grade 1',
