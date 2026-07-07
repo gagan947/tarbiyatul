@@ -52,8 +52,6 @@ export class TeacherSignupComponent implements OnInit {
   }
 
   nextStep(): void {
-    this.currentStep = 2;
-    return
     this.errorMessage = null;
     this.submitted = true;
 
@@ -85,8 +83,6 @@ export class TeacherSignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.router.navigate(['/teacher']);
-    return
     this.submitted = true;
     this.errorMessage = null;
 

@@ -43,48 +43,39 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const email = this.loginForm.get('email')?.value;
-    if (email === 'teacher@tiag.com') {
-      this.router.navigate(['/teacher']);
-    } else if (email === 'parent@tiag.com') {
-      this.router.navigate(['/parent']);
-    } else {
-      this.router.navigate(['/student']);
+    this.submitted = true;
+    this.errorMessage = null;
+    this.successMessage = null;
+
+    if (this.loginForm.invalid) {
+      return;
     }
 
-    // this.submitted = true;
-    // this.errorMessage = null;
-    // this.successMessage = null;
+    this.isLoading = true;
+    const loginData: LoginRequest = this.loginForm.value;
 
-    // if (this.loginForm.invalid) {
-    //   return;
-    // }
+    this.apiService.post<LoginResponse>('users/auth/login', loginData)
+      .subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.successMessage = 'Login successful! Redirecting...';
 
-    // this.isLoading = true;
-    // const loginData: LoginRequest = this.loginForm.value;
+          if (response.token) {
+            localStorage.setItem('token', response.token);
+          }
+          if (response.user) {
+            localStorage.setItem('user', JSON.stringify(response.user));
+          }
 
-    // this.apiService.post<LoginResponse>('users/auth/login', loginData)
-    //   .subscribe({
-    //     next: (response) => {
-    //       this.isLoading = false;
-    //       this.successMessage = 'Login successful! Redirecting...';
-
-    //       if (response.token) {
-    //         localStorage.setItem('token', response.token);
-    //       }
-    //       if (response.user) {
-    //         localStorage.setItem('user', JSON.stringify(response.user));
-    //       }
-
-    //       // Mock redirect to home page after success
-    //       setTimeout(() => {
-    //         this.router.navigate(['/']);
-    //       }, 1500);
-    //     },
-    //     error: (err: Error) => {
-    //       this.isLoading = false;
-    //       this.errorMessage = err.message || 'Login failed. Please check your credentials.';
-    //     }
-    //   });
+          // Mock redirect to home page after success
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 1500);
+        },
+        error: (err: Error) => {
+          this.isLoading = false;
+          this.errorMessage = err.message || 'Login failed. Please check your credentials.';
+        }
+      });
   }
 }

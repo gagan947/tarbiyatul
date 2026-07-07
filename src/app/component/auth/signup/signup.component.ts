@@ -81,37 +81,37 @@ export class SignupComponent implements OnInit {
 
   nextStep(): void {
     this.errorMessage = null;
-    // this.submitted = true;
+    this.submitted = true;
 
     if (this.currentStep === 1) {
-      // const parentControls = ['firstName', 'lastName', 'phone', 'email', 'password'];
-      // let isStep1Valid = true;
-      // parentControls.forEach(controlName => {
-      //   const control = this.signupForm.get(controlName);
-      //   if (control) {
-      //     control.markAsTouched();
-      //     if (control.invalid) {
-      //       isStep1Valid = false;
-      //     }
-      //   }
-      // });
-      // if (!isStep1Valid) return;
-      // this.submitted = false;
+      const parentControls = ['firstName', 'lastName', 'phone', 'email', 'password'];
+      let isStep1Valid = true;
+      parentControls.forEach(controlName => {
+        const control = this.signupForm.get(controlName);
+        if (control) {
+          control.markAsTouched();
+          if (control.invalid) {
+            isStep1Valid = false;
+          }
+        }
+      });
+      if (!isStep1Valid) return;
+      this.submitted = false;
       this.currentStep = 2;
     } else if (this.currentStep === 2) {
-      // const studentControls = ['studentFirstName', 'studentLastName', 'studentDob', 'studentGradeLevel'];
-      // let isStep2Valid = true;
-      // studentControls.forEach(controlName => {
-      //   const control = this.signupForm.get(controlName);
-      //   if (control) {
-      //     control.markAsTouched();
-      //     if (control.invalid) {
-      //       isStep2Valid = false;
-      //     }
-      //   }
-      // });
-      // if (!isStep2Valid) return;
-      // this.submitted = false;
+      const studentControls = ['studentFirstName', 'studentLastName', 'studentDob', 'studentGradeLevel'];
+      let isStep2Valid = true;
+      studentControls.forEach(controlName => {
+        const control = this.signupForm.get(controlName);
+        if (control) {
+          control.markAsTouched();
+          if (control.invalid) {
+            isStep2Valid = false;
+          }
+        }
+      });
+      if (!isStep2Valid) return;
+      this.submitted = false;
       this.currentStep = 3;
     }
   }
@@ -131,43 +131,42 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.router.navigate(['/parent']);
-    //   this.submitted = true;
-    //   this.errorMessage = null;
+    this.submitted = true;
+    this.errorMessage = null;
 
-    //   if (this.signupForm.invalid) {
-    //     return;
-    //   }
+    if (this.signupForm.invalid) {
+      return;
+    }
 
-    //   this.isLoading = true;
+    this.isLoading = true;
 
-    //   const signupData: SignupRequest = {
-    //     role: this.signupForm.value.role || 'parent',
-    //     firstName: this.signupForm.value.firstName || '',
-    //     lastName: this.signupForm.value.lastName || '',
-    //     phone: this.signupForm.value.phone || '',
-    //     email: this.signupForm.value.email || '',
-    //     password: this.signupForm.value.password || '',
-    //     students: [
-    //       {
-    //         firstName: this.signupForm.value.studentFirstName || '',
-    //         lastName: this.signupForm.value.studentLastName || '',
-    //         dob: this.signupForm.value.studentDob || '',
-    //         gradeLevel: this.signupForm.value.studentGradeLevel || ''
-    //       }
-    //     ]
-    //   };
+    const signupData: SignupRequest = {
+      role: this.signupForm.value.role || 'parent',
+      firstName: this.signupForm.value.firstName || '',
+      lastName: this.signupForm.value.lastName || '',
+      phone: this.signupForm.value.phone || '',
+      email: this.signupForm.value.email || '',
+      password: this.signupForm.value.password || '',
+      students: [
+        {
+          firstName: this.signupForm.value.studentFirstName || '',
+          lastName: this.signupForm.value.studentLastName || '',
+          dob: this.signupForm.value.studentDob || '',
+          gradeLevel: this.signupForm.value.studentGradeLevel || ''
+        }
+      ]
+    };
 
-    //   this.apiService.post<SignupResponse>('users/auth/signup', signupData)
-    //     .subscribe({
-    //       next: (response) => {
-    //         this.isLoading = false;
-    //         this.currentStep = 4; // Advance to success step
-    //       },
-    //       error: (err: Error) => {
-    //         this.isLoading = false;
-    //         this.errorMessage = err.message || 'Signup failed. Please try again.';
-    //       }
-    //     });
+    this.apiService.post<SignupResponse>('users/auth/signup', signupData)
+      .subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.currentStep = 4; // Advance to success step
+        },
+        error: (err: Error) => {
+          this.isLoading = false;
+          this.errorMessage = err.message || 'Signup failed. Please try again.';
+        }
+      });
   }
 }
