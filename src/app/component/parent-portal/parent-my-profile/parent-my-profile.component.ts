@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ApiService } from '../../../core/services/api.service';
+import { ProfileService } from '../../../core/services/profile.service';
 
 @Component({
   selector: 'app-parent-my-profile',
@@ -15,26 +15,31 @@ export class ParentMyProfileComponent implements OnInit {
   isLoading = false;
   errorMessage: string | null = null;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
-    this.fetchProfile();
-  }
-
-  fetchProfile(): void {
     this.isLoading = true;
-    this.apiService.get<any>('users/auth/profile').subscribe({
-      next: (response) => {
-        this.isLoading = false;
-        this.profileData = response;
-        console.log('Parent Profile API Response:', response);
+    this.profileService.profile$.subscribe({
+      next: (data) => {
+        this.profileData = data;
+        if (data) {
+          this.isLoading = false;
+        }
       },
-      error: (err: Error) => {
+      error: (err) => {
         this.isLoading = false;
         this.errorMessage = err.message || 'Failed to load profile data.';
-        console.error('Error fetching parent profile:', err);
       }
     });
+
+    if (!this.profileService.getProfileData()) {
+      this.profileService.fetchProfile().subscribe({
+        error: (err) => {
+          this.isLoading = false;
+          this.errorMessage = err.message || 'Failed to fetch profile.';
+        }
+      });
+    }
   }
 
   getChildren(): any[] {

@@ -3,6 +3,7 @@ export interface StudentSignupInfo {
   lastName: string;
   dob: string;
   gradeLevel: string;
+  email: string;
 }
 
 export interface SignupRequest {

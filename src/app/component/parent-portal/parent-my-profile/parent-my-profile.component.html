@@ -74,23 +74,26 @@
       </svg>
     </div>
     <div>
-      <h3 class="section-title mb-0 prof-section-title">My Children ({{ profileData?.data?.studentSummary?.totalStudents || getChildren().length || 2 }})</h3>
+      <h3 class="section-title mb-0 prof-section-title">My Children ({{ profileData?.data?.studentSummary?.totalStudents
+        || getChildren().length || 2 }})</h3>
       <p class="text-muted mb-0 prof-section-desc">Here are your registered children in the system.</p>
     </div>
   </div>
 
   <div *ngIf="!isLoading" class="row g">
-    <ng-container *ngIf="getChildren() && getChildren().length > 0; else mockChildren">
+    <ng-container *ngIf="getChildren() && getChildren().length > 0">
       <!-- Dynamic Child Cards -->
       <div *ngFor="let child of getChildren(); let i = index" class="col-md-6 col-xl-4 mb-4 mb-xl-0">
         <div class="dashboard-card text-center p-4 h-100 prof-child-card">
           <div class="avatar-container mb-3 d-inline-block position-relative prof-avatar-container">
-            <img #imgRef [src]="child.avatar || child.profileImage || (i % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')" 
+            <img #imgRef
+              [src]="child.avatar || child.profileImage || (i % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
               (error)="imgRef.src = (i % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
               [alt]="child.fullName || child.firstName"
               class="rounded-circle w-100 h-100 object-fit-cover shadow-sm prof-avatar-img" />
           </div>
-          <h4 class="child-name mb-2 prof-child-name">{{ child.fullName || (child.firstName + ' ' + child.lastName) }}</h4>
+          <h4 class="child-name mb-2 prof-child-name">{{ child.fullName || (child.firstName + ' ' + child.lastName) }}
+          </h4>
           <span class="badge rounded-pill mb-4 prof-badge-grade">{{ child.gradeLevel || child.grade || 'N/A' }}</span>
 
           <div class="d-flex justify-content-between text-start border-top pt-3 mt-2 prof-meta-border">
@@ -98,68 +101,11 @@
             <span class="fw-semibold prof-meta-value">{{ formatDate(child.dob || child.dateOfBirth) }}</span>
           </div>
           <div class="d-flex justify-content-between text-start pt-2 mt-1">
-            <span class="text-muted prof-meta-label">Gender</span>
-            <span class="fw-semibold prof-meta-value">{{ child.gender || 'N/A' }}</span>
-          </div>
-          <div class="d-flex justify-content-between text-start pt-2 mt-1">
-            <span class="text-muted prof-meta-label">Username</span>
-            <span class="fw-semibold prof-meta-value">{{ child.username || 'N/A' }}</span>
+            <span class="text-muted prof-meta-label">Email</span>
+            <span class="fw-semibold prof-meta-value">{{ child.email || 'N/A' }}</span>
           </div>
         </div>
       </div>
     </ng-container>
-
-    <!-- Mock Children Fallback -->
-    <ng-template #mockChildren>
-      <!-- Child Card 1 -->
-      <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
-        <div class="dashboard-card text-center p-4 h-100 prof-child-card">
-          <div class="avatar-container mb-3 d-inline-block position-relative prof-avatar-container">
-            <img src="assets/img/chat_user_2.png" alt="Fatima Ahmed"
-              class="rounded-circle w-100 h-100 object-fit-cover shadow-sm prof-avatar-img" />
-          </div>
-          <h4 class="child-name mb-2 prof-child-name">Fatima Ahmed</h4>
-          <span class="badge rounded-pill mb-4 prof-badge-grade">1st Grade</span>
-
-          <div class="d-flex justify-content-between text-start border-top pt-3 mt-2 prof-meta-border">
-            <span class="text-muted prof-meta-label">DATE OF BIRTH</span>
-            <span class="fw-semibold prof-meta-value">25 Jul 2017</span>
-          </div>
-          <div class="d-flex justify-content-between text-start pt-2 mt-1">
-            <span class="text-muted prof-meta-label">Gender</span>
-            <span class="fw-semibold prof-meta-value">Female</span>
-          </div>
-          <div class="d-flex justify-content-between text-start pt-2 mt-1">
-            <span class="text-muted prof-meta-label">Username</span>
-            <span class="fw-semibold prof-meta-value">STD1783503460855879</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Child Card 2 -->
-      <div class="col-md-6 col-xl-4 mb-4 mb-xl-0">
-        <div class="dashboard-card text-center p-4 h-100 prof-child-card">
-          <div class="avatar-container mb-3 d-inline-block position-relative prof-avatar-container">
-            <img src="assets/img/chat_user_1.png" alt="Ayesha Khan"
-              class="rounded-circle w-100 h-100 object-fit-cover shadow-sm prof-avatar-img" />
-          </div>
-          <h4 class="child-name mb-2 prof-child-name">Shezan Khan</h4>
-          <span class="badge rounded-pill mb-4 prof-badge-grade">2nd Grade</span>
-
-          <div class="d-flex justify-content-between text-start border-top pt-3 mt-2 prof-meta-border">
-            <span class="text-muted prof-meta-label">DATE OF BIRTH</span>
-            <span class="fw-semibold prof-meta-value">25 Jul 2017</span>
-          </div>
-          <div class="d-flex justify-content-between text-start pt-2 mt-1">
-            <span class="text-muted prof-meta-label">Gender</span>
-            <span class="fw-semibold prof-meta-value">Male</span>
-          </div>
-          <div class="d-flex justify-content-between text-start pt-2 mt-1">
-            <span class="text-muted prof-meta-label">Username</span>
-            <span class="fw-semibold prof-meta-value">STD1783503460769377</span>
-          </div>
-        </div>
-      </div>
-    </ng-template>
   </div>
 </div>

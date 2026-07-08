@@ -76,7 +76,8 @@ export class SignupComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       dob: ['', [Validators.required]],
-      gradeLevel: ['1st Grade', [Validators.required]]
+      gradeLevel: ['1st Grade', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 

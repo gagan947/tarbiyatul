@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ProfileService } from '../../../core/services/profile.service';
 
 interface TeacherThread {
   name: string;
@@ -30,6 +31,10 @@ export class ParentPortalComponent implements OnInit {
   selectedResource: any = null;
   isSidebarOpen = false;
   isProfileSidebarOpen = false;
+
+  profileData: any = null;
+  selectedStudent: any = null;
+  studentsList: any[] = [];
 
   // Mock list of teachers matching Messages tab details
   teacherThreads: TeacherThread[] = [
@@ -80,7 +85,10 @@ export class ParentPortalComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private profileService: ProfileService
+  ) {
     this.currentUrl = this.router.url;
   }
 
@@ -91,6 +99,37 @@ export class ParentPortalComponent implements OnInit {
       .subscribe((event: any) => {
         this.currentUrl = event.urlAfterRedirects || event.url;
       });
+
+    // Subscribe to profile changes
+    this.profileService.profile$.subscribe(data => {
+      this.profileData = data;
+      if (data?.data?.students) {
+        this.studentsList = data.data.students;
+      }
+    });
+
+    // Subscribe to selected student changes
+    this.profileService.selectedStudent$.subscribe(student => {
+      this.selectedStudent = student;
+      if (student) {
+        this.studentName = student.fullName || `${student.firstName} ${student.lastName}`;
+        this.studentGrade = student.gradeLevel || student.grade || 'N/A';
+      }
+    });
+
+    // Trigger profile fetch
+    this.profileService.fetchProfile().subscribe({
+      next: (data) => {
+        console.log('ParentPortal header profile loaded:', data);
+      },
+      error: (err) => {
+        console.error('Failed to load profile for header:', err);
+      }
+    });
+  }
+
+  selectStudent(student: any): void {
+    this.profileService.selectStudent(student);
   }
 
   onSubComponentActivated(componentRef: any): void {
@@ -113,6 +152,8 @@ export class ParentPortalComponent implements OnInit {
 
   confirmLogout(): void {
     this.showLogoutModal = false;
+    this.profileService.clearProfile();
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 

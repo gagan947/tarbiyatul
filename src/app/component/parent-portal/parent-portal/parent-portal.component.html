@@ -81,7 +81,7 @@
             <div class="d-flex align-items-center gap-3">
                 <i class="fa-solid fa-bars d-lg-none d-block fs-5" (click)="toggleSidebar()" style="cursor: pointer;"></i>
                 <div class="header-greeting d-sm-block d-none">
-                    <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
+                    <h1 class="greeting-title">Assalamualaikum, {{ profileData?.data?.user?.firstName || 'Parent' }} 👋</h1>
                     <p class="greeting-subtitle">Welcome to your Parent Portal</p>
                 </div>
             </div>
@@ -174,56 +174,34 @@
                     <button id="dropdownMenuButton" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                         aria-expanded="false" class="p-0">
                         <div class="d-flex align-items-center gap-2">
-                            <img src="assets/img/boy.jpg" alt="Profile" class="rounded-circle object-fit-cover"
+                            <img #headerImgRef [src]="selectedStudent?.avatar || (studentsList.indexOf(selectedStudent) % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
+                                (error)="headerImgRef.src = (studentsList.indexOf(selectedStudent) % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
+                                alt="Profile" class="rounded-circle object-fit-cover"
                                 style="width: 25px; height: 25px;">
                             <div class="align-items-end d-flex flex-column ">
-
-
                                 <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
-                                    Fatima Ahmed
+                                    {{ selectedStudent?.fullName || selectedStudent?.firstName || 'Select Child' }}
                                 </small>
                             </div>
-
-
                         </div>
                         <i class="fa-solid fa-angle-down ct_text_para"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li>
-                            <a class="dropdown-item" routerLink="#">
+                        <li *ngFor="let student of studentsList; let idx = index">
+                            <a class="dropdown-item" href="javascript:void(0)" (click)="selectStudent(student)">
                                 <div class="d-flex align-items-center gap-2">
-                            <img src="assets/img/boy.jpg" alt="Profile" class="rounded-circle object-fit-cover"
-                                style="width: 25px; height: 25px;">
-                            <div class="align-items-end d-flex flex-column ">
-
-
-                                <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
-                                    Fatima Ahmed
-                                </small>
-                            </div>
-
-
-                        </div>
+                                    <img #dropdownImgRef [src]="student.avatar || (idx % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
+                                        (error)="dropdownImgRef.src = (idx % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
+                                        alt="Profile" class="rounded-circle object-fit-cover"
+                                        style="width: 25px; height: 25px;">
+                                    <div class="align-items-end d-flex flex-column ">
+                                        <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
+                                            {{ student.fullName || student.firstName }}
+                                        </small>
+                                    </div>
+                                </div>
                             </a>
                         </li>
-                         <li>
-                            <a class="dropdown-item" routerLink="#">
-                                <div class="d-flex align-items-center gap-2">
-                            <img src="assets/img/boy.jpg" alt="Profile" class="rounded-circle object-fit-cover"
-                                style="width: 25px; height: 25px;">
-                            <div class="align-items-end d-flex flex-column ">
-
-
-                                <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
-                                    Fatima Ahmed
-                                </small>
-                            </div>
-
-
-                        </div>
-                            </a>
-                        </li>
-
                     </ul>
                 </div>
 

@@ -222,6 +222,23 @@
                             <span><i class="fa-solid fa-circle-info me-1"></i> Grade Level selection is required</span>
                           </div>
                         </div>
+
+                        <!-- Student Email Address -->
+                        <div class="col-md-6 form-group mb-4">
+                          <label [attr.for]="'studentEmail_' + i" class="form-label">Email Address</label>
+                          <input type="email" [id]="'studentEmail_' + i" formControlName="email"
+                            class="form-control-custom" placeholder="eg. student@email.com"
+                            [ngClass]="{ 'is-invalid-custom': student.get('email')?.invalid && (student.get('email')?.touched || submitted) }" />
+                          <div *ngIf="student.get('email')?.invalid && (student.get('email')?.touched || submitted)"
+                            class="error-msg">
+                            <span *ngIf="student.get('email')?.errors?.['required']">
+                              <i class="fa-solid fa-circle-info me-1"></i> Student Email is required
+                            </span>
+                            <span *ngIf="student.get('email')?.errors?.['email']">
+                              <i class="fa-solid fa-circle-info me-1"></i> Please enter a valid email address
+                            </span>
+                          </div>
+                        </div>
                       </div>
 
                     </div>
@@ -292,6 +309,10 @@
                         <div class="review-item">
                           <span class="review-label">Grade Level</span>
                           <span class="review-value">{{ student.gradeLevel }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Email Address</span>
+                          <span class="review-value">{{ student.email }}</span>
                         </div>
                       </div>
                     </div>
