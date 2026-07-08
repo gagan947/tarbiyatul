@@ -11,8 +11,13 @@ export interface UserInfo {
 }
 
 export interface LoginResponse {
+  success?: boolean;
+  message?: string;
+  data?: {
+    token?: string;
+    role?: string;
+    user?: UserInfo;
+  };
   token?: string;
   user?: UserInfo;
-  message?: string;
-  success?: boolean;
 }

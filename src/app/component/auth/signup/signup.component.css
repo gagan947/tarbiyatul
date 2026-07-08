@@ -428,3 +428,66 @@
     font-size: 12px;
   }
 }
+
+/* Multiple Students Signup Custom Styles */
+.add-student-btn {
+  background-color: #ffffff;
+  color: #FC800A;
+  border: 1px dashed #FC800A;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.add-student-btn:hover {
+  background-color: #FFF2E6;
+  border-color: #E27208;
+  color: #E27208;
+}
+
+.student-form-section {
+  border: 1px solid #EFEAE4;
+  border-radius: 16px;
+  background-color: #FFFDFB;
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: box-shadow 0.3s ease;
+}
+
+.student-form-section:hover {
+  box-shadow: 0 4px 15px rgba(252, 128, 10, 0.04);
+}
+
+.student-section-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  color: #171E45;
+}
+
+.remove-student-btn {
+  border: none;
+  background: none;
+  color: #DC2626;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: color 0.2s ease;
+}
+
+.remove-student-btn:hover {
+  color: #B91C1C;
+  text-decoration: underline;
+}
+
+.review-student-item {
+  position: relative;
+}

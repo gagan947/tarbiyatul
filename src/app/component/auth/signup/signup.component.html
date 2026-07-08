@@ -153,58 +153,77 @@
 
                 <!-- ================== STEP 2: STUDENT INFORMATION ================== -->
                 <div *ngIf="currentStep === 2">
-                  <h2 class="step-card-title mb-4">Student Information</h2>
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="step-card-title mb-0">Student Information</h2>
+                    <button type="button" class="add-student-btn" (click)="addStudent()">
+                      <i class="fa-solid fa-plus me-1"></i> Add Student
+                    </button>
+                  </div>
 
-                  <div class="row">
-                    <!-- Student First Name -->
-                    <div class="col-md-6 form-group mb-4">
-                      <label for="studentFirstName" class="form-label">First Name</label>
-                      <input type="text" id="studentFirstName" formControlName="studentFirstName"
-                        class="form-control-custom" placeholder="eg. Ali"
-                        [ngClass]="{ 'is-invalid-custom': f['studentFirstName'].invalid && (f['studentFirstName'].touched || submitted) }" />
-                      <div *ngIf="f['studentFirstName'].invalid && (f['studentFirstName'].touched || submitted)"
-                        class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> Student First Name is required</span>
+                  <div formArrayName="students">
+                    <div *ngFor="let student of students.controls; let i = index" [formGroupName]="i" class="student-form-section">
+                      
+                      <!-- Header for Student entry, with Remove button if > 1 -->
+                      <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="student-section-title mb-0">Student #{{ i + 1 }}</h4>
+                        <button type="button" *ngIf="students.length > 1" class="remove-student-btn p-0" (click)="removeStudent(i)" title="Remove Student">
+                          <i class="fa-solid fa-trash-can me-1"></i> Remove
+                        </button>
                       </div>
-                    </div>
 
-                    <!-- Student Last Name -->
-                    <div class="col-md-6 form-group mb-4">
-                      <label for="studentLastName" class="form-label">Last Name</label>
-                      <input type="text" id="studentLastName" formControlName="studentLastName"
-                        class="form-control-custom" placeholder="eg. Khan"
-                        [ngClass]="{ 'is-invalid-custom': f['studentLastName'].invalid && (f['studentLastName'].touched || submitted) }" />
-                      <div *ngIf="f['studentLastName'].invalid && (f['studentLastName'].touched || submitted)"
-                        class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> Student Last Name is required</span>
-                      </div>
-                    </div>
+                      <div class="row">
+                        <!-- Student First Name -->
+                        <div class="col-md-6 form-group mb-4">
+                          <label [attr.for]="'studentFirstName_' + i" class="form-label">First Name</label>
+                          <input type="text" [id]="'studentFirstName_' + i" formControlName="firstName"
+                            class="form-control-custom" placeholder="eg. Ali"
+                            [ngClass]="{ 'is-invalid-custom': student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted) }" />
+                          <div *ngIf="student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted)"
+                            class="error-msg">
+                            <span><i class="fa-solid fa-circle-info me-1"></i> Student First Name is required</span>
+                          </div>
+                        </div>
 
-                    <!-- Student DOB -->
-                    <div class="col-md-6 form-group mb-4">
-                      <label for="studentDob" class="form-label">Date of Birth</label>
-                      <input type="date" id="studentDob" formControlName="studentDob"
-                        class="form-control-custom date-input"
-                        [ngClass]="{ 'is-invalid-custom': f['studentDob'].invalid && (f['studentDob'].touched || submitted) }" />
-                      <div *ngIf="f['studentDob'].invalid && (f['studentDob'].touched || submitted)" class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> Student Date of Birth is required</span>
-                      </div>
-                    </div>
+                        <!-- Student Last Name -->
+                        <div class="col-md-6 form-group mb-4">
+                          <label [attr.for]="'studentLastName_' + i" class="form-label">Last Name</label>
+                          <input type="text" [id]="'studentLastName_' + i" formControlName="lastName"
+                            class="form-control-custom" placeholder="eg. Khan"
+                            [ngClass]="{ 'is-invalid-custom': student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted) }" />
+                          <div *ngIf="student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted)"
+                            class="error-msg">
+                            <span><i class="fa-solid fa-circle-info me-1"></i> Student Last Name is required</span>
+                          </div>
+                        </div>
 
-                    <!-- Student Grade Level -->
-                    <div class="col-md-6 form-group mb-4">
-                      <label for="studentGradeLevel" class="form-label">Grade Level</label>
-                      <div class="select-container">
-                        <select id="studentGradeLevel" formControlName="studentGradeLevel"
-                          class="form-control-custom select-custom">
-                          <option *ngFor="let grade of gradeLevels" [value]="grade">{{ grade }}</option>
-                        </select>
-                        <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                        <!-- Student DOB -->
+                        <div class="col-md-6 form-group mb-4">
+                          <label [attr.for]="'studentDob_' + i" class="form-label">Date of Birth</label>
+                          <input type="date" [id]="'studentDob_' + i" formControlName="dob"
+                            class="form-control-custom date-input"
+                            [ngClass]="{ 'is-invalid-custom': student.get('dob')?.invalid && (student.get('dob')?.touched || submitted) }" />
+                          <div *ngIf="student.get('dob')?.invalid && (student.get('dob')?.touched || submitted)" class="error-msg">
+                            <span><i class="fa-solid fa-circle-info me-1"></i> Student Date of Birth is required</span>
+                          </div>
+                        </div>
+
+                        <!-- Student Grade Level -->
+                        <div class="col-md-6 form-group mb-4">
+                          <label [attr.for]="'studentGradeLevel_' + i" class="form-label">Grade Level</label>
+                          <div class="select-container">
+                            <select [id]="'studentGradeLevel_' + i" formControlName="gradeLevel"
+                              class="form-control-custom select-custom">
+                              <option *ngFor="let grade of gradeLevels" [value]="grade">{{ grade }}</option>
+                            </select>
+                            <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                          </div>
+                          <div *ngIf="student.get('gradeLevel')?.invalid && (student.get('gradeLevel')?.touched || submitted)"
+                            class="error-msg">
+                            <span><i class="fa-solid fa-circle-info me-1"></i> Grade Level selection is required</span>
+                          </div>
+                        </div>
                       </div>
-                      <div *ngIf="f['studentGradeLevel'].invalid && (f['studentGradeLevel'].touched || submitted)"
-                        class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> Grade Level selection is required</span>
-                      </div>
+
                     </div>
                   </div>
 
@@ -254,22 +273,26 @@
                       <h3 class="review-section-title">Student Information</h3>
                       <button type="button" class="edit-section-btn" (click)="goToStep(2)">Edit</button>
                     </div>
-                    <div class="review-grid">
-                      <div class="review-item">
-                        <span class="review-label">First Name</span>
-                        <span class="review-value">{{ signupForm.value.studentFirstName }}</span>
-                      </div>
-                      <div class="review-item">
-                        <span class="review-label">Last Name</span>
-                        <span class="review-value">{{ signupForm.value.studentLastName }}</span>
-                      </div>
-                      <div class="review-item">
-                        <span class="review-label">Date of Birth</span>
-                        <span class="review-value">{{ signupForm.value.studentDob | date:'dd MMMM yyyy' }}</span>
-                      </div>
-                      <div class="review-item">
-                        <span class="review-label">Grade Level</span>
-                        <span class="review-value">{{ signupForm.value.studentGradeLevel }}</span>
+                    
+                    <div *ngFor="let student of signupForm.value.students; let i = index" class="review-student-item" [ngClass]="{ 'border-top pt-3 mt-3': i > 0 }">
+                      <h4 class="student-section-title mb-3" style="font-size: 13px; color: #FC800A;">Student #{{ i + 1 }}</h4>
+                      <div class="review-grid">
+                        <div class="review-item">
+                          <span class="review-label">First Name</span>
+                          <span class="review-value">{{ student.firstName }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Last Name</span>
+                          <span class="review-value">{{ student.lastName }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Date of Birth</span>
+                          <span class="review-value">{{ student.dob | date:'dd MMMM yyyy' }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Grade Level</span>
+                          <span class="review-value">{{ student.gradeLevel }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -278,7 +301,7 @@
                   <div class="form-group mb-4">
                     <label class="terms-checkbox-label">
                       <div class="form-check ct_custom_check2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="agreeToTerms">
                         <span class="terms-text">
                           I have read and agree to the <a routerLink="/privacy_policy" class="terms-link">Privacy
                             Policy</a> and <a class="terms-link">Terms & Conditions</a>.

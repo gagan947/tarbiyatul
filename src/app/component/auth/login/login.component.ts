@@ -33,7 +33,6 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  // Easy getter for form controls in the template
   get f() {
     return this.loginForm.controls;
   }
@@ -60,16 +59,27 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
           this.successMessage = 'Login successful! Redirecting...';
 
-          if (response.token) {
-            localStorage.setItem('token', response.token);
+          const token = response.data?.token || response.token;
+          const role = response.data?.role || response.user?.role;
+
+          if (token) {
+            localStorage.setItem('token', token);
           }
-          if (response.user) {
-            localStorage.setItem('user', JSON.stringify(response.user));
+          if (role) {
+            localStorage.setItem('role', role);
           }
 
-          // Mock redirect to home page after success
+          // Redirect based on user role
           setTimeout(() => {
-            this.router.navigate(['/']);
+            if (role === 'parent') {
+              this.router.navigate(['/parent']);
+            } else if (role === 'teacher') {
+              this.router.navigate(['/teacher']);
+            } else if (role === 'student') {
+              this.router.navigate(['/student']);
+            } else {
+              this.router.navigate(['/']);
+            }
           }, 1500);
         },
         error: (err: Error) => {

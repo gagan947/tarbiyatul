@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { SignupRequest, SignupResponse } from '../../../core/models/signup.model';
@@ -53,11 +53,7 @@ export class SignupComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
 
-      // Student details
-      studentFirstName: ['', [Validators.required]],
-      studentLastName: ['', [Validators.required]],
-      studentDob: ['', [Validators.required]],
-      studentGradeLevel: ['1st Grade', [Validators.required]],
+      students: this.fb.array([this.createStudentGroup()]),
 
       // Terms checkbox
       agreeToTerms: [false, [Validators.requiredTrue]]
@@ -69,6 +65,29 @@ export class SignupComponent implements OnInit {
         this.signupForm.patchValue({ role: params['role'] });
       }
     });
+  }
+
+  get students(): FormArray {
+    return this.signupForm.get('students') as FormArray;
+  }
+
+  createStudentGroup(): FormGroup {
+    return this.fb.group({
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      dob: ['', [Validators.required]],
+      gradeLevel: ['1st Grade', [Validators.required]]
+    });
+  }
+
+  addStudent(): void {
+    this.students.push(this.createStudentGroup());
+  }
+
+  removeStudent(index: number): void {
+    if (this.students.length > 1) {
+      this.students.removeAt(index);
+    }
   }
 
   get f() {
@@ -99,18 +118,10 @@ export class SignupComponent implements OnInit {
       this.submitted = false;
       this.currentStep = 2;
     } else if (this.currentStep === 2) {
-      const studentControls = ['studentFirstName', 'studentLastName', 'studentDob', 'studentGradeLevel'];
-      let isStep2Valid = true;
-      studentControls.forEach(controlName => {
-        const control = this.signupForm.get(controlName);
-        if (control) {
-          control.markAsTouched();
-          if (control.invalid) {
-            isStep2Valid = false;
-          }
-        }
+      this.students.controls.forEach(group => {
+        group.markAllAsTouched();
       });
-      if (!isStep2Valid) return;
+      if (this.students.invalid) return;
       this.submitted = false;
       this.currentStep = 3;
     }
@@ -133,7 +144,7 @@ export class SignupComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     this.errorMessage = null;
-
+    debugger
     if (this.signupForm.invalid) {
       return;
     }
@@ -147,14 +158,7 @@ export class SignupComponent implements OnInit {
       phone: this.signupForm.value.phone || '',
       email: this.signupForm.value.email || '',
       password: this.signupForm.value.password || '',
-      students: [
-        {
-          firstName: this.signupForm.value.studentFirstName || '',
-          lastName: this.signupForm.value.studentLastName || '',
-          dob: this.signupForm.value.studentDob || '',
-          gradeLevel: this.signupForm.value.studentGradeLevel || ''
-        }
-      ]
+      students: this.signupForm.value.students || []
     };
 
     this.apiService.post<SignupResponse>('users/auth/signup', signupData)
