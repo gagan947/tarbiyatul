@@ -7,8 +7,16 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
 
   // Add default headers if not present (e.g. Content-Type) and request is not FormData
   if (!req.headers.has('Content-Type') && !(req.body instanceof FormData)) {
-    clonedReq = req.clone({
-      headers: req.headers.set('Content-Type', 'application/json')
+    clonedReq = clonedReq.clone({
+      headers: clonedReq.headers.set('Content-Type', 'application/json')
+    });
+  }
+
+  // Inject Authorization Bearer token if present in localStorage and not already set
+  const token = localStorage.getItem('token');
+  if (token && !clonedReq.headers.has('Authorization')) {
+    clonedReq = clonedReq.clone({
+      headers: clonedReq.headers.set('Authorization', `Bearer ${token}`)
     });
   }
 
