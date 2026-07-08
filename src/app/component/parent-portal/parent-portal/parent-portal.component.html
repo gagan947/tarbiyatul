@@ -79,15 +79,17 @@
         <!-- Common Portal Header -->
         <header class="portal-header">
             <div class="d-flex align-items-center gap-3">
-                <i class="fa-solid fa-bars d-lg-none d-block fs-5" (click)="toggleSidebar()" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-bars d-lg-none d-block fs-5" (click)="toggleSidebar()"
+                    style="cursor: pointer;"></i>
                 <div class="header-greeting d-sm-block d-none">
-                    <h1 class="greeting-title">Assalamualaikum, {{ profileData?.data?.user?.firstName || 'Parent' }} 👋</h1>
+                    <h1 class="greeting-title">Assalamualaikum, {{ profileData?.data?.user?.firstName || 'Parent' }} 👋
+                    </h1>
                     <p class="greeting-subtitle">Welcome to your Parent Portal</p>
                 </div>
             </div>
             <div class="header-actions d-flex align-items-center gap-4">
-                
-               <!-- Notifications Dropdown -->
+
+                <!-- Notifications Dropdown -->
                 <div class="dropdown">
                     <button type="button" class="btn btn-link text-dark p-0 position-relative border-0 bg-transparent "
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -168,16 +170,15 @@
                     </div>
                 </div>
 
-            
+
                 <!-- Profile Dropdown/Button -->
                 <div class="ct_right_dropdown dropdown notification-dropdown">
                     <button id="dropdownMenuButton" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                         aria-expanded="false" class="p-0">
                         <div class="d-flex align-items-center gap-2">
-                            <img #headerImgRef [src]="selectedStudent?.avatar || (studentsList.indexOf(selectedStudent) % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
-                                (error)="headerImgRef.src = (studentsList.indexOf(selectedStudent) % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
-                                alt="Profile" class="rounded-circle object-fit-cover"
-                                style="width: 25px; height: 25px;">
+                            <img #headerImgRef [src]="selectedStudent?.avatar || 'assets/img/placeholder.jpg'"
+                                (error)="headerImgRef.src = 'assets/img/placeholder.jpg'" alt="Profile"
+                                class="rounded-circle object-fit-cover" style="width: 25px; height: 25px;">
                             <div class="align-items-end d-flex flex-column ">
                                 <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
                                     {{ selectedStudent?.fullName || selectedStudent?.firstName || 'Select Child' }}
@@ -190,10 +191,9 @@
                         <li *ngFor="let student of studentsList; let idx = index">
                             <a class="dropdown-item" href="javascript:void(0)" (click)="selectStudent(student)">
                                 <div class="d-flex align-items-center gap-2">
-                                    <img #dropdownImgRef [src]="student.avatar || (idx % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
-                                        (error)="dropdownImgRef.src = (idx % 2 === 0 ? 'assets/img/chat_user_2.png' : 'assets/img/chat_user_1.png')"
-                                        alt="Profile" class="rounded-circle object-fit-cover"
-                                        style="width: 25px; height: 25px;">
+                                    <img #dropdownImgRef [src]="student.avatar || 'assets/img/placeholder.jpg'"
+                                        (error)="dropdownImgRef.src = 'assets/img/placeholder.jpg'" alt="Profile"
+                                        class="rounded-circle object-fit-cover" style="width: 25px; height: 25px;">
                                     <div class="align-items-end d-flex flex-column ">
                                         <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
                                             {{ student.fullName || student.firstName }}
@@ -218,24 +218,24 @@
 
 
 
-<!-- ================= LOGOUT CONFIRMATION MODAL OVERLAY ================= -->
-<div class="modal-backdrop-overlay" *ngIf="showLogoutModal" (click)="cancelLogout()">
-    <div class="logout-modal-card" (click)="$event.stopPropagation()">
-        <!-- Close circular icon -->
-        <button class="close-modal-circle" (click)="cancelLogout()" aria-label="Close dialog">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <h3 class="logout-modal-title">You are about to LogOut</h3>
-        <p class="logout-modal-subtitle">Are you sure you want to logout ?</p>
-
-        <div class="logout-modal-actions">
-            <button (click)="cancelLogout()" class="portal-btn portal-btn-primary modal-btn-mistake">
-                No, This was a Mistake
+    <!-- ================= LOGOUT CONFIRMATION MODAL OVERLAY ================= -->
+    <div class="modal-backdrop-overlay" *ngIf="showLogoutModal" (click)="cancelLogout()">
+        <div class="logout-modal-card" (click)="$event.stopPropagation()">
+            <!-- Close circular icon -->
+            <button class="close-modal-circle" (click)="cancelLogout()" aria-label="Close dialog">
+                <i class="fa-solid fa-xmark"></i>
             </button>
-            <button (click)="confirmLogout()" class="portal-btn portal-btn-danger-light modal-btn-logout">
-                Yes, Log Me Out
-            </button>
+
+            <h3 class="logout-modal-title">You are about to LogOut</h3>
+            <p class="logout-modal-subtitle">Are you sure you want to logout ?</p>
+
+            <div class="logout-modal-actions">
+                <button (click)="cancelLogout()" class="portal-btn portal-btn-primary modal-btn-mistake">
+                    No, This was a Mistake
+                </button>
+                <button (click)="confirmLogout()" class="portal-btn portal-btn-danger-light modal-btn-logout">
+                    Yes, Log Me Out
+                </button>
+            </div>
         </div>
     </div>
-</div>
