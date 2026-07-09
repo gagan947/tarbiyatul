@@ -13,7 +13,7 @@ import { ApiService } from '../../../core/services/api.service';
 })
 export class TeacherSignupComponent implements OnInit {
   signupForm!: FormGroup;
-  currentStep = 3; // 1: Personal Info, 2: Professional Info, 3: Success
+  currentStep = 1; // 1: Personal Info, 2: Professional Info, 3: Success
   isLoading = false;
   submitted = false;
   showPassword = false;

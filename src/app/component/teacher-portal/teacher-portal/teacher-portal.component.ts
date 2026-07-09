@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ProfileService } from '../../../core/services/profile.service';
+import { environment } from '../../../../environments/environment';
 
 interface TeacherThread {
   name: string;
@@ -30,6 +32,8 @@ export class TeacherPortalComponent implements OnInit {
   selectedResource: any = null;
   isSidebarOpen = false;
   isProfileSidebarOpen = false;
+  imageBaseUrl = environment.imageBaseUrl;
+  profile$ = this.profileService.profile$;
 
   // Mock list of teachers matching Messages tab details
   teacherThreads: TeacherThread[] = [
@@ -80,7 +84,10 @@ export class TeacherPortalComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private profileService: ProfileService
+  ) {
     this.currentUrl = this.router.url;
   }
 
@@ -91,6 +98,34 @@ export class TeacherPortalComponent implements OnInit {
       .subscribe((event: any) => {
         this.currentUrl = event.urlAfterRedirects || event.url;
       });
+
+    // Fetch teacher profile info
+    this.profileService.fetchProfile().subscribe({
+      next: (data) => {
+        console.log('TeacherPortal profile loaded:', data);
+      },
+      error: (err) => {
+        console.error('Failed to load teacher profile:', err);
+      }
+    });
+  }
+
+  getAvatarUrl(profileImage: string | null | undefined): string {
+    if (!profileImage) {
+      return 'assets/img/placeholder.jpg';
+    }
+    if (
+      profileImage.startsWith('http://') || 
+      profileImage.startsWith('https://') || 
+      profileImage.startsWith('data:') || 
+      profileImage.startsWith('blob:') ||
+      profileImage.startsWith('assets/')
+    ) {
+      return profileImage;
+    }
+    const base = this.imageBaseUrl.endsWith('/') ? this.imageBaseUrl : `${this.imageBaseUrl}/`;
+    const path = profileImage.startsWith('/') ? profileImage.substring(1) : profileImage;
+    return `${base}${path}`;
   }
 
   onSubComponentActivated(componentRef: any): void {
