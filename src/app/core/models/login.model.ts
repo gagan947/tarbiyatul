@@ -17,6 +17,8 @@ export interface LoginResponse {
     token?: string;
     role?: string;
     user?: UserInfo;
+    isFirstLogin?: boolean;
+    isPasswordGenerated?: boolean;
   };
   token?: string;
   user?: UserInfo;

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { studentPasswordGuard, createPasswordGuard } from './core/guards/student-password.guard';
 
 export const routes: Routes = [
   { path: '', loadComponent: () => import('./component/home/home.component').then(m => m.HomeComponent) },
@@ -27,8 +28,10 @@ export const routes: Routes = [
   { path: 'student_handbook', loadComponent: () => import('./component/student-handbook/student-handbook.component').then(m => m.StudentHandbookComponent) },
   { path: 'summerschool', loadComponent: () => import('./component/summer-school/summer-school.component').then(m => m.SummerSchoolComponent) },
   { path: 'curriculum', loadComponent: () => import('./component/curriculum/curriculum.component').then(m => m.CurriculumComponent) },
+  { path: 'create-password', canActivate: [createPasswordGuard], loadComponent: () => import('./component/auth/create-password/create-password.component').then(m => m.CreatePasswordComponent) },
   {
     path: 'student',
+    canActivate: [studentPasswordGuard],
     loadComponent: () => import('./component/student-portel/std-portal/std-portal.component').then(m => m.StdPortalComponent),
     children: [
       { path: '', redirectTo: 'std-dashboard', pathMatch: 'full' },

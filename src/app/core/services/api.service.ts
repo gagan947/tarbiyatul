@@ -53,6 +53,15 @@ export class ApiService {
   }
 
   /**
+   * Generic PATCH request
+   */
+  patch<T>(url: string, body: any, options?: { headers?: HttpHeaders; params?: HttpParams }): Observable<T> {
+    return this.http.patch<T>(this.getFullUrl(url), body, options).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  /**
    * Generic DELETE request
    */
   delete<T>(url: string, options?: { headers?: HttpHeaders; params?: HttpParams }): Observable<T> {

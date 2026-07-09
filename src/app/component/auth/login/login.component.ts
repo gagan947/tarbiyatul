@@ -61,6 +61,7 @@ export class LoginComponent implements OnInit {
 
           const token = response.data?.token || response.token;
           const role = response.data?.role || response.user?.role;
+          const isPasswordGenerated = response.data?.isPasswordGenerated;
 
           if (token) {
             localStorage.setItem('token', token);
@@ -68,19 +69,24 @@ export class LoginComponent implements OnInit {
           if (role) {
             localStorage.setItem('role', role);
           }
+          if (role === 'student') {
+            localStorage.setItem('isPasswordGenerated', String(isPasswordGenerated ?? true));
+          }
 
           // Redirect based on user role
-          setTimeout(() => {
-            if (role === 'parent') {
-              this.router.navigate(['/parent']);
-            } else if (role === 'teacher') {
-              this.router.navigate(['/teacher']);
-            } else if (role === 'student') {
-              this.router.navigate(['/student']);
+          if (role === 'parent') {
+            this.router.navigate(['/parent']);
+          } else if (role === 'teacher') {
+            this.router.navigate(['/teacher']);
+          } else if (role === 'student') {
+            if (isPasswordGenerated === false) {
+              this.router.navigate(['/create-password']);
             } else {
-              this.router.navigate(['/']);
+              this.router.navigate(['/student']);
             }
-          }, 1500);
+          } else {
+            this.router.navigate(['/']);
+          }
         },
         error: (err: Error) => {
           this.isLoading = false;
