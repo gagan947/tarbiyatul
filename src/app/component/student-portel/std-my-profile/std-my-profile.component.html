@@ -17,7 +17,7 @@
     <div class="profile-avatar-section">
 
       <div class="avatar-wrapper">
-        <img [src]="student.profileImage || 'assets/img/placeholder.jpg'" [alt]="student.fullName" class="avatar-img" />
+        <img [src]="getAvatarUrl(student.profileImage)" [alt]="student.fullName" class="avatar-img" />
       </div>
       <div class="ct_profile_name_flex">
         <div class="student-info-brief mb-2">

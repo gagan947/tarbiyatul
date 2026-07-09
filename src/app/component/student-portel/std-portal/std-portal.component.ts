@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ProfileService } from '../../../core/services/profile.service';
+import { environment } from '../../../../environments/environment';
 
 interface TeacherThread {
   name: string;
@@ -104,6 +105,24 @@ export class StdPortalComponent implements OnInit {
         console.error('Failed to load student profile:', err);
       }
     });
+  }
+
+  getAvatarUrl(profileImage: string | null | undefined): string {
+    if (!profileImage) {
+      return 'assets/img/placeholder.jpg';
+    }
+    if (
+      profileImage.startsWith('http://') ||
+      profileImage.startsWith('https://') ||
+      profileImage.startsWith('data:') ||
+      profileImage.startsWith('blob:') ||
+      profileImage.startsWith('assets/')
+    ) {
+      return profileImage;
+    }
+    const base = environment.imageBaseUrl.endsWith('/') ? environment.imageBaseUrl : `${environment.imageBaseUrl}/`;
+    const path = profileImage.startsWith('/') ? profileImage.substring(1) : profileImage;
+    return `${base}${path}`;
   }
 
   onSubComponentActivated(componentRef: any): void {

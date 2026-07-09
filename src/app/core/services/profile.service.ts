@@ -12,7 +12,7 @@ export class ProfileService {
   private selectedStudentSubject = new BehaviorSubject<any>(null);
   public selectedStudent$ = this.selectedStudentSubject.asObservable();
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService) { }
 
   fetchProfile(): Observable<any> {
     return this.apiService.get<any>('users/auth/profile').pipe(
@@ -41,6 +41,10 @@ export class ProfileService {
 
   selectStudent(student: any): void {
     this.selectedStudentSubject.next(student);
+  }
+
+  setProfile(profile: any): void {
+    this.profileSubject.next(profile);
   }
 
   clearProfile(): void {

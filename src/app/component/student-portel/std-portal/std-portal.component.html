@@ -79,8 +79,8 @@
             <div class="header-actions">
                 <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications"
                     (click)="toggleProfileSidebar()">
-                    <img [src]="(profile$ | async)?.data?.student?.profileImage || 'assets/img/placeholder.jpg'"
-                        alt="Student Avatar" class="w-100 h-100 rounded">
+                    <img [src]="getAvatarUrl((profile$ | async)?.data?.student?.profileImage)" alt="Student Avatar"
+                        class="w-100 h-100 rounded">
                 </button>
             </div>
         </header>
@@ -178,7 +178,7 @@
         <!-- Student Info Summary Card -->
         <div class="profile-summary-card">
             <div class="avatar-container">
-                <img [src]="(profile$ | async)?.data?.student?.profileImage || 'assets/img/placeholder.jpg'"
+                <img [src]="getAvatarUrl((profile$ | async)?.data?.student?.profileImage)"
                     [alt]="(profile$ | async)?.data?.student?.fullName || 'Student Avatar'"
                     class="profile-avatar-img" />
             </div>
