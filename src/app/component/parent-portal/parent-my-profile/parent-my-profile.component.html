@@ -55,43 +55,58 @@
     </div>
   </div>
 
-  <div *ngIf="!isLoading" class="mb-3 d-flex align-items-center gap-3">
-    <div class="prof-section-icon">
-      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="36" height="36" rx="6" fill="#FFEDD5" />
-        <path
-          d="M11.5417 10.875H14.875C15.2429 10.875 15.5417 11.1737 15.5417 11.5417V14.875C15.5417 15.2429 15.2429 15.5417 14.875 15.5417H11.5417C11.1737 15.5417 10.875 15.2429 10.875 14.875V11.5417C10.875 11.1737 11.1737 10.875 11.5417 10.875V10.875"
-          stroke="#FF5C00" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
-        <path
-          d="M20.2497 10.875H23.583C23.951 10.875 24.2497 11.1737 24.2497 11.5417V14.875C24.2497 15.2429 23.951 15.5417 23.583 15.5417H20.2497C19.8817 15.5417 19.583 15.2429 19.583 14.875V11.5417C19.583 11.1737 19.8817 10.875 20.2497 10.875V10.875"
-          stroke="#FF5C00" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
-        <path
-          d="M20.2497 19.583H23.583C23.951 19.583 24.2497 19.8817 24.2497 20.2497V23.583C24.2497 23.951 23.951 24.2497 23.583 24.2497H20.2497C19.8817 24.2497 19.583 23.951 19.583 23.583V20.2497C19.583 19.8817 19.8817 19.583 20.2497 19.583V19.583"
-          stroke="#FF5C00" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
-        <path
-          d="M11.5417 19.583H14.875C15.2429 19.583 15.5417 19.8817 15.5417 20.2497V23.583C15.5417 23.951 15.2429 24.2497 14.875 24.2497H11.5417C11.1737 24.2497 10.875 23.951 10.875 23.583V20.2497C10.875 19.8817 11.1737 19.583 11.5417 19.583V19.583"
-          stroke="#FF5C00" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
+  <!-- Children Section Header with Add Child Button -->
+  <div *ngIf="!isLoading" class="mb-3 d-flex align-items-center justify-content-between w-100 flex-wrap gap-2">
+    <div class="d-flex align-items-center gap-3">
+      <div class="prof-section-icon">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="36" height="36" rx="6" fill="#FFEDD5" />
+          <path
+            d="M11.5417 10.875H14.875C15.2429 10.875 15.5417 11.1737 15.5417 11.5417V14.875C15.5417 15.2429 15.2429 15.5417 14.875 15.5417H11.5417C11.1737 15.5417 10.875 15.2429 10.875 14.875V11.5417C10.875 11.1737 11.1737 10.875 11.5417 10.875V10.875"
+            stroke="#FF5C00" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M20.2497 10.875H23.583C23.951 10.875 24.2497 11.1737 24.2497 11.5417V14.875C24.2497 15.2429 23.951 15.5417 23.583 15.5417H20.2497C19.8817 15.5417 19.583 15.2429 19.583 14.875V11.5417C19.583 11.1737 19.8817 10.875 20.2497 10.875V10.875"
+            stroke="#FF5C00" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M20.2497 19.583H23.583C23.951 19.583 24.2497 19.8817 24.2497 20.2497V23.583C24.2497 23.951 23.951 24.2497 23.583 24.2497H20.2497C19.8817 24.2497 19.583 23.951 19.583 23.583V20.2497C19.583 19.8817 19.8817 19.583 20.2497 19.583V19.583"
+            stroke="#FF5C00" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+          <path
+            d="M11.5417 19.583H14.875C15.2429 19.583 15.5417 19.8817 15.5417 20.2497V23.583C15.5417 23.951 15.2429 24.2497 14.875 24.2497H11.5417C11.1737 24.2497 10.875 23.951 10.875 23.583V20.2497C10.875 19.8817 11.1737 19.583 11.5417 19.583V19.583"
+            stroke="#FF5C00" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <div>
+        <h3 class="section-title mb-0 prof-section-title">My Children ({{ profileData?.data?.studentSummary?.totalStudents
+          || getChildren().length || 2 }})</h3>
+        <p class="text-muted mb-0 prof-section-desc">Here are your registered children in the system.</p>
+      </div>
     </div>
-    <div>
-      <h3 class="section-title mb-0 prof-section-title">My Children ({{ profileData?.data?.studentSummary?.totalStudents
-        || getChildren().length || 2 }})</h3>
-      <p class="text-muted mb-0 prof-section-desc">Here are your registered children in the system.</p>
-    </div>
+    <button type="button" class="portal-btn portal-btn-outline ct_orange_outline px-3 d-flex align-items-center gap-2" (click)="openAddChildModal()">
+      <i class="fa-solid fa-plus"></i> Add Child
+    </button>
   </div>
 
-  <div *ngIf="!isLoading" class="row g">
+  <div *ngIf="!isLoading" class="row g-4">
     <ng-container *ngIf="getChildren() && getChildren().length > 0">
       <!-- Dynamic Child Cards -->
-      <div *ngFor="let child of getChildren(); let i = index" class="col-md-6 col-xl-4 mb-4 mb-xl-0">
-        <div class="dashboard-card text-center p-4 h-100 prof-child-card">
+      <div *ngFor="let child of getChildren(); let i = index" class="col-md-6 col-xl-4">
+        <div class="dashboard-card text-center p-4 h-100 prof-child-card position-relative">
+          
+          <!-- Child Avatar -->
           <div class="avatar-container mb-3 d-inline-block position-relative prof-avatar-container">
             <img #imgRef [src]="child.profileImage ? imageBaseUrl + child.profileImage : 'assets/img/placeholder.jpg'"
               (error)="imgRef.src = 'assets/img/placeholder.jpg'" [alt]="child.fullName || child.firstName"
               class="rounded-circle w-100 h-100 object-fit-cover shadow-sm prof-avatar-img" />
           </div>
-          <h4 class="child-name mb-2 prof-child-name">{{ child.fullName || (child.firstName + ' ' + child.lastName) }}
-          </h4>
+
+          <!-- Child Name & Edit Button -->
+          <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
+            <h4 class="child-name mb-0 prof-child-name">{{ child.fullName || (child.firstName + ' ' + child.lastName) }}</h4>
+            <button type="button" class="btn btn-link text-warning p-0 border-0 d-inline-flex align-items-center" (click)="openEditChildModal(child)" title="Edit Child">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </button>
+          </div>
+
           <span class="badge rounded-pill mb-4 prof-badge-grade">{{ child.gradeLevel || child.grade || 'N/A' }}</span>
 
           <div class="d-flex justify-content-between text-start border-top pt-3 mt-2 prof-meta-border">
@@ -105,5 +120,89 @@
         </div>
       </div>
     </ng-container>
+  </div>
+</div>
+
+<!-- ADD/EDIT CHILD MODAL OVERLAY -->
+<div class="crop-modal-backdrop" *ngIf="showChildModal" (click)="closeChildModal()">
+  <div class="crop-modal-card" (click)="$event.stopPropagation()" style="max-width: 500px; width: 90%;">
+    <div class="crop-modal-header">
+      <h3 class="crop-modal-title" style="color: #171E45; font-weight: 600;">{{ isEditMode ? 'Edit Child Details' : 'Add New Child' }}</h3>
+      <button class="crop-modal-close" (click)="closeChildModal()">&times;</button>
+    </div>
+    
+    <form [formGroup]="childForm" (ngSubmit)="onSaveChild()" novalidate>
+      <div class="crop-modal-body text-start align-items-stretch" style="max-height: 70vh; overflow-y: auto; padding: 24px; display: block;">
+        
+        <div *ngIf="modalErrorMessage" class="alert alert-danger custom-alert mb-3" role="alert">
+          <i class="fa-solid fa-circle-exclamation me-2"></i> {{ modalErrorMessage }}
+        </div>
+
+        <!-- First Name -->
+        <div class="form-group mb-3">
+          <label class="form-label mb-1">First Name</label>
+          <input type="text" formControlName="firstName" class="form-control-custom"
+            [ngClass]="{ 'is-invalid': (f['firstName'].invalid && (f['firstName'].dirty || f['firstName'].touched || submitted)) }" />
+          <div *ngIf="f['firstName'].invalid && (f['firstName'].dirty || f['firstName'].touched || submitted)" class="text-danger mt-1 small">
+            First Name is required
+          </div>
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group mb-3">
+          <label class="form-label mb-1">Last Name</label>
+          <input type="text" formControlName="lastName" class="form-control-custom"
+            [ngClass]="{ 'is-invalid': (f['lastName'].invalid && (f['lastName'].dirty || f['lastName'].touched || submitted)) }" />
+          <div *ngIf="f['lastName'].invalid && (f['lastName'].dirty || f['lastName'].touched || submitted)" class="text-danger mt-1 small">
+            Last Name is required
+          </div>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="form-group mb-3">
+          <label class="form-label mb-1">Date of Birth</label>
+          <input type="date" formControlName="dob" class="form-control-custom"
+            [ngClass]="{ 'is-invalid': (f['dob'].invalid && (f['dob'].dirty || f['dob'].touched || submitted)) }" />
+          <div *ngIf="f['dob'].invalid && (f['dob'].dirty || f['dob'].touched || submitted)" class="text-danger mt-1 small">
+            Date of Birth is required
+          </div>
+        </div>
+
+        <!-- Grade Level -->
+        <div class="form-group mb-3">
+          <label class="form-label mb-1">Grade Level</label>
+          <div class="select-container">
+            <select formControlName="gradeLevel" class="form-control-custom select-custom"
+              [ngClass]="{ 'is-invalid': (f['gradeLevel'].invalid && (f['gradeLevel'].dirty || f['gradeLevel'].touched || submitted)) }">
+              <option value="" disabled selected>Select Grade Level</option>
+              <option *ngFor="let grade of gradeLevels" [value]="grade">{{ grade }}</option>
+            </select>
+          </div>
+          <div *ngIf="f['gradeLevel'].invalid && (f['gradeLevel'].dirty || f['gradeLevel'].touched || submitted)" class="text-danger mt-1 small">
+            Grade Level is required
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group mb-3">
+          <label class="form-label mb-1">Email</label>
+          <input type="email" formControlName="email" class="form-control-custom"
+            [ngClass]="{ 'is-invalid': (f['email'].invalid && (f['email'].dirty || f['email'].touched || submitted)) }" />
+          <div *ngIf="f['email'].invalid && (f['email'].dirty || f['email'].touched || submitted)" class="text-danger mt-1 small">
+            <span *ngIf="f['email'].errors?.['required']">Email is required</span>
+            <span *ngIf="f['email'].errors?.['email']">Please enter a valid email address</span>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="crop-modal-footer">
+        <button type="button" class="portal-btn portal-btn-outline px-4" (click)="closeChildModal()" [disabled]="isModalLoading">Cancel</button>
+        <button type="submit" class="portal-btn portal-btn-primary px-4" [disabled]="isModalLoading || childForm.invalid">
+          <span *ngIf="!isModalLoading">Save</span>
+          <span *ngIf="isModalLoading">Saving...</span>
+        </button>
+      </div>
+    </form>
   </div>
 </div>
