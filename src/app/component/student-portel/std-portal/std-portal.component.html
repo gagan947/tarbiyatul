@@ -71,14 +71,16 @@
                 <i class="fa-solid fa-bars d-lg-none d-block" style="font-size: 20px; cursor: pointer;"
                     (click)="toggleSidebar()"></i>
                 <div class="header-greeting d-sm-block d-none">
-                    <h1 class="greeting-title">Assalamualaikum, Ali 👋</h1>
+                    <h1 class="greeting-title">Assalamualaikum, {{ (profile$ | async)?.data?.student?.firstName || '' }}
+                        👋</h1>
                     <p class="greeting-subtitle">Here's your learning progress for this week.</p>
                 </div>
             </div>
             <div class="header-actions">
                 <button type="button" class="action-circle-btn bell-btn" aria-label="Notifications"
                     (click)="toggleProfileSidebar()">
-                    <img src="assets/img/boy.jpg" alt="" class="w-100 h-100 rounded">
+                    <img [src]="(profile$ | async)?.data?.student?.profileImage || 'assets/img/placeholder.jpg'"
+                        alt="Student Avatar" class="w-100 h-100 rounded">
                 </button>
             </div>
         </header>
@@ -176,10 +178,12 @@
         <!-- Student Info Summary Card -->
         <div class="profile-summary-card">
             <div class="avatar-container">
-                <img src="assets/img/boy.jpg" alt="Ali Khan Avatar" class="profile-avatar-img" />
+                <img [src]="(profile$ | async)?.data?.student?.profileImage || 'assets/img/placeholder.jpg'"
+                    [alt]="(profile$ | async)?.data?.student?.fullName || 'Student Avatar'"
+                    class="profile-avatar-img" />
             </div>
-            <div class="grade-badge">Grade 4</div>
-            <h3 class="student-name">Ali Khan</h3>
+            <div class="grade-badge">{{ (profile$ | async)?.data?.student?.gradeLevel || '' }}</div>
+            <h3 class="student-name">{{ (profile$ | async)?.data?.student?.fullName || '' }}</h3>
             <p class="student-motto">"Seeking Knowledge Is An Obligation For Every Muslim."</p>
 
             <!-- Profile Quick Actions -->

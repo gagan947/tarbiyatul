@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { ProfileService } from '../../../core/services/profile.service';
 
 interface TeacherThread {
   name: string;
@@ -21,8 +22,7 @@ interface TeacherThread {
   styleUrl: './std-portal.component.css'
 })
 export class StdPortalComponent implements OnInit {
-  studentName = 'Ali Khan';
-  studentGrade = 'Grade 4';
+  profile$ = this.profileService.profile$;
   quote = '“Seeking Knowledge Is An Obligation For Every Muslim.”';
 
   showLogoutModal = false;
@@ -80,7 +80,10 @@ export class StdPortalComponent implements OnInit {
     }
   ];
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private profileService: ProfileService
+  ) {
     this.currentUrl = this.router.url;
   }
 
@@ -91,6 +94,16 @@ export class StdPortalComponent implements OnInit {
       .subscribe((event: any) => {
         this.currentUrl = event.urlAfterRedirects || event.url;
       });
+
+    // Trigger profile fetch
+    this.profileService.fetchProfile().subscribe({
+      next: (data) => {
+        console.log('StudentPortal profile loaded:', data);
+      },
+      error: (err) => {
+        console.error('Failed to load student profile:', err);
+      }
+    });
   }
 
   onSubComponentActivated(componentRef: any): void {
