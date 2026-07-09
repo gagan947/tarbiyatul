@@ -23,7 +23,7 @@ export const routes: Routes = [
   { path: 'academicProgram', loadComponent: () => import('./component/academic-program/academic-program.component').then(m => m.AcademicProgramComponent) },
   { path: 'forgotpassword', loadComponent: () => import('./component/auth/forgot-password/forgot-password.component').then(m => m.ForgotPasswordComponent) },
   { path: 'signup', loadComponent: () => import('./component/auth/signup/signup.component').then(m => m.SignupComponent) },
-  { path: 'teacher-signup', loadComponent: () => import('./component/auth/teacher-signup/teacher-signup.component').then(m => m.TeacherSignupComponent) },
+  { path: 'signup-teacher', loadComponent: () => import('./component/auth/teacher-signup/teacher-signup.component').then(m => m.TeacherSignupComponent) },
   { path: 'announcement', loadComponent: () => import('./component/announcement/announcement.component').then(m => m.AnnouncementComponent) },
   { path: 'student_handbook', loadComponent: () => import('./component/student-handbook/student-handbook.component').then(m => m.StudentHandbookComponent) },
   { path: 'summerschool', loadComponent: () => import('./component/summer-school/summer-school.component').then(m => m.SummerSchoolComponent) },

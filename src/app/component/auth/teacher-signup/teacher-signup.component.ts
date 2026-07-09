@@ -13,11 +13,20 @@ import { ApiService } from '../../../core/services/api.service';
 })
 export class TeacherSignupComponent implements OnInit {
   signupForm!: FormGroup;
-  currentStep = 1; // 1: Personal Info, 2: Professional Info, 3: Success
+  currentStep = 3; // 1: Personal Info, 2: Professional Info, 3: Success
   isLoading = false;
   submitted = false;
   showPassword = false;
   errorMessage: string | null = null;
+
+  // Grade levels dropdown options
+  gradeLevels: string[] = [
+    'Kindergarten',
+    '1st Grade',
+    '2nd Grade',
+    '3rd Grade',
+    '4th Grade',
+  ];
 
   constructor(
     private fb: FormBuilder,
@@ -38,8 +47,9 @@ export class TeacherSignupComponent implements OnInit {
 
       // Professional details
       qualification: ['', [Validators.required]],
-      experience: ['', [Validators.required]],
-      applyingGrade: ['', [Validators.required]]
+      experienceYears: ['', [Validators.required, Validators.pattern('^[0-9]*$')]],
+      specialization: ['', [Validators.required]],
+      teachingGrade: ['', [Validators.required]]
     });
   }
 
@@ -87,7 +97,7 @@ export class TeacherSignupComponent implements OnInit {
     this.errorMessage = null;
 
     // Validate fields for Step 2
-    const professionalFields = ['qualification', 'experience', 'applyingGrade'];
+    const professionalFields = ['qualification', 'experienceYears', 'specialization', 'teachingGrade'];
     let step2Valid = true;
 
     professionalFields.forEach(field => {
@@ -104,7 +114,33 @@ export class TeacherSignupComponent implements OnInit {
       return;
     }
 
-    // Set step to 3 (Success Screen)
-    this.currentStep = 3;
+    this.isLoading = true;
+
+    const payload = {
+      role: 'teacher',
+      firstName: this.signupForm.value.firstName,
+      lastName: this.signupForm.value.lastName,
+      phone: this.signupForm.value.phone,
+      email: this.signupForm.value.email,
+      dob: this.signupForm.value.dob,
+      gender: this.signupForm.value.gender,
+      password: this.signupForm.value.password,
+      qualification: this.signupForm.value.qualification,
+      specialization: this.signupForm.value.specialization,
+      experienceYears: parseInt(this.signupForm.value.experienceYears, 10) || 0,
+      teachingGrade: this.signupForm.value.teachingGrade
+    };
+
+    this.apiService.post<any>('users/auth/signup', payload)
+      .subscribe({
+        next: (response) => {
+          this.isLoading = false;
+          this.currentStep = 3;
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.errorMessage = err.message || 'Failed to submit application. Please try again.';
+        }
+      });
   }
 }

@@ -22,7 +22,7 @@ export class ChooseRoleComponent implements OnInit {
 
   onContinue(): void {
     if (this.selectedRole === 'teacher') {
-      this.router.navigate(['/teacher-signup']);
+      this.router.navigate(['/signup-teacher']);
     } else {
       this.router.navigate(['/signup']);
     }

@@ -8,7 +8,8 @@
             <!-- Title & Subtitle (Hidden in Success Step) -->
             <div *ngIf="currentStep < 3" class="auth-page-header">
               <h1 class="auth-title">Create an Account</h1>
-              <p class="auth-subtitle opacity-50">Create your teacher account by providing your personal and professional information.</p>
+              <p class="auth-subtitle opacity-50">Create your teacher account by providing your personal and
+                professional information.</p>
             </div>
 
             <!-- Step Progress Indicator (Hidden in Success Step) -->
@@ -172,30 +173,56 @@
                       <input type="text" id="qualification" formControlName="qualification" class="form-control-custom"
                         placeholder="eg. M.Ed in Education"
                         [ngClass]="{ 'is-invalid-custom': f['qualification'].invalid && (f['qualification'].touched || submitted) }" />
-                      <div *ngIf="f['qualification'].invalid && (f['qualification'].touched || submitted)" class="error-msg">
+                      <div *ngIf="f['qualification'].invalid && (f['qualification'].touched || submitted)"
+                        class="error-msg">
                         <span><i class="fa-solid fa-circle-info me-1"></i> Qualification is required</span>
                       </div>
                     </div>
 
-                    <!-- Teaching Experience -->
+                    <!-- Teaching Experience Years -->
                     <div class="col-md-6 form-group mb-4">
-                      <label for="experience" class="form-label">Teaching Experience</label>
-                      <input type="text" id="experience" formControlName="experience" class="form-control-custom"
-                        placeholder="eg. 5 years"
-                        [ngClass]="{ 'is-invalid-custom': f['experience'].invalid && (f['experience'].touched || submitted) }" />
-                      <div *ngIf="f['experience'].invalid && (f['experience'].touched || submitted)" class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> Teaching Experience is required</span>
+                      <label for="experienceYears" class="form-label">Teaching Experience (Years)</label>
+                      <input type="number" id="experienceYears" formControlName="experienceYears"
+                        class="form-control-custom" placeholder="eg. 5"
+                        [ngClass]="{ 'is-invalid-custom': f['experienceYears'].invalid && (f['experienceYears'].touched || submitted) }" />
+                      <div *ngIf="f['experienceYears'].invalid && (f['experienceYears'].touched || submitted)"
+                        class="error-msg">
+                        <span *ngIf="f['experienceYears'].errors?.['required']">
+                          <i class="fa-solid fa-circle-info me-1"></i> Teaching Experience is required
+                        </span>
+                        <span *ngIf="f['experienceYears'].errors?.['pattern']">
+                          <i class="fa-solid fa-circle-info me-1"></i> Experience must be a positive number
+                        </span>
                       </div>
                     </div>
 
-                    <!-- Applying for Grade -->
+                    <!-- Specialization -->
                     <div class="col-md-6 form-group mb-4">
-                      <label for="applyingGrade" class="form-label">Applying for Grade</label>
-                      <input type="text" id="applyingGrade" formControlName="applyingGrade" class="form-control-custom"
-                        placeholder="eg. 1st grade"
-                        [ngClass]="{ 'is-invalid-custom': f['applyingGrade'].invalid && (f['applyingGrade'].touched || submitted) }" />
-                      <div *ngIf="f['applyingGrade'].invalid && (f['applyingGrade'].touched || submitted)" class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> Applying for Grade is required</span>
+                      <label for="specialization" class="form-label">Specialization</label>
+                      <input type="text" id="specialization" formControlName="specialization"
+                        class="form-control-custom" placeholder="eg. Maths, Science"
+                        [ngClass]="{ 'is-invalid-custom': f['specialization'].invalid && (f['specialization'].touched || submitted) }" />
+                      <div *ngIf="f['specialization'].invalid && (f['specialization'].touched || submitted)"
+                        class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Specialization is required</span>
+                      </div>
+                    </div>
+
+                    <!-- Teaching Grade -->
+                    <div class="col-md-12 form-group mb-4">
+                      <label for="teachingGrade" class="form-label">Teaching Grade</label>
+                      <div class="select-container">
+                        <select id="teachingGrade" formControlName="teachingGrade"
+                          class="form-control-custom select-custom"
+                          [ngClass]="{ 'is-invalid-custom': f['teachingGrade'].invalid && (f['teachingGrade'].touched || submitted) }">
+                          <option value="" disabled selected>Select Teaching Grade</option>
+                          <option *ngFor="let grade of gradeLevels" [value]="grade">{{ grade }}</option>
+                        </select>
+                        <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                      </div>
+                      <div *ngIf="f['teachingGrade'].invalid && (f['teachingGrade'].touched || submitted)"
+                        class="error-msg">
+                        <span><i class="fa-solid fa-circle-info me-1"></i> Teaching Grade is required</span>
                       </div>
                     </div>
                   </div>
@@ -246,13 +273,6 @@
                     <i class="fa-regular fa-envelope me-2"></i> Confirmation sent to: {{ signupForm.value.email }}
                   </div>
                 </div>
-
-                <div class="mt-5 text-center">
-                  <a routerLink="/login" class="auth-btn-primary d-inline-flex align-items-center justify-content-center text-decoration-none" style="max-width: 240px; margin: 0 auto;">
-                    Go to Login
-                  </a>
-                </div>
-
               </div>
 
             </div>
