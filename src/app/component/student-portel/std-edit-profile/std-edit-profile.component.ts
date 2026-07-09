@@ -189,17 +189,26 @@ export class StdEditProfileComponent implements OnInit {
 
       ctx.drawImage(imgElement, -fitWidth / 2, -fitHeight / 2, fitWidth, fitHeight);
 
-      canvas.toBlob((blob) => {
-        if (blob) {
-          this.croppedFile = new File([blob], 'avatar.jpg', { type: 'image/jpeg' });
-          this.croppedImagePreview = URL.createObjectURL(blob);
-          this.currentAvatarUrl = this.croppedImagePreview;
-        }
-        this.showCropModal = false;
-      }, 'image/jpeg', 0.95);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
+      this.croppedFile = this.dataURLtoFile(dataUrl, 'avatar.jpg');
+      this.croppedImagePreview = dataUrl;
+      this.currentAvatarUrl = dataUrl;
+      this.showCropModal = false;
     } else {
       this.showCropModal = false;
     }
+  }
+
+  dataURLtoFile(dataurl: string, filename: string): File {
+    const arr = dataurl.split(',');
+    const mime = arr[0].match(/:(.*?);/)![1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+    return new File([u8arr], filename, { type: mime });
   }
 
   onSubmit(): void {

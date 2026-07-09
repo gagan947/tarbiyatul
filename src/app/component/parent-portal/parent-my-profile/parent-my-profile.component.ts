@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ProfileService } from '../../../core/services/profile.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-parent-my-profile',
@@ -14,8 +15,8 @@ export class ParentMyProfileComponent implements OnInit {
   profileData: any = null;
   isLoading = false;
   errorMessage: string | null = null;
-
-  constructor(private profileService: ProfileService) {}
+  imageBaseUrl = environment.imageBaseUrl
+  constructor(private profileService: ProfileService) { }
 
   ngOnInit(): void {
     this.isLoading = true;

@@ -86,7 +86,7 @@
       <div *ngFor="let child of getChildren(); let i = index" class="col-md-6 col-xl-4 mb-4 mb-xl-0">
         <div class="dashboard-card text-center p-4 h-100 prof-child-card">
           <div class="avatar-container mb-3 d-inline-block position-relative prof-avatar-container">
-            <img #imgRef [src]="child.avatar || child.profileImage || 'assets/img/placeholder.jpg'"
+            <img #imgRef [src]="child.profileImage ? imageBaseUrl + child.profileImage : 'assets/img/placeholder.jpg'"
               (error)="imgRef.src = 'assets/img/placeholder.jpg'" [alt]="child.fullName || child.firstName"
               class="rounded-circle w-100 h-100 object-fit-cover shadow-sm prof-avatar-img" />
           </div>

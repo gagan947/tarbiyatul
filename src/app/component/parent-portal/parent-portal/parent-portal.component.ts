@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ProfileService } from '../../../core/services/profile.service';
+import { environment } from 'src/environments/environment';
 
 interface TeacherThread {
   name: string;
@@ -31,7 +32,7 @@ export class ParentPortalComponent implements OnInit {
   selectedResource: any = null;
   isSidebarOpen = false;
   isProfileSidebarOpen = false;
-
+  imageBaseUrl = environment.imageBaseUrl
   profileData: any = null;
   selectedStudent: any = null;
   studentsList: any[] = [];
