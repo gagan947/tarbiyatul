@@ -223,6 +223,22 @@
                           </div>
                         </div>
 
+                        <!-- Student Academy -->
+                        <div class="col-md-6 form-group mb-4">
+                          <label [attr.for]="'studentAcademy_' + i" class="form-label">Academy</label>
+                          <div class="select-container">
+                            <select [id]="'studentAcademy_' + i" formControlName="academy"
+                              class="form-control-custom select-custom">
+                              <option *ngFor="let acad of academies" [value]="acad">{{ acad }}</option>
+                            </select>
+                            <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                          </div>
+                          <div *ngIf="student.get('academy')?.invalid && (student.get('academy')?.touched || submitted)"
+                            class="error-msg">
+                            <span><i class="fa-solid fa-circle-info me-1"></i> Academy selection is required</span>
+                          </div>
+                        </div>
+
                         <!-- Student Email Address -->
                         <div class="col-md-6 form-group mb-4">
                           <label [attr.for]="'studentEmail_' + i" class="form-label">Email Address</label>
@@ -309,6 +325,10 @@
                         <div class="review-item">
                           <span class="review-label">Grade Level</span>
                           <span class="review-value">{{ student.gradeLevel }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Academy</span>
+                          <span class="review-value">{{ student.academy }}</span>
                         </div>
                         <div class="review-item">
                           <span class="review-label">Email Address</span>

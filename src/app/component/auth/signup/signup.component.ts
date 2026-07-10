@@ -29,6 +29,12 @@ export class SignupComponent implements OnInit {
     '4th Grade',
   ];
 
+  // Academies dropdown options
+  academies: string[] = [
+    'Global Academy',
+    'Religious Academy'
+  ];
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
@@ -69,6 +75,7 @@ export class SignupComponent implements OnInit {
       lastName: ['', [Validators.required]],
       dob: ['', [Validators.required]],
       gradeLevel: ['1st Grade', [Validators.required]],
+      academy: ['Global Academy', [Validators.required]],
       email: ['', [Validators.required, Validators.email]]
     });
   }
