@@ -109,7 +109,7 @@
                     <!-- Date of Birth -->
                     <div class="col-md-6 form-group mb-4">
                       <label for="dob" class="form-label">Date of Birth</label>
-                      <input type="date" id="dob" formControlName="dob" class="form-control-custom date-input"
+                      <input type="date" [max]="maxDate" id="dob" formControlName="dob" class="form-control-custom date-input"
                         [ngClass]="{ 'is-invalid-custom': f['dob'].invalid && (f['dob'].touched || submitted) }" />
                       <div *ngIf="f['dob'].invalid && (f['dob'].touched || submitted)" class="error-msg">
                         <span><i class="fa-solid fa-circle-info me-1"></i> Date of Birth is required</span>

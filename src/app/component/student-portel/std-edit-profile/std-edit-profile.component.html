@@ -81,7 +81,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="form-label">Date of Birth</label>
-              <input type="date" formControlName="dob" class="form-control-custom"
+              <input type="date" [max]="maxDate" formControlName="dob" class="form-control-custom"
                 [ngClass]="{ 'is-invalid': (f['dob'].invalid && (f['dob'].dirty || f['dob'].touched || submitted)) }"
                 [attr.disabled]="isLoading ? true : null" />
               <div *ngIf="f['dob'].invalid && (f['dob'].dirty || f['dob'].touched || submitted)"

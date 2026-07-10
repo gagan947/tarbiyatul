@@ -203,7 +203,7 @@
                         <!-- Student DOB -->
                         <div class="col-md-6 form-group mb-4">
                           <label [attr.for]="'studentDob_' + i" class="form-label">Date of Birth</label>
-                          <input type="date" [id]="'studentDob_' + i" formControlName="dob"
+                          <input type="date" [max]="maxDate" [id]="'studentDob_' + i" formControlName="dob"
                             class="form-control-custom date-input"
                             [ngClass]="{ 'is-invalid-custom': student.get('dob')?.invalid && (student.get('dob')?.touched || submitted) }" />
                           <div *ngIf="student.get('dob')?.invalid && (student.get('dob')?.touched || submitted)"

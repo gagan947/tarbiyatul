@@ -13,6 +13,7 @@ import { SignupRequest, SignupResponse } from '../../../core/models/signup.model
   imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class SignupComponent implements OnInit {
+  maxDate: string = new Date().toISOString().split('T')[0];
   signupForm!: FormGroup;
   currentStep = 1; // 1: Parent Info, 2: Student Info, 3: Review, 4: Success
   isLoading = false;

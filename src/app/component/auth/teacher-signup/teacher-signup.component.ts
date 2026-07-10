@@ -12,6 +12,7 @@ import { ApiService } from '../../../core/services/api.service';
   imports: [CommonModule, ReactiveFormsModule, RouterLink]
 })
 export class TeacherSignupComponent implements OnInit {
+  maxDate: string = new Date().toISOString().split('T')[0];
   signupForm!: FormGroup;
   currentStep = 1; // 1: Personal Info, 2: Professional Info, 3: Success
   isLoading = false;

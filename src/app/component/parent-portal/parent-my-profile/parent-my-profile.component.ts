@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
   styleUrl: './parent-my-profile.component.css'
 })
 export class ParentMyProfileComponent implements OnInit {
+  maxDate: string = new Date().toISOString().split('T')[0];
   profileData: any = null;
   isLoading = false;
   errorMessage: string | null = null;

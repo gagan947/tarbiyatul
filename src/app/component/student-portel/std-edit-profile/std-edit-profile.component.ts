@@ -14,6 +14,7 @@ import { environment } from '../../../../environments/environment';
   styleUrl: './std-edit-profile.component.css'
 })
 export class StdEditProfileComponent implements OnInit {
+  maxDate: string = new Date().toISOString().split('T')[0];
   editProfileForm!: FormGroup;
   isLoading = false;
   submitted = false;
