@@ -26,7 +26,7 @@ export interface ResourceItem {
 })
 export class StdResourcesComponent implements OnInit {
   @Output() resourceSelected = new EventEmitter<ResourceItem>();
-  constructor(private sanitizer: DomSanitizer){}
+  constructor(private sanitizer: DomSanitizer) { }
 
   resources: ResourceItem[] = [
     // Mathematics
@@ -101,7 +101,7 @@ export class StdResourcesComponent implements OnInit {
       title: 'IXL Learning',
       description: 'Comprehensive math practice aligned with school curriculum.',
       category: 'Mathematics',
-      logoClass:this.sanitizer.bypassSecurityTrustHtml(`<svg width="72" height="36" viewBox="0 0 72 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      logoClass: this.sanitizer.bypassSecurityTrustHtml(`<svg width="72" height="36" viewBox="0 0 72 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="72" height="36" fill="url(#pattern0_279_13267)"/>
 <defs>
 <pattern id="pattern0_279_13267" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -149,7 +149,7 @@ export class StdResourcesComponent implements OnInit {
       title: 'Sadlier Connect',
       description: 'Engaging books and comprehension practice for young learners.',
       category: 'Reading',
-      logoClass:this.sanitizer.bypassSecurityTrustHtml(`<svg width="27" height="36" viewBox="0 0 27 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      logoClass: this.sanitizer.bypassSecurityTrustHtml(`<svg width="27" height="36" viewBox="0 0 27 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="27" height="36" fill="url(#pattern0_279_13246)"/>
 <defs>
 <pattern id="pattern0_279_13246" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -219,7 +219,7 @@ export class StdResourcesComponent implements OnInit {
       title: 'Oxford Owl',
       description: 'Free eBooks and teaching resources for children.',
       category: 'Reading',
-    logoClass: this.sanitizer.bypassSecurityTrustHtml(`<svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      logoClass: this.sanitizer.bypassSecurityTrustHtml(`<svg width="35" height="36" viewBox="0 0 35 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="35" height="36" fill="url(#pattern0_279_13252)"/>
 <defs>
 <pattern id="pattern0_279_13252" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -243,7 +243,7 @@ export class StdResourcesComponent implements OnInit {
       title: 'Epic!',
       description: 'Thousands of books and audiobooks for kids.',
       category: 'Reading',
-    logoClass: this.sanitizer.bypassSecurityTrustHtml(`<svg width="64" height="36" viewBox="0 0 64 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      logoClass: this.sanitizer.bypassSecurityTrustHtml(`<svg width="64" height="36" viewBox="0 0 64 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="64" height="36" fill="url(#pattern0_279_13255)"/>
 <defs>
 <pattern id="pattern0_279_13255" patternContentUnits="objectBoundingBox" width="1" height="1">
@@ -340,7 +340,7 @@ export class StdResourcesComponent implements OnInit {
       title: 'Mystery Science',
       description: 'Science lessons that spark curiosity and wonder.',
       category: 'Science',
-    logoClass: this.sanitizer.bypassSecurityTrustHtml(`<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      logoClass: this.sanitizer.bypassSecurityTrustHtml(`<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="36" height="36" fill="url(#pattern0_279_13282)"/>
 <defs>
 <pattern id="pattern0_279_13282" patternContentUnits="objectBoundingBox" width="1" height="1">

@@ -94,7 +94,7 @@
                     <div class="col-md-6 form-group mb-4">
                       <label for="phone" class="form-label">Phone Number</label>
                       <div class="phone-input-group">
-                        <span class="phone-prefix-badge">+966 <i class="fa-solid fa-chevron-down ms-1"></i></span>
+                        <span class="phone-prefix-badge">+1 <i class="fa-solid fa-chevron-down ms-1"></i></span>
                         <input type="text" id="phone" formControlName="phone" class="form-control-custom phone-input"
                           placeholder="50XXXXXXX"
                           [ngClass]="{ 'is-invalid-custom': f['phone'].invalid && (f['phone'].touched || submitted) }" />
@@ -161,12 +161,14 @@
                   </div>
 
                   <div formArrayName="students">
-                    <div *ngFor="let student of students.controls; let i = index" [formGroupName]="i" class="student-form-section">
-                      
+                    <div *ngFor="let student of students.controls; let i = index" [formGroupName]="i"
+                      class="student-form-section">
+
                       <!-- Header for Student entry, with Remove button if > 1 -->
                       <div class="d-flex justify-content-between align-items-center mb-3">
                         <h4 class="student-section-title mb-0">Student #{{ i + 1 }}</h4>
-                        <button type="button" *ngIf="students.length > 1" class="remove-student-btn p-0" (click)="removeStudent(i)" title="Remove Student">
+                        <button type="button" *ngIf="students.length > 1" class="remove-student-btn p-0"
+                          (click)="removeStudent(i)" title="Remove Student">
                           <i class="fa-solid fa-trash-can me-1"></i> Remove
                         </button>
                       </div>
@@ -178,7 +180,8 @@
                           <input type="text" [id]="'studentFirstName_' + i" formControlName="firstName"
                             class="form-control-custom" placeholder="eg. Ali"
                             [ngClass]="{ 'is-invalid-custom': student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted) }" />
-                          <div *ngIf="student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted)"
+                          <div
+                            *ngIf="student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted)"
                             class="error-msg">
                             <span><i class="fa-solid fa-circle-info me-1"></i> Student First Name is required</span>
                           </div>
@@ -190,7 +193,8 @@
                           <input type="text" [id]="'studentLastName_' + i" formControlName="lastName"
                             class="form-control-custom" placeholder="eg. Khan"
                             [ngClass]="{ 'is-invalid-custom': student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted) }" />
-                          <div *ngIf="student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted)"
+                          <div
+                            *ngIf="student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted)"
                             class="error-msg">
                             <span><i class="fa-solid fa-circle-info me-1"></i> Student Last Name is required</span>
                           </div>
@@ -202,7 +206,8 @@
                           <input type="date" [id]="'studentDob_' + i" formControlName="dob"
                             class="form-control-custom date-input"
                             [ngClass]="{ 'is-invalid-custom': student.get('dob')?.invalid && (student.get('dob')?.touched || submitted) }" />
-                          <div *ngIf="student.get('dob')?.invalid && (student.get('dob')?.touched || submitted)" class="error-msg">
+                          <div *ngIf="student.get('dob')?.invalid && (student.get('dob')?.touched || submitted)"
+                            class="error-msg">
                             <span><i class="fa-solid fa-circle-info me-1"></i> Student Date of Birth is required</span>
                           </div>
                         </div>
@@ -217,7 +222,8 @@
                             </select>
                             <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
                           </div>
-                          <div *ngIf="student.get('gradeLevel')?.invalid && (student.get('gradeLevel')?.touched || submitted)"
+                          <div
+                            *ngIf="student.get('gradeLevel')?.invalid && (student.get('gradeLevel')?.touched || submitted)"
                             class="error-msg">
                             <span><i class="fa-solid fa-circle-info me-1"></i> Grade Level selection is required</span>
                           </div>
@@ -291,7 +297,7 @@
                       </div>
                       <div class="review-item">
                         <span class="review-label">Phone Number</span>
-                        <span class="review-value">+966 {{ signupForm.value.phone }}</span>
+                        <span class="review-value">+1 {{ signupForm.value.phone }}</span>
                       </div>
                       <div class="review-item">
                         <span class="review-label">Email Address</span>
@@ -306,9 +312,11 @@
                       <h3 class="review-section-title">Student Information</h3>
                       <button type="button" class="edit-section-btn" (click)="goToStep(2)">Edit</button>
                     </div>
-                    
-                    <div *ngFor="let student of signupForm.value.students; let i = index" class="review-student-item" [ngClass]="{ 'border-top pt-3 mt-3': i > 0 }">
-                      <h4 class="student-section-title mb-3" style="font-size: 13px; color: #FC800A;">Student #{{ i + 1 }}</h4>
+
+                    <div *ngFor="let student of signupForm.value.students; let i = index" class="review-student-item"
+                      [ngClass]="{ 'border-top pt-3 mt-3': i > 0 }">
+                      <h4 class="student-section-title mb-3" style="font-size: 13px; color: #FC800A;">Student #{{ i + 1
+                        }}</h4>
                       <div class="review-grid">
                         <div class="review-item">
                           <span class="review-label">First Name</span>
@@ -342,7 +350,8 @@
                   <div class="form-group mb-4">
                     <label class="terms-checkbox-label">
                       <div class="form-check ct_custom_check2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" formControlName="agreeToTerms">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"
+                          formControlName="agreeToTerms">
                         <span class="terms-text">
                           I have read and agree to the <a routerLink="/privacy_policy" class="terms-link">Privacy
                             Policy</a> and <a class="terms-link">Terms & Conditions</a>.
