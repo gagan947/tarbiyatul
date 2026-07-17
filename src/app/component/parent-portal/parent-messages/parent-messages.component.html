@@ -78,8 +78,8 @@
           <div class="chat-bubble-wrapper" *ngFor="let message of messages; trackBy: trackByMsgId"
             [class.student-sender]="isMyMessage(message)" [class.teacher-sender]="!isMyMessage(message)"
             [class.message-pending]="message.isPending" [class.message-failed]="message.isFailed">
-            <img *ngIf="!isMyMessage(message)" [src]="getAvatarUrl(message.senderAvatar)" [alt]="message.senderName"
-              class="chat-avatar" />
+            <!-- <img *ngIf="!isMyMessage(message)" [src]="getAvatarUrl(message.senderAvatar)" [alt]="message.senderName"
+              class="chat-avatar" /> -->
             <div class="message-bubble-block">
               <div class="message-bubble">
                 <p class="message-text">{{ message.content }}</p>
@@ -95,7 +95,7 @@
                   </ng-container>
                   <ng-container *ngIf="!message.isPending && !message.isFailed">
                     <i class="fa-solid fa-check" [class.double-tick]="message.isRead"></i>
-                    <i class="fa-solid fa-check offset-tick" *ngIf="message.isRead"></i>
+                    <!-- <i class="fa-solid fa-check offset-tick" *ngIf="message.isRead"></i> -->
                   </ng-container>
                 </span>
               </div>

@@ -14,7 +14,7 @@
   font-size: 20px;
   font-weight: 600;
   color: #000;
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 0px
 }
 
@@ -68,7 +68,7 @@
 }
 
 .online-indicator {
-display: inline-block;
+  display: inline-block;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -85,7 +85,7 @@ display: inline-block;
   font-size: 18px;
   font-weight: 600;
   color: #000;
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
   margin: 0;
 }
 
@@ -99,7 +99,7 @@ display: inline-block;
   font-size: 12px;
   color: #6F767E;
   font-weight: 400;
- 
+
 }
 
 /* Chat History window */
@@ -124,7 +124,7 @@ display: inline-block;
   background-color: #F3F4F6;
   color: #6B7280;
   font-size: 14px;
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 500;
 
   padding: 4px 16px;
@@ -154,12 +154,12 @@ display: inline-block;
 }
 
 .message-bubble {
-  padding: 14px 18px;
+  padding: 8px 18px;
   border-radius: 18px;
   line-height: 1.5;
   height: auto;
-  max-height: 300px;
-  overflow-y: auto;
+  /* max-height: 300px;
+  overflow-y: auto; */
 }
 
 .message-text {
@@ -308,7 +308,7 @@ display: inline-block;
   top: 0;
   overflow-y: auto;
   z-index: 10;
-    height: calc(100vh - 220px) !important;
+  height: calc(100vh - 220px) !important;
 }
 
 .messages-panel-header {
@@ -354,7 +354,8 @@ display: inline-block;
   outline: none;
   transition: all 0.2s ease;
 }
-.search-convo-input::placeholder{
+
+.search-convo-input::placeholder {
   color: #00000099;
 }
 
@@ -424,7 +425,8 @@ display: inline-block;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  min-width: 0; /* Ensures overflow text ellipsis works */
+  min-width: 0;
+  /* Ensures overflow text ellipsis works */
 }
 
 .thread-name-row {
@@ -437,7 +439,7 @@ display: inline-block;
 .thread-teacher-name {
   font-size: 14px;
   font-weight: 500;
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
   color: #000;
   margin: 0;
 }
@@ -484,31 +486,45 @@ display: inline-block;
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes scaleUp {
-  from { transform: scale(0.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
-.chat-main-card.portal-card{
+
+.chat-main-card.portal-card {
   flex: 1;
 }
-.ct_chat_main_container{
+
+.ct_chat_main_container {
   display: flex;
   align-items: start;
   gap: 40px;
 }
 
-.profile-title{
+.profile-title {
   font-size: 16px;
   color: #000;
   font-weight: 600;
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 
-.ct_p_20{
+.ct_p_20 {
   padding: 20px;
 }
 
@@ -539,10 +555,14 @@ display: inline-block;
   padding: 32px 16px;
 }
 
-.chat-empty-icon { font-size: 36px; color: #EFEAE4; }
+.chat-empty-icon {
+  font-size: 36px;
+  color: #EFEAE4;
+}
 
 .loading-spinner-sm {
-  width: 18px; height: 18px;
+  width: 18px;
+  height: 18px;
   border: 2px solid #EFEAE4;
   border-top-color: #FC800A;
   border-radius: 50%;
@@ -551,16 +571,24 @@ display: inline-block;
 }
 
 .loading-spinner-btn {
-  width: 16px; height: 16px;
-  border: 2px solid rgba(255,255,255,0.4);
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
   border-top-color: #ffffff;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
 
-@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-.message-pending { opacity: 0.6; }
+.message-pending {
+  opacity: 0.6;
+}
+
 .message-failed .message-bubble {
   border-color: #FCA5A5 !important;
   background-color: #FEF2F2 !important;
@@ -595,9 +623,16 @@ display: inline-block;
   transition: background-color 0.2s;
 }
 
-.compose-btn-lg:hover { background-color: #E27208; }
+.compose-btn-lg:hover {
+  background-color: #E27208;
+}
 
 @media (max-width:575px) {
-  .chat-input-bar { padding-inline: 15px; }
-  .chat-bubble-wrapper { max-width: 100%; }
-}
+  .chat-input-bar {
+    padding-inline: 15px;
+  }
+
+  .chat-bubble-wrapper {
+    max-width: 100%;
+  }
+}

@@ -217,12 +217,13 @@ export class StdMessagesComponent implements OnInit, OnDestroy, AfterViewChecked
 
   getAvatarUrl(avatar: string | null | undefined): string {
     if (!avatar) return 'assets/img/placeholder.jpg';
-    if (avatar.startsWith('http') || avatar.startsWith('data:') || avatar.startsWith('assets/')) {
-      return avatar;
+    const normalizedAvatar = avatar.replace(/\\/g, '/');
+    if (normalizedAvatar.startsWith('http') || normalizedAvatar.startsWith('data:') || normalizedAvatar.startsWith('assets/')) {
+      return normalizedAvatar;
     }
     const base = environment.imageBaseUrl.endsWith('/')
       ? environment.imageBaseUrl : `${environment.imageBaseUrl}/`;
-    return `${base}${avatar.startsWith('/') ? avatar.slice(1) : avatar}`;
+    return `${base}${normalizedAvatar.startsWith('/') ? normalizedAvatar.slice(1) : normalizedAvatar}`;
   }
 
   formatTime(isoString: string | null | undefined): string {

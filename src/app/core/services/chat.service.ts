@@ -535,11 +535,34 @@ export class ChatService implements OnDestroy {
       };
     }
 
-    // Fallback just in case `participants` actually arrives as an array in some endpoints
+    // Fallback if `participants` arrives as an array
     if (Array.isArray(conversation.participants)) {
-      return conversation.participants.find(p => p.id !== currentUserId)
-        ?? conversation.participants[0] 
-        ?? {} as any;
+      const p = conversation.participants.find(p => p.id !== currentUserId) ?? conversation.participants[0];
+      if (p) {
+        return {
+          id: p.id,
+          name: p.fullName ?? `${p.firstName ?? ''} ${p.lastName ?? ''}`.trim(),
+          role: p.role ?? 'user',
+          avatar: p.profileImage ?? null,
+          isOnline: p.isOnline ?? false
+        };
+      }
+    }
+
+    // Fallback if `participants` is an object (e.g. { parent: {...}, teacher: {...}, student: {...} })
+    if (conversation.participants && typeof conversation.participants === 'object') {
+      const p = conversation.participants as any;
+      const users = [p.teacher, p.parent, p.student].filter(u => u != null);
+      const otherUser = users.find(u => u.id !== currentUserId) ?? users[0];
+      if (otherUser) {
+        return {
+          id: otherUser.id,
+          name: otherUser.fullName ?? `${otherUser.firstName ?? ''} ${otherUser.lastName ?? ''}`.trim(),
+          role: otherUser.role ?? 'user',
+          avatar: otherUser.profileImage ?? null,
+          isOnline: otherUser.isOnline ?? false
+        };
+      }
     }
 
     // Ultimate fallback to prevent crashes

@@ -78,8 +78,8 @@
             [class.student-sender]="isMyMessage(message)" [class.teacher-sender]="!isMyMessage(message)"
             [class.message-pending]="message.isPending" [class.message-failed]="message.isFailed">
             <!-- Avatar for other participant -->
-            <img *ngIf="!isMyMessage(message)" [src]="getAvatarUrl(message.senderAvatar)" [alt]="message.senderName"
-              class="chat-avatar" />
+            <!-- <img *ngIf="!isMyMessage(message)" [src]="getAvatarUrl(message.senderAvatar)" [alt]="message.senderName"
+              class="chat-avatar" /> -->
 
             <!-- Message bubble -->
             <div class="message-bubble-block">
@@ -98,7 +98,7 @@
                   </ng-container>
                   <ng-container *ngIf="!message.isPending && !message.isFailed">
                     <i class="fa-solid fa-check" [class.double-tick]="message.isRead"></i>
-                    <i class="fa-solid fa-check offset-tick" *ngIf="message.isRead"></i>
+                    <!-- <i class="fa-solid fa-check offset-tick" *ngIf="message.isRead"></i> -->
                   </ng-container>
                 </span>
               </div>

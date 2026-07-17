@@ -25,11 +25,18 @@ export class StdMyProfileComponent implements OnInit {
     if (!profileImage) {
       return 'assets/img/placeholder.jpg';
     }
-    if (profileImage.startsWith('http://') || profileImage.startsWith('https://') || profileImage.startsWith('data:')) {
-      return profileImage;
+    const normalizedAvatar = profileImage.replace(/\\/g, '/');
+    if (
+      normalizedAvatar.startsWith('http://') ||
+      normalizedAvatar.startsWith('https://') ||
+      normalizedAvatar.startsWith('data:') ||
+      normalizedAvatar.startsWith('blob:') ||
+      normalizedAvatar.startsWith('assets/')
+    ) {
+      return normalizedAvatar;
     }
     const base = this.imageBaseUrl.endsWith('/') ? this.imageBaseUrl : `${this.imageBaseUrl}/`;
-    const path = profileImage.startsWith('/') ? profileImage.substring(1) : profileImage;
+    const path = normalizedAvatar.startsWith('/') ? normalizedAvatar.substring(1) : normalizedAvatar;
     return `${base}${path}`;
   }
 }
