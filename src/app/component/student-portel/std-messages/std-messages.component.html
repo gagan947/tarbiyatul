@@ -1,118 +1,216 @@
 <div class="ct_px_28 mt-4">
   <div class="messages-page-wrapper portal-font-main">
-  <!-- Section Title -->
-  <div class="section-header">
-    <h2 class="section-title">Message Teacher</h2>
-    <p class="section-subtitle">Stay connected with your teachers and ask questions about lessons, assignments, or books.</p>
-  </div>
 
-  <!-- Chat container card -->
-<div class="ct_chat_main_container position-relative">
-    <div class="chat-main-card portal-card">
-    
-    <!-- Active Teacher Header -->
-    <div class="chat-header">
-      <div class="teacher-info-row">
-        <i class="fa-solid fa-angle-left d-block d-md-none"></i>
-        <div class="teacher-avatar-container">
-          <img src="assets/img/chat_user_2.png" [alt]="teacherName" class="teacher-avatar-img" />
-          <span class="online-indicator" *ngIf="isOnline"></span>
-        </div>
-        <div class="teacher-text-details">
-          <h3 class="teacher-display-name">{{ teacherName }}</h3>
-          <span class="teacher-display-role">{{ teacherRole }}</span>
-          <span class="teacher-status-text" *ngIf="isOnline">Online</span>
-        </div>
-      </div>
+    <!-- Section Title -->
+    <div class="section-header">
+      <h2 class="section-title">Message Teacher</h2>
+      <p class="section-subtitle">Stay connected with your teachers and ask questions about lessons, assignments, or
+        books.</p>
     </div>
 
-    <!-- Scrollable Messages Window -->
-    <div class="chat-history-window" id="chat-messages-container">
-      <div class="chat-date-separator">
-        <span class="date-label">Today</span>
-      </div>
+    <!-- Chat container card -->
+    <div class="ct_chat_main_container position-relative">
 
-      <div class="chat-bubble-wrapper" *ngFor="let message of messages" [class.student-sender]="message.sender === 'Student'" [class.teacher-sender]="message.sender === 'Teacher'">
-        
-        <!-- Avatar for teacher -->
-        <img src="assets/img/chat_user_1.png" alt="Teacher Avatar" class="chat-avatar" *ngIf="message.sender === 'Teacher'" />
-        
-        <!-- Message box -->
-        <div class="message-bubble-block">
-          <div class="message-bubble">
-            <p class="message-text">{{ message.text }}</p>
-          </div>
-          <div class="message-meta-info">
-            <span class="message-time">{{ message.time }}</span>
-            <span class="message-status-ticks" *ngIf="message.sender === 'Student'">
-              <i class="fa-solid fa-check" [class.double-tick]="message.isRead"></i>
-              <i class="fa-solid fa-check offset-tick" *ngIf="message.isRead"></i>
-            </span>
+      <!-- ── Main Chat Panel ── -->
+      <div class="chat-main-card portal-card">
+
+        <!-- Active Conversation Header -->
+        <div class="chat-header">
+          <div class="teacher-info-row">
+            <i class="fa-solid fa-angle-left d-block d-md-none"></i>
+
+            <ng-container *ngIf="activeConversation; else noActiveHeader">
+              <div class="teacher-avatar-container">
+                <img [src]="getAvatarUrl(getOtherParticipant(activeConversation).avatar)"
+                  [alt]="getOtherParticipant(activeConversation).name" class="teacher-avatar-img" />
+                <span class="online-indicator" *ngIf="getOtherParticipant(activeConversation).isOnline"></span>
+              </div>
+              <div class="teacher-text-details">
+                <h3 class="teacher-display-name">{{ getOtherParticipant(activeConversation).name }}</h3>
+                <span class="teacher-display-role">{{ getOtherParticipant(activeConversation).role | titlecase }}</span>
+                <span class="teacher-status-text" *ngIf="getOtherParticipant(activeConversation).isOnline">Online</span>
+              </div>
+            </ng-container>
+
+            <ng-template #noActiveHeader>
+              <div class="teacher-text-details">
+                <h3 class="teacher-display-name">Select a conversation</h3>
+                <span class="teacher-display-role">Choose from the list on the right</span>
+              </div>
+            </ng-template>
           </div>
         </div>
 
+        <!-- Scrollable Messages Window -->
+        <div class="chat-history-window" #chatContainer (scroll)="onScroll($event)">
+
+          <!-- Loading older messages indicator -->
+          <div class="chat-loading-older" *ngIf="loadingOlder">
+            <div class="loading-spinner-sm"></div>
+            <span>Loading older messages...</span>
+          </div>
+
+          <!-- Empty state -->
+          <div class="chat-empty-state" *ngIf="!loadingMessages && !activeConversation">
+            <i class="fa-regular fa-comments chat-empty-icon"></i>
+            <p>Select a conversation to start chatting</p>
+          </div>
+
+          <!-- Loading messages state -->
+          <div class="chat-loading-state" *ngIf="loadingMessages">
+            <div class="loading-spinner-sm"></div>
+            <span>Loading messages...</span>
+          </div>
+
+          <!-- No messages in active conversation -->
+          <div class="chat-empty-state" *ngIf="!loadingMessages && activeConversation && messages.length === 0">
+            <i class="fa-regular fa-comment chat-empty-icon"></i>
+            <p>No messages yet. Say Assalamualaikum!</p>
+          </div>
+
+          <!-- Date separator -->
+          <div class="chat-date-separator" *ngIf="messages.length > 0">
+            <span class="date-label">Today</span>
+          </div>
+
+          <!-- Messages -->
+          <div class="chat-bubble-wrapper" *ngFor="let message of messages; trackBy: trackByMsgId"
+            [class.student-sender]="isMyMessage(message)" [class.teacher-sender]="!isMyMessage(message)"
+            [class.message-pending]="message.isPending" [class.message-failed]="message.isFailed">
+            <!-- Avatar for other participant -->
+            <img *ngIf="!isMyMessage(message)" [src]="getAvatarUrl(message.senderAvatar)" [alt]="message.senderName"
+              class="chat-avatar" />
+
+            <!-- Message bubble -->
+            <div class="message-bubble-block">
+              <div class="message-bubble">
+                <p class="message-text">{{ message.content }}</p>
+              </div>
+              <div class="message-meta-info">
+                <span class="message-time">{{ formatTime(message.createdAt) }}</span>
+                <!-- Send status ticks (only for my messages) -->
+                <span class="message-status-ticks" *ngIf="isMyMessage(message)">
+                  <ng-container *ngIf="message.isPending">
+                    <i class="fa-solid fa-clock" style="font-size:10px; color:#9CA3AF"></i>
+                  </ng-container>
+                  <ng-container *ngIf="message.isFailed">
+                    <i class="fa-solid fa-circle-exclamation" style="font-size:10px; color:#EF4444"></i>
+                  </ng-container>
+                  <ng-container *ngIf="!message.isPending && !message.isFailed">
+                    <i class="fa-solid fa-check" [class.double-tick]="message.isRead"></i>
+                    <i class="fa-solid fa-check offset-tick" *ngIf="message.isRead"></i>
+                  </ng-container>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <form (submit)="sendMessage(); $event.preventDefault();" class="chat-input-bar">
+          <button type="button" class="attachment-btn" aria-label="Attach File">
+            <i class="fa-solid fa-paperclip"></i>
+          </button>
+          <input type="text" [(ngModel)]="newMessageText" name="messageInput" placeholder="Type your message..."
+            class="message-text-input" autocomplete="off" [disabled]="!activeConversation || sending"
+            maxlength="4000" />
+          <button type="submit" class="send-message-btn" aria-label="Send Message"
+            [disabled]="!newMessageText.trim() || sending || !activeConversation">
+            <i class="fa-solid fa-paper-plane" *ngIf="!sending"></i>
+            <div class="loading-spinner-btn" *ngIf="sending"></div>
+          </button>
+        </form>
+
       </div>
-    </div>
 
-    <!-- Chat Prompt Input Bar -->
-    <form (submit)="sendMessage(); $event.preventDefault();" class="chat-input-bar">
-      <button type="button" class="attachment-btn" aria-label="Attach File">
-        <i class="fa-solid fa-paperclip"></i>
-      </button>
-      <input 
-        type="text" 
-        [(ngModel)]="newMessageText" 
-        name="messageInput" 
-        placeholder="Type your message..." 
-        class="message-text-input" 
-        autocomplete="off" />
-      <button type="submit" class="send-message-btn" aria-label="Send Message" [disabled]="!newMessageText.trim()">
-        <i class="fa-solid fa-paper-plane"></i>
-      </button>
-    </form>
-
-  </div>
-    <aside class="portal-profile-panel messages-sidebar-context" >
-       <div class="ct_p_20">
-         <div class="messages-panel-header">
+      <!-- ── Sidebar Panel ── -->
+      <aside class="portal-profile-panel messages-sidebar-context">
+        <div class="ct_p_20">
+          <div class="messages-panel-header">
             <h2 class="profile-title mb-0">Messages</h2>
-        </div>
+            <!-- New conversation button -->
+            <button class="compose-btn" (click)="toggleContactsPanel()" title="New conversation">
+              <i class="fa-solid" [class.fa-pen-to-square]="!showContactsPanel"
+                [class.fa-xmark]="showContactsPanel"></i>
+            </button>
+          </div>
 
-        <!-- Search conversations bar -->
-        <div class="search-convo-container">
+          <!-- Search conversations bar -->
+          <div class="search-convo-container">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
             <input type="text" placeholder="Search conversations..." class="search-convo-input" />
+          </div>
         </div>
-       </div>
 
-        <!-- Threads list -->
-        <div class="threads-list-scrollable">
-            <div class="thread-item-card" *ngFor="let thread of teacherThreads" [class.active-thread]="thread.name === 'Ustadh Hamza'">
-                <div class="avatar-col">
-                    <img [src]="thread.avatar" [alt]="thread.name" class="thread-avatar-img" />
-                    <span class="thread-online-dot" *ngIf="thread.online"></span>
+        <!-- Contacts panel (new conversation) -->
+        <ng-container *ngIf="showContactsPanel">
+          <div class="contacts-panel-header">
+            <span>Start a new conversation</span>
+          </div>
+          <div class="threads-list-scrollable">
+            <div class="thread-item-card" *ngFor="let contact of contacts; trackBy: trackByContactId"
+              (click)="selectContact(contact)">
+              <div class="avatar-col">
+                <img [src]="getAvatarUrl(contact.avatar)" [alt]="contact.name" class="thread-avatar-img" />
+                <span class="thread-online-dot" *ngIf="contact.isOnline"></span>
+              </div>
+              <div class="thread-info-col">
+                <div class="thread-name-row">
+                  <h4 class="thread-teacher-name">{{ contact.name }}</h4>
                 </div>
-                
-                <div class="thread-info-col">
-                    <div class="thread-name-row">
-                        <h4 class="thread-teacher-name">{{ thread.name }}</h4>
-                        <span class="thread-time">{{ thread.time }}</span>
-                    </div>
-                    <span class="thread-subject">{{ thread.subject }}</span>
-                   <div class="d-flex align-items-center justify-content-between gap-2">
-                     <p class="thread-last-msg">{{ thread.lastMessage }}</p>
-                        <div class="thread-badge-col" *ngIf="thread.unreadCount > 0">
-                    <span class="unread-badge">{{ thread.unreadCount }}</span>
-                </div>
-                   </div>
-                </div>
-
-            
+                <span class="thread-subject">{{ contact.role | titlecase }}</span>
+              </div>
             </div>
-        </div>
-    </aside>
-</div>
-</div>
+            <div class="chat-empty-state" *ngIf="contacts.length === 0">
+              <p>No contacts available</p>
+            </div>
+          </div>
+        </ng-container>
 
+        <!-- Conversation Threads list -->
+        <ng-container *ngIf="!showContactsPanel">
+          <div class="threads-list-scrollable">
 
+            <!-- Loading conversations -->
+            <div class="chat-loading-state" *ngIf="loadingConversations && conversations.length === 0">
+              <div class="loading-spinner-sm"></div>
+              <span>Loading conversations...</span>
+            </div>
+
+            <!-- No conversations yet -->
+            <div class="chat-empty-state" *ngIf="!loadingConversations && conversations.length === 0">
+              <i class="fa-regular fa-comments chat-empty-icon"></i>
+              <p>No conversations yet</p>
+              <button class="compose-btn-lg" (click)="toggleContactsPanel()">
+                <i class="fa-solid fa-plus"></i> Start a chat
+              </button>
+            </div>
+
+            <div class="thread-item-card" *ngFor="let conv of conversations; trackBy: trackByConvId"
+              [class.active-thread]="conv.id === activeConversation?.id" (click)="selectConversation(conv)">
+              <div class="avatar-col">
+                <img [src]="getAvatarUrl(getOtherParticipant(conv).avatar)" [alt]="getOtherParticipant(conv).name"
+                  class="thread-avatar-img" />
+                <span class="thread-online-dot" *ngIf="getOtherParticipant(conv).isOnline"></span>
+              </div>
+              <div class="thread-info-col">
+                <div class="thread-name-row">
+                  <h4 class="thread-teacher-name">{{ getOtherParticipant(conv).name }}</h4>
+                  <span class="thread-time">{{ formatLastMessageTime(conv.lastMessageTime) }}</span>
+                </div>
+                <span class="thread-subject">{{ getOtherParticipant(conv).role | titlecase }}</span>
+                <div class="d-flex align-items-center justify-content-between gap-2">
+                  <p class="thread-last-msg">{{ conv.lastMessage || 'No messages yet' }}</p>
+                  <div class="thread-badge-col" *ngIf="conv.unreadCount > 0">
+                    <span class="unread-badge">{{ conv.unreadCount }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </aside>
+
+    </div>
+  </div>
 </div>

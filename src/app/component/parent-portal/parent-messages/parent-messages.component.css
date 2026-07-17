@@ -508,3 +508,93 @@
 .ct_p_20{
   padding: 20px;
 }
+
+/* ── Loading & Empty States ─────────────────────────────────────── */
+.chat-loading-state,
+.chat-loading-older {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  color: #9CA3AF;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+}
+
+.chat-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 8px;
+  color: #9CA3AF;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.chat-empty-icon { font-size: 36px; color: #EFEAE4; }
+
+.loading-spinner-sm {
+  width: 18px; height: 18px;
+  border: 2px solid #EFEAE4;
+  border-top-color: #FC800A;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
+}
+
+.loading-spinner-btn {
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.message-pending { opacity: 0.6; }
+.message-failed .message-bubble {
+  border-color: #FCA5A5 !important;
+  background-color: #FEF2F2 !important;
+}
+
+.contacts-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  color: #374151;
+  border-bottom: 1px solid #EAEAEA;
+}
+
+.compose-btn-lg {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #FC800A;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background-color 0.2s;
+}
+
+.compose-btn-lg:hover { background-color: #E27208; }
+
+@media (max-width:575px) {
+  .chat-input-bar { padding-inline: 15px; }
+  .chat-bubble-wrapper { max-width: 100%; }
+}

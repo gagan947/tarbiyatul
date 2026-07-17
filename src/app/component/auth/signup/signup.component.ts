@@ -145,7 +145,6 @@ export class SignupComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
     this.errorMessage = null;
-    debugger
     if (this.signupForm.invalid) {
       return;
     }

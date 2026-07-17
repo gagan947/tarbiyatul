@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './shared components/header/header.component';
 import { FooterComponent } from './shared components/footer/footer.component';
 import { HomePageFooterComponent } from './shared components/home-page-footer/home-page-footer.component';
+import { ToastComponent } from './shared components/toast/toast.component';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,8 @@ import { HomePageFooterComponent } from './shared components/home-page-footer/ho
     CommonModule,
     HeaderComponent,
     FooterComponent,
-    HomePageFooterComponent
+    HomePageFooterComponent,
+    ToastComponent
   ]
 })
 export class AppComponent implements OnInit {

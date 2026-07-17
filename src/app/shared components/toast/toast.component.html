@@ -1,0 +1,24 @@
+<div class="toast-container" aria-live="polite" aria-atomic="false">
+  <div
+    *ngFor="let toast of toasts; trackBy: trackById"
+    class="toast-item"
+    [class.toast-success]="toast.type === 'success'"
+    [class.toast-error]="toast.type === 'error'"
+    [class.toast-warning]="toast.type === 'warning'"
+    [class.toast-info]="toast.type === 'info'"
+    role="alert"
+  >
+    <div class="toast-icon">
+      <i class="fa-solid"
+        [class.fa-circle-check]="toast.type === 'success'"
+        [class.fa-circle-xmark]="toast.type === 'error'"
+        [class.fa-triangle-exclamation]="toast.type === 'warning'"
+        [class.fa-circle-info]="toast.type === 'info'"
+      ></i>
+    </div>
+    <p class="toast-message">{{ toast.message }}</p>
+    <button class="toast-close" (click)="dismiss(toast.id)" aria-label="Close notification">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+</div>

@@ -1,21 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component, OnInit, OnDestroy, ViewChild, ElementRef,
+  AfterViewChecked, ChangeDetectorRef
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-interface TeacherThread {
-  name: string;
-  subject: string;
-  lastMessage: string;
-  time: string;
-  avatar: string;
-  unreadCount: number;
-  online: boolean;
-}
-interface Message {
-  sender: 'Teacher' | 'Student';
-  text: string;
-  time: string;
-  isRead?: boolean;
-}
+import { Subscription } from 'rxjs';
+import { ChatService } from '../../../core/services/chat.service';
+import { ProfileService } from '../../../core/services/profile.service';
+import { Conversation, ChatMessage, ChatContact } from '../../../core/models/chat.models';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-parent-messages',
@@ -24,128 +17,232 @@ interface Message {
   templateUrl: './parent-messages.component.html',
   styleUrl: './parent-messages.component.css'
 })
-export class ParentMessagesComponent implements OnInit {
-  teacherName = 'Ustadh Hamza';
-  teacherRole = 'Islamic Studies Teacher';
-  isOnline = true;
+export class ParentMessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
 
-  messages: Message[] = [
-    {
-      sender: 'Teacher',
-      text: 'Assalamualaikum Ali, Please read pages 10–20 from the chapter "The Story of Prophet Yusuf (AS)" before Friday.',
-      time: '10:28 AM'
-    },
-    {
-      sender: 'Student',
-      text: 'Wa Alaikum Assalam Ustadh, I have completed page 15.',
-      time: '10:29 AM',
-      isRead: true
-    },
-    {
-      sender: 'Teacher',
-      text: 'Excellent! Please continue until page 20 and write down 3 key lessons.',
-      time: '10:30 AM'
-    },
-    {
-      sender: 'Student',
-      text: 'Sure Ustadh, I will do that. JazakAllah Khair!',
-      time: '10:32 AM',
-      isRead: true
-    },
-    {
-      sender: 'Teacher',
-      text: 'JazakAllah Khair, Ali. Let me know if you need any help.',
-      time: '10:33 AM'
-    }
-  ];
+  @ViewChild('chatContainer') chatContainerRef!: ElementRef<HTMLDivElement>;
 
+  // ─── State ─────────────────────────────────────────────────────────────────
+  conversations: Conversation[] = [];
+  messages: ChatMessage[] = [];
+  contacts: ChatContact[] = [];
+  activeConversation: Conversation | null = null;
   newMessageText = '';
-  teacherThreads: TeacherThread[] = [
-    {
-      name: 'Ustadh Hamza',
-      subject: 'Islamic Studies',
-      lastMessage: 'Please complete page 20 and...',
-      time: '10:30 AM',
-      avatar: 'assets/img/client_1.png',
-      unreadCount: 2,
-      online: true
-    },
-    {
-      name: 'Ms. Fatima',
-      subject: 'Mathematics',
-      lastMessage: 'Great work on fractions!',
-      time: '9:15 AM',
-      avatar: 'assets/img/client_2.png',
-      unreadCount: 1,
-      online: true
-    },
-    {
-      name: 'Mr. Ahmed',
-      subject: 'Science',
-      lastMessage: 'Don\'t forget to submit your...',
-      time: 'Yesterday',
-      avatar: 'assets/img/client_3.png',
-      unreadCount: 1,
-      online: false
-    },
-    {
-      name: 'Ms. Sarah',
-      subject: 'English',
-      lastMessage: 'Check the reading comprehension...',
-      time: 'Yesterday',
-      avatar: 'assets/img/client_2.png',
-      unreadCount: 0,
-      online: false
-    },
-    {
-      name: 'School Support',
-      subject: 'Support',
-      lastMessage: 'How can we help you?',
-      time: '2 days ago',
-      avatar: 'assets/img/client_1.png',
-      unreadCount: 0,
-      online: false
-    }
-  ];
+
+  // ─── Current User ───────────────────────────────────────────────────────────
+  currentUserId = 0;
+  currentUserName = '';
+  currentUserAvatar: string | null = null;
+  currentUserRole = 'parent';
+
+  // ─── Loading ────────────────────────────────────────────────────────────────
+  loadingConversations = false;
+  loadingMessages = false;
+  loadingOlder = false;
+  sending = false;
+
+  // ─── UI State ───────────────────────────────────────────────────────────────
+  showContactsPanel = false;
+  private shouldScrollToBottom = false;
+  private preserveScrollPosition = false;
+  private previousScrollHeight = 0;
+
+  private subs: Subscription[] = [];
+
+  constructor(
+    private chatService: ChatService,
+    private profileService: ProfileService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  // ─── Lifecycle ──────────────────────────────────────────────────────────────
+
   ngOnInit(): void {
-    // Scroll chat to bottom on load
-    setTimeout(() => this.scrollToBottom(), 50);
+    this.loadCurrentUser();
+    this.chatService.init();
+
+    this.subs.push(
+      this.chatService.conversations$.subscribe(convs => {
+        this.conversations = convs;
+        this.cdr.markForCheck();
+      }),
+      this.chatService.messages$.subscribe(msgs => {
+        const wasAtBottom = this.isAtBottom();
+        const wasLoadingOlder = this.loadingOlder;
+
+        if (wasLoadingOlder) {
+          this.preserveScrollPosition = true;
+          this.previousScrollHeight = this.chatContainerRef?.nativeElement.scrollHeight ?? 0;
+        } else if (wasAtBottom) {
+          this.shouldScrollToBottom = true;
+        }
+
+        this.messages = msgs;
+        this.cdr.markForCheck();
+      }),
+      this.chatService.contacts$.subscribe(c => {
+        this.contacts = c;
+        this.cdr.markForCheck();
+      }),
+      this.chatService.activeConversation$.subscribe(conv => {
+        this.activeConversation = conv;
+        this.shouldScrollToBottom = true;
+        this.cdr.markForCheck();
+      }),
+      this.chatService.loadingConversations$.subscribe(v => {
+        this.loadingConversations = v;
+        this.cdr.markForCheck();
+      }),
+      this.chatService.loadingMessages$.subscribe(v => {
+        this.loadingMessages = v;
+        if (!v) this.shouldScrollToBottom = true;
+        this.cdr.markForCheck();
+      }),
+      this.chatService.loadingOlder$.subscribe(v => {
+        this.loadingOlder = v;
+        this.cdr.markForCheck();
+      }),
+      this.chatService.sending$.subscribe(v => {
+        this.sending = v;
+        if (!v) this.shouldScrollToBottom = true;
+        this.cdr.markForCheck();
+      })
+    );
+
+    this.chatService.loadConversations();
+    this.chatService.loadContacts();
   }
+
+  ngAfterViewChecked(): void {
+    if (this.preserveScrollPosition && this.chatContainerRef) {
+      const el = this.chatContainerRef.nativeElement;
+      el.scrollTop = el.scrollHeight - this.previousScrollHeight;
+      this.preserveScrollPosition = false;
+    } else if (this.shouldScrollToBottom) {
+      this.scrollToBottom();
+      this.shouldScrollToBottom = false;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(s => s.unsubscribe());
+  }
+
+  // ─── User ───────────────────────────────────────────────────────────────────
+
+  private loadCurrentUser(): void {
+    this.subs.push(
+      this.profileService.profile$.subscribe(profile => {
+        if (profile?.data) {
+          const user = profile.data.user ?? profile.data;
+          this.currentUserId = user.id ?? 0;
+          this.currentUserName = user.fullName ?? user.name ?? '';
+          this.currentUserAvatar = user.profileImage ?? user.avatar ?? null;
+          this.cdr.markForCheck();
+        }
+      })
+    );
+  }
+
+  // ─── Conversation Selection ─────────────────────────────────────────────────
+
+  selectConversation(conv: Conversation): void {
+    if (this.activeConversation?.id === conv.id) return;
+    this.shouldScrollToBottom = true;
+    this.chatService.selectConversation(conv);
+  }
+
+  selectContact(contact: ChatContact): void {
+    this.chatService.createConversation({
+      recipientRole: contact.role,
+      recipientId: contact.id
+    });
+    this.showContactsPanel = false;
+  }
+
+  toggleContactsPanel(): void {
+    this.showContactsPanel = !this.showContactsPanel;
+  }
+
+  // ─── Messages ───────────────────────────────────────────────────────────────
 
   sendMessage(): void {
-    if (!this.newMessageText.trim()) return;
-
-    this.messages.push({
-      sender: 'Student',
-      text: this.newMessageText,
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      isRead: false
-    });
-
-    const sentMsg = this.messages[this.messages.length - 1];
+    const text = this.newMessageText.trim();
+    if (!text || this.sending) return;
     this.newMessageText = '';
-
-    setTimeout(() => {
-      this.scrollToBottom();
-      // Tick animation simulation
-      sentMsg.isRead = true;
-    }, 100);
-
-    // Simulate small teacher reply
-    setTimeout(() => {
-      this.messages.push({
-        sender: 'Teacher',
-        text: 'Barakallahu feek! Keep up the good work.',
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      });
-      setTimeout(() => this.scrollToBottom(), 50);
-    }, 1500);
+    this.shouldScrollToBottom = true;
+    this.chatService.sendMessage(
+      text,
+      this.currentUserId,
+      this.currentUserName,
+      this.currentUserAvatar,
+      this.currentUserRole
+    );
   }
 
-  scrollToBottom(): void {
-    const chatContainer = document.getElementById('chat-messages-container');
-    if (chatContainer) {
-      chatContainer.scrollTop = chatContainer.scrollHeight;
+  onScroll(event: Event): void {
+    const el = event.target as HTMLDivElement;
+    if (el.scrollTop <= 80 && !this.loadingOlder && this.chatService.hasMoreMessages) {
+      this.chatService.loadOlderMessages();
     }
   }
+
+  // ─── Scroll Helpers ─────────────────────────────────────────────────────────
+
+  private isAtBottom(): boolean {
+    if (!this.chatContainerRef) return true;
+    const el = this.chatContainerRef.nativeElement;
+    return el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+  }
+
+  private scrollToBottom(): void {
+    setTimeout(() => {
+      if (this.chatContainerRef) {
+        this.chatContainerRef.nativeElement.scrollTop =
+          this.chatContainerRef.nativeElement.scrollHeight;
+      }
+    }, 0);
+  }
+
+  // ─── Helpers ────────────────────────────────────────────────────────────────
+
+  getOtherParticipant(conv: Conversation) {
+    return this.chatService.getOtherParticipant(conv, this.currentUserId);
+  }
+
+  getAvatarUrl(avatar: string | null | undefined): string {
+    if (!avatar) return 'assets/img/placeholder.jpg';
+    if (avatar.startsWith('http') || avatar.startsWith('data:') || avatar.startsWith('assets/')) {
+      return avatar;
+    }
+    const base = environment.imageBaseUrl.endsWith('/')
+      ? environment.imageBaseUrl : `${environment.imageBaseUrl}/`;
+    return `${base}${avatar.startsWith('/') ? avatar.slice(1) : avatar}`;
+  }
+
+  formatTime(isoString: string | null | undefined): string {
+    if (!isoString) return '';
+    const date = new Date(isoString);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+
+  formatLastMessageTime(isoString: string | null | undefined): string {
+    if (!isoString) return '';
+    const date = new Date(isoString);
+    const now = new Date();
+    const diffDays = Math.floor((now.getTime() - date.getTime()) / 86400000);
+    if (diffDays === 0) return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays < 7) return `${diffDays} days ago`;
+    return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+  }
+
+  isMyMessage(message: ChatMessage): boolean {
+    return Number(message.senderId) === Number(this.currentUserId);
+  }
+
+  // ─── TrackBy ────────────────────────────────────────────────────────────────
+
+  trackByConvId(_: number, conv: Conversation): number { return conv.id; }
+  trackByMsgId(_: number, msg: ChatMessage): string | number { return msg.tempId ?? msg.id; }
+  trackByContactId(_: number, contact: ChatContact): number { return contact.id; }
 }

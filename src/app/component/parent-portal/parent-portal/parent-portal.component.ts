@@ -4,6 +4,7 @@ import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ProfileService } from '../../../core/services/profile.service';
 import { environment } from 'src/environments/environment';
+import { SocketService } from '../../../core/services/socket.service';
 
 interface TeacherThread {
   name: string;
@@ -88,7 +89,8 @@ export class ParentPortalComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private socketService: SocketService
   ) {
     this.currentUrl = this.router.url;
   }
@@ -153,6 +155,7 @@ export class ParentPortalComponent implements OnInit {
 
   confirmLogout(): void {
     this.showLogoutModal = false;
+    this.socketService.disconnect();
     this.profileService.clearProfile();
     localStorage.clear();
     this.router.navigate(['/login']);
