@@ -1,0 +1,190 @@
+<div class="ct_px_28 profile-container pb-5 mt-4">
+  <div class="mb-4 pt-2">
+    <h2 class="section-title mb-1">School Calendar</h2>
+    <p class="text-muted mb-0">Stay updated with upcoming school events, holidays, meetings, and important academic dates.</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Left Sidebar: Small Calendar & Upcoming Events -->
+    <div class="col-xxl-3 col-xl-4 col-lg-5">
+      <div class="dashboard-card p-4 h-100 cal-card-rounded">
+
+        <!-- Small Calendar Picker -->
+        <div class="small-calendar-wrapper mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="mb-0 fw-semibold cal-header-title">{{ monthNames[currentMonth] }} {{ currentYear }}</h4>
+            <div class="d-flex gap-2">
+              <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle" (click)="prevMonth()"><i
+                  class="fa-solid fa-angle-left cal-icon-xs"></i></button>
+              <button class="btn btn-sm btn-outline-secondary rounded-circle cal-btn-circle" (click)="nextMonth()"><i
+                  class="fa-solid fa-angle-right cal-icon-xs"></i></button>
+            </div>
+          </div>
+
+          <div class="small-calendar-grid">
+            <div class="d-flex justify-content-between text-muted mb-3 cal-days-header">
+              <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+            </div>
+            <!-- Dynamic dates for small calendar -->
+            <div class="d-flex justify-content-between mb-3 cal-days-row" *ngFor="let week of weeks">
+              <span *ngFor="let day of week"
+                [ngClass]="{'cal-active-day-circle text-white': day.isToday, 'text-muted': !day.isCurrentMonth}">
+                {{ day.date }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <hr style="border-color: #E4E5E7" class="mb-4">
+
+        <!-- Upcoming Events List -->
+        <div>
+          <h4 class="mb-4 fw-semibold cal-header-title">Upcoming Events</h4>
+
+          <div class="upcoming-event-item mb-3 p-3 rounded cal-event-card cursor-pointer"
+            *ngFor="let event of upcomingEvents" (click)="openEventDetails(event)">
+            <div class="d-flex align-items-start gap-3">
+              <div class="date-badge text-center cal-date-badge-wrapper flex-shrink-0">
+                <span class="d-block cal-date-text-{{event.colorClass}}">{{event.date.getDate()}}</span>
+                <small class="text-uppercase fw-bold text-muted" style="font-size: 9px;">{{ monthNames[event.date.getMonth()].substring(0, 3) }}</small>
+              </div>
+              <div class="flex-grow-1 overflow-hidden">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                  <h5 class="mb-0 cal-event-title text-truncate">{{event.title}}</h5>
+                </div>
+                <div class="text-muted cal-event-time mb-1">
+                  <i class="fa-regular fa-clock me-1"></i> {{event.time}}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="upcomingEvents.length === 0" class="text-muted text-center py-4 small">
+            No upcoming events scheduled.
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Main Calendar Grid -->
+    <div class="col-xxl-9 col-xl-8 col-lg-7">
+      <div class="dashboard-card bg-white h-100 overflow-hidden cal-main-grid-card">
+        <!-- Header -->
+        <div class="calendar-grid-header d-flex text-center border-bottom bg-white">
+          <div class="flex-fill py-3 border-end cal-main-day-header">Monday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Tuesday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Wednesday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Thursday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Friday</div>
+          <div class="flex-fill py-3 border-end cal-main-day-header">Saturday</div>
+          <div class="flex-fill py-3 cal-main-day-header">Sunday</div>
+        </div>
+
+        <!-- Grid Body -->
+        <div class="calendar-grid-body d-flex flex-column h-100">
+
+          <!-- Dynamic Weeks -->
+          <div class="calendar-week d-flex cal-week-row" *ngFor="let week of weeks; let last = last"
+            [class.border-bottom]="!last">
+            <div class="calendar-day flex-fill p-2 position-relative" *ngFor="let day of week; let lastDay = last"
+              [class.border-end]="!lastDay" [class.cal-active-grid-day]="day.isToday">
+              <span class="day-number fw-semibold mb-1 d-inline-block" [class.text-white]="day.isToday"
+                [class.text-muted]="!day.isCurrentMonth && !day.isToday">
+                {{ day.date }}
+              </span>
+              <div class="event-pill px-2 py-1 rounded mb-1 cal-pill cursor-pointer"
+                [ngClass]="'cal-pill-' + event.colorClass" *ngFor="let event of day.events"
+                (click)="openEventDetails(event)">
+                {{ event.title }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Event Detail Modal -->
+<div class="modal fade show d-block event-modal-backdrop" tabindex="-1" *ngIf="selectedEvent"
+  (click)="closeEventDetails()">
+  <div class="modal-dialog modal-dialog-centered" (click)="$event.stopPropagation()">
+    <div class="modal-content border-0 shadow-lg cal-modal-content">
+      
+      <!-- Modal Header Banner -->
+      <div class="modal-header border-0 pb-0 position-relative">
+        <div class="d-flex align-items-center gap-2">
+          <span class="custom-badge" [ngClass]="'badge-' + selectedEvent.colorClass">
+            <i class="fa-solid fa-calendar-day me-1"></i> Event Details
+          </span>
+        </div>
+        <button type="button" class="btn-close custom-close-btn" (click)="closeEventDetails()"
+          aria-label="Close"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body p-4 pt-3">
+        <h3 class="fw-bold mb-3 modal-event-title">{{ selectedEvent.title }}</h3>
+
+        <!-- Date & Time Card -->
+        <div class="event-time-card p-3 mb-4 rounded-3 d-flex align-items-center gap-3">
+          <div class="time-icon-box flex-shrink-0" [ngClass]="'icon-box-' + selectedEvent.colorClass">
+            <i class="fa-regular fa-clock fs-5"></i>
+          </div>
+          <div>
+            <div class="fw-semibold text-dark fs-6">
+              {{ selectedEvent.date | date:'EEEE, MMMM d, y' }}
+            </div>
+            <div class="text-muted small">
+              <i class="fa-solid fa-stopwatch me-1 text-secondary"></i> {{ selectedEvent.time }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="mb-4" *ngIf="selectedEvent.description">
+          <h6 class="fw-bold text-uppercase text-muted fs-7 tracking-wider mb-2">Description</h6>
+          <p class="event-desc-text p-3 rounded-3 mb-0">{{ selectedEvent.description }}</p>
+        </div>
+
+        <!-- Tags: Categories & Grades -->
+        <div class="row g-3">
+          <div class="col-12 col-sm-6" *ngIf="selectedEvent.categories">
+            <h6 class="fw-bold text-uppercase text-muted fs-7 tracking-wider mb-2">Categories</h6>
+            <div class="d-flex flex-wrap gap-1" *ngIf="selectedEvent.categories.length > 0; else noCategories">
+              <span class="category-chip" *ngFor="let cat of selectedEvent.categories">
+                <i class="fa-solid fa-tag me-1 text-primary"></i> {{ cat }}
+              </span>
+            </div>
+            <ng-template #noCategories>
+              <span class="text-muted small fst-italic">All Categories</span>
+            </ng-template>
+          </div>
+
+          <div class="col-12 col-sm-6" *ngIf="selectedEvent.grades">
+            <h6 class="fw-bold text-uppercase text-muted fs-7 tracking-wider mb-2">Applicable Grades</h6>
+            <div class="d-flex flex-wrap gap-1" *ngIf="selectedEvent.grades.length > 0; else noGrades">
+              <span class="grade-chip" *ngFor="let grade of selectedEvent.grades">
+                <i class="fa-solid fa-graduation-cap me-1 text-info"></i> {{ grade }}
+              </span>
+            </div>
+            <ng-template #noGrades>
+              <span class="text-muted small fst-italic">All Grades</span>
+            </ng-template>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer border-0 pt-0 pb-4 px-4">
+        <button type="button" class="btn btn-primary-theme w-100 rounded-pill py-2 fw-semibold"
+          (click)="closeEventDetails()">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

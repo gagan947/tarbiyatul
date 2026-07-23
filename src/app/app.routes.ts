@@ -43,7 +43,8 @@ export const routes: Routes = [
       { path: 'resources', loadComponent: () => import('./component/student-portel/std-resources/std-resources.component').then(m => m.StdResourcesComponent) },
       { path: 'change-password', loadComponent: () => import('./component/student-portel/std-change-password/std-change-password.component').then(m => m.StdChangePasswordComponent) },
       { path: 'edit-profile', loadComponent: () => import('./component/student-portel/std-edit-profile/std-edit-profile.component').then(m => m.StdEditProfileComponent) },
-      { path: 'my-profile', loadComponent: () => import('./component/student-portel/std-my-profile/std-my-profile.component').then(m => m.StdMyProfileComponent) }
+      { path: 'my-profile', loadComponent: () => import('./component/student-portel/std-my-profile/std-my-profile.component').then(m => m.StdMyProfileComponent) },
+      { path: 'calendar', loadComponent: () => import('./component/student-portel/std-calendar/std-calendar.component').then(m => m.StdCalendarComponent) }
     ]
   },
   {
