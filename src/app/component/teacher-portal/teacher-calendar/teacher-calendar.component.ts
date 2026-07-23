@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ApiService } from '../../../core/services/api.service';
 
 @Component({
   selector: 'app-teacher-calendar',
+  standalone: true,
   imports: [CommonModule, RouterModule],
   templateUrl: './teacher-calendar.component.html',
   styleUrl: './teacher-calendar.component.css'
 })
-export class TeacherCalendarComponent {
+export class TeacherCalendarComponent implements OnInit {
   currentDate = new Date();
   currentMonth = this.currentDate.getMonth();
   currentYear = this.currentDate.getFullYear();
@@ -16,26 +18,78 @@ export class TeacherCalendarComponent {
   monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
   weeks: any[][] = [];
+  upcomingEvents: any[] = [];
+  allEvents: any[] = [];
+  selectedEvent: any = null;
 
-  upcomingEvents: any[] = [
-    { id: 1, title: 'Strategy Design Development', date: new Date(this.currentYear, this.currentMonth, 14), time: '5:00 PM', colorClass: 'orange' },
-    { id: 2, title: 'Design For Humanity', date: new Date(this.currentYear, this.currentMonth, 19), time: '5:00 PM', colorClass: 'purple' },
-    { id: 3, title: 'App Design Course', date: new Date(this.currentYear, this.currentMonth, 27), time: '5:00 PM', colorClass: 'green' },
-    { id: 4, title: 'Strategy Design Development', date: new Date(this.currentYear, this.currentMonth, 29), time: '5:00 PM', colorClass: 'blue' }
-  ];
+  private colorPalette: string[] = ['orange', 'purple', 'green', 'blue', 'yellow', 'pink', 'red'];
 
-  allEvents: any[] = [
-    ...this.upcomingEvents,
-    { id: 5, title: 'Design Workshop', date: new Date(this.currentYear, this.currentMonth, 1), time: '10:00 AM', colorClass: 'yellow' },
-    { id: 6, title: 'Design Workshop', date: new Date(this.currentYear, this.currentMonth, 5), time: '10:00 AM', colorClass: 'green' },
-    { id: 7, title: 'Design Workshop', date: new Date(this.currentYear, this.currentMonth, 9), time: '10:00 AM', colorClass: 'blue' },
-    { id: 8, title: 'Design Workshop', date: new Date(this.currentYear, this.currentMonth, 10), time: '10:00 AM', colorClass: 'purple' },
-    { id: 9, title: 'Design Workshop', date: new Date(this.currentYear, this.currentMonth, 18), time: '10:00 AM', colorClass: 'pink' },
-    { id: 10, title: 'Design Workshop', date: new Date(this.currentYear, this.currentMonth, 18), time: '1:00 PM', colorClass: 'red' }
-  ];
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     this.generateCalendar();
+    this.getTeacherEvents();
+  }
+
+  openEventDetails(event: any) {
+    this.selectedEvent = event;
+  }
+
+  closeEventDetails() {
+    this.selectedEvent = null;
+  }
+
+  getTeacherEvents() {
+    this.apiService.get<{ success: boolean; data: any[] }>('events/teacher').subscribe({
+      next: (response) => {
+        console.log('Teacher Events Data:', response);
+        if (response && response.success && Array.isArray(response.data)) {
+          this.mapEvents(response.data);
+          this.generateCalendar();
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching teacher events:', error);
+      }
+    });
+  }
+
+  mapEvents(apiEvents: any[]) {
+    this.allEvents = apiEvents.map((event, index) => {
+      const dateObj = event.eventDate ? new Date(event.eventDate) : new Date();
+      const colorClass = this.colorPalette[index % this.colorPalette.length];
+      const formattedTime = this.formatTime(event.eventTime);
+
+      return {
+        ...event,
+        id: event.id,
+        title: event.title,
+        description: event.description,
+        date: dateObj,
+        time: formattedTime,
+        colorClass: colorClass
+      };
+    });
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    this.upcomingEvents = this.allEvents
+      .filter(event => event.date >= today)
+      .sort((a, b) => a.date.getTime() - b.date.getTime())
+      .slice(0, 6);
+  }
+
+  formatTime(timeStr?: string): string {
+    if (!timeStr) return '';
+    const parts = timeStr.split(':');
+    if (parts.length < 2) return timeStr;
+    let hours = parseInt(parts[0], 10);
+    const minutes = parts[1];
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    return `${hours}:${minutes} ${ampm}`;
   }
 
   generateCalendar() {
