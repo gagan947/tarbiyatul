@@ -237,7 +237,7 @@ export class TeacherMessagesComponent implements OnInit, OnDestroy, AfterViewChe
   }
 
   isMyMessage(message: ChatMessage): boolean {
-    return Number(message.senderId) === Number(this.currentUserId);
+    return message.senderRole === 'teacher' || message.senderId === this.currentUserId;
   }
 
   // ─── TrackBy ────────────────────────────────────────────────────────────────

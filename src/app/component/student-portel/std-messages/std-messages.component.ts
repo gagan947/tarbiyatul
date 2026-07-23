@@ -245,7 +245,7 @@ export class StdMessagesComponent implements OnInit, OnDestroy, AfterViewChecked
   }
 
   isMyMessage(message: ChatMessage): boolean {
-    return Number(message.senderId) === Number(this.currentUserId);
+    return message.senderRole === 'student' || message.senderId === this.currentUserId;
   }
 
   // ─── TrackBy ────────────────────────────────────────────────────────────────

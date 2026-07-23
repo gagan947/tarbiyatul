@@ -238,7 +238,7 @@ export class ParentMessagesComponent implements OnInit, OnDestroy, AfterViewChec
   }
 
   isMyMessage(message: ChatMessage): boolean {
-    return Number(message.senderId) === Number(this.currentUserId);
+    return message.senderRole === 'parent' || message.senderId === this.currentUserId;
   }
 
   // ─── TrackBy ────────────────────────────────────────────────────────────────
