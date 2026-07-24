@@ -37,6 +37,10 @@ export class ParentMyProfileComponent implements OnInit {
     '4th Grade'
   ];
 
+  academies: string[] = [
+    'Global Academy',
+    'Religious Academy'
+  ];
   constructor(
     private fb: FormBuilder,
     private profileService: ProfileService,
@@ -52,6 +56,7 @@ export class ParentMyProfileComponent implements OnInit {
       lastName: ['', [Validators.required]],
       dob: ['', [Validators.required]],
       gradeLevel: ['', [Validators.required]],
+      academy: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]]
     });
 
@@ -111,6 +116,7 @@ export class ParentMyProfileComponent implements OnInit {
       lastName: '',
       dob: '',
       gradeLevel: '',
+      academy: '',
       email: ''
     });
     this.showChildModal = true;
@@ -136,6 +142,7 @@ export class ParentMyProfileComponent implements OnInit {
       lastName: child.lastName || '',
       dob: formattedDob,
       gradeLevel: child.gradeLevel || child.grade || '',
+      academy: child.academy || '',
       email: child.email || ''
     });
     this.showChildModal = true;
@@ -162,6 +169,7 @@ export class ParentMyProfileComponent implements OnInit {
     formData.append('lastName', val.lastName);
     formData.append('dob', val.dob);
     formData.append('gradeLevel', val.gradeLevel);
+    formData.append('academy', val.academy);
     formData.append('email', val.email);
 
     if (this.isEditMode && this.editingChildId) {
