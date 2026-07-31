@@ -46,6 +46,10 @@ export interface ChatMessage {
   isPending?: boolean;
   /** True when the optimistic send failed */
   isFailed?: boolean;
+  /** Attachment fields (optional — present only when message includes a file) */
+  attachmentUrl?: string | null;
+  attachmentName?: string | null;
+  attachmentType?: string | null;
 }
 
 // ─── Pagination ───────────────────────────────────────────────────────────────
@@ -83,6 +87,9 @@ export interface SendMessagePayload {
   conversationId: number;
   body: string;
   tempId: string;
+  attachmentUrl?: string;
+  attachmentName?: string;
+  attachmentType?: string;
 }
 
 export interface ReadReceiptPayload {
@@ -128,4 +135,16 @@ export interface ConversationListUpdateEvent {
 export interface SocketErrorEvent {
   message: string;
   code?: string;
+}
+
+// ─── Upload Response ─────────────────────────────────────────────────────────
+
+export interface UploadResponse {
+  success: boolean;
+  data: {
+    url: string;
+    name: string;
+    type: string;
+  };
+  message?: string;
 }

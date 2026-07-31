@@ -83,8 +83,28 @@
               class="chat-avatar" /> -->
 
             <div class="message-bubble-block">
-              <div class="message-bubble">
-                <p class="message-text">{{ message.content }}</p>
+              <div class="message-bubble" [class.p-1]="message.attachmentType">
+                <!-- Image attachment -->
+                <div class="attachment-image-wrap" *ngIf="isImageAttachment(message)">
+                  <img [src]="getAttachmentFullUrl(message.attachmentUrl)" [alt]="message.attachmentName || 'Image'"
+                    class="attachment-image-preview"
+                    (click)="openImagePreview(getAttachmentFullUrl(message.attachmentUrl))" />
+                </div>
+                <!-- Document attachment -->
+                <div class="attachment-doc-card" *ngIf="isDocumentAttachment(message)">
+                  <div class="doc-icon">
+                    <i class="fa-solid" [ngClass]="getFileIcon(message.attachmentType)"></i>
+                  </div>
+                  <div class="doc-info">
+                    <span class="doc-name">{{ message.attachmentName || 'Document' }}</span>
+                    <span class="doc-type">{{ message.attachmentType }}</span>
+                  </div>
+                  <a class="doc-download" [href]="getAttachmentFullUrl(message.attachmentUrl)" target="_blank"
+                    rel="noopener" download title="Download">
+                    <i class="fa-solid fa-download"></i>
+                  </a>
+                </div>
+                <p class="message-text" *ngIf="message.content">{{ message.content }}</p>
               </div>
               <div class="message-meta-info">
                 <span class="message-time">{{ formatTime(message.createdAt) }}</span>
@@ -106,18 +126,47 @@
           </div>
         </div>
 
+        <!-- Attachment Preview Bar -->
+        <div class="attachment-preview-bar" *ngIf="selectedFile">
+          <div class="attachment-preview-content">
+            <img *ngIf="attachmentPreview" [src]="attachmentPreview" class="attachment-thumb" alt="Preview" />
+            <div class="attachment-file-icon" *ngIf="!attachmentPreview">
+              <i class="fa-solid" [ngClass]="getFileIcon(selectedFile.type)"></i>
+            </div>
+            <div class="attachment-file-info">
+              <span class="attachment-file-name">{{ selectedFile.name }}</span>
+              <span class="attachment-file-size">{{ formatFileSize(selectedFile.size) }}</span>
+            </div>
+            <button type="button" class="attachment-remove-btn" (click)="removeAttachment()" title="Remove attachment"
+              [disabled]="uploading">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+          <div class="attachment-uploading" *ngIf="uploading">
+            <div class="loading-spinner-sm"></div>
+            <span>Uploading...</span>
+          </div>
+          <div class="attachment-error" *ngIf="uploadError">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span>{{ uploadError }}</span>
+          </div>
+        </div>
+
         <!-- Chat Input Bar -->
         <form (submit)="sendMessage(); $event.preventDefault();" class="chat-input-bar">
-          <button type="button" class="attachment-btn" aria-label="Attach File">
+          <input type="file" #fileInput (change)="onFileSelected($event)" hidden
+            accept="image/jpeg,image/jpg,image/png,image/gif,image/webp,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
+          <button type="button" class="attachment-btn" aria-label="Attach File" (click)="onAttachmentClick()"
+            [disabled]="uploading">
             <i class="fa-solid fa-paperclip"></i>
           </button>
           <input type="text" [(ngModel)]="newMessageText" name="messageInput" placeholder="Type your message..."
-            class="message-text-input" autocomplete="off" [disabled]="!activeConversation || sending"
+            class="message-text-input" autocomplete="off" [disabled]="!activeConversation || sending || uploading"
             maxlength="4000" />
           <button type="submit" class="send-message-btn" aria-label="Send Message"
-            [disabled]="!newMessageText.trim() || sending || !activeConversation">
-            <i class="fa-solid fa-paper-plane" *ngIf="!sending"></i>
-            <div class="loading-spinner-btn" *ngIf="sending"></div>
+            [disabled]="(!newMessageText.trim() && !selectedFile) || sending || uploading || !activeConversation">
+            <i class="fa-solid fa-paper-plane" *ngIf="!sending && !uploading"></i>
+            <div class="loading-spinner-btn" *ngIf="sending || uploading"></div>
           </button>
         </form>
       </div>
@@ -204,4 +253,12 @@
 
     </div>
   </div>
+</div>
+
+<!-- Image Lightbox Overlay -->
+<div class="lightbox-overlay" *ngIf="lightboxImageUrl" (click)="closeImagePreview()">
+  <button class="lightbox-close" (click)="closeImagePreview()">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+  <img [src]="lightboxImageUrl" class="lightbox-image" alt="Full size preview" (click)="$event.stopPropagation()" />
 </div>

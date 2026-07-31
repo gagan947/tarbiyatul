@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SocketService } from './socket.service';
 import { ToastService } from './toast.service';
@@ -19,8 +19,10 @@ import {
   LoadMessagesPayload,
   SendMessagePayload,
   ReadReceiptPayload,
-  PaginationMeta
+  PaginationMeta,
+  UploadResponse
 } from '../models/chat.models';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -78,7 +80,8 @@ export class ChatService implements OnDestroy {
 
   constructor(
     private socketService: SocketService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private apiService: ApiService
   ) { }
 
   // ─── Initialise ────────────────────────────────────────────────────────────
@@ -374,7 +377,10 @@ export class ChatService implements OnDestroy {
       senderId: parsedSenderId,
       senderRole: m.senderRole || (m.sender?.role),
       senderName: m.senderName || (m.sender?.fullName || m.sender?.name || 'Unknown'),
-      senderAvatar: m.senderAvatar || (m.sender?.profileImage || m.sender?.avatar || null)
+      senderAvatar: m.senderAvatar || (m.sender?.profileImage || m.sender?.avatar || null),
+      attachmentUrl: m.attachmentUrl ?? m.attachment?.url ?? null,
+      attachmentName: m.attachmentName ?? m.attachment?.name ?? null,
+      attachmentType: m.attachmentType ?? m.attachment?.type ?? null
     };
   }
 
@@ -442,11 +448,13 @@ export class ChatService implements OnDestroy {
    * Send a message with optimistic UI.
    * The message is immediately inserted as "pending" and replaced/removed
    * once the server confirms or rejects it.
+   * Optionally includes attachment metadata from a prior upload.
    */
   sendMessage(content: string, currentUserId: number, currentUserName: string,
-    currentUserAvatar: string | null, currentUserRole: string): void {
+    currentUserAvatar: string | null, currentUserRole: string,
+    attachment?: { attachmentUrl: string; attachmentName: string; attachmentType: string }): void {
     const trimmed = content.trim();
-    if (!trimmed) return;
+    if (!trimmed && !attachment) return;
     if (trimmed.length > 4000) {
       this.toastService.show('Message exceeds 4000 characters.', 'error');
       return;
@@ -471,7 +479,10 @@ export class ChatService implements OnDestroy {
       createdAt: new Date().toISOString(),
       isRead: false,
       isPending: true,
-      isFailed: false
+      isFailed: false,
+      attachmentUrl: attachment?.attachmentUrl ?? null,
+      attachmentName: attachment?.attachmentName ?? null,
+      attachmentType: attachment?.attachmentType ?? null
     };
 
     this.messagesSubject.next([...this.messagesSubject.value, optimisticMsg]);
@@ -480,7 +491,12 @@ export class ChatService implements OnDestroy {
     const payload: SendMessagePayload = {
       conversationId: active.id,
       body: trimmed,
-      tempId
+      tempId,
+      ...(attachment ? {
+        attachmentUrl: attachment.attachmentUrl,
+        attachmentName: attachment.attachmentName,
+        attachmentType: attachment.attachmentType
+      } : {})
     };
     this.socketService.emit('chat:message:send', payload);
 
@@ -491,6 +507,16 @@ export class ChatService implements OnDestroy {
         this.sendingSubject.next(false);
       }
     }, 10000);
+  }
+
+  /**
+   * Upload a file attachment via the REST API.
+   * Returns an Observable with the upload response containing the file URL and metadata.
+   */
+  uploadAttachment(file: File): Observable<UploadResponse> {
+    const formData = new FormData();
+    formData.append('attachment', file);
+    return this.apiService.post<UploadResponse>('chat/upload', formData);
   }
 
   /** Emit a read receipt for the active conversation */

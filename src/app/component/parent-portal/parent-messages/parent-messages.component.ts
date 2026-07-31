@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ChatService } from '../../../core/services/chat.service';
 import { ProfileService } from '../../../core/services/profile.service';
+import { ToastService } from '../../../core/services/toast.service';
 import { Conversation, ChatMessage, ChatContact } from '../../../core/models/chat.models';
 import { environment } from '../../../../environments/environment';
 
@@ -20,6 +21,7 @@ import { environment } from '../../../../environments/environment';
 export class ParentMessagesComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @ViewChild('chatContainer') chatContainerRef!: ElementRef<HTMLDivElement>;
+  @ViewChild('fileInput') fileInputRef!: ElementRef<HTMLInputElement>;
 
   // ─── State ─────────────────────────────────────────────────────────────────
   conversations: Conversation[] = [];
@@ -40,6 +42,24 @@ export class ParentMessagesComponent implements OnInit, OnDestroy, AfterViewChec
   loadingOlder = false;
   sending = false;
 
+  // ─── Attachment State ───────────────────────────────────────────────────────
+  selectedFile: File | null = null;
+  attachmentPreview: string | null = null;
+  uploading = false;
+  uploadError: string | null = null;
+
+  // ─── Image Lightbox ─────────────────────────────────────────────────────────
+  lightboxImageUrl: string | null = null;
+
+  // ─── Allowed file types & max size ──────────────────────────────────────────
+  readonly ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+  readonly ALLOWED_DOC_TYPES = ['application/pdf', 'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'text/plain',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'];
+  readonly MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB
+
   // ─── UI State ───────────────────────────────────────────────────────────────
   showContactsPanel = false;
   private shouldScrollToBottom = false;
@@ -51,6 +71,7 @@ export class ParentMessagesComponent implements OnInit, OnDestroy, AfterViewChec
   constructor(
     private chatService: ChatService,
     private profileService: ProfileService,
+    private toastService: ToastService,
     private cdr: ChangeDetectorRef
   ) { }
 
@@ -167,16 +188,153 @@ export class ParentMessagesComponent implements OnInit, OnDestroy, AfterViewChec
 
   sendMessage(): void {
     const text = this.newMessageText.trim();
-    if (!text || this.sending) return;
-    this.newMessageText = '';
-    this.shouldScrollToBottom = true;
-    this.chatService.sendMessage(
-      text,
-      this.currentUserId,
-      this.currentUserName,
-      this.currentUserAvatar,
-      this.currentUserRole
-    );
+    if (!text && !this.selectedFile) return;
+    if (this.sending || this.uploading) return;
+
+    if (this.selectedFile) {
+      // Upload the file first, then send the socket message
+      this.uploading = true;
+      this.uploadError = null;
+      this.cdr.markForCheck();
+
+      this.chatService.uploadAttachment(this.selectedFile).subscribe({
+        next: (res) => {
+          this.uploading = false;
+          if (res?.data) {
+            const attachment = {
+              attachmentUrl: res.data.url,
+              attachmentName: res.data.name,
+              attachmentType: res.data.type
+            };
+            this.newMessageText = '';
+            this.shouldScrollToBottom = true;
+            this.chatService.sendMessage(
+              text,
+              this.currentUserId,
+              this.currentUserName,
+              this.currentUserAvatar,
+              this.currentUserRole,
+              attachment
+            );
+            this.removeAttachment();
+          } else {
+            this.uploadError = 'Upload failed. Please try again.';
+            this.toastService.show('File upload failed.', 'error');
+          }
+          this.cdr.markForCheck();
+        },
+        error: (err) => {
+          this.uploading = false;
+          this.uploadError = err?.message || 'Upload failed. Please try again.';
+          this.toastService.show('File upload failed.', 'error');
+          this.cdr.markForCheck();
+        }
+      });
+    } else {
+      // Text-only message (existing flow)
+      this.newMessageText = '';
+      this.shouldScrollToBottom = true;
+      this.chatService.sendMessage(
+        text,
+        this.currentUserId,
+        this.currentUserName,
+        this.currentUserAvatar,
+        this.currentUserRole
+      );
+    }
+  }
+
+  // ─── Attachment Methods ─────────────────────────────────────────────────────
+
+  onAttachmentClick(): void {
+    this.fileInputRef?.nativeElement.click();
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) return;
+
+    // Reset input so same file can be re-selected
+    input.value = '';
+
+    const allAllowed = [...this.ALLOWED_IMAGE_TYPES, ...this.ALLOWED_DOC_TYPES];
+    if (!allAllowed.includes(file.type)) {
+      this.toastService.show('Unsupported file type. Please select an image or document.', 'error');
+      return;
+    }
+
+    if (file.size > this.MAX_FILE_SIZE) {
+      this.toastService.show('File is too large. Maximum size is 10 MB.', 'error');
+      return;
+    }
+
+    this.selectedFile = file;
+    this.uploadError = null;
+
+    // Create preview for images
+    if (this.ALLOWED_IMAGE_TYPES.includes(file.type)) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.attachmentPreview = reader.result as string;
+        this.cdr.markForCheck();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.attachmentPreview = null;
+    }
+    this.cdr.markForCheck();
+  }
+
+  removeAttachment(): void {
+    this.selectedFile = null;
+    this.attachmentPreview = null;
+    this.uploadError = null;
+    this.cdr.markForCheck();
+  }
+
+  // ─── Attachment Display Helpers ─────────────────────────────────────────────
+
+  isImageAttachment(message: ChatMessage): boolean {
+    if (!message.attachmentType) return false;
+    return message.attachmentType.startsWith('image/');
+  }
+
+  isDocumentAttachment(message: ChatMessage): boolean {
+    if (!message.attachmentUrl || !message.attachmentType) return false;
+    return !message.attachmentType.startsWith('image/');
+  }
+
+  getAttachmentFullUrl(path: string | null | undefined): string {
+    if (!path) return '';
+    const normalized = path.replace(/\\/g, '/');
+    if (normalized.startsWith('http')) return normalized;
+    const base = environment.imageBaseUrl.endsWith('/')
+      ? environment.imageBaseUrl : `${environment.imageBaseUrl}/`;
+    return `${base}${normalized.startsWith('/') ? normalized.slice(1) : normalized}`;
+  }
+
+  getFileIcon(type: string | null | undefined): string {
+    if (!type) return 'fa-file';
+    if (type.includes('pdf')) return 'fa-file-pdf';
+    if (type.includes('word') || type.includes('document')) return 'fa-file-word';
+    if (type.includes('excel') || type.includes('sheet')) return 'fa-file-excel';
+    if (type.includes('text')) return 'fa-file-lines';
+    return 'fa-file';
+  }
+
+  openImagePreview(url: string): void {
+    this.lightboxImageUrl = url;
+  }
+
+  closeImagePreview(): void {
+    this.lightboxImageUrl = null;
+  }
+
+  formatFileSize(bytes: number): string {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
   }
 
   onScroll(event: Event): void {
