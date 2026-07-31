@@ -6,10 +6,29 @@
     <p class="text-muted mb-0">Download and read important school policies, guidelines and information.</p>
   </div>
 
-  <div class="row g-4 mb-5">
+  <div class="row g-4 position-relative">
 
-    <!-- -->
-    <div class="col-xl-6 mx-auto">
+    <!-- Loading overlay -->
+    <div *ngIf="isLoading"
+      class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-start pt-5"
+      style="z-index: 10; background: rgba(255,255,255,0.7);">
+      <div class="spinner-border text-orange" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+
+    <!-- Error / Not Available State -->
+    <div class="col-xl-6 mx-auto" *ngIf="errorMessage && !isLoading">
+      <div
+        class="dashboard-card hb-card h-100 d-flex flex-column justify-content-center align-items-center text-center py-5">
+        <i class="fa-solid fa-circle-exclamation text-danger mb-3" style="font-size: 48px;"></i>
+        <h4 class="fw-bold mb-2">Not Available</h4>
+        <p class="text-muted mb-0">{{ errorMessage }}</p>
+      </div>
+    </div>
+
+    <!-- Unpaid State -->
+    <div class="col-xl-6 mx-auto" *ngIf="!isPaid && !isLoading && !errorMessage">
       <div class="dashboard-card hb-card h-100 d-flex flex-column">
 
         <div class="d-flex flex-column align-items-center text-center flex-grow-1">
@@ -39,7 +58,7 @@
             <div class="d-flex gap-3">
               <i class="fa-regular fa-bell mt-1 hb-unpaid-alert-icon"></i>
               <div>
-                <h6 class="mb-1  hb-unpaid-alert-title">Payment Reminder</h6>
+                <h6 class="mb-1 hb-unpaid-alert-title">Payment Reminder</h6>
                 <p class="mb-0 hb-unpaid-alert-text">
                   Your tuition payment is overdue. Please complete the payment to unlock the Parent Handbook.
                 </p>
@@ -48,13 +67,17 @@
           </div>
 
           <!-- Button -->
-          <button routerLink="/parent/payments" class="btn w-100 fw-bold text-white py-3 mt-4 hb-btn-orange">
-            Pay Tuition Now
+          <button type="button"
+            class="btn w-100 fw-bold text-white py-3 mt-4 hb-btn-orange d-flex justify-content-center align-items-center gap-2"
+            (click)="payTuition()" [disabled]="isSimulatingPayment">
+            <span *ngIf="isSimulatingPayment" class="spinner-border spinner-border-sm" role="status"
+              aria-hidden="true"></span>
+            {{ isSimulatingPayment ? 'Processing Payment...' : 'Pay Tuition Now' }}
           </button>
         </div>
       </div>
       <!-- Bottom Info Box -->
-      <div class="p-3 mt-3  rounded d-flex gap-3 align-items-center hb-info-box-blue">
+      <!-- <div class="p-3 mt-3 rounded d-flex gap-3 align-items-center hb-info-box-blue">
         <div
           class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm hb-info-icon-circle-blue">
           <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,20 +85,19 @@
               d="M1.6 5.6V4C1.6 1.79234 3.39234 0 5.6 0C7.80766 0 9.6 1.79234 9.6 4V5.6C10.4831 5.6 11.2 6.31694 11.2 7.2V11.2C11.2 12.0831 10.4831 12.8 9.6 12.8H1.6C0.716936 12.8 0 12.0831 0 11.2V7.2C0 6.31694 0.716936 5.6 1.6 5.6ZM8 4V5.6H3.2V4C3.2 2.6754 4.2754 1.6 5.6 1.6C6.9246 1.6 8 2.6754 8 4Z"
               fill="#1E3A8A" />
           </svg>
-
         </div>
         <ul class="mb-0 ps-3 hb-info-list-blue">
           <li>The handbook remains locked.</li>
           <li>Download access is unavailable.</li>
         </ul>
-      </div>
+      </div> -->
     </div>
 
-    <!--show if paid -->
-    <div class="col-xl-6 ">
+    <!-- Paid State -->
+    <div class="col-xl-6 mx-auto" *ngIf="isPaid && !isLoading && !errorMessage">
       <div class="dashboard-card hb-card h-100 d-flex flex-column">
 
-        <div class=" d-flex flex-column align-items-center text-center flex-grow-1">
+        <div class="d-flex flex-column align-items-center text-center flex-grow-1">
           <!-- Header -->
           <div class="w-100 text-start mb-5">
             <h5 class="fw-semibold mb-0 d-flex align-items-center gap-2 hb-header-text">
@@ -102,39 +124,42 @@
             <div class="d-flex align-items-center gap-3 flex-wrap">
               <div class="rounded d-flex flex-column justify-content-center align-items-center hb-pdf-icon-box">
                 <i class="fa-solid fa-file-pdf mb-1 hb-pdf-icon"></i>
-                <span class="fw-bold hb-pdf-badge">PDF</span>
+                <span class="fw-bold hb-pdf-badge">{{ handbookInfo?.file_type?.includes('pdf') ? 'PDF' : 'DOC' }}</span>
               </div>
               <div>
-                <h6 class="mb-1 fw-bold hb-file-title">Parent Handbook</h6>
-                <p class="text-muted mb-0 hb-file-desc">School Policies, Guidelines and Important Information</p>
+                <h6 class="mb-1 fw-bold hb-file-title">{{ handbookInfo?.title || 'Parent Handbook' }}</h6>
+                <p class="text-muted mb-0 hb-file-desc">
+                  {{ handbookInfo?.grade_level ? 'Grade Level: ' + handbookInfo?.grade_level :
+                  (handbookInfo?.description || 'School Policies, Guidelines and Important Information') }}
+                </p>
               </div>
             </div>
-            <div class="text-end text-muted">
-              <span class="d-block hb-file-meta text-nowrap">PDF File</span>
-              <span class="d-block hb-file-meta text-nowrap">2.4 MB</span>
-            </div>
+            <!-- <div class="text-end text-muted">
+              <span class="d-block hb-file-meta text-nowrap">{{ handbookInfo?.file_type?.includes('pdf') ? 'PDF File' :
+                'Document' }}</span>
+              <span class="d-block hb-file-meta text-nowrap" *ngIf="handbookInfo?.file_size">{{ handbookInfo?.file_size
+                }}</span>
+            </div> -->
           </div>
 
           <!-- Button -->
-          <button class="btn w-100 fw-bold text-white py-3 hb-btn-green">
+          <button class="btn w-100 fw-bold text-white py-3 hb-btn-green" (click)="downloadHandbook()"
+            [disabled]="!handbookInfo">
             <i class="fa-solid fa-download me-2"></i> Download Handbook
           </button>
         </div>
-
-
       </div>
+
       <!-- Bottom Info Box -->
-      <div class="p-3 mt-3 rounded d-flex gap-3 align-items-center hb-info-box-green">
-        <div
-          class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm hb-info-icon-circle-blue">
+      <!-- <div class="p-3 mt-3 rounded d-flex gap-3 align-items-center hb-info-box-green">
+        <div class="bg-white rounded-circle d-flex justify-content-center align-items-center shadow-sm hb-info-icon-circle-blue">
           <i class="fa-solid fa-circle-check hb-info-icon-green"></i>
         </div>
         <ul class="mb-0 ps-3 hb-info-list-green">
           <li>The handbook becomes available.</li>
           <li>Parents can download the Parent Handbook PDF.</li>
         </ul>
-      </div>
-
+      </div> -->
     </div>
 
   </div>

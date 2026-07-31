@@ -20,11 +20,24 @@ export class ProfileService {
         this.profileSubject.next(response);
         const students = response?.data?.students || [];
         if (students.length > 0) {
-          // Keep current selection if valid, otherwise default to first student
+          // Keep current selection if valid, otherwise check localStorage, otherwise default to first student
           const current = this.selectedStudentSubject.value;
-          const exists = students.some((s: any) => s.id === current?.id);
+          let exists = students.some((s: any) => s.id === current?.id);
+          
+          if (!exists) {
+            const savedStudentId = localStorage.getItem('selectedStudentId');
+            if (savedStudentId) {
+              const savedStudent = students.find((s: any) => s.id.toString() === savedStudentId);
+              if (savedStudent) {
+                this.selectedStudentSubject.next(savedStudent);
+                exists = true;
+              }
+            }
+          }
+
           if (!exists) {
             this.selectedStudentSubject.next(students[0]);
+            localStorage.setItem('selectedStudentId', students[0].id.toString());
           }
         }
       })
@@ -41,6 +54,11 @@ export class ProfileService {
 
   selectStudent(student: any): void {
     this.selectedStudentSubject.next(student);
+    if (student && student.id) {
+      localStorage.setItem('selectedStudentId', student.id.toString());
+    } else {
+      localStorage.removeItem('selectedStudentId');
+    }
   }
 
   setProfile(profile: any): void {
@@ -50,5 +68,6 @@ export class ProfileService {
   clearProfile(): void {
     this.profileSubject.next(null);
     this.selectedStudentSubject.next(null);
+    localStorage.removeItem('selectedStudentId');
   }
 }
