@@ -10,7 +10,7 @@
             <img src="assets/img/logo.png" alt="TIAG Logo" class="brand-logo-img" />
             <div class="brand-text">
                 <span class="brand-title">TIAG</span>
-                <span class="brand-sub">Islamic Education</span>
+                <!-- <span class="brand-sub">Islamic Education</span> -->
             </div>
         </div>
 
@@ -115,7 +115,8 @@
                 <i class="fa-solid fa-bars d-lg-none d-block fs-5" (click)="toggleSidebar()"
                     style="cursor: pointer;"></i>
                 <div class="header-greeting d-sm-block d-none">
-                    <h1 class="greeting-title">Assalamualaikum, {{ (profile$ | async)?.data?.user?.firstName || 'Teacher' }} 👋</h1>
+                    <h1 class="greeting-title">Assalamualaikum, {{ (profile$ | async)?.data?.user?.firstName ||
+                        'Teacher' }} 👋</h1>
                     <p class="greeting-subtitle">Here's your class overview for this week.</p>
                 </div>
             </div>
@@ -207,11 +208,13 @@
                     <button id="dropdownMenuButton" id="dropdownMenuButton1" data-bs-toggle="dropdown"
                         aria-expanded="false" class="p-0">
                         <div class="d-flex align-items-center gap-2">
-                            <img [src]="getAvatarUrl((profile$ | async)?.data?.user?.profileImage || (profile$ | async)?.data?.user?.avatar)" alt="Profile" class="rounded-circle object-fit-cover"
+                            <img [src]="getAvatarUrl((profile$ | async)?.data?.user?.profileImage || (profile$ | async)?.data?.user?.avatar)"
+                                alt="Profile" class="rounded-circle object-fit-cover"
                                 style="width: 25px; height: 25px;">
                             <div class="align-items-end d-flex flex-column ">
                                 <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
-                                    {{ (profile$ | async)?.data?.user?.firstName + ' ' + ((profile$ | async)?.data?.user?.lastName || '') || 'Teacher' }}
+                                    {{ (profile$ | async)?.data?.user?.firstName + ' ' + ((profile$ |
+                                    async)?.data?.user?.lastName || '') || 'Teacher' }}
                                 </small>
                             </div>
                         </div>
