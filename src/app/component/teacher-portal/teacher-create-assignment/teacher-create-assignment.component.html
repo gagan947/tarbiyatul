@@ -1,76 +1,305 @@
 <div class="ct_px_28 profile-container pb-5 pt-3">
-  
+
   <div class="d-flex align-items-center mb-4 pt-2">
-    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2 ct_fw_400 ct_fs_16" style="color: #FC800A;" (click)="goBack()">
-      <i class="fa-solid fa-angle-left"></i> Create Assignment
+    <button class="btn btn-link text-decoration-none p-0 d-flex align-items-center gap-2 ct_fw_400 ct_fs_16"
+      style="color: #FC800A;" (click)="goBack()">
+      <i class="fa-solid fa-angle-left"></i> {{ isEditMode ? 'Edit Assignment' : 'Create Assignment' }}
     </button>
   </div>
 
-  <div class="dashboard-card dash-card-shadow p-4 p-md-5 bg-white" style="border-radius: 16px; box-shadow: 0px 1px 10px 0px #061F611F;
-">
-    
-    <div class="row g-4 mb-4">
-      <div class="col-12">
-        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Assignment Title</label>
-        <input type="text" class="form-control ct_input" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
-      </div>
+  <!-- Alert Messages -->
+  <div *ngIf="errorMessage" class="alert alert-danger mb-4" role="alert">
+    {{ errorMessage }}
+  </div>
+  <div *ngIf="successMessage" class="alert alert-success mb-4" role="alert">
+    {{ successMessage }}
+  </div>
 
-      <div class="col-12">
-        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Book Title</label>
-        <input type="text" class="form-control ct_input" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
-      </div>
+  <form [formGroup]="assignmentForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="dashboard-card dash-card-shadow p-4 p-md-5 bg-white"
+      style="border-radius: 16px; box-shadow: 0px 1px 10px 0px #061F611F;">
 
-      <div class="col-12">
-        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Required reading</label>
-        <input type="text" class="form-control ct_input" placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
-      </div>
-
-      <div class="col-md-4">
-        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Subject</label>
-        <input type="text" class="form-control ct_input" placeholder="--:-- --" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
-      </div>
-
-      <div class="col-md-4">
-        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Target Grade</label>
-        <select class="form-select ct_input text-muted" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
-          <option selected disabled>Select Grade</option>
-          <option value="1">Grade 1</option>
-          <option value="2">Grade 2</option>
-          <option value="3">Grade 3</option>
-          <option value="4">Grade 4</option>
-        </select>
-      </div>
-
-      <div class="col-md-4">
-        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Due Date</label>
-        <input type="date" class="form-control ct_input text-muted" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);">
-      </div>
-
-      <div class="col-12">
-        <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2" >Reading Instructions</label>
-        <textarea class="form-control ct_input ct_input_textarea" rows="5" placeholder="Provide detailed Reading Instructions" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"></textarea>
-      </div>
-
-      <div class="col-12 pt-2">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2 m4px;">Enable Islamic Content Alert</label>
-          <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" role="switch" id="islamicAlert" checked >
+      <div class="row g-4 mb-4">
+        <!-- Assignment Title -->
+        <div class="col-12">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Assignment Title <span
+              class="text-danger">*</span></label>
+          <input type="text" formControlName="title" class="form-control ct_input"
+            placeholder="e.g., Annual Science Fair 2024" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"
+            [ngClass]="{ 'is-invalid': f['title'].invalid && (f['title'].dirty || f['title'].touched || submitted) }" />
+          <div *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched || submitted)"
+            class="text-danger mt-1 small">
+            Assignment title is required.
           </div>
         </div>
-        <textarea class="form-control ct_input ct_input_textarea" rows="3" placeholder="Alert Description" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"></textarea>
+
+        <!-- Description -->
+        <div class="col-12">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Assignment Description <span
+              class="text-danger">*</span></label>
+          <textarea formControlName="description" class="form-control ct_input ct_input_textarea h-auto" rows="3"
+            placeholder="Provide a detailed description of the assignment..."
+            style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"
+            [ngClass]="{ 'is-invalid': f['description'].invalid && (f['description'].dirty || f['description'].touched || submitted) }"></textarea>
+          <div *ngIf="f['description'].invalid && (f['description'].dirty || f['description'].touched || submitted)"
+            class="text-danger mt-1 small">
+            Description is required.
+          </div>
+        </div>
+
+        <!-- Book Title -->
+        <div class="col-12">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Book Title</label>
+          <input type="text" formControlName="book_title" class="form-control ct_input"
+            placeholder="e.g., Stories of the Prophets" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);" />
+        </div>
+
+        <!-- Required Reading -->
+        <div class="col-12">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Required reading</label>
+          <input type="text" formControlName="required_reading" class="form-control ct_input"
+            placeholder="e.g., Read Pages 10–20" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);" />
+        </div>
+
+        <!-- Subject -->
+        <div class="col-md-3">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Subject <span
+              class="text-danger">*</span></label>
+          <input type="text" formControlName="subject" class="form-control ct_input" placeholder="e.g., Islamic Studies"
+            style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"
+            [ngClass]="{ 'is-invalid': f['subject'].invalid && (f['subject'].dirty || f['subject'].touched || submitted) }" />
+          <div *ngIf="f['subject'].invalid && (f['subject'].dirty || f['subject'].touched || submitted)"
+            class="text-danger mt-1 small">
+            Subject is required.
+          </div>
+        </div>
+
+        <!-- Target Grade / Grade Level -->
+        <div class="col-md-3">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Target Grade <span
+              class="text-danger">*</span></label>
+          <select formControlName="target_grade" (change)="onGradeSelect($event)"
+            class="form-select ct_input text-muted" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"
+            [ngClass]="{ 'is-invalid': (f['grade_level'].invalid || f['target_grade'].invalid) && (f['grade_level'].dirty || f['grade_level'].touched || submitted) }">
+            <option value="" disabled selected>Select Grade</option>
+            <option *ngFor="let grade of gradeOptions" [value]="grade">{{ grade }}</option>
+          </select>
+          <div
+            *ngIf="(f['grade_level'].invalid || f['target_grade'].invalid) && (f['grade_level'].dirty || f['grade_level'].touched || submitted)"
+            class="text-danger mt-1 small">
+            Target grade is required.
+          </div>
+        </div>
+
+        <!-- Due Date -->
+        <div class="col-md-3">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Due Date <span
+              class="text-danger">*</span></label>
+          <input type="date" formControlName="due_date" class="form-control ct_input text-muted"
+            style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"
+            [ngClass]="{ 'is-invalid': f['due_date'].invalid && (f['due_date'].dirty || f['due_date'].touched || submitted) }" />
+          <div *ngIf="f['due_date'].invalid && (f['due_date'].dirty || f['due_date'].touched || submitted)"
+            class="text-danger mt-1 small">
+            Due date is required.
+          </div>
+        </div>
+
+        <!-- Total Points -->
+        <div class="col-md-3">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Total Points <span
+              class="text-danger">*</span></label>
+          <input type="number" formControlName="total_points" class="form-control ct_input" placeholder="e.g., 100"
+            style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"
+            [ngClass]="{ 'is-invalid': f['total_points'].invalid && (f['total_points'].dirty || f['total_points'].touched || submitted) }" />
+          <div *ngIf="f['total_points'].invalid && (f['total_points'].dirty || f['total_points'].touched || submitted)"
+            class="text-danger mt-1 small">
+            Valid total points (min 1) required.
+          </div>
+        </div>
+
+        <!-- Reading Instructions -->
+        <div class="col-12">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Reading Instructions</label>
+          <textarea formControlName="reading_instructions" class="form-control ct_input ct_input_textarea h-auto"
+            rows="5" placeholder="Provide detailed Reading Instructions"
+            style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"></textarea>
+        </div>
+
+        <!-- Attachment File Upload Drag & Drop Zone -->
+        <div class="col-12">
+          <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Book Cover / Attachment (Optional)</label>
+          
+          <input type="file" id="assignmentFileInput" class="d-none" (change)="onFileSelected($event)"
+            accept=".pdf,.doc,.docx,.png,.jpg,.jpeg,.txt,.webp" />
+
+          <!-- Drag and Drop Box (Empty State) -->
+          <div *ngIf="!selectedFile && !existingAttachmentName"
+            class="drag-drop-zone p-4 text-center border-dashed rounded-3 cursor-pointer position-relative"
+            [ngClass]="{ 'bg-light border-warning': isDragging, 'bg-white': !isDragging }"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onFileDropped($event)"
+            (click)="triggerFileInput()"
+            style="border: 2px dashed #FC800A; background-color: #FFF9F3; cursor: pointer; border-radius: 12px; transition: all 0.2s ease-in-out;">
+            
+            <div class="py-3">
+              <div class="mb-2">
+                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 42px; color: #FC800A;"></i>
+              </div>
+              <h6 class="ct_fs_16 ct_fw_600 ct_text_dark mb-1">Drag & Drop your file here</h6>
+              <p class="ct_fs_13 text-muted mb-2">or <span style="color: #FC800A; text-decoration: underline;" class="fw-semibold">browse file</span> from your device</p>
+              <span class="badge bg-white text-muted border ct_fs_12 px-3 py-1 shadow-sm">Supported formats: PNG, JPG, WEBP, PDF, DOCX</span>
+            </div>
+          </div>
+
+          <!-- Selected New File Preview Box -->
+          <div *ngIf="selectedFile"
+            class="selected-file-zone p-3 rounded-3 position-relative"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onFileDropped($event)"
+            style="border: 2px dashed #FC800A; background-color: #FFF9F3; border-radius: 12px;">
+            
+            <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+              <div class="d-flex align-items-center gap-3">
+                <!-- Thumbnail if Image -->
+                <div class="position-relative">
+                  <img *ngIf="filePreviewUrl" [src]="filePreviewUrl" alt="Cover Preview" class="shadow-sm rounded border"
+                    style="width: 54px; height: 68px; object-fit: cover; cursor: pointer;"
+                    (click)="openPreviewModal(filePreviewUrl)" title="Click to view full preview" />
+                  <div *ngIf="!filePreviewUrl" class="d-flex align-items-center justify-content-center bg-white shadow-sm rounded border"
+                    style="width: 54px; height: 68px;">
+                    <i class="fa-solid fa-file-lines text-warning fs-3"></i>
+                  </div>
+                </div>
+
+                <div>
+                  <h6 class="ct_fs_15 ct_fw_600 ct_text_dark mb-1 text-truncate" style="max-width: 280px;">{{ selectedFile.name }}</h6>
+                  <span class="ct_fs_12 text-muted d-block mb-1">({{ (selectedFile.size / 1024).toFixed(1) }} KB)</span>
+                  <span *ngIf="filePreviewUrl" class="badge bg-warning text-dark border ct_fs_11 cursor-pointer"
+                    (click)="openPreviewModal(filePreviewUrl)" style="background-color: #FFE6CD !important; color: #7A3C00 !important;">
+                    <i class="fa-solid fa-eye me-1"></i> Preview Image
+                  </span>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-outline-warning btn-sm d-flex align-items-center gap-1"
+                  style="border-color: #FC800A; color: #FC800A;" (click)="triggerFileInput()">
+                  <i class="fa-solid fa-arrows-rotate"></i> Change File
+                </button>
+                <button type="button" class="btn btn-outline-danger btn-sm p-1 px-2" (click)="removeFile()" title="Remove File">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Existing File Preview Box (in Edit Mode) -->
+          <div *ngIf="!selectedFile && existingAttachmentName"
+            class="selected-file-zone p-3 rounded-3 position-relative"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onFileDropped($event)"
+            style="border: 2px dashed #FC800A; background-color: #FFF9F3; border-radius: 12px;">
+            
+            <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+              <div class="d-flex align-items-center gap-3">
+                <!-- Thumbnail if Image -->
+                <div class="position-relative">
+                  <img *ngIf="isImageFile(existingAttachmentUrl)" [src]="getExistingFileUrl(existingAttachmentUrl)" alt="Existing Cover" class="shadow-sm rounded border"
+                    style="width: 54px; height: 68px; object-fit: cover; cursor: pointer;"
+                    (click)="openPreviewModal(getExistingFileUrl(existingAttachmentUrl))" title="Click to view full preview" />
+                  <div *ngIf="!isImageFile(existingAttachmentUrl)" class="d-flex align-items-center justify-content-center bg-white shadow-sm rounded border"
+                    style="width: 54px; height: 68px;">
+                    <i class="fa-solid fa-file-lines text-warning fs-3"></i>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="d-flex align-items-center gap-2">
+                    <h6 class="ct_fs_15 ct_fw_600 ct_text_dark mb-0 text-truncate" style="max-width: 280px;">{{ existingAttachmentName }}</h6>
+                    <span class="badge bg-secondary ct_fs_11">Existing Attachment</span>
+                  </div>
+                  <span class="ct_fs_12 text-muted d-block my-1">Uploaded Attachment</span>
+                  <span *ngIf="isImageFile(existingAttachmentUrl)" class="badge bg-warning text-dark border ct_fs_11 cursor-pointer"
+                    (click)="openPreviewModal(getExistingFileUrl(existingAttachmentUrl))" style="background-color: #FFE6CD !important; color: #7A3C00 !important;">
+                    <i class="fa-solid fa-eye me-1"></i> Preview Image
+                  </span>
+                </div>
+              </div>
+
+              <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-outline-warning btn-sm d-flex align-items-center gap-1"
+                  style="border-color: #FC800A; color: #FC800A;" (click)="triggerFileInput()">
+                  <i class="fa-solid fa-arrows-rotate"></i> Change File
+                </button>
+                <button type="button" class="btn btn-outline-danger btn-sm p-1 px-2" (click)="removeExistingFile()" title="Remove File">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Islamic Content Alert Toggle & Description -->
+        <div class="col-12 pt-2">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2 m4px;">Enable Islamic Content Alert</label>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" role="switch" id="islamicAlert"
+                formControlName="enable_islamic_alert" />
+            </div>
+          </div>
+          <div *ngIf="f['enable_islamic_alert'].value">
+            <textarea formControlName="islamic_alert_description" class="form-control ct_input ct_input_textarea h-auto"
+              rows="3" placeholder="Alert Description" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"
+              [ngClass]="{ 'is-invalid': f['islamic_alert_description'].invalid && (f['islamic_alert_description'].dirty || f['islamic_alert_description'].touched || submitted) }"></textarea>
+            <div
+              *ngIf="f['islamic_alert_description'].invalid && (f['islamic_alert_description'].dirty || f['islamic_alert_description'].touched || submitted)"
+              class="text-danger mt-1 small">
+              Alert description is required when Islamic Content Alert is enabled.
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Submit / Cancel Action Buttons -->
+    <div class="d-flex justify-content-end gap-3 mt-5">
+      <button type="button" class="portal-btn text-warning px-4 fw-medium"
+        style="background-color: transparent; border: 1px solid #FC800A; border-radius: 8px; color: #FC800A !important;"
+        (click)="goBack()" [disabled]="isLoading">
+        Cancel
+      </button>
+      <button type="submit" class="portal-btn ct_gradient_btn px-4" style="border-radius: 8px;" [disabled]="isLoading">
+        <span *ngIf="!isLoading">{{ isEditMode ? 'Update Assignment' : 'Create Assignment' }}</span>
+        <span *ngIf="isLoading" class="d-flex align-items-center gap-2">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          {{ isEditMode ? 'Updating...' : 'Creating...' }}
+        </span>
+      </button>
+    </div>
+  </form>
+
+  <!-- Hidden Trigger Button for Modal Preview -->
+  <button id="openPreviewModalTriggerBtn" class="d-none" data-bs-toggle="modal" data-bs-target="#assignmentImagePreviewModal"></button>
+
+  <!-- Image Preview Modal -->
+  <div class="modal fade" id="assignmentImagePreviewModal" tabindex="-1" aria-labelledby="imagePreviewLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <h5 class="modal-title ct_fs_20 ct_fw_600 ct_ff_inter" id="imagePreviewLabel">Attachment Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-3 text-center" style="background-color: #f8f9fa; border-radius: 8px;">
+          <img *ngIf="modalPreviewUrl" [src]="modalPreviewUrl" class="w-100 object-fit-contain" style="max-height: 450px;" alt="Full Preview">
+        </div>
       </div>
     </div>
-    
-  </div>
-
-  <div class="d-flex justify-content-end gap-3 mt-5">
-    <button class="portal-btn  text-warning px-4 fw-medium" style="background-color: transparent; border: 1px solid #FC800A; border-radius: 8px; color: #FC800A !important;" (click)="goBack()">
-      Cancel
-    </button>
-    <button class="portal-btn ct_gradient_btn  px-4 " style="border-radius: 8px;" (click)="goBack()">
-      Create Assignment
-    </button>
   </div>
 
 </div>

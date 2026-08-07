@@ -1,22 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-
-interface Assignment {
-  id: number;
-  title: string;
-  assignedBy: string;
-  assignedDate: string;
-  dueDate: string;
-  bookTitle: string;
-  pagesRange: string;
-  status: 'In Progress' | 'Overdue' | 'Completed';
-  coverImage: string;
-  grade: string;
-  subject: string;
-  instructions: string[];
-  notice?: string;
-}
+import { AssignmentService } from '../../../core/services/assignment.service';
+import { ToastService } from '../../../core/services/toast.service';
+import { AssignmentListItem } from '../../../core/models/assignment.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-teacher-assignment-details',
@@ -26,118 +14,122 @@ interface Assignment {
   styleUrl: './teacher-assignment-details.component.css'
 })
 export class TeacherAssignmentDetailsComponent implements OnInit {
-  assignmentId!: number;
-  assignment: Assignment | null = null;
-
-  // Mock list to find the assignment by ID
-  assignmentsMock: Assignment[] = [
-    {
-      id: 1,
-      title: 'Stories of the Prophets – Reflection Activity',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: '25 May, 2025',
-      bookTitle: 'Stories of the Prophets',
-      pagesRange: 'Pages 10 – 20',
-      status: 'In Progress',
-      coverImage: 'assets/img/book_1.png',
-      grade: 'Grade 4',
-      subject: 'Islamic Studies',
-      instructions: [
-        'Read pages 10–20 carefully',
-        'Focus on key lessons',
-        'Complete before due date',
-        'Understand moral lessons'
-      ],
-      notice: 'This reading contains sections that require teacher guidance. Please avoid pages 15–16 and follow your teacher\'s instructions.'
-    },
-    {
-      id: 2,
-      title: 'Stories of the Prophets – Reflection Activity',
-      assignedBy: 'Mr. Ahmed',
-      assignedDate: '18 May, 2025',
-      dueDate: '25 May, 2025',
-      bookTitle: 'Stories of the Prophets',
-      pagesRange: 'Pages 10 – 20',
-      status: 'Overdue',
-      coverImage: 'assets/img/book_2.png',
-      grade: 'Grade 4',
-      subject: 'Islamic Studies',
-      instructions: [
-        'Read pages 10–20 carefully',
-        'Complete before the due date'
-      ],
-      notice: 'This reading contains sections that require teacher guidance. Please avoid pages 15–16 and follow your teacher\'s instructions.'
-    },
-    {
-      id: 3,
-      title: 'Fractions and Decimals – Worksheet 4',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: '25 May, 2025',
-      bookTitle: 'Arabic Writing Workbook',
-      pagesRange: 'Pages 10 – 20',
-      status: 'Completed',
-      coverImage: 'assets/img/book_3.png',
-      grade: 'Grade 4',
-      subject: 'Mathematics',
-      instructions: [
-        'Complete all questions on Worksheet 4',
-        'Verify your answers using the guide'
-      ]
-    },
-    {
-      id: 4,
-      title: 'Fractions and Decimals – Worksheet 4',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: '25 May, 2025',
-      bookTitle: 'Arabic Writing Workbook',
-      pagesRange: 'Pages 10 – 20',
-      status: 'Completed',
-      coverImage: 'assets/img/book_1.png',
-      grade: 'Grade 4',
-      subject: 'Mathematics',
-      instructions: [
-        'Complete all questions on Worksheet 4'
-      ]
-    }
-  ];
+  assignmentId!: string | number;
+  assignment: AssignmentListItem | null = null;
+  isLoading = false;
+  errorMessage: string | null = null;
+  imageBaseUrl = environment.imageBaseUrl;
+  defaultCoverImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private assignmentService: AssignmentService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
-      this.assignmentId = +idParam;
-      const found = this.assignmentsMock.find(a => a.id === this.assignmentId);
-      if (found) {
-        this.assignment = found;
-      }
+      this.assignmentId = idParam;
+      this.fetchAssignmentDetails(this.assignmentId);
+    } else {
+      this.errorMessage = 'Invalid Assignment ID';
     }
+  }
+
+  fetchAssignmentDetails(id: string | number): void {
+    this.isLoading = true;
+    this.errorMessage = null;
+
+    this.assignmentService.getAssignmentById(id).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        if (response.data) {
+          this.assignment = response.data;
+        } else if (response && typeof response === 'object' && 'id' in response) {
+          this.assignment = response as unknown as AssignmentListItem;
+        } else {
+          this.errorMessage = 'Assignment details not found';
+        }
+      },
+      error: (err: Error) => {
+        this.isLoading = false;
+        const msg = err.message || 'Failed to load assignment details.';
+        this.errorMessage = msg;
+        this.toastService.error(msg);
+      }
+    });
+  }
+
+  getCoverImage(item: AssignmentListItem | null): string {
+    if (!item) return this.defaultCoverImage;
+    const imgPath = item.book_cover_url || item.attachment_url || item.bookCover || item.attachmentUrl || item.attachment;
+    if (!imgPath) {
+      return this.defaultCoverImage;
+    }
+
+    if (
+      imgPath.startsWith('http://') ||
+      imgPath.startsWith('https://') ||
+      imgPath.startsWith('data:') ||
+      imgPath.startsWith('assets/')
+    ) {
+      return imgPath;
+    }
+
+    const base = this.imageBaseUrl.endsWith('/') ? this.imageBaseUrl : `${this.imageBaseUrl}/`;
+    const path = imgPath.startsWith('/') ? imgPath.substring(1) : imgPath;
+    return `${base}${path}`;
+  }
+
+  formatDate(dateStr?: string | null): string {
+    if (!dateStr) return '-';
+    try {
+      const date = new Date(dateStr);
+      if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+      }
+    } catch (e) {
+      console.warn('Error formatting date:', e);
+    }
+    return dateStr;
+  }
+
+  getInstructionsList(instructionsStr?: string | null): string[] {
+    if (!instructionsStr || !instructionsStr.trim()) {
+      return [];
+    }
+    return instructionsStr
+      .split(/\r?\n/)
+      .map(line => line.replace(/^[\s\-\*\•]+/, '').trim())
+      .filter(line => line.length > 0);
+  }
+
+  isIslamicAlertEnabled(item: AssignmentListItem | null): boolean {
+    if (!item) return false;
+    return item.enable_islamic_alert === 1 || item.enable_islamic_alert === true;
   }
 
   backToList(): void {
     this.router.navigate(['/teacher/assignments']);
   }
 
+  editAssignment(): void {
+    if (this.assignment && (this.assignment.id || this.assignment._id)) {
+      const id = this.assignment.id || this.assignment._id;
+      this.router.navigate(['/teacher/assignments/edit', id]);
+    }
+  }
+
   viewStudentRecords(): void {
-    if (this.assignment) {
-      this.router.navigate(['/teacher/assignments', this.assignment.id, 'submissions']);
+    if (this.assignment && (this.assignment.id || this.assignment._id)) {
+      const id = this.assignment.id || this.assignment._id;
+      this.router.navigate(['/teacher/assignments', id, 'submissions']);
     }
-  }
-
-  submitGrade(): void {
-    if (this.assignment) {
-      alert(`Grade published for ${this.assignment.title}`);
-      this.assignment.status = 'Completed';
-    }
-  }
-
-  navigateToMessages(): void {
-    this.router.navigate(['/teacher/message-teacher']);
   }
 }

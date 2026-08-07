@@ -1,0 +1,117 @@
+import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ApiService } from './api.service';
+import { 
+  CreateAssignmentPayload, 
+  AssignmentResponse, 
+  TeacherAssignmentQueryParams, 
+  TeacherAssignmentListResponse,
+  AssignmentDetailResponse
+} from '../models/assignment.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AssignmentService {
+
+  constructor(private apiService: ApiService) { }
+
+  /**
+   * Fetches assignments created by/assigned to the teacher with optional query parameters.
+   * @param queryParams Filter, search, and pagination parameters
+   */
+  getTeacherAssignments(queryParams?: TeacherAssignmentQueryParams): Observable<TeacherAssignmentListResponse> {
+    let params = new HttpParams();
+
+    if (queryParams) {
+      if (queryParams.search && queryParams.search.trim()) {
+        params = params.set('search', queryParams.search.trim());
+      }
+      if (queryParams.grade_level && queryParams.grade_level.trim()) {
+        params = params.set('grade_level', queryParams.grade_level.trim());
+      }
+      if (queryParams.page !== undefined && queryParams.page !== null && queryParams.page > 0) {
+        params = params.set('page', String(queryParams.page));
+      }
+      if (queryParams.limit !== undefined && queryParams.limit !== null && queryParams.limit > 0) {
+        params = params.set('limit', String(queryParams.limit));
+      }
+    }
+
+    return this.apiService.get<TeacherAssignmentListResponse>('assignments/teacher', { params });
+  }
+
+  /**
+   * Fetches full details of a specific assignment by ID.
+   * @param id Assignment ID
+   */
+  getAssignmentById(id: string | number): Observable<AssignmentDetailResponse> {
+    return this.apiService.get<AssignmentDetailResponse>(`assignments/${id}`);
+  }
+
+  /**
+   * Creates a new assignment using FormData (multipart/form-data).
+   * @param payload Assignment data fields
+   * @param attachment Optional file attachment
+   */
+  createAssignment(payload: CreateAssignmentPayload, attachment?: File | null): Observable<AssignmentResponse> {
+    const formData = this.buildAssignmentFormData(payload, attachment);
+    return this.apiService.post<AssignmentResponse>('assignments', formData);
+  }
+
+  /**
+   * Updates an existing assignment using FormData (multipart/form-data).
+   * @param id Assignment ID
+   * @param payload Assignment data fields
+   * @param attachment Optional new file attachment
+   */
+  updateAssignment(id: string | number, payload: CreateAssignmentPayload, attachment?: File | null): Observable<AssignmentResponse> {
+    const formData = this.buildAssignmentFormData(payload, attachment);
+    return this.apiService.put<AssignmentResponse>(`assignments/${id}`, formData);
+  }
+
+  /**
+   * Helper to construct FormData for create and update operations.
+   */
+  private buildAssignmentFormData(payload: CreateAssignmentPayload, attachment?: File | null): FormData {
+    const formData = new FormData();
+
+    formData.append('title', payload.title || '');
+    formData.append('description', payload.description || '');
+    formData.append('grade_level', payload.grade_level || '');
+    formData.append('subject', payload.subject || '');
+    formData.append('due_date', payload.due_date || '');
+    formData.append('total_points', payload.total_points !== undefined && payload.total_points !== null ? String(payload.total_points) : '');
+
+    if (payload.book_title !== undefined && payload.book_title !== null) {
+      formData.append('book_title', payload.book_title);
+    }
+    if (payload.required_reading !== undefined && payload.required_reading !== null) {
+      formData.append('required_reading', payload.required_reading);
+    }
+    if (payload.reading_instructions !== undefined && payload.reading_instructions !== null) {
+      formData.append('reading_instructions', payload.reading_instructions);
+    }
+
+    // Ensure enable_islamic_alert is sent as 'true' or 'false' string inside FormData
+    const isIslamicAlertEnabled = payload.enable_islamic_alert === true || payload.enable_islamic_alert === 'true';
+    formData.append('enable_islamic_alert', isIslamicAlertEnabled ? 'true' : 'false');
+
+    if (payload.islamic_alert_description !== undefined && payload.islamic_alert_description !== null) {
+      formData.append('islamic_alert_description', payload.islamic_alert_description);
+    }
+
+    if (payload.target_grade !== undefined && payload.target_grade !== null) {
+      formData.append('target_grade', payload.target_grade);
+    }
+
+    // Only append attachment if a new file is provided
+    const fileToUpload = attachment || payload.attachment;
+    if (fileToUpload) {
+      formData.append('attachment', fileToUpload);
+    }
+
+    return formData;
+  }
+}
