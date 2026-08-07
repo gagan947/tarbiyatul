@@ -3,11 +3,13 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
 import { 
-  CreateAssignmentPayload, 
+  CreateAssignmentPayload,
+  UpdateAssignmentStatusPayload,
   AssignmentResponse, 
   TeacherAssignmentQueryParams, 
   TeacherAssignmentListResponse,
-  AssignmentDetailResponse
+  AssignmentDetailResponse,
+  StudentAssignmentListResponse
 } from '../models/assignment.model';
 
 @Injectable({
@@ -43,11 +45,36 @@ export class AssignmentService {
   }
 
   /**
+   * Fetches assignments assigned to the current student with optional status query filter.
+   * @param status Optional status filter (e.g. 'in progress', 'completed', 'overdue')
+   */
+  getStudentAssignments(status?: string): Observable<StudentAssignmentListResponse> {
+    let params = new HttpParams();
+    if (status && status.trim() && status.toLowerCase() !== 'all') {
+      let formattedStatus = status.trim().toLowerCase();
+      if (formattedStatus === 'pending') {
+        formattedStatus = 'in progress';
+      }
+      params = params.set('status', formattedStatus);
+    }
+    return this.apiService.get<StudentAssignmentListResponse>('assignments/student', { params });
+  }
+
+  /**
    * Fetches full details of a specific assignment by ID.
    * @param id Assignment ID
    */
   getAssignmentById(id: string | number): Observable<AssignmentDetailResponse> {
     return this.apiService.get<AssignmentDetailResponse>(`assignments/${id}`);
+  }
+
+  /**
+   * Updates student assignment status (PATCH /api/assignments/:id/status).
+   * @param id Assignment ID
+   * @param payload Status payload { status: 'continue reading' | 'mark as completed' }
+   */
+  updateAssignmentStatus(id: string | number, payload: UpdateAssignmentStatusPayload): Observable<AssignmentResponse> {
+    return this.apiService.patch<AssignmentResponse>(`assignments/${id}/status`, payload);
   }
 
   /**
