@@ -1,22 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ProfileService } from '../../../core/services/profile.service';
+import { AssignmentService } from '../../../core/services/assignment.service';
+import { ToastService } from '../../../core/services/toast.service';
+import { environment } from '../../../../environments/environment';
 
-interface Assignment {
-  id: number;
+export interface ParentAssignmentItem {
+  assignment_id?: number | string;
+  id?: number | string;
   title: string;
-  assignedBy: string;
-  assignedDate: string;
-  dueDate: string;
-  bookTitle: string;
-  pagesRange: string;
-  status: 'In Progress' | 'Overdue' | 'Completed' | 'Not Started';
-  coverImage: string;
-  grade: string;
-  subject: string;
-  instructions: string[];
-  notice?: string;
+  description?: string | null;
+  grade_level?: string;
+  subject?: string;
+  due_date?: string;
+  dueDate?: string;
+  total_points?: number;
+  book_title?: string | null;
+  bookTitle?: string | null;
+  required_reading?: string | null;
+  requiredReading?: string | null;
+  reading_instructions?: string | null;
+  enable_islamic_alert?: number | boolean;
+  islamic_alert_description?: string | null;
+  book_cover_url?: string | null;
+  attachment_url?: string | null;
+  attachment?: string | null;
+  assignment_attachment?: string | null;
+  status?: string;
+  submission_status?: string;
   score?: string;
+  marks_obtained?: number | null;
+  grade?: string | null;
+  created_at?: string;
+  assignment_created_at?: string;
 }
 
 @Component({
@@ -26,118 +45,180 @@ interface Assignment {
   templateUrl: './parent-assignments.component.html',
   styleUrl: './parent-assignments.component.css'
 })
-export class ParentAssignmentsComponent {
-  assignments: Assignment[] = [
-    {
-      id: 1,
-      title: 'Stories of the Prophets',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: 'May 20, 2025',
-      bookTitle: 'Stories of the Prophets',
-      pagesRange: 'Read Pages 10–20',
-      status: 'Completed',
-      coverImage: 'assets/img/book_1.png',
-      grade: 'Grade 4',
-      subject: 'Islamic Studies',
-      instructions: [
-        'Read pages 10–20 carefully',
-        'Focus on key lessons from the story of Prophet Yusuf (AS)',
-        'Complete the reflection activity before the due date',
-        'Understand moral lessons and apply them to daily life'
-      ],
-      notice: 'This reading contains sections that require teacher guidance. Please avoid pages 15–16 and follow your teacher\'s instructions.',
-      score: '16/20'
-    },
-    {
-      id: 2,
-      title: 'Fractions Worksheet',
-      assignedBy: 'Mr. Ahmed',
-      assignedDate: '18 May, 2025',
-      dueDate: 'May 16, 2025',
-      bookTitle: 'Fractions Worksheet',
-      pagesRange: 'Exercise 4A & 4B',
-      status: 'In Progress',
-      coverImage: 'assets/img/book_2.png',
-      grade: 'Grade 4',
-      subject: 'Mathematics',
-      instructions: [
-        'Complete all questions on Fractions Worksheet',
-        'Verify your answers using the guide'
-      ],
-      score: '--'
-    },
-    {
-      id: 3,
-      title: 'Dua Memorization',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: 'May 2, 2025',
-      bookTitle: 'Dua Memorization',
-      pagesRange: 'Surah Al-Kahf 1-20',
-      status: 'Overdue',
-      coverImage: 'assets/img/book_3.png',
-      grade: 'Grade 4',
-      subject: 'Islamic Studies',
-      instructions: [
-        'Read and memorize Surah Al-Kahf 1-20 carefully'
-      ],
-      score: '--'
-    },
-    {
-      id: 4,
-      title: 'Eplore Science',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: 'May 14, 2025',
-      bookTitle: 'Eplore Science',
-      pagesRange: 'Read Pages 15–22',
-      status: 'Not Started',
-      coverImage: 'assets/img/book_2.png',
-      grade: 'Grade 4',
-      subject: 'Science',
-      instructions: [
-        'Read Pages 15–22 of Explore Science book'
-      ],
-      score: '--'
-    },
-    {
-      id: 5,
-      title: 'Quran Reading Practice',
-      assignedBy: 'Ustadh Hamza',
-      assignedDate: '18 May, 2025',
-      dueDate: 'May 26, 2025',
-      bookTitle: 'Quran Reading Practice',
-      pagesRange: 'Surah Al-Kahf 1-20',
-      status: 'Completed',
-      coverImage: 'assets/img/book_1.png',
-      grade: 'Grade 4',
-      subject: 'Islamic Studies',
-      instructions: [
-        'Practice Quran Reading for Surah Al-Kahf 1-20'
-      ],
-      score: '37/50'
-    }
-  ];
-
+export class ParentAssignmentsComponent implements OnInit, OnDestroy {
+  selectedStudentId: number | null = null;
+  assignmentsList: ParentAssignmentItem[] = [];
+  isLoading = false;
+  errorMessage: string | null = null;
   selectedFilter: 'All' | 'In Progress' | 'Completed' | 'Not Started' | 'Overdue' = 'All';
-  currentPage = 1;
-  totalPages = 3;
 
-  constructor(private router: Router) {}
+  imageBaseUrl = environment.imageBaseUrl;
+  defaultCoverImage = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
 
-  filteredAssignments(): Assignment[] {
-    if (this.selectedFilter === 'All') {
-      return this.assignments;
+  private destroy$ = new Subject<void>();
+
+  constructor(
+    private router: Router,
+    private profileService: ProfileService,
+    private assignmentService: AssignmentService,
+    private toastService: ToastService,
+    private cdr: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    // Listen to selected student changes in header
+    this.profileService.selectedStudent$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(student => {
+        if (student && student.id) {
+          this.selectedStudentId = student.id;
+          this.fetchParentAssignments();
+        } else {
+          this.selectedStudentId = null;
+          this.assignmentsList = [];
+          this.errorMessage = null;
+          this.cdr.markForCheck();
+        }
+      });
+  }
+
+  fetchParentAssignments(filter?: 'All' | 'In Progress' | 'Completed' | 'Not Started' | 'Overdue'): void {
+    if (!this.selectedStudentId) {
+      this.assignmentsList = [];
+      this.isLoading = false;
+      return;
     }
-    return this.assignments.filter(a => a.status === this.selectedFilter);
+
+    this.isLoading = true;
+    this.errorMessage = null;
+    const filterParam = filter || this.selectedFilter;
+
+    this.assignmentService.getParentAssignments(this.selectedStudentId, filterParam).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        let list: ParentAssignmentItem[] = [];
+
+        if (response) {
+          if (Array.isArray(response)) {
+            list = response;
+          } else if (response.data) {
+            if (Array.isArray(response.data)) {
+              list = response.data;
+            } else if (response.data.children && Array.isArray(response.data.children)) {
+              let child = response.data.children.find((c: any) => c.student_id === this.selectedStudentId);
+              if (!child && response.data.children.length > 0) {
+                child = response.data.children[0];
+              }
+              if (child && Array.isArray(child.assignments)) {
+                list = child.assignments;
+              }
+            } else if (response.data.assignments && Array.isArray(response.data.assignments)) {
+              list = response.data.assignments;
+            }
+          } else if (response.children && Array.isArray(response.children)) {
+            let child = response.children.find((c: any) => c.student_id === this.selectedStudentId);
+            if (!child && response.children.length > 0) {
+              child = response.children[0];
+            }
+            if (child && Array.isArray(child.assignments)) {
+              list = child.assignments;
+            }
+          } else if (response.assignments && Array.isArray(response.assignments)) {
+            list = response.assignments;
+          }
+        }
+
+        this.assignmentsList = list;
+        this.cdr.markForCheck();
+      },
+      error: (err: Error) => {
+        this.isLoading = false;
+        console.error('Error fetching parent assignments:', err);
+        const msg = err.message || 'Failed to load assignments.';
+        this.errorMessage = msg;
+        this.toastService.error(msg);
+        this.cdr.markForCheck();
+      }
+    });
   }
 
   setFilter(filter: 'All' | 'In Progress' | 'Completed' | 'Not Started' | 'Overdue'): void {
+    if (this.selectedFilter === filter) return;
     this.selectedFilter = filter;
+    this.fetchParentAssignments(filter);
   }
 
-  viewDetails(assignmentId: number): void {
-    this.router.navigate(['/parent/assignments', assignmentId]);
+  getStatusDisplay(item: ParentAssignmentItem): string {
+    const raw = (item.status || item.submission_status || 'In Progress').toLowerCase().trim();
+    if (raw === 'completed' || raw === 'submitted' || raw === 'graded') {
+      return 'Completed';
+    }
+    if (raw === 'overdue') {
+      return 'Overdue';
+    }
+    if (raw === 'not started' || raw === 'not_started' || raw === 'pending') {
+      return 'Not Started';
+    }
+    return 'In Progress';
+  }
+
+  getScoreDisplay(item: ParentAssignmentItem): string {
+    if (item.score) return item.score;
+    if (item.marks_obtained !== undefined && item.marks_obtained !== null) {
+      if (item.total_points) {
+        return `${item.marks_obtained}/${item.total_points}`;
+      }
+      return `${item.marks_obtained}`;
+    }
+    if (item.grade) return item.grade;
+    return '--';
+  }
+
+  formatDate(dateStr?: string | null): string {
+    if (!dateStr) return '-';
+    try {
+      const date = new Date(dateStr);
+      if (!isNaN(date.getTime())) {
+        return date.toLocaleDateString('en-US', {
+          month: 'short',
+          day: '2-digit',
+          year: 'numeric'
+        });
+      }
+    } catch (e) {
+      console.warn('Error formatting date:', e);
+    }
+    return dateStr;
+  }
+
+  getCoverImage(item: ParentAssignmentItem): string {
+    const imgPath = item.book_cover_url || item.attachment_url || item.attachment || item.assignment_attachment;
+    if (!imgPath) {
+      return this.defaultCoverImage;
+    }
+
+    if (
+      imgPath.startsWith('http://') ||
+      imgPath.startsWith('https://') ||
+      imgPath.startsWith('data:') ||
+      imgPath.startsWith('assets/')
+    ) {
+      return imgPath;
+    }
+
+    const base = this.imageBaseUrl.endsWith('/') ? this.imageBaseUrl : `${this.imageBaseUrl}/`;
+    const path = imgPath.startsWith('/') ? imgPath.substring(1) : imgPath;
+    return `${base}${path}`;
+  }
+
+  viewDetails(assignmentId?: number | string): void {
+    if (assignmentId) {
+      this.router.navigate(['/parent/assignments', assignmentId]);
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

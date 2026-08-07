@@ -154,6 +154,7 @@ export class ParentMyProfileComponent implements OnInit {
   }
 
   onSaveChild(): void {
+    debugger
     this.submitted = true;
     if (this.childForm.invalid) {
       this.childForm.markAllAsTouched();

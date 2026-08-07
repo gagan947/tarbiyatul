@@ -1,120 +1,138 @@
 <div class="ct_px_28 mt-4">
   <div class="assignments-container portal-font-main">
-  <!-- If assignment not found -->
-  <div *ngIf="!assignment" class="no-assignment-card portal-card text-center">
-    <i class="fa-solid fa-triangle-exclamation orange-color not-found-icon fs-2 mb-3"></i>
-    <h3 class="ct_ff_inter mb-0">Assignment Not Found</h3>
-    <p class="mb-3">The requested assignment could not be loaded or does not exist.</p>
-    <button (click)="backToList()" class="portal-btn portal-btn-primary">
-      Back to Assignments
-    </button>
-  </div>
 
-  <!-- Assignment Details Page -->
-  <ng-container *ngIf="assignment">
-    <!-- Back Button -->
+    <!-- Loading State Spinner -->
+    <div *ngIf="isLoading" class="text-center py-5 my-5">
+      <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading assignment details...</span>
+      </div>
+      <p class="mt-3 text-muted ct_fs_16 ct_fw_500">Loading assignment details...</p>
+    </div>
+
+    <!-- Error Alert Message -->
+    <div *ngIf="errorMessage && !isLoading" class="alert alert-danger mb-4" role="alert">
+      {{ errorMessage }}
+    </div>
+
+    <!-- If assignment not found -->
+    <div *ngIf="!isLoading && !assignment" class="no-assignment-card portal-card text-center">
+      <i class="fa-solid fa-triangle-exclamation orange-color not-found-icon fs-2 mb-3"></i>
+      <h3 class="ct_ff_inter mb-0">Assignment Not Found</h3>
+      <p class="mb-3">The requested assignment could not be loaded or does not exist.</p>
+      <button (click)="backToList()" class="portal-btn portal-btn-primary">
+        Back to Assignments
+      </button>
+    </div>
+
+    <!-- Assignment Details Page -->
+    <ng-container *ngIf="!isLoading && assignment">
+      <!-- Back Button -->
       <a routerLink="/parent/assignments" class="back-link-btn">
         <i class="fa-solid fa-chevron-left"></i> Assignment Details
       </a>
 
-    <div class="assignment-detail-card portal-card">
-      <div class="detail-top-header flex-wrap gap-3">
-        <div class="detail-header-left flex-wrap">
-          <img [src]="assignment.coverImage" [alt]="assignment.bookTitle" class="detail-cover-img" />
-          <div class="detail-title-block ">
-            <h2 class="detail-title">{{ assignment.title }}</h2>
-            <div>
-               <div class="detail-tags">
-              <span class="detail-meta-tag">{{ assignment.grade }}</span>
-              <span class="detail-meta-dot">•</span>
-              <span class="detail-meta-tag">{{ assignment.subject }}</span>
-              <span class="detail-meta-dot">•</span>
-             
+      <div class="assignment-detail-card portal-card">
+        <div class="detail-top-header flex-wrap gap-3">
+          <div class="detail-header-left flex-wrap">
+            <img [src]="getCoverImage(assignment)" [alt]="assignment.book_title || assignment.title" class="detail-cover-img" />
+            <div class="detail-title-block">
+              <h2 class="detail-title">{{ assignment.title }}</h2>
+              <div>
+                <div class="detail-tags">
+                  <span *ngIf="assignment.grade_level || assignment.target_grade" class="detail-meta-tag">{{ assignment.grade_level || assignment.target_grade }}</span>
+                  <span *ngIf="assignment.grade_level || assignment.target_grade" class="detail-meta-dot">•</span>
+                  <span class="detail-meta-tag">{{ assignment.subject || '-' }}</span>
+                </div>
+                <p class="mb-0 mt-1" *ngIf="assignment.required_reading || assignment.requiredReading">
+                  <span class="detail-meta-tag orange-color">Required reading : {{ assignment.required_reading || assignment.requiredReading }}</span>
+                </p>
+              </div>
             </div>
-            <p class="mb-0">
-               <span class="detail-meta-tag orange-color">Required reading : {{ assignment.pagesRange }}</span>
-            </p>
-            </div>
+          </div>
+
+          <span class="status-badge text-nowrap"
+            [class.badge-pending]="getComputedStatus(assignment) === 'In Progress' || getComputedStatus(assignment) === 'Not Started'"
+            [class.badge-overdue]="getComputedStatus(assignment) === 'Overdue'"
+            [class.badge-completed]="getComputedStatus(assignment) === 'Completed'">
+            {{ getComputedStatus(assignment) }}
+          </span>
+        </div>
+
+        <!-- Properties Grid -->
+        <div class="detail-properties-grid">
+          <div class="property-box">
+            <span class="property-label">ASSIGNED BY</span>
+            <span class="property-value">{{ getTeacherName(assignment) }}</span>
+          </div>
+          <div class="property-box">
+            <span class="property-label">ASSIGNED DATE</span>
+            <span class="property-value">{{ formatDate(assignment.assignment_created_at || assignment.created_at) }}</span>
+          </div>
+          <div class="property-box">
+            <span class="property-label">DUE DATE</span>
+            <span class="property-value">{{ formatDate(assignment.due_date || assignment.dueDate) }}</span>
+          </div>
+          <div class="property-box">
+            <span class="property-label">BOOK TITLE</span>
+            <span class="property-value">{{ assignment.book_title || assignment.bookTitle || '-' }}</span>
           </div>
         </div>
 
-        <span class="status-badge text-nowrap" [class.badge-pending]="assignment.status === 'In Progress'" [class.badge-overdue]="assignment.status === 'Overdue'" [class.badge-completed]="assignment.status === 'Completed'">
-          {{ assignment.status }}
-        </span>
-      </div>
+        <!-- Description Box if present -->
+        <div *ngIf="assignment.description" class="instructions-section border-top pt-4 mt-4">
+          <h3 class="section-subtitle-bold mb-2">Description</h3>
+          <p class="ct_fs_14 ct_text_dark mb-0">{{ assignment.description }}</p>
+        </div>
 
-      <!-- Properties Grid -->
-      <div class="detail-properties-grid">
-        <div class="property-box">
-          <span class="property-label">ASSIGNED BY</span>
-          <span class="property-value">{{ assignment.assignedBy }}</span>
+        <!-- Teacher Instructions -->
+        <div *ngIf="assignment.reading_instructions || assignment.readingInstructions" class="instructions-section border-top pt-4 mt-4">
+          <h3 class="section-subtitle-bold mb-3">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M9 15H11V9H9V15ZM10 7C10.2833 7 10.5208 6.90417 10.7125 6.7125C10.9042 6.52083 11 6.28333 11 6C11 5.71667 10.9042 5.47917 10.7125 5.2875C10.5208 5.09583 10.2833 5 10 5C9.71667 5 9.47917 5.09583 9.2875 5.2875C9.09583 5.47917 9 5.71667 9 6C9 6.28333 9.09583 6.52083 9.2875 6.7125C9.47917 6.90417 9.71667 7 10 7ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18Z"
+                fill="#FC800A" />
+            </svg>
+            Teacher Instructions
+          </h3>
+          <ul class="instructions-list">
+            <li *ngFor="let step of getInstructionsList(assignment.reading_instructions || assignment.readingInstructions)">{{ step }}</li>
+          </ul>
         </div>
-        <div class="property-box">
-          <span class="property-label">ASSIGNED DATE</span>
-          <span class="property-value">{{ assignment.assignedDate }}</span>
-        </div>
-        <div class="property-box">
-          <span class="property-label">DUE DATE</span>
-          <span class="property-value">{{ assignment.dueDate }}</span>
-        </div>
-        <div class="property-box">
-          <span class="property-label">BOOK TITLE</span>
-          <span class="property-value">{{ assignment.bookTitle }}</span>
-        </div>
-      </div>
 
-      <!-- Teacher Instructions -->
-      <div class="instructions-section">
-        <h3 class="section-subtitle-bold">
-         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 15H11V9H9V15ZM10 7C10.2833 7 10.5208 6.90417 10.7125 6.7125C10.9042 6.52083 11 6.28333 11 6C11 5.71667 10.9042 5.47917 10.7125 5.2875C10.5208 5.09583 10.2833 5 10 5C9.71667 5 9.47917 5.09583 9.2875 5.2875C9.09583 5.47917 9 5.71667 9 6C9 6.28333 9.09583 6.52083 9.2875 6.7125C9.47917 6.90417 9.71667 7 10 7ZM10 20C8.61667 20 7.31667 19.7375 6.1 19.2125C4.88333 18.6875 3.825 17.975 2.925 17.075C2.025 16.175 1.3125 15.1167 0.7875 13.9C0.2625 12.6833 0 11.3833 0 10C0 8.61667 0.2625 7.31667 0.7875 6.1C1.3125 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.3125 6.1 0.7875C7.31667 0.2625 8.61667 0 10 0C11.3833 0 12.6833 0.2625 13.9 0.7875C15.1167 1.3125 16.175 2.025 17.075 2.925C17.975 3.825 18.6875 4.88333 19.2125 6.1C19.7375 7.31667 20 8.61667 20 10C20 11.3833 19.7375 12.6833 19.2125 13.9C18.6875 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6875 13.9 19.2125C12.6833 19.7375 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18Z" fill="#FC800A"/>
-</svg>
- Teacher Instructions
-        </h3>
-        <ul class="instructions-list">
-          <li *ngFor="let step of assignment.instructions">{{ step }}</li>
-        </ul>
-      </div>
-
-      <!-- Warning Callout if exists -->
-      <div class="portal-callout callout-red" *ngIf="assignment.notice">
-     
-        <div class="callout-content">
-           <div class="d-flex align-items-center gap-2 mb-2">
+        <!-- Warning Callout if Islamic Alert exists -->
+        <div class="portal-callout callout-red mt-4" *ngIf="isIslamicAlertEnabled(assignment) && assignment.islamic_alert_description">
+          <div class="callout-content">
+            <div class="d-flex align-items-center gap-2 mb-2">
               <i class="fa-solid fa-triangle-exclamation callout-icon"></i>
-          <h4 class="callout-title mb-0">Islamic Content Notice</h4>
-           </div>
-          <p class="callout-body">{{ assignment.notice }}</p>
+              <h4 class="callout-title mb-0">Islamic Content Notice</h4>
+            </div>
+            <p class="callout-body mb-0">{{ assignment.islamic_alert_description }}</p>
+          </div>
         </div>
       </div>
 
-      <!-- Action Footer -->
-    
-    </div>
-
-     <!-- Need Help Section -->
-    <div class="need-help-card portal-card teacher_feedback gap-3 flex-wrap">
-      <div class="need-help-content">
-        <h3 class="need-help-title">Teacher Feedback</h3>
-        <p class="need-help-body">Excellent work! You have shown a clear understanding of the lesson and completed the reading with great attention.</p>
+      <!-- Teacher Feedback Section -->
+      <div *ngIf="getTeacherFeedback(assignment) || getScoreDisplay(assignment) !== '--'" class="need-help-card portal-card teacher_feedback gap-3 flex-wrap mt-4">
+        <div class="need-help-content">
+          <h3 class="need-help-title">Teacher Feedback</h3>
+          <p class="need-help-body">{{ getTeacherFeedback(assignment) || 'No feedback comments recorded yet.' }}</p>
+        </div>
+        <div class="score">
+          <h5>{{ getScoreDisplay(assignment) }}</h5>
+          <p class="mb-0">Scores</p>
+        </div>
       </div>
-      <div class="score">
-        <h5>16/20</h5>
-        <p class="mb-0">Scores</p>
-      </div>
-    </div>
 
-     <div class="need-help-card portal-card flex-wrap gap-3">
-      <div class="need-help-content">
-        <h3 class="need-help-title">Need Help?</h3>
-        <p class="need-help-body">If you have any questions about this assignment, feel free to reach out to your teacher.</p>
+      <!-- Need Help Section -->
+      <div class="need-help-card portal-card flex-wrap gap-3 mt-4">
+        <div class="need-help-content">
+          <h3 class="need-help-title">Need Help?</h3>
+          <p class="need-help-body">If you have any questions about this assignment, feel free to reach out to your teacher.</p>
+        </div>
+        <button routerLink="/parent/message-teacher" class="portal-btn portal-btn-outline message-teacher-btn ct_orange_outline">
+          Message Teacher
+        </button>
       </div>
-      <button routerLink="/parent/message-teacher" class="portal-btn portal-btn-outline message-teacher-btn ct_orange_outline">
-        Message Teacher
-      </button>
-    </div>
-
-   
-  </ng-container>
-</div>
+    </ng-container>
+  </div>
 </div>

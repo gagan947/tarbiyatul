@@ -61,6 +61,25 @@ export class AssignmentService {
   }
 
   /**
+   * Fetches assignments for parent portal by student ID and optional status filter.
+   * @param studentId Selected student ID
+   * @param status Optional status filter ('overdue', 'in progress', 'completed', etc.)
+   */
+  getParentAssignments(studentId: number | string, status?: string): Observable<any> {
+    let params = new HttpParams().set('studentId', String(studentId));
+
+    if (status && status.trim() && status.toLowerCase() !== 'all') {
+      let formattedStatus = status.trim().toLowerCase();
+      if (formattedStatus === 'not started' || formattedStatus === 'pending') {
+        formattedStatus = 'in progress';
+      }
+      params = params.set('status', formattedStatus);
+    }
+
+    return this.apiService.get<any>('assignments/parent', { params });
+  }
+
+  /**
    * Fetches full details of a specific assignment by ID.
    * @param id Assignment ID
    */
