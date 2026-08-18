@@ -129,7 +129,7 @@
           <h3 class="need-help-title">Need Help?</h3>
           <p class="need-help-body">If you have any questions about this assignment, feel free to reach out to your teacher.</p>
         </div>
-        <button routerLink="/parent/message-teacher" class="portal-btn portal-btn-outline message-teacher-btn ct_orange_outline">
+        <button [routerLink]="['/parent/message-teacher']" [queryParams]="{ teacherId: assignment.teacher_id }" class="portal-btn portal-btn-outline message-teacher-btn ct_orange_outline">
           Message Teacher
         </button>
       </div>

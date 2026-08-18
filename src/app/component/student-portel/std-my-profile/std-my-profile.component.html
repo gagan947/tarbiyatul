@@ -1,4 +1,5 @@
-<div class="ct_px_28 profile-container pb-5" *ngIf="(profile$ | async)?.data?.student as student">
+<ng-container *ngIf="(profile$ | async)?.data as data">
+<div class="ct_px_28 profile-container pb-5" *ngIf="data.student as student">
   <div class="page-header mb-4 pt-2">
     <h2 class="page-title">My Profile</h2>
     <p class="page-subtitle">
@@ -91,7 +92,7 @@
               </svg>
               Parent
               Name</span>
-            <span class="info-value">{{ student.parentName || 'Ahmed Khan' }}</span>
+            <span class="info-value">{{ data.parent?.fullName || '-' }}</span>
           </li>
           <li class="info-item">
             <span class="info-label"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"
@@ -101,7 +102,7 @@
               </svg>
               Phone
               Number</span>
-            <span class="info-value">{{ student.parentPhone || '+1 (610) 555-4587' }}</span>
+            <span class="info-value">{{ data.parent?.phone || '-' }}</span>
           </li>
           <li class="info-item">
             <span class="info-label"><svg width="15" height="12" viewBox="0 0 15 12" fill="none"
@@ -111,10 +112,11 @@
               </svg>
               Email
               Address</span>
-            <span class="info-value">{{ student.parentEmail || 'ahmed.khan@email.com' }}</span>
+            <span class="info-value">{{ data.parent?.email || '-' }}</span>
           </li>
         </ul>
       </div>
     </div>
   </div>
 </div>
+</ng-container>

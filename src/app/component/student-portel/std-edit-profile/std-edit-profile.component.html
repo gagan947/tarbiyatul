@@ -95,7 +95,7 @@
     </div>
 
     <!-- Parent Info Section (Read-only for Students) -->
-    <div class="dashboard-card form-card mb-4 opacity-75">
+    <div class="dashboard-card form-card mb-4 opacity-75" *ngIf="(profile$ | async)?.data?.parent as parent">
       <div class="p-4">
         <h3 class="section-title mb-4">Parent Information <span
             class="badge bg-secondary ms-2 text-white small">Read-Only</span></h3>
@@ -103,25 +103,25 @@
           <div class="col-md-6">
             <div class="form-group">
               <label class="form-label">First Name</label>
-              <input type="text" class="form-control-custom bg-light" value="Ahmed" disabled />
+              <input type="text" class="form-control-custom bg-light" [value]="parent.firstName || '-'" disabled />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label class="form-label">Last Name</label>
-              <input type="text" class="form-control-custom bg-light" value="Khan" disabled />
+              <input type="text" class="form-control-custom bg-light" [value]="parent.lastName || '-'" disabled />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label class="form-label">Email Address</label>
-              <input type="email" class="form-control-custom bg-light" value="ahmed.khan@email.com" disabled />
+              <input type="email" class="form-control-custom bg-light" [value]="parent.email || '-'" disabled />
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label class="form-label">Phone Number</label>
-              <input type="text" class="form-control-custom bg-light" value="+1 (610) 555-4587" disabled />
+              <input type="text" class="form-control-custom bg-light" [value]="parent.phone || '-'" disabled />
             </div>
           </div>
         </div>

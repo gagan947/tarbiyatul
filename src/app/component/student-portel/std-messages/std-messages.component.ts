@@ -10,6 +10,7 @@ import { ProfileService } from '../../../core/services/profile.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { Conversation, ChatMessage, ChatContact } from '../../../core/models/chat.models';
 import { environment } from '../../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-std-messages',
@@ -72,7 +73,8 @@ export class StdMessagesComponent implements OnInit, OnDestroy, AfterViewChecked
     private chatService: ChatService,
     private profileService: ProfileService,
     private toastService: ToastService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private route: ActivatedRoute
   ) {}
 
   // ─── Lifecycle ──────────────────────────────────────────────────────────────
@@ -135,6 +137,18 @@ export class StdMessagesComponent implements OnInit, OnDestroy, AfterViewChecked
     // Load initial data
     this.chatService.loadConversations();
     this.chatService.loadContacts();
+
+    this.subs.push(
+      this.route.queryParams.subscribe(params => {
+        const teacherId = params['teacherId'];
+        if (teacherId) {
+          this.chatService.createConversation({
+            recipientRole: 'teacher',
+            recipientId: Number(teacherId)
+          });
+        }
+      })
+    );
   }
 
   ngAfterViewChecked(): void {

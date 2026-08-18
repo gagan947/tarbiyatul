@@ -15,6 +15,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class StdEditProfileComponent implements OnInit {
   maxDate: string = new Date().toISOString().split('T')[0];
+  profile$ = this.profileService.profile$;
   editProfileForm!: FormGroup;
   isLoading = false;
   submitted = false;

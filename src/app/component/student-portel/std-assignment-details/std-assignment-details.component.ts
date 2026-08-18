@@ -199,6 +199,12 @@ export class StdAssignmentDetailsComponent implements OnInit {
   }
 
   navigateToMessages(): void {
-    this.router.navigate(['/student/message-teacher']);
+    if (this.assignment && (this.assignment as any).teacher_id) {
+      this.router.navigate(['/student/message-teacher'], {
+        queryParams: { teacherId: (this.assignment as any).teacher_id }
+      });
+    } else {
+      this.router.navigate(['/student/message-teacher']);
+    }
   }
 }
