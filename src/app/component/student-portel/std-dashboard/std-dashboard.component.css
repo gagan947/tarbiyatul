@@ -14,7 +14,7 @@
   position: relative;
   z-index: 2;
   color: #ffffff;
-  max-width: 600px;
+  /* max-width: 600px; */
 }
 
 .banner-title {
@@ -40,7 +40,7 @@
 .progress-bar-fill {
   height: 100%;
   background-color: #7A3C00;
-  
+
   /* Dark brown completion fill */
   border-radius: 6px;
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
@@ -50,7 +50,7 @@
   display: flex;
   justify-content: space-between;
   font-size: 14px;
-    font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 500;
   color: #fff;
 }
@@ -240,9 +240,11 @@
   color: #000;
   font-weight: 600;
 }
-.due-date{
+
+.due-date {
   color: #FC800A;
 }
+
 .start-reading-btn {
   background-color: #FC800A;
   color: #ffffff;
@@ -348,6 +350,12 @@
   color: #D97706;
 }
 
+.announcements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 /* Announcement Box styling */
 .announcement-callout {
   background-color: #EBF3FF;
@@ -356,7 +364,6 @@
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -389,16 +396,18 @@
 }
 
 .callout-bg-icon {
-    position: absolute;
-    bottom: 18px;
-    right: 10px;
-    font-size: 80px;
-    transform: rotate(-15deg);
-    pointer-events: none;
+  position: absolute;
+  bottom: 18px;
+  right: 10px;
+  font-size: 80px;
+  transform: rotate(-15deg);
+  pointer-events: none;
 }
-.callout-bg-icon svg path{
+
+.callout-bg-icon svg path {
   fill: blue;
 }
+
 /* Alert Box styling */
 .alert-callout {
   background-color: #FFF0EE;

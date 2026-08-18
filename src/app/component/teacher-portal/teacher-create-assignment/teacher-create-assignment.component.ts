@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } 
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentService } from '../../../core/services/assignment.service';
 import { ToastService } from '../../../core/services/toast.service';
+import { ProfileService } from '../../../core/services/profile.service';
 import { CreateAssignmentPayload, AssignmentListItem } from '../../../core/models/assignment.model';
 import { environment } from '../../../../environments/environment';
 
@@ -44,11 +45,32 @@ export class TeacherCreateAssignmentComponent implements OnInit {
     private router: Router,
     private assignmentService: AssignmentService,
     private toastService: ToastService,
-    private location: Location
+    private location: Location,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit(): void {
     this.initForm();
+
+    this.profileService.profile$.subscribe(profile => {
+      if (profile && profile.data && profile.data.teacherProfile) {
+        const teachingGrade = profile.data.teacherProfile.teachingGrade;
+        if (teachingGrade) {
+          // Restrict grade options to only the grade they are teaching
+          this.gradeOptions = [teachingGrade];
+          if (!this.isEditMode) {
+            this.assignmentForm.patchValue({
+              grade_level: teachingGrade,
+              target_grade: teachingGrade
+            });
+          }
+        }
+      }
+    });
+
+    if (!this.profileService.getProfileData()) {
+      this.profileService.fetchProfile().subscribe();
+    }
 
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
