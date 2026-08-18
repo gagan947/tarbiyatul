@@ -63,7 +63,7 @@ export class ParentAssignmentsComponent implements OnInit, OnDestroy {
     private assignmentService: AssignmentService,
     private toastService: ToastService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // Listen to selected student changes in header
@@ -88,7 +88,6 @@ export class ParentAssignmentsComponent implements OnInit, OnDestroy {
       this.isLoading = false;
       return;
     }
-
     this.isLoading = true;
     this.errorMessage = null;
     const filterParam = filter || this.selectedFilter;

@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ApiService } from './api.service';
-import { 
+import {
   CreateAssignmentPayload,
   UpdateAssignmentStatusPayload,
-  AssignmentResponse, 
-  TeacherAssignmentQueryParams, 
+  AssignmentResponse,
+  TeacherAssignmentQueryParams,
   TeacherAssignmentListResponse,
   AssignmentDetailResponse,
   StudentAssignmentListResponse
@@ -70,9 +70,9 @@ export class AssignmentService {
 
     if (status && status.trim() && status.toLowerCase() !== 'all') {
       let formattedStatus = status.trim().toLowerCase();
-      if (formattedStatus === 'not started' || formattedStatus === 'pending') {
-        formattedStatus = 'in progress';
-      }
+      // if (formattedStatus === 'not started' || formattedStatus === 'pending') {
+      //   formattedStatus = 'in progress';
+      // }
       params = params.set('status', formattedStatus);
     }
 
