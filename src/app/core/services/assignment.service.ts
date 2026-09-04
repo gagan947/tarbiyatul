@@ -122,6 +122,32 @@ export class AssignmentService {
   }
 
   /**
+   * Fetches all student submissions for an assignment (GET /api/assignments/:id/submissions).
+   * @param assignmentId Assignment ID
+   */
+  getAssignmentSubmissions(assignmentId: string | number): Observable<any> {
+    return this.apiService.get<any>(`assignments/${assignmentId}/submissions`);
+  }
+
+  /**
+   * Fetches single student assignment details (GET /api/assignments/:id?student_id=:studentId).
+   * @param assignmentId Assignment ID
+   * @param studentId Student ID
+   */
+  getStudentAssignmentDetail(assignmentId: string | number, studentId: string | number): Observable<any> {
+    return this.apiService.get<any>(`assignments/${assignmentId}?student_id=${studentId}`);
+  }
+
+  /**
+   * Saves grade and feedback for a student assignment (POST /api/assignments/:id/grade).
+   * @param assignmentId Assignment ID
+   * @param payload { student_id, marks_obtained, grade, feedback }
+   */
+  gradeAssignment(assignmentId: string | number, payload: { student_id: string | number; marks_obtained: number; grade?: string; feedback?: string }): Observable<any> {
+    return this.apiService.post<any>(`assignments/${assignmentId}/grade`, payload);
+  }
+
+  /**
    * Creates a new assignment (POST /api/teacher/assignments or /api/assignments).
    * @param payload Assignment data fields
    * @param attachment Optional file attachment
