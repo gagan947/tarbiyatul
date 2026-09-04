@@ -45,6 +45,13 @@ export class AssignmentService {
   }
 
   /**
+   * Fetches assignments dedicated for Tutoring / Adult learners (GET /api/assignments/tutoring)
+   */
+  getTutoringAssignments(): Observable<any> {
+    return this.apiService.get<any>('assignments/tutoring');
+  }
+
+  /**
    * Fetches assignments assigned to the current student with optional status query filter.
    * @param status Optional status filter (e.g. 'in progress', 'completed', 'overdue')
    */
@@ -97,13 +104,31 @@ export class AssignmentService {
   }
 
   /**
-   * Creates a new assignment using FormData (multipart/form-data).
+   * Submits a student assignment (POST /api/student/assignments/:id/submit).
+   * @param id Assignment ID
+   * @param payload { studentNotes, attachmentUrl }
+   */
+  submitStudentAssignment(id: string | number, payload: { studentNotes?: string; attachmentUrl?: string }): Observable<any> {
+    return this.apiService.post<any>(`student/assignments/${id}/submit`, payload);
+  }
+
+  /**
+   * Grades a student submission (PATCH /api/teacher/submissions/:id/grade).
+   * @param submissionId Submission ID
+   * @param payload { score, feedback }
+   */
+  gradeStudentSubmission(submissionId: string | number, payload: { score: string; feedback?: string }): Observable<any> {
+    return this.apiService.patch<any>(`teacher/submissions/${submissionId}/grade`, payload);
+  }
+
+  /**
+   * Creates a new assignment (POST /api/teacher/assignments or /api/assignments).
    * @param payload Assignment data fields
    * @param attachment Optional file attachment
    */
   createAssignment(payload: CreateAssignmentPayload, attachment?: File | null): Observable<AssignmentResponse> {
     const formData = this.buildAssignmentFormData(payload, attachment);
-    return this.apiService.post<AssignmentResponse>('assignments', formData);
+    return this.apiService.post<AssignmentResponse>('assignments', formData).pipe();
   }
 
   /**

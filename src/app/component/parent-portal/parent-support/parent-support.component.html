@@ -1,0 +1,335 @@
+<div class="ct_px_28 profile-container pb-5 pt-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+    <div>
+      <h2 class="section-title mb-1">Help & Support Center</h2>
+      <p class="text-muted mb-0">Create support tickets, track resolutions, and chat with the TIA support team.</p>
+    </div>
+    <button class="btn btn-warning text-white fw-bold px-4 py-2 rounded-pill shadow-sm d-flex align-items-center gap-2" (click)="openCreateModal()">
+      <i class="fa-solid fa-plus"></i> New Support Ticket
+    </button>
+  </div>
+
+  <!-- Stats Cards Row -->
+  <div class="row g-3 mb-4">
+    <div class="col-xl-3 col-md-6">
+      <div class="card border-0 shadow-sm rounded-4 p-3 bg-white d-flex flex-row align-items-center gap-3">
+        <div class="rounded-circle bg-primary-subtle text-primary p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+          <i class="fa-solid fa-ticket fs-5"></i>
+        </div>
+        <div>
+          <div class="text-muted small fw-medium">Total Tickets</div>
+          <h3 class="fw-bold mb-0">{{ stats.total_tickets }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card border-0 shadow-sm rounded-4 p-3 bg-white d-flex flex-row align-items-center gap-3">
+        <div class="rounded-circle bg-warning-subtle text-warning-emphasis p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+          <i class="fa-solid fa-hourglass-start fs-5"></i>
+        </div>
+        <div>
+          <div class="text-muted small fw-medium">Open Inquiries</div>
+          <h3 class="fw-bold mb-0">{{ stats.open_tickets }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card border-0 shadow-sm rounded-4 p-3 bg-white d-flex flex-row align-items-center gap-3">
+        <div class="rounded-circle bg-info-subtle text-info-emphasis p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+          <i class="fa-solid fa-arrows-rotate fs-5"></i>
+        </div>
+        <div>
+          <div class="text-muted small fw-medium">In Progress</div>
+          <h3 class="fw-bold mb-0">{{ stats.in_progress_tickets }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6">
+      <div class="card border-0 shadow-sm rounded-4 p-3 bg-white d-flex flex-row align-items-center gap-3">
+        <div class="rounded-circle bg-success-subtle text-success p-3 d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+          <i class="fa-solid fa-circle-check fs-5"></i>
+        </div>
+        <div>
+          <div class="text-muted small fw-medium">Resolved</div>
+          <h3 class="fw-bold mb-0">{{ stats.resolved_tickets }}</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tickets Main Card -->
+  <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden">
+    
+    <!-- Filter and Action Bar -->
+    <div class="p-4 border-bottom d-flex justify-content-between align-items-center flex-wrap gap-3">
+      <!-- Status Filter Pills -->
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-medium"
+                [class.btn-warning]="selectedFilter === 'all'"
+                [class.text-white]="selectedFilter === 'all'"
+                [class.btn-light]="selectedFilter !== 'all'"
+                [class.border]="selectedFilter !== 'all'"
+                (click)="setFilter('all')">
+          All Tickets ({{ stats.total_tickets }})
+        </button>
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-medium"
+                [class.btn-warning]="selectedFilter === 'open'"
+                [class.text-white]="selectedFilter === 'open'"
+                [class.btn-light]="selectedFilter !== 'open'"
+                [class.border]="selectedFilter !== 'open'"
+                (click)="setFilter('open')">
+          Open ({{ stats.open_tickets }})
+        </button>
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-medium"
+                [class.btn-warning]="selectedFilter === 'in_progress'"
+                [class.text-white]="selectedFilter === 'in_progress'"
+                [class.btn-light]="selectedFilter !== 'in_progress'"
+                [class.border]="selectedFilter !== 'in_progress'"
+                (click)="setFilter('in_progress')">
+          In Progress ({{ stats.in_progress_tickets }})
+        </button>
+        <button class="btn btn-sm rounded-pill px-3 py-2 fw-medium"
+                [class.btn-warning]="selectedFilter === 'resolved'"
+                [class.text-white]="selectedFilter === 'resolved'"
+                [class.btn-light]="selectedFilter !== 'resolved'"
+                [class.border]="selectedFilter !== 'resolved'"
+                (click)="setFilter('resolved')">
+          Resolved ({{ stats.resolved_tickets }})
+        </button>
+      </div>
+
+      <!-- Search Box -->
+      <div class="input-group input-group-sm" style="width: 250px;">
+        <input type="text" class="form-control rounded-start-pill ps-3" placeholder="Search tickets..." [(ngModel)]="searchQuery" (keyup.enter)="onSearch()">
+        <button class="btn btn-outline-secondary rounded-end-pill px-3" type="button" (click)="onSearch()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tickets Table -->
+    <div class="table-responsive position-relative">
+      <div *ngIf="isLoading" class="position-absolute top-0 start-0 w-100 h-100 bg-white bg-opacity-75 d-flex justify-content-center align-items-center" style="z-index: 5;">
+        <div class="spinner-border text-warning" role="status">
+          <span class="visually-hidden">Loading tickets...</span>
+        </div>
+      </div>
+
+      <table class="table align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="py-3 px-4 text-muted small fw-semibold text-uppercase">Ticket #</th>
+            <th class="py-3 text-muted small fw-semibold text-uppercase">Subject & Category</th>
+            <th class="py-3 text-muted small fw-semibold text-uppercase">Priority</th>
+            <th class="py-3 text-muted small fw-semibold text-uppercase">Status</th>
+            <th class="py-3 text-muted small fw-semibold text-uppercase">Date Created</th>
+            <th class="py-3 px-4 text-end text-muted small fw-semibold text-uppercase">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let t of tickets" class="cursor-pointer hover-bg-light" (click)="openThread(t)">
+            <td class="py-3 px-4 fw-bold text-dark">
+              <span class="badge bg-light text-dark border px-2 py-1">{{ t.ticket_number }}</span>
+              <span *ngIf="t.is_unread" class="badge bg-danger rounded-circle p-1 ms-1" style="width: 8px; height: 8px;" title="Unread response"></span>
+            </td>
+            <td class="py-3">
+              <div class="fw-semibold text-dark">{{ t.subject }}</div>
+              <div class="d-flex align-items-center gap-2 mt-1">
+                <span class="badge bg-light text-muted border small">{{ t.category }}</span>
+                <span class="text-muted small text-truncate" style="max-width: 320px;" *ngIf="t.last_message">{{ t.last_message }}</span>
+              </div>
+            </td>
+            <td class="py-3">
+              <span class="badge text-capitalize px-3 py-1 rounded-pill fw-medium" [ngClass]="getPriorityBadgeClass(t.priority)">
+                {{ t.priority }}
+              </span>
+            </td>
+            <td class="py-3">
+              <span class="badge text-uppercase px-3 py-1 rounded-pill fw-semibold" [ngClass]="getStatusBadgeClass(t.status)">
+                {{ t.status_label || t.status }}
+              </span>
+            </td>
+            <td class="py-3 text-muted small">
+              {{ formatDate(t.created_at) }}
+            </td>
+            <td class="py-3 px-4 text-end" (click)="$event.stopPropagation()">
+              <button class="btn btn-outline-primary btn-sm rounded-pill px-3" (click)="openThread(t)">
+                <i class="fa-regular fa-message me-1"></i> View Thread ({{ t.total_messages || 1 }})
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="!isLoading && tickets.length === 0">
+            <td colspan="6" class="text-center py-5 text-muted">
+              <i class="fa-solid fa-ticket-simple display-6 text-muted mb-3 d-block"></i>
+              <h5 class="fw-semibold text-dark mb-1">No Support Tickets</h5>
+              <p class="text-muted small mb-3">Have any questions about assignments, fees, or technical access? Let us know.</p>
+              <button class="btn btn-warning text-white btn-sm px-4 rounded-pill" (click)="openCreateModal()">
+                <i class="fa-solid fa-plus me-1"></i> Create Support Ticket
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL 1: CREATE NEW TICKET ================= -->
+<div class="modal fade show d-block" *ngIf="showCreateModal" tabindex="-1" style="background: rgba(0,0,0,0.5); z-index: 1050;">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4 border-0 shadow-lg">
+      
+      <!-- Modal Header -->
+      <div class="modal-header border-bottom p-4">
+        <div>
+          <h5 class="modal-title fw-bold text-dark mb-1">
+            <i class="fa-solid fa-ticket text-warning me-2"></i> Create Support Ticket
+          </h5>
+          <p class="text-muted small mb-0">Describe your inquiry and our academic or technical support team will assist you.</p>
+        </div>
+        <button type="button" class="btn-close" (click)="closeCreateModal()"></button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body p-4">
+        <div class="row g-3">
+          
+          <!-- Subject -->
+          <div class="col-12">
+            <label class="form-label fw-semibold text-dark small mb-1">Ticket Subject <span class="text-danger">*</span></label>
+            <input type="text" class="form-control rounded-3 py-2" placeholder="e.g. Need help with 2nd grade Quran book access" [(ngModel)]="newTicket.subject">
+          </div>
+
+          <!-- Category -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold text-dark small mb-1">Category <span class="text-danger">*</span></label>
+            <select class="form-select rounded-3 py-2" [(ngModel)]="newTicket.category">
+              <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+            </select>
+          </div>
+
+          <!-- Priority -->
+          <div class="col-md-6">
+            <label class="form-label fw-semibold text-dark small mb-1">Priority</label>
+            <select class="form-select rounded-3 py-2" [(ngModel)]="newTicket.priority">
+              <option *ngFor="let p of priorities" [value]="p.value">{{ p.label }}</option>
+            </select>
+          </div>
+
+          <!-- Message -->
+          <div class="col-12">
+            <label class="form-label fw-semibold text-dark small mb-1">Detailed Message <span class="text-danger">*</span></label>
+            <textarea class="form-control rounded-3 p-3" rows="5" placeholder="Please provide detailed information regarding your inquiry, error, or request..." [(ngModel)]="newTicket.message"></textarea>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer border-top p-3 bg-light rounded-bottom-4 d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" (click)="closeCreateModal()" [disabled]="isSubmitting">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-warning text-white fw-bold rounded-pill px-4 d-flex align-items-center gap-2" (click)="submitTicket()" [disabled]="isSubmitting">
+          <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm" role="status"></span>
+          {{ isSubmitting ? 'Submitting...' : 'Submit Ticket' }}
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODAL 2: TICKET THREAD & REPLIES ================= -->
+<div class="modal fade show d-block" *ngIf="showThreadModal && selectedTicket" tabindex="-1" style="background: rgba(0,0,0,0.6); z-index: 1050;">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content rounded-4 border-0 shadow-lg" style="height: 85vh;">
+      
+      <!-- Thread Header -->
+      <div class="modal-header border-bottom p-4 bg-light">
+        <div class="w-100">
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <span class="badge bg-dark text-white">{{ selectedTicket.ticket_number }}</span>
+              <span class="badge text-capitalize" [ngClass]="getPriorityBadgeClass(selectedTicket.priority)">{{ selectedTicket.priority }}</span>
+              <span class="badge text-uppercase" [ngClass]="getStatusBadgeClass(selectedTicket.status)">{{ selectedTicket.status_label || selectedTicket.status }}</span>
+            </div>
+            <button type="button" class="btn-close" (click)="closeThreadModal()"></button>
+          </div>
+          <h5 class="fw-bold text-dark mb-1">{{ selectedTicket.subject }}</h5>
+          <span class="text-muted small"><i class="fa-solid fa-folder me-1"></i> {{ selectedTicket.category }} • Opened on {{ formatDate(selectedTicket.created_at) }}</span>
+        </div>
+      </div>
+
+      <!-- Messages Thread Area -->
+      <div class="modal-body p-4 bg-light-subtle d-flex flex-column gap-3 overflow-y-auto">
+        
+        <!-- Loading State -->
+        <div *ngIf="isLoadingThread" class="text-center py-4">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden">Loading thread...</span>
+          </div>
+        </div>
+
+        <!-- Message Bubbles -->
+        <div *ngFor="let msg of selectedTicket.messages" class="d-flex gap-3" [class.justify-content-end]="msg.is_me" [class.justify-content-start]="!msg.is_me">
+          
+          <!-- Admin Avatar (on Left) -->
+          <div *ngIf="!msg.is_me" class="rounded-circle bg-warning text-white d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 40px; height: 40px;">
+            <i class="fa-solid fa-headset"></i>
+          </div>
+
+          <!-- Message Box -->
+          <div class="card border-0 shadow-sm rounded-4 p-3" 
+               [style.max-width]="'75%'"
+               [class.bg-warning]="msg.is_me"
+               [class.text-white]="msg.is_me"
+               [class.bg-white]="!msg.is_me"
+               [class.text-dark]="!msg.is_me">
+            <div class="d-flex justify-content-between align-items-center gap-3 mb-1">
+              <span class="fw-bold small" [class.text-white]="msg.is_me" [class.text-dark]="!msg.is_me">
+                {{ msg.sender_name || (msg.is_admin ? 'TIA Support Team' : 'You') }}
+                <span *ngIf="msg.is_admin" class="badge bg-primary text-white ms-1 small" style="font-size: 10px;">Support Staff</span>
+              </span>
+              <span class="small" [class.text-white-50]="msg.is_me" [class.text-muted]="!msg.is_me" style="font-size: 11px;">
+                {{ formatDate(msg.created_at) }}
+              </span>
+            </div>
+            <p class="mb-0" style="white-space: pre-wrap; font-size: 14px;">{{ msg.message }}</p>
+          </div>
+
+          <!-- User Avatar (on Right) -->
+          <div *ngIf="msg.is_me" class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center flex-shrink-0 shadow-sm" style="width: 40px; height: 40px;">
+            <i class="fa-solid fa-user"></i>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Reply Box Footer -->
+      <div class="modal-footer border-top p-3 bg-white">
+        <div class="w-100">
+          <div class="d-flex gap-2">
+            <textarea class="form-control rounded-3" rows="2" placeholder="Write a reply to support staff..." [(ngModel)]="replyMessage" (keyup.ctrl.enter)="sendReply()"></textarea>
+            <button class="btn btn-warning text-white fw-bold px-4 rounded-3 d-flex align-items-center justify-content-center gap-1" (click)="sendReply()" [disabled]="isSendingReply || !replyMessage.trim()">
+              <span *ngIf="isSendingReply" class="spinner-border spinner-border-sm" role="status"></span>
+              <i *ngIf="!isSendingReply" class="fa-solid fa-paper-plane"></i>
+              <span class="d-none d-md-inline">{{ isSendingReply ? 'Sending...' : 'Send' }}</span>
+            </button>
+          </div>
+          <div class="text-muted mt-1 small" style="font-size: 11px;">
+            Press <kbd>Ctrl</kbd> + <kbd>Enter</kbd> to send reply.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

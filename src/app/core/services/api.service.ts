@@ -71,6 +71,17 @@ export class ApiService {
   }
 
   /**
+   * Universal File Upload Helper (POST /api/upload/file?folder=...)
+   * Allowed folders: forms, receipts, avatars, worksheets, handbooks, submissions, resumes, general
+   */
+  uploadFile(file: File, folder: string = 'general'): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    const params = new HttpParams().set('folder', folder);
+    return this.post<any>('upload/file', formData, { params });
+  }
+
+  /**
    * Centralized HTTP error handling
    */
   private handleError(error: HttpErrorResponse): Observable<never> {

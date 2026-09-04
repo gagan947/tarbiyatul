@@ -7,8 +7,11 @@
           <div class="ct_auth_white_bg">
             <!-- Title & Subtitle (Hidden in Success Step) -->
             <div *ngIf="currentStep < 4" class="auth-page-header">
-              <h1 class="auth-title">Create an Account</h1>
-              <p class="auth-subtitle opacity-50">Register your child in a few simple steps</p>
+              <h1 class="auth-title">{{ isTutoringRole ? 'Tutoring Registration' : 'Create an Account' }}</h1>
+              <p class="auth-subtitle opacity-50">
+                {{ isTutoringRole ? 'Register for 1-on-1 tutoring in a few simple steps' : 'Register your child in a few
+                simple steps' }}
+              </p>
             </div>
 
             <!-- Step Progress Indicator (Hidden in Success Step) -->
@@ -21,7 +24,7 @@
                   <span *ngIf="currentStep === 1">1</span>
                 </div>
                 <div class="step-label-container">
-                  <span class="step-label-title">Parent</span>
+                  <span class="step-label-title">{{ isTutoringRole ? 'Learner' : 'Parent' }}</span>
                   <span class="step-label-sub">Information</span>
                 </div>
               </div>
@@ -36,8 +39,8 @@
                   <span *ngIf="currentStep <= 2">2</span>
                 </div>
                 <div class="step-label-container">
-                  <span class="step-label-title">Student</span>
-                  <span class="step-label-sub">Information</span>
+                  <span class="step-label-title">{{ isTutoringRole ? 'Program' : 'Student' }}</span>
+                  <span class="step-label-sub">{{ isTutoringRole ? 'Details' : 'Information' }}</span>
                 </div>
               </div>
 
@@ -63,82 +66,189 @@
               <!-- Form steps -->
               <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
 
-                <!-- ================== STEP 1: PARENT INFORMATION ================== -->
+                <!-- ================== STEP 1: INFORMATION ================== -->
                 <div *ngIf="currentStep === 1">
-                  <h2 class="step-card-title mb-4">Parent Information</h2>
 
-                  <div class="row">
-                    <!-- First Name -->
-                    <div class="col-md-6 form-group mb-4">
-                      <label for="firstName" class="form-label">First Name</label>
-                      <input type="text" id="firstName" formControlName="firstName" class="form-control-custom"
-                        placeholder="eg. Ahmed"
-                        [ngClass]="{ 'is-invalid-custom': f['firstName'].invalid && (f['firstName'].touched || submitted) }" />
-                      <div *ngIf="f['firstName'].invalid && (f['firstName'].touched || submitted)" class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> First Name is required</span>
+                  <!-- ====== PARENT STEP 1 ====== -->
+                  <div *ngIf="!isTutoringRole">
+                    <h2 class="step-card-title mb-4">Parent Information</h2>
+
+                    <div class="row">
+                      <!-- First Name -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" id="firstName" formControlName="firstName" class="form-control-custom"
+                          placeholder="eg. Ahmed"
+                          [ngClass]="{ 'is-invalid-custom': f['firstName'].invalid && (f['firstName'].touched || submitted) }" />
+                        <div *ngIf="f['firstName'].invalid && (f['firstName'].touched || submitted)" class="error-msg">
+                          <span><i class="fa-solid fa-circle-info me-1"></i> First Name is required</span>
+                        </div>
+                      </div>
+
+                      <!-- Last Name -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" id="lastName" formControlName="lastName" class="form-control-custom"
+                          placeholder="eg. Khan"
+                          [ngClass]="{ 'is-invalid-custom': f['lastName'].invalid && (f['lastName'].touched || submitted) }" />
+                        <div *ngIf="f['lastName'].invalid && (f['lastName'].touched || submitted)" class="error-msg">
+                          <span><i class="fa-solid fa-circle-info me-1"></i> Last Name is required</span>
+                        </div>
+                      </div>
+
+                      <!-- Phone Number -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="phone" class="form-label">Phone Number</label>
+                        <div class="phone-input-wrapper position-relative">
+                          <div class="phone-input-group">
+                            <button type="button" class="phone-prefix-btn" (click)="toggleCountryDropdown($event)">
+                              <span>{{ signupForm.value.countryCode || '+1' }}</span>
+                              <i class="fa-solid fa-chevron-down ms-2 small-chevron"
+                                [class.rotate-180]="isCountryDropdownOpen"></i>
+                            </button>
+                            <input type="text" id="phone" formControlName="phone"
+                              class="form-control-custom phone-input" placeholder="50XXXXXXX"
+                              [ngClass]="{ 'is-invalid-custom': f['phone'].invalid && (f['phone'].touched || submitted) }" />
+                          </div>
+
+                          <!-- Custom Country Picker Dropdown -->
+                          <div class="country-dropdown-menu shadow-lg rounded-3" *ngIf="isCountryDropdownOpen"
+                            (click)="$event.stopPropagation()">
+                            <div class="p-2 border-bottom bg-light">
+                              <div class="input-group input-group-sm">
+                                <span class="input-group-text bg-white border-end-0"><i
+                                    class="fa-solid fa-magnifying-glass text-muted small"></i></span>
+                                <input type="text" class="form-control border-start-0 ps-0 bg-white"
+                                  placeholder="Search country or code..." [(ngModel)]="countrySearchQuery"
+                                  [ngModelOptions]="{standalone: true}" (click)="$event.stopPropagation()">
+                              </div>
+                            </div>
+                            <div class="country-list-scroll">
+                              <div *ngFor="let c of filteredCountryCodes"
+                                class="country-option-item d-flex align-items-center justify-content-between px-3 py-2"
+                                [class.active-country]="signupForm.value.countryCode === c.code"
+                                (click)="selectCountryCode(c.code)">
+                                <span class="country-name small text-dark">{{ c.name }}</span>
+                                <span class="badge bg-light text-dark border small fw-bold">{{ c.code }}</span>
+                              </div>
+                              <div *ngIf="filteredCountryCodes.length === 0" class="text-center py-3 text-muted small">
+                                No country found
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngIf="f['phone'].invalid && (f['phone'].touched || submitted)" class="error-msg">
+                          <span><i class="fa-solid fa-circle-info me-1"></i> Phone Number is required</span>
+                        </div>
+                      </div>
+
+                      <!-- Email Address -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" id="email" formControlName="email" class="form-control-custom"
+                          placeholder="eg. ahmed.khan@email.com"
+                          [ngClass]="{ 'is-invalid-custom': f['email'].invalid && (f['email'].touched || submitted) }" />
+                        <div *ngIf="f['email'].invalid && (f['email'].touched || submitted)" class="error-msg">
+                          <span *ngIf="f['email'].errors?.['required']">
+                            <i class="fa-solid fa-circle-info me-1"></i> Email address is required
+                          </span>
+                          <span *ngIf="f['email'].errors?.['email']">
+                            <i class="fa-solid fa-circle-info me-1"></i> Please enter a valid email address
+                          </span>
+                        </div>
+                      </div>
+
+                      <!-- Password -->
+                      <div class="col-md-12 form-group mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <div class="input-container">
+                          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+                            class="form-control-custom" placeholder="••••••••"
+                            [ngClass]="{ 'is-invalid-custom': f['password'].invalid && (f['password'].touched || submitted) }" />
+                          <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()"
+                            aria-label="Toggle password visibility">
+                            <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                          </button>
+                        </div>
+                        <div *ngIf="f['password'].invalid && (f['password'].touched || submitted)" class="error-msg">
+                          <span *ngIf="f['password'].errors?.['required']">
+                            <i class="fa-solid fa-circle-info me-1"></i> Password is required
+                          </span>
+                          <span *ngIf="f['password'].errors?.['minlength']">
+                            <i class="fa-solid fa-circle-info me-1"></i> Password must be at least 6 characters
+                          </span>
+                        </div>
                       </div>
                     </div>
+                  </div>
 
-                    <!-- Last Name -->
-                    <div class="col-md-6 form-group mb-4">
-                      <label for="lastName" class="form-label">Last Name</label>
-                      <input type="text" id="lastName" formControlName="lastName" class="form-control-custom"
-                        placeholder="eg. Khan"
-                        [ngClass]="{ 'is-invalid-custom': f['lastName'].invalid && (f['lastName'].touched || submitted) }" />
-                      <div *ngIf="f['lastName'].invalid && (f['lastName'].touched || submitted)" class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> Last Name is required</span>
-                      </div>
-                    </div>
+                  <!-- ====== TUTORING STEP 1: LEARNER INFORMATION ====== -->
+                  <div *ngIf="isTutoringRole">
+                    <h2 class="step-card-title mb-1">Learner Information</h2>
+                    <p class="auth-subtitle opacity-50 mb-4">Enter your learner account details to get started.</p>
 
-                    <!-- Phone Number -->
-                    <div class="col-md-6 form-group mb-4">
-                      <label for="phone" class="form-label">Phone Number</label>
-                      <div class="phone-input-group">
-                        <span class="phone-prefix-badge">+1 <i class="fa-solid fa-chevron-down ms-1"></i></span>
-                        <input type="text" id="phone" formControlName="phone" class="form-control-custom phone-input"
-                          placeholder="50XXXXXXX"
-                          [ngClass]="{ 'is-invalid-custom': f['phone'].invalid && (f['phone'].touched || submitted) }" />
+                    <div class="row">
+                      <!-- Learner First Name -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="learnerFirstName" class="form-label">First Name</label>
+                        <input type="text" id="learnerFirstName" formControlName="learnerFirstName"
+                          class="form-control-custom" placeholder="eg. Hamza"
+                          [ngClass]="{ 'is-invalid-custom': f['learnerFirstName'].invalid && (f['learnerFirstName'].touched || submitted) }" />
+                        <div *ngIf="f['learnerFirstName'].invalid && (f['learnerFirstName'].touched || submitted)"
+                          class="error-msg">
+                          <span><i class="fa-solid fa-circle-info me-1"></i> First Name is required</span>
+                        </div>
                       </div>
-                      <div *ngIf="f['phone'].invalid && (f['phone'].touched || submitted)" class="error-msg">
-                        <span><i class="fa-solid fa-circle-info me-1"></i> Phone Number is required</span>
-                      </div>
-                    </div>
 
-                    <!-- Email Address -->
-                    <div class="col-md-6 form-group mb-4">
-                      <label for="email" class="form-label">Email Address</label>
-                      <input type="email" id="email" formControlName="email" class="form-control-custom"
-                        placeholder="eg. ahmed.khan@email.com"
-                        [ngClass]="{ 'is-invalid-custom': f['email'].invalid && (f['email'].touched || submitted) }" />
-                      <div *ngIf="f['email'].invalid && (f['email'].touched || submitted)" class="error-msg">
-                        <span *ngIf="f['email'].errors?.['required']">
-                          <i class="fa-solid fa-circle-info me-1"></i> Email address is required
-                        </span>
-                        <span *ngIf="f['email'].errors?.['email']">
-                          <i class="fa-solid fa-circle-info me-1"></i> Please enter a valid email address
-                        </span>
+                      <!-- Learner Last Name -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="learnerLastName" class="form-label">Last Name</label>
+                        <input type="text" id="learnerLastName" formControlName="learnerLastName"
+                          class="form-control-custom" placeholder="eg. Khan"
+                          [ngClass]="{ 'is-invalid-custom': f['learnerLastName'].invalid && (f['learnerLastName'].touched || submitted) }" />
+                        <div *ngIf="f['learnerLastName'].invalid && (f['learnerLastName'].touched || submitted)"
+                          class="error-msg">
+                          <span><i class="fa-solid fa-circle-info me-1"></i> Last Name is required</span>
+                        </div>
                       </div>
-                    </div>
 
-                    <!-- Password -->
-                    <div class="col-md-12 form-group mb-4">
-                      <label for="password" class="form-label">Password</label>
-                      <div class="input-container">
-                        <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
-                          class="form-control-custom" placeholder="••••••••"
-                          [ngClass]="{ 'is-invalid-custom': f['password'].invalid && (f['password'].touched || submitted) }" />
-                        <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()"
-                          aria-label="Toggle password visibility">
-                          <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
-                        </button>
+                      <!-- Learner Email Address -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="learnerEmail" class="form-label">Email Address</label>
+                        <input type="email" id="learnerEmail" formControlName="learnerEmail" class="form-control-custom"
+                          placeholder="eg. hamza.tutoring@example.com"
+                          [ngClass]="{ 'is-invalid-custom': f['learnerEmail'].invalid && (f['learnerEmail'].touched || submitted) }" />
+                        <div *ngIf="f['learnerEmail'].invalid && (f['learnerEmail'].touched || submitted)"
+                          class="error-msg">
+                          <span *ngIf="f['learnerEmail'].errors?.['required']">
+                            <i class="fa-solid fa-circle-info me-1"></i> Email address is required
+                          </span>
+                          <span *ngIf="f['learnerEmail'].errors?.['email']">
+                            <i class="fa-solid fa-circle-info me-1"></i> Please enter a valid email address
+                          </span>
+                        </div>
                       </div>
-                      <div *ngIf="f['password'].invalid && (f['password'].touched || submitted)" class="error-msg">
-                        <span *ngIf="f['password'].errors?.['required']">
-                          <i class="fa-solid fa-circle-info me-1"></i> Password is required
-                        </span>
-                        <span *ngIf="f['password'].errors?.['minlength']">
-                          <i class="fa-solid fa-circle-info me-1"></i> Password must be at least 6 characters
-                        </span>
+
+                      <!-- Password -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="passwordTutoring" class="form-label">Password</label>
+                        <div class="input-container">
+                          <input [type]="showPassword ? 'text' : 'password'" id="passwordTutoring"
+                            formControlName="password" class="form-control-custom" placeholder="••••••••"
+                            [ngClass]="{ 'is-invalid-custom': f['password'].invalid && (f['password'].touched || submitted) }" />
+                          <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()"
+                            aria-label="Toggle password visibility">
+                            <i class="fa-regular" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+                          </button>
+                        </div>
+                        <div *ngIf="f['password'].invalid && (f['password'].touched || submitted)" class="error-msg">
+                          <span *ngIf="f['password'].errors?.['required']">
+                            <i class="fa-solid fa-circle-info me-1"></i> Password is required
+                          </span>
+                          <span *ngIf="f['password'].errors?.['minlength']">
+                            <i class="fa-solid fa-circle-info me-1"></i> Password must be at least 6 characters
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -151,122 +261,169 @@
                   </div>
                 </div>
 
-                <!-- ================== STEP 2: STUDENT INFORMATION ================== -->
+                <!-- ================== STEP 2: PROGRAM / STUDENT DETAILS ================== -->
                 <div *ngIf="currentStep === 2">
-                  <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="step-card-title mb-0">Student Information</h2>
-                    <button type="button" class="add-student-btn" (click)="addStudent()">
-                      <i class="fa-solid fa-plus me-1"></i> Add Student
-                    </button>
-                  </div>
 
-                  <div formArrayName="students">
-                    <div *ngFor="let student of students.controls; let i = index" [formGroupName]="i"
-                      class="student-form-section">
+                  <!-- ====== TUTORING ROLE: Program Details ====== -->
+                  <div *ngIf="isTutoringRole">
+                    <h2 class="step-card-title mb-1">Program Details</h2>
+                    <p class="auth-subtitle opacity-50 mb-4">Select your subject, academy, and grade level.</p>
 
-                      <!-- Header for Student entry, with Remove button if > 1 -->
-                      <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="student-section-title mb-0">Student #{{ i + 1 }}</h4>
-                        <button type="button" *ngIf="students.length > 1" class="remove-student-btn p-0"
-                          (click)="removeStudent(i)" title="Remove Student">
-                          <i class="fa-solid fa-trash-can me-1"></i> Remove
-                        </button>
-                      </div>
-
-                      <div class="row">
-                        <!-- Student First Name -->
-                        <div class="col-md-6 form-group mb-4">
-                          <label [attr.for]="'studentFirstName_' + i" class="form-label">First Name</label>
-                          <input type="text" [id]="'studentFirstName_' + i" formControlName="firstName"
-                            class="form-control-custom" placeholder="eg. Ali"
-                            [ngClass]="{ 'is-invalid-custom': student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted) }" />
-                          <div
-                            *ngIf="student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted)"
-                            class="error-msg">
-                            <span><i class="fa-solid fa-circle-info me-1"></i> Student First Name is required</span>
-                          </div>
+                    <div class="row">
+                      <!-- Subject / Focus Area -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="subject" class="form-label">Subject / Focus Area</label>
+                        <div class="select-container">
+                          <select id="subject" formControlName="subject" class="form-control-custom select-custom"
+                            [ngClass]="{'is-invalid-custom': f['subject'].invalid && (f['subject'].touched || submitted)}">
+                            <option value="" disabled>Select a subject</option>
+                            <option *ngFor="let sub of tutoringSubjects" [value]="sub">{{ sub }}</option>
+                          </select>
+                          <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
                         </div>
-
-                        <!-- Student Last Name -->
-                        <div class="col-md-6 form-group mb-4">
-                          <label [attr.for]="'studentLastName_' + i" class="form-label">Last Name</label>
-                          <input type="text" [id]="'studentLastName_' + i" formControlName="lastName"
-                            class="form-control-custom" placeholder="eg. Khan"
-                            [ngClass]="{ 'is-invalid-custom': student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted) }" />
-                          <div
-                            *ngIf="student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted)"
-                            class="error-msg">
-                            <span><i class="fa-solid fa-circle-info me-1"></i> Student Last Name is required</span>
-                          </div>
-                        </div>
-
-                        <!-- Student DOB -->
-                        <div class="col-md-6 form-group mb-4">
-                          <label [attr.for]="'studentDob_' + i" class="form-label">Date of Birth</label>
-                          <input type="date" [max]="maxDate" [id]="'studentDob_' + i" formControlName="dob"
-                            class="form-control-custom date-input"
-                            [ngClass]="{ 'is-invalid-custom': student.get('dob')?.invalid && (student.get('dob')?.touched || submitted) }" />
-                          <div *ngIf="student.get('dob')?.invalid && (student.get('dob')?.touched || submitted)"
-                            class="error-msg">
-                            <span><i class="fa-solid fa-circle-info me-1"></i> Student Date of Birth is required</span>
-                          </div>
-                        </div>
-
-                        <!-- Student Grade Level -->
-                        <div class="col-md-6 form-group mb-4">
-                          <label [attr.for]="'studentGradeLevel_' + i" class="form-label">Grade Level</label>
-                          <div class="select-container">
-                            <select [id]="'studentGradeLevel_' + i" formControlName="gradeLevel"
-                              class="form-control-custom select-custom">
-                              <option *ngFor="let grade of gradeLevels" [value]="grade">{{ grade }}</option>
-                            </select>
-                            <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
-                          </div>
-                          <div
-                            *ngIf="student.get('gradeLevel')?.invalid && (student.get('gradeLevel')?.touched || submitted)"
-                            class="error-msg">
-                            <span><i class="fa-solid fa-circle-info me-1"></i> Grade Level selection is required</span>
-                          </div>
-                        </div>
-
-                        <!-- Student Academy -->
-                        <div class="col-md-6 form-group mb-4">
-                          <label [attr.for]="'studentAcademy_' + i" class="form-label">Academy</label>
-                          <div class="select-container">
-                            <select [id]="'studentAcademy_' + i" formControlName="academy"
-                              class="form-control-custom select-custom">
-                              <option *ngFor="let acad of academies" [value]="acad">{{ acad }}</option>
-                            </select>
-                            <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
-                          </div>
-                          <div *ngIf="student.get('academy')?.invalid && (student.get('academy')?.touched || submitted)"
-                            class="error-msg">
-                            <span><i class="fa-solid fa-circle-info me-1"></i> Academy selection is required</span>
-                          </div>
-                        </div>
-
-                        <!-- Student Email Address -->
-                        <div class="col-md-6 form-group mb-4">
-                          <label [attr.for]="'studentEmail_' + i" class="form-label">Email Address</label>
-                          <input type="email" [id]="'studentEmail_' + i" formControlName="email"
-                            class="form-control-custom" placeholder="eg. student@email.com"
-                            [ngClass]="{ 'is-invalid-custom': student.get('email')?.invalid && (student.get('email')?.touched || submitted) }" />
-                          <div *ngIf="student.get('email')?.invalid && (student.get('email')?.touched || submitted)"
-                            class="error-msg">
-                            <span *ngIf="student.get('email')?.errors?.['required']">
-                              <i class="fa-solid fa-circle-info me-1"></i> Student Email is required
-                            </span>
-                            <span *ngIf="student.get('email')?.errors?.['email']">
-                              <i class="fa-solid fa-circle-info me-1"></i> Please enter a valid email address
-                            </span>
-                          </div>
+                        <div *ngIf="f['subject'].invalid && (f['subject'].touched || submitted)" class="error-msg">
+                          <span><i class="fa-solid fa-circle-info me-1"></i> Please select a subject</span>
                         </div>
                       </div>
 
+                      <!-- Academy -->
+                      <div class="col-md-6 form-group mb-4">
+                        <label for="academy" class="form-label">Academy</label>
+                        <div class="select-container">
+                          <select id="academy" formControlName="academy" class="form-control-custom select-custom"
+                            [ngClass]="{'is-invalid-custom': f['academy'].invalid && (f['academy'].touched || submitted)}">
+                            <option value="" disabled>Select an academy</option>
+                            <option *ngFor="let acad of tutoringAcademies" [value]="acad">{{ acad }}</option>
+                          </select>
+                          <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div *ngIf="f['academy'].invalid && (f['academy'].touched || submitted)" class="error-msg">
+                          <span><i class="fa-solid fa-circle-info me-1"></i> Please select an academy</span>
+                        </div>
+                      </div>
+
+                      <!-- Grade Level -->
+                      <div class="col-md-12 form-group mb-4">
+                        <label for="gradeLevel" class="form-label">Grade Level</label>
+                        <div class="select-container">
+                          <select id="gradeLevel" formControlName="gradeLevel" class="form-control-custom select-custom"
+                            [ngClass]="{'is-invalid-custom': f['gradeLevel'].invalid && (f['gradeLevel'].touched || submitted)}">
+                            <option value="" disabled>Select a grade level</option>
+                            <option *ngFor="let grade of tutoringGradeLevels" [value]="grade">{{ grade }}</option>
+                          </select>
+                          <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div *ngIf="f['gradeLevel'].invalid && (f['gradeLevel'].touched || submitted)"
+                          class="error-msg">
+                          <span><i class="fa-solid fa-circle-info me-1"></i> Please select a grade level</span>
+                        </div>
+                      </div>
+
+                      <!-- Info Note -->
+                      <div class="col-md-12 mb-3">
+                        <div class="d-flex align-items-start gap-2 p-3 rounded-3"
+                          style="background:#FFF7ED;border-left:3px solid #FC800A;">
+                          <i class="fa-solid fa-circle-info mt-1" style="color:#FC800A;font-size:13px;"></i>
+                          <small style="color:#9A3412;font-size:13px;">
+                            You will be able to log in with your email and password immediately after registering to
+                            access your personalized tutoring dashboard.
+                          </small>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <!-- Step 2 Footer Actions -->
+                  <!-- ====== REGULAR PARENT: Student Information ====== -->
+                  <div *ngIf="!isTutoringRole">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                      <h2 class="step-card-title mb-0">Student Information</h2>
+                      <button type="button" class="add-student-btn" (click)="addStudent()">
+                        <i class="fa-solid fa-plus me-1"></i> Add Student
+                      </button>
+                    </div>
+
+                    <div formArrayName="students">
+                      <div *ngFor="let student of students.controls; let i = index" [formGroupName]="i"
+                        class="student-form-section">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <h4 class="student-section-title mb-0">Student #{{ i + 1 }}</h4>
+                          <button type="button" *ngIf="students.length > 1" class="remove-student-btn p-0"
+                            (click)="removeStudent(i)">
+                            <i class="fa-solid fa-trash-can me-1"></i> Remove
+                          </button>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-6 form-group mb-4">
+                            <label [attr.for]="'studentFirstName_' + i" class="form-label">First Name</label>
+                            <input type="text" [id]="'studentFirstName_' + i" formControlName="firstName"
+                              class="form-control-custom" placeholder="eg. Ali"
+                              [ngClass]="{'is-invalid-custom': student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted)}" />
+                            <div
+                              *ngIf="student.get('firstName')?.invalid && (student.get('firstName')?.touched || submitted)"
+                              class="error-msg">
+                              <span><i class="fa-solid fa-circle-info me-1"></i> Student First Name is required</span>
+                            </div>
+                          </div>
+                          <div class="col-md-6 form-group mb-4">
+                            <label [attr.for]="'studentLastName_' + i" class="form-label">Last Name</label>
+                            <input type="text" [id]="'studentLastName_' + i" formControlName="lastName"
+                              class="form-control-custom" placeholder="eg. Khan"
+                              [ngClass]="{'is-invalid-custom': student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted)}" />
+                            <div
+                              *ngIf="student.get('lastName')?.invalid && (student.get('lastName')?.touched || submitted)"
+                              class="error-msg">
+                              <span><i class="fa-solid fa-circle-info me-1"></i> Student Last Name is required</span>
+                            </div>
+                          </div>
+                          <div class="col-md-6 form-group mb-4">
+                            <label [attr.for]="'studentDob_' + i" class="form-label">Date of Birth</label>
+                            <input type="date" [max]="maxDate" [id]="'studentDob_' + i" formControlName="dob"
+                              class="form-control-custom date-input"
+                              [ngClass]="{'is-invalid-custom': student.get('dob')?.invalid && (student.get('dob')?.touched || submitted)}" />
+                            <div *ngIf="student.get('dob')?.invalid && (student.get('dob')?.touched || submitted)"
+                              class="error-msg">
+                              <span><i class="fa-solid fa-circle-info me-1"></i> Student Date of Birth is
+                                required</span>
+                            </div>
+                          </div>
+                          <div class="col-md-6 form-group mb-4">
+                            <label [attr.for]="'studentGradeLevel_' + i" class="form-label">Grade Level</label>
+                            <div class="select-container">
+                              <select [id]="'studentGradeLevel_' + i" formControlName="gradeLevel"
+                                class="form-control-custom select-custom">
+                                <option value="" disabled selected>Select Grade Level</option>
+                                <option *ngFor="let grade of gradeLevels" [value]="grade">{{ grade }}</option>
+                              </select>
+                              <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                            </div>
+                          </div>
+                          <div class="col-md-6 form-group mb-4">
+                            <label [attr.for]="'studentAcademy_' + i" class="form-label">Academy</label>
+                            <div class="select-container">
+                              <select [id]="'studentAcademy_' + i" formControlName="academy"
+                                class="form-control-custom select-custom">
+                                <option *ngFor="let acad of academies" [value]="acad">{{ acad }}</option>
+                              </select>
+                              <span class="select-arrow"><i class="fa-solid fa-chevron-down"></i></span>
+                            </div>
+                          </div>
+                          <div class="col-md-6 form-group mb-4">
+                            <label [attr.for]="'studentEmail_' + i" class="form-label">Email Address</label>
+                            <input type="email" [id]="'studentEmail_' + i" formControlName="email"
+                              class="form-control-custom" placeholder="eg. student@email.com"
+                              [ngClass]="{'is-invalid-custom': student.get('email')?.invalid && (student.get('email')?.touched || submitted)}" />
+                            <div *ngIf="student.get('email')?.invalid && (student.get('email')?.touched || submitted)"
+                              class="error-msg">
+                              <span><i class="fa-solid fa-circle-info me-1"></i> Valid student email is required</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Step 2 Footer -->
                   <div class="d-flex justify-content-end gap-3 mt-4">
                     <button type="button" class="action-btn back-btn" (click)="prevStep()">
                       <i class="fa-solid fa-chevron-left me-2"></i> Back
@@ -280,67 +437,105 @@
                 <!-- ================== STEP 3: REVIEW & SUBMIT ================== -->
                 <div *ngIf="currentStep === 3">
 
-                  <!-- Parent Info Section -->
-                  <div class="review-section-box mb-4">
-                    <div class="review-section-header">
-                      <h3 class="review-section-title">Parent Information</h3>
-                      <button type="button" class="edit-section-btn" (click)="goToStep(1)">Edit</button>
+                  <!-- Tutoring Review Sections -->
+                  <div *ngIf="isTutoringRole">
+                    <!-- Learner Info Section -->
+                    <div class="review-section-box mb-4">
+                      <div class="review-section-header">
+                        <h3 class="review-section-title">Learner Information</h3>
+                        <button type="button" class="edit-section-btn" (click)="goToStep(1)">Edit</button>
+                      </div>
+                      <div class="review-grid">
+                        <div class="review-item">
+                          <span class="review-label">First Name</span>
+                          <span class="review-value">{{ signupForm.value.learnerFirstName }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Last Name</span>
+                          <span class="review-value">{{ signupForm.value.learnerLastName }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Email Address</span>
+                          <span class="review-value">{{ signupForm.value.learnerEmail }}</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="review-grid">
-                      <div class="review-item">
-                        <span class="review-label">First Name</span>
-                        <span class="review-value">{{ signupForm.value.firstName }}</span>
+
+                    <!-- Program Details Section -->
+                    <div class="review-section-box mb-4">
+                      <div class="review-section-header">
+                        <h3 class="review-section-title">Program Details</h3>
+                        <button type="button" class="edit-section-btn" (click)="goToStep(2)">Edit</button>
                       </div>
-                      <div class="review-item">
-                        <span class="review-label">Last Name</span>
-                        <span class="review-value">{{ signupForm.value.lastName }}</span>
-                      </div>
-                      <div class="review-item">
-                        <span class="review-label">Phone Number</span>
-                        <span class="review-value">+1 {{ signupForm.value.phone }}</span>
-                      </div>
-                      <div class="review-item">
-                        <span class="review-label">Email Address</span>
-                        <span class="review-value">{{ signupForm.value.email }}</span>
+                      <div class="review-grid">
+                        <div class="review-item">
+                          <span class="review-label">Subject / Focus Area</span>
+                          <span class="review-value">{{ signupForm.value.subject }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Academy</span>
+                          <span class="review-value">{{ signupForm.value.academy }}</span>
+                        </div>
+                        <div class="review-item">
+                          <span class="review-label">Grade Level</span>
+                          <span class="review-value">{{ signupForm.value.gradeLevel }}</span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
-                  <!-- Student Info Section -->
-                  <div class="review-section-box mb-4">
-                    <div class="review-section-header">
-                      <h3 class="review-section-title">Student Information</h3>
-                      <button type="button" class="edit-section-btn" (click)="goToStep(2)">Edit</button>
-                    </div>
-
-                    <div *ngFor="let student of signupForm.value.students; let i = index" class="review-student-item"
-                      [ngClass]="{ 'border-top pt-3 mt-3': i > 0 }">
-                      <h4 class="student-section-title mb-3" style="font-size: 13px; color: #FC800A;">Student #{{ i + 1
-                        }}</h4>
+                  <!-- Regular Parent Review Sections -->
+                  <div *ngIf="!isTutoringRole">
+                    <!-- Parent Info Section -->
+                    <div class="review-section-box mb-4">
+                      <div class="review-section-header">
+                        <h3 class="review-section-title">Parent Information</h3>
+                        <button type="button" class="edit-section-btn" (click)="goToStep(1)">Edit</button>
+                      </div>
                       <div class="review-grid">
                         <div class="review-item">
                           <span class="review-label">First Name</span>
-                          <span class="review-value">{{ student.firstName }}</span>
+                          <span class="review-value">{{ signupForm.value.firstName }}</span>
                         </div>
                         <div class="review-item">
                           <span class="review-label">Last Name</span>
-                          <span class="review-value">{{ student.lastName }}</span>
+                          <span class="review-value">{{ signupForm.value.lastName }}</span>
                         </div>
                         <div class="review-item">
-                          <span class="review-label">Date of Birth</span>
-                          <span class="review-value">{{ student.dob | date:'dd MMMM yyyy' }}</span>
-                        </div>
-                        <div class="review-item">
-                          <span class="review-label">Grade Level</span>
-                          <span class="review-value">{{ student.gradeLevel }}</span>
-                        </div>
-                        <div class="review-item">
-                          <span class="review-label">Academy</span>
-                          <span class="review-value">{{ student.academy }}</span>
+                          <span class="review-label">Phone Number</span>
+                          <span class="review-value">{{ signupForm.value.countryCode || '+1' }} {{
+                            signupForm.value.phone }}</span>
                         </div>
                         <div class="review-item">
                           <span class="review-label">Email Address</span>
-                          <span class="review-value">{{ student.email }}</span>
+                          <span class="review-value">{{ signupForm.value.email }}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Student Info Section -->
+                    <div class="review-section-box mb-4">
+                      <div class="review-section-header">
+                        <h3 class="review-section-title">Student Information</h3>
+                        <button type="button" class="edit-section-btn" (click)="goToStep(2)">Edit</button>
+                      </div>
+                      <div *ngFor="let student of signupForm.value.students; let i = index" class="review-student-item"
+                        [ngClass]="{'border-top pt-3 mt-3': i > 0}">
+                        <h4 class="student-section-title mb-3" style="font-size:13px;color:#FC800A;">Student #{{ i + 1
+                          }}</h4>
+                        <div class="review-grid">
+                          <div class="review-item"><span class="review-label">First Name</span><span
+                              class="review-value">{{ student.firstName }}</span></div>
+                          <div class="review-item"><span class="review-label">Last Name</span><span
+                              class="review-value">{{ student.lastName }}</span></div>
+                          <div class="review-item"><span class="review-label">Date of Birth</span><span
+                              class="review-value">{{ student.dob | date:'dd MMMM yyyy' }}</span></div>
+                          <div class="review-item"><span class="review-label">Grade Level</span><span
+                              class="review-value">{{ student.gradeLevel }}</span></div>
+                          <div class="review-item"><span class="review-label">Academy</span><span
+                              class="review-value">{{ student.academy }}</span></div>
+                          <div class="review-item"><span class="review-label">Email</span><span class="review-value">{{
+                              student.email }}</span></div>
                         </div>
                       </div>
                     </div>
@@ -357,7 +552,6 @@
                             Policy</a> and <a class="terms-link">Terms & Conditions</a>.
                         </span>
                       </div>
-
                     </label>
                     <div *ngIf="f['agreeToTerms'].invalid && submitted" class="error-msg">
                       <span><i class="fa-solid fa-circle-info me-1"></i> You must agree to the terms to submit.</span>
@@ -379,8 +573,10 @@
                       </span>
                     </button>
                     <p class="review-hint-text text-center mt-3">
-                      After submission, your application will be reviewed. Admission confirmation and login details will
-                      be shared with the parent.
+                      {{ isTutoringRole
+                      ? 'After submission, your tutoring account will be registered and credentials ready for login.'
+                      : 'After submission, your application will be reviewed. Admission confirmation and login details
+                      will be shared with the parent.' }}
                     </p>
                   </div>
 
@@ -396,35 +592,84 @@
                   <i class="fa-solid fa-check"></i>
                 </div>
 
-                <h2 class="success-title mb-2">Application Submitted Successfully</h2>
-                <p class="success-subtitle mb-4">Your application has been received and is currently under review.</p>
+                <h2 class="success-title mb-2">{{ isTutoringRole ? 'Registration Successful' : 'Application Submitted
+                  Successfully' }}</h2>
+                <p class="success-subtitle mb-4">
+                  {{ isTutoringRole ? 'Your tutoring account has been created successfully.' : 'Your application has
+                  been received and is currently under review.' }}
+                </p>
 
                 <!-- Highlight peach card -->
                 <div class="success-details-card">
                   <p class="success-details-text mb-3">
-                    Once approved, login credentials will be sent to your registered email address. Approval may take
-                    1–2 business days.
+                    {{ isTutoringRole
+                    ? 'You can now log in using your registered email address and password to access your personalized
+                    tutoring dashboard.'
+                    :
+                    'Once approved, login credentials will be sent to your registered email address. Approval may take
+                    1–2 business days.' }}
                   </p>
                   <div class="success-confirmation-badge">
-                    <i class="fa-regular fa-envelope me-2"></i> Confirmation sent to: {{ signupForm.value.email }}
+                    <i class="fa-regular fa-envelope me-2"></i> Confirmation sent to: {{ isTutoringRole ?
+                    signupForm.value.learnerEmail : signupForm.value.email }}
                   </div>
+                </div>
+
+                <!-- Sign In Redirection Button -->
+                <div class="auth-card-footer border-top pt-4 mt-4 text-center">
+                  <a [routerLink]="['/login']" [queryParams]="isTutoringRole ? { tab: 'tutoring' } : {}"
+                    class="auth-btn-primary px-5">
+                    Proceed to Log In
+                  </a>
                 </div>
 
               </div>
 
             </div>
           </div>
-
-          <!-- Sign In Redirection (Hidden on Success Step) -->
-          <div *ngIf="currentStep < 4" class="auth-footer mt-4 text-center">
-            Already have an account? <a routerLink="/login" class="auth-link">Log In</a>
-          </div>
-
         </div>
 
       </div>
 
     </div>
 
+  </div>
+</div>
+
+<!-- ================= MODAL: ACCOUNT ALREADY EXISTS ================= -->
+<div class="modal fade show d-block" *ngIf="showDuplicateEmailModal" tabindex="-1"
+  style="background: rgba(0,0,0,0.6); z-index: 1060; backdrop-filter: blur(4px);">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
+    <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden text-center p-4">
+
+      <!-- Warning Icon Circle -->
+      <div class="mx-auto mb-3 rounded-circle d-flex align-items-center justify-content-center"
+        style="width: 76px; height: 76px; background-color: #FFF3E0; color: #FC800A;">
+        <i class="fa-solid fa-user-xmark fs-2"></i>
+      </div>
+
+      <!-- Title -->
+      <h4 class="fw-bold text-dark mb-2">Account Already Registered</h4>
+
+      <!-- Description -->
+      <p class="text-muted small mb-4" style="line-height: 1.6;">
+        An account associated with <strong class="text-dark">{{ duplicateEmailAddress }}</strong> already exists in our
+        system.
+        Please sign in directly or use another email address to register.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="d-flex flex-column gap-2">
+        <a [routerLink]="['/login']" [queryParams]="isTutoringRole ? { tab: 'tutoring' } : {}"
+          class="btn btn-warning text-white fw-bold py-2 rounded-pill shadow-sm d-flex align-items-center justify-content-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Login to Existing Account
+        </a>
+        <button type="button" class="btn btn-light border py-2 rounded-pill text-dark fw-medium"
+          (click)="closeDuplicateModalAndEditEmail()">
+          <i class="fa-solid fa-pen-to-square me-1"></i> Edit Email Address
+        </button>
+      </div>
+
+    </div>
   </div>
 </div>

@@ -11,20 +11,88 @@
 
           <!-- Role Cards Grid -->
           <div class="role-cards-container">
-            <!-- Student Role Card -->
-            <div class="role-card" [class.selected]="selectedRole === 'teacher'" (click)="selectRole('teacher')">
-              <div class="role-image-container">
-                <img src="assets/img/image 16.png" alt="Student" class="role-img" />
-              </div>
-              <h3 class="role-card-label">Teacher</h3>
-            </div>
-
             <!-- Parent Role Card -->
             <div class="role-card" [class.selected]="selectedRole === 'parent'" (click)="selectRole('parent')">
               <div class="role-image-container">
                 <img src="assets/img/image 17.png" alt="Parent" class="role-img" />
               </div>
               <h3 class="role-card-label">Parent</h3>
+              <p class="text-muted small text-center mb-0 mt-1">Enroll your child in PK-4 Virtual School</p>
+            </div>
+
+            <!-- Teacher Role Card -->
+            <div class="role-card" [class.selected]="selectedRole === 'teacher'" (click)="selectRole('teacher')">
+              <div class="role-image-container">
+                <img src="assets/img/image 16.png" alt="Teacher" class="role-img" />
+              </div>
+              <h3 class="role-card-label">Teacher</h3>
+              <p class="text-muted small text-center mb-0 mt-1">Apply or register as an educator</p>
+            </div>
+
+            <!-- Tutoring Role Card -->
+            <div class="role-card" [class.selected]="selectedRole === 'tutoring'" (click)="selectRole('tutoring')">
+              <div class="role-image-container">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 220" class="role-img" style="max-height:190px;">
+                  <!-- Body -->
+                  <ellipse cx="100" cy="210" rx="45" ry="7" fill="#e8e0d8" opacity="0.5"/>
+                  <!-- Legs -->
+                  <rect x="82" y="160" width="14" height="42" rx="7" fill="#4a6fa5"/>
+                  <rect x="104" y="160" width="14" height="42" rx="7" fill="#4a6fa5"/>
+                  <!-- Shoes -->
+                  <ellipse cx="89" cy="202" rx="10" ry="5" fill="#2c2c2c"/>
+                  <ellipse cx="111" cy="202" rx="10" ry="5" fill="#2c2c2c"/>
+                  <!-- Torso -->
+                  <rect x="74" y="105" width="52" height="62" rx="14" fill="#f5a623"/>
+                  <!-- Collar -->
+                  <path d="M94 105 Q100 115 106 105" stroke="#fff" stroke-width="2" fill="none"/>
+                  <!-- Left arm -->
+                  <rect x="55" y="108" width="22" height="13" rx="6.5" fill="#f5a623"/>
+                  <!-- Right arm (holding pencil angle) -->
+                  <rect x="123" y="110" width="22" height="13" rx="6.5" fill="#f5a623" transform="rotate(-20 134 116)"/>
+                  <!-- Hand left -->
+                  <circle cx="58" cy="122" r="7" fill="#f9c9a0"/>
+                  <!-- Hand right / pencil hand -->
+                  <circle cx="142" cy="118" r="7" fill="#f9c9a0"/>
+                  <!-- Pencil -->
+                  <rect x="146" y="96" width="8" height="30" rx="2" fill="#FFD600" transform="rotate(30 150 111)"/>
+                  <polygon points="152,82 156,82 154,74" fill="#f97c3a" transform="rotate(30 154 78)"/>
+                  <rect x="146" y="94" width="8" height="5" rx="1" fill="#e8b84b" transform="rotate(30 150 96)"/>
+                  <!-- Neck -->
+                  <rect x="93" y="90" width="14" height="18" rx="7" fill="#f9c9a0"/>
+                  <!-- Head -->
+                  <ellipse cx="100" cy="72" rx="28" ry="28" fill="#f9c9a0"/>
+                  <!-- Hair -->
+                  <path d="M72 65 Q72 38 100 40 Q128 38 128 65 Q120 50 100 52 Q80 50 72 65Z" fill="#6b3f2a"/>
+                  <path d="M72 65 Q68 75 72 80 Q72 70 76 67Z" fill="#6b3f2a"/>
+                  <!-- Eyes -->
+                  <ellipse cx="90" cy="72" rx="4" ry="4.5" fill="#fff"/>
+                  <ellipse cx="110" cy="72" rx="4" ry="4.5" fill="#fff"/>
+                  <circle cx="91" cy="73" r="2.5" fill="#3a2a1a"/>
+                  <circle cx="111" cy="73" r="2.5" fill="#3a2a1a"/>
+                  <circle cx="92" cy="72" r="1" fill="#fff"/>
+                  <circle cx="112" cy="72" r="1" fill="#fff"/>
+                  <!-- Smile -->
+                  <path d="M93 82 Q100 89 107 82" stroke="#c87941" stroke-width="2" fill="none" stroke-linecap="round"/>
+                  <!-- Blush -->
+                  <ellipse cx="82" cy="80" rx="6" ry="3.5" fill="#f7b8a0" opacity="0.6"/>
+                  <ellipse cx="118" cy="80" rx="6" ry="3.5" fill="#f7b8a0" opacity="0.6"/>
+                  <!-- Book -->
+                  <rect x="30" y="148" width="60" height="38" rx="5" fill="#4a90d9"/>
+                  <line x1="60" y1="148" x2="60" y2="186" stroke="#fff" stroke-width="2.5"/>
+                  <line x1="37" y1="158" x2="56" y2="158" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+                  <line x1="37" y1="164" x2="56" y2="164" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+                  <line x1="37" y1="170" x2="56" y2="170" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+                  <line x1="63" y1="158" x2="84" y2="158" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+                  <line x1="63" y1="164" x2="84" y2="164" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+                  <line x1="63" y1="170" x2="84" y2="170" stroke="#fff" stroke-width="1.5" opacity="0.7"/>
+                  <!-- Stars/sparkles -->
+                  <text x="150" y="65" font-size="14" fill="#f5a623" opacity="0.8">★</text>
+                  <text x="30" y="130" font-size="10" fill="#4a90d9" opacity="0.7">✦</text>
+                  <text x="165" y="140" font-size="9" fill="#f5a623" opacity="0.6">✦</text>
+                </svg>
+              </div>
+              <h3 class="role-card-label">Tutoring</h3>
+              <p class="text-muted small text-center mb-0 mt-1">Adult & Child 1-on-1 Math/English</p>
             </div>
           </div>
 

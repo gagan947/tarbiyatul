@@ -32,11 +32,13 @@ export class TeacherAssignmentsComponent implements OnInit, OnDestroy {
   imageBaseUrl = environment.imageBaseUrl;
 
   gradeOptions: string[] = [
+    'Pre-K',
     'Kindergarten',
     '1st Grade',
     '2nd Grade',
     '3rd Grade',
-    '4th Grade'
+    '4th Grade',
+    'Adult Learner / Tutoring'
   ];
 
   private searchSubject = new Subject<string>();

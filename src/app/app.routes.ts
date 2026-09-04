@@ -10,12 +10,14 @@ export const routes: Routes = [
   { path: 'self_paced_learning', loadComponent: () => import('./component/self-paced/self-paced.component').then(m => m.SelfPacedComponent) },
   { path: 'weekend_school', loadComponent: () => import('./component/weekend-school/weekend-school.component').then(m => m.WeekendSchoolComponent) },
   { path: 'admissionProcess', loadComponent: () => import('./component/admission-process/admission-process.component').then(m => m.AdmissionProcessComponent) },
+  { path: 'forms', loadComponent: () => import('./component/forms/forms.component').then(m => m.FormsComponent) },
   { path: 'fee', loadComponent: () => import('./component/fee/fee.component').then(m => m.FeeComponent) },
   { path: 'calendar', loadComponent: () => import('./component/calendar/calendar.component').then(m => m.CalendarComponent) },
   { path: 'login', loadComponent: () => import('./component/auth/login/login.component').then(m => m.LoginComponent) },
   { path: 'choose-role', loadComponent: () => import('./component/auth/choose-role/choose-role.component').then(m => m.ChooseRoleComponent) },
   { path: 'contact', loadComponent: () => import('./component/contact-us/contact-us.component').then(m => m.ContactUsComponent) },
   { path: 'tech_support', loadComponent: () => import('./component/tech-support/tech-support.component').then(m => m.TechSupportComponent) },
+  { path: 'support', loadComponent: () => import('./component/tech-support/tech-support.component').then(m => m.TechSupportComponent) },
   { path: 'privacy_policy', loadComponent: () => import('./component/privacy-policy/privacy-policy.component').then(m => m.PrivacyPolicyComponent) },
   { path: 'employment', loadComponent: () => import('./component/employment/employment.component').then(m => m.EmploymentComponent) },
   { path: 'faq', loadComponent: () => import('./component/faqs/faqs.component').then(m => m.FaqsComponent) },
@@ -28,6 +30,7 @@ export const routes: Routes = [
   { path: 'student_handbook', loadComponent: () => import('./component/student-handbook/student-handbook.component').then(m => m.StudentHandbookComponent) },
   { path: 'summerschool', loadComponent: () => import('./component/summer-school/summer-school.component').then(m => m.SummerSchoolComponent) },
   { path: 'curriculum', loadComponent: () => import('./component/curriculum/curriculum.component').then(m => m.CurriculumComponent) },
+  { path: 'tutoring-dashboard', loadComponent: () => import('./component/tutoring-dashboard/tutoring-dashboard.component').then(m => m.TutoringDashboardComponent) },
   { path: 'create-password', canActivate: [createPasswordGuard], loadComponent: () => import('./component/auth/create-password/create-password.component').then(m => m.CreatePasswordComponent) },
   {
     path: 'student',
@@ -44,7 +47,8 @@ export const routes: Routes = [
       { path: 'change-password', loadComponent: () => import('./component/student-portel/std-change-password/std-change-password.component').then(m => m.StdChangePasswordComponent) },
       { path: 'edit-profile', loadComponent: () => import('./component/student-portel/std-edit-profile/std-edit-profile.component').then(m => m.StdEditProfileComponent) },
       { path: 'my-profile', loadComponent: () => import('./component/student-portel/std-my-profile/std-my-profile.component').then(m => m.StdMyProfileComponent) },
-      { path: 'calendar', loadComponent: () => import('./component/student-portel/std-calendar/std-calendar.component').then(m => m.StdCalendarComponent) }
+      { path: 'calendar', loadComponent: () => import('./component/student-portel/std-calendar/std-calendar.component').then(m => m.StdCalendarComponent) },
+      { path: 'support', loadComponent: () => import('./component/parent-portal/parent-support/parent-support.component').then(m => m.ParentSupportComponent) }
     ]
   },
   {
@@ -61,6 +65,7 @@ export const routes: Routes = [
       { path: 'edit-profile', loadComponent: () => import('./component/parent-portal/parent-edit-profile/parent-edit-profile.component').then(m => m.ParentEditProfileComponent) },
       { path: 'change-password', loadComponent: () => import('./component/parent-portal/parent-change-password/parent-change-password.component').then(m => m.ParentChangePasswordComponent) },
       { path: 'calendar', loadComponent: () => import('./component/parent-portal/parent-calendar/parent-calendar.component').then(m => m.ParentCalendarComponent) },
+      { path: 'support', loadComponent: () => import('./component/parent-portal/parent-support/parent-support.component').then(m => m.ParentSupportComponent) },
       { path: 'message-teacher', loadComponent: () => import('./component/parent-portal/parent-messages/parent-messages.component').then(m => m.ParentMessagesComponent) }
     ]
   },
@@ -80,6 +85,7 @@ export const routes: Routes = [
       { path: 'students/:id', loadComponent: () => import('./component/teacher-portal/teacher-student-details/teacher-student-details.component').then(m => m.TeacherStudentDetailsComponent) },
       { path: 'message-teacher', loadComponent: () => import('./component/teacher-portal/teacher-messages/teacher-messages.component').then(m => m.TeacherMessagesComponent) },
       { path: 'calendar', loadComponent: () => import('./component/teacher-portal/teacher-calendar/teacher-calendar.component').then(m => m.TeacherCalendarComponent) },
+      { path: 'support', loadComponent: () => import('./component/parent-portal/parent-support/parent-support.component').then(m => m.ParentSupportComponent) },
       { path: 'edit-profile', loadComponent: () => import('./component/teacher-portal/teacher-edit-profile/teacher-edit-profile.component').then(m => m.TeacherEditProfileComponent) },
       { path: 'change-password', loadComponent: () => import('./component/teacher-portal/teacher-change-password/teacher-change-password.component').then(m => m.TeacherChangePasswordComponent) }
     ]

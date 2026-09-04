@@ -40,9 +40,47 @@
       </button>
     </div>
 
-    <!-- Sections of Resources -->
+    <!-- ESSENTIAL CLASSROOM & LIVE LEARNING TOOLS S -->
+    <div class="resource-section-block mb-4">
+      <h3 class="section-category-title">
+        <i class="fa-solid fa-video me-2 text-primary"></i>
+        Virtual Classroom & Learning Portals
+      </h3>
+      <div class="resources-grid">
+        <!-- Google Classroom -->
+        <div class="resource-card portal-card border border-2 border-primary-subtle" style="background: #F0FDF4;">
+          <div class="card-top-header">
+            <div class="resource-logo-box bg-white p-2 rounded-3 shadow-sm d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+              <i class="fa-solid fa-chalkboard-user text-success fs-3"></i>
+            </div>
+            <a href="https://classroom.google.com/" target="_blank" class="external-link-icon" aria-label="Open Google Classroom">
+              <i class="fa-solid fa-arrow-up-right-from-square text-success"></i>
+            </a>
+          </div>
+          <a href="https://classroom.google.com/" target="_blank" class="text-decoration-none">
+            <h4 class="resource-card-name text-dark fw-bold">Google Classroom</h4>
+          </a>
+          <p class="resource-card-desc text-muted">Access class announcements, digital assignments, teacher notes, and learning materials.</p>
+        </div>
 
-    <!-- MATHEMATICS SECTION -->
+        <!-- Zoom -->
+        <div class="resource-card portal-card border border-2 border-info-subtle" style="background: #EFF6FF;">
+          <div class="card-top-header">
+            <div class="resource-logo-box bg-white p-2 rounded-3 shadow-sm d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+              <i class="fa-solid fa-video text-primary fs-3"></i>
+            </div>
+            <a href="https://zoom.us/" target="_blank" class="external-link-icon" aria-label="Open Zoom">
+              <i class="fa-solid fa-arrow-up-right-from-square text-primary"></i>
+            </a>
+          </div>
+          <a href="https://zoom.us/" target="_blank" class="text-decoration-none">
+            <h4 class="resource-card-name text-dark fw-bold">Zoom Meeting</h4>
+          </a>
+          <p class="resource-card-desc text-muted">Join real-time live virtual interactive classes, morning assemblies, and teacher office hours.</p>
+        </div>
+      </div>
+    </div>
+    <!-- ESSENTIAL CLASSROOM & LIVE LEARNING TOOLS E -->
     <div
       class="resource-section-block"
       *ngIf="selectedFilter === 'All' || selectedFilter === 'Mathematics'"

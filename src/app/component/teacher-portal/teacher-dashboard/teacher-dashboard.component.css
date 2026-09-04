@@ -1,264 +1,379 @@
-/* Force rebuild teacher dashboard */
-h1, h2, h3, h4, h5, h6{
-   font-family: "Inter", sans-serif;
+/* Teacher Dashboard Component Styles */
+* {
+  box-sizing: border-box;
 }
-.dash-banner {
-  background-color: #171E45;
-  border-radius: 16px;
+
+.profile-container {
+  font-family: 'Inter', sans-serif;
 }
-.dash-banner h3{
-  font-size: 18px;
-  font-family: 'Inter',sans-serif;
-  font-weight: 500;
+
+/* Primary Action Button */
+.btn-primary-custom {
+  background-color: #FC800A;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(252, 128, 10, 0.15);
 }
-.dash-avatar-wrapper {
-  width: 40px;
-  height: 40px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+
+.btn-primary-custom:hover {
+  background-color: #E27208;
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(252, 128, 10, 0.25);
 }
+
+/* Stats Cards */
+.dash-card-shadow {
+  border: 1px solid #F3EDE6 !important;
+  border-radius: 18px !important;
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02) !important;
+  transition: all 0.25s ease;
+}
+
+.dash-card-shadow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(252, 128, 10, 0.08) !important;
+  border-color: #FED7AA !important;
+}
+
 .dashboard-card {
-  background-color: #fff;
-  padding: 24px;
-  border-radius: 20px;
+  padding: 22px;
   display: flex;
   gap: 16px;
   align-items: center;
 }
-.dash-banner-title {
-  font-size: 24px;
-    font-family: 'Inter',sans-serif;
-}
 
-.dash-progress-track {
-  height: 12px;
-  border-radius: 6px;
-}
-
-.dash-progress-bar {
-  background-color: #F68B1F;
-  border-radius: 6px;
-}
-
-.dash-progress-text {
-  font-size: 13px;
-}
-
-.dash-score-value {
-  font-size: 35px;
-  line-height: 1;
-  font-family: 'Inter',sans-serif;
-}
-
-/* Stats Cards */
-.dash-card-borderless {
-  border: none;
-  border-radius: 16px;
-}
-
-.dash-card-shadow {
-  border: none;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-}
-
-.dash-card-purple {
-  background-color: #EDEFFF;
-}
-
-.dash-icon-wrapper-purple {
-  background-color: rgba(139, 149, 255, 0.2);
-
-}
-
-.dash-card-blue {
-  background-color: #EEF8FA;
-}
-
-.dash-icon-wrapper-blue {
-  background-color:#0266FF1A;
-}
-
-
-.dash-card-orange {
-  background-color: #FFF2E5;
-}
-
-
-.dash-icon-main{
-  width: 40px;
-  height: 40px;
+.dash-icon-main {
+  width: 52px;
+  height: 52px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 12px;
+  border-radius: 14px;
   flex-shrink: 0;
 }
+
 .dash-icon-wrapper-orange {
-  background-color: #FF922812;
-
-
-}
-
-.dash-card-green {
-  background-color: #EEFBE5;
+  background-color: #FFF7ED;
 }
 
 .dash-icon-wrapper-green {
-  background-color:#03B67E1A;
- 
+  background-color: #ECFDF5;
+}
 
+.dash-icon-wrapper-blue {
+  background-color: #EFF6FF;
+}
+
+.dash-icon-wrapper-amber {
+  background-color: #FEF3C7;
+}
+
+.dash-stat-text-col {
+  display: flex;
+  flex-direction: column;
 }
 
 .dash-stat-value {
   font-size: 26px;
-  color: #000;
-  font-family: "Inter",sans-serif;
-  font-weight: 600;
+  color: #171E45;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .dash-stat-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #6B7280;
+  margin-top: 2px;
+}
+
+/* Tool Section */
+.tool-title-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background-color: #FFF7ED;
+  color: #FC800A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 16px;
+}
+
+.badge-quick-launch {
+  background-color: #FFF7ED;
+  color: #FC800A;
+  border: 1px solid #FED7AA;
+  padding: 5px 14px;
+  font-size: 12px;
   font-weight: 600;
+  border-radius: 20px;
+}
+
+.tool-card {
+  padding: 16px 18px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.tool-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.05);
+}
+
+.tool-card-green {
+  background-color: #F0FDF4;
+  border-color: #BBF7D0;
+}
+
+.tool-card-green:hover {
+  background-color: #DCFCE7;
+  border-color: #86EFAC;
+}
+
+.tool-card-blue {
+  background-color: #EFF6FF;
+  border-color: #BFDBFE;
+}
+
+.tool-card-blue:hover {
+  background-color: #DBEAFE;
+  border-color: #93C5FD;
+}
+
+.tool-card-red {
+  background-color: #FEF2F2;
+  border-color: #FECACA;
+}
+
+.tool-card-red:hover {
+  background-color: #FEE2E2;
+  border-color: #FCA5A5;
+}
+
+.tool-icon-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.tool-icon-green {
+  color: #10B981;
+}
+
+.tool-icon-blue {
+  color: #3B82F6;
+}
+
+.tool-icon-red {
+  color: #EF4444;
+}
+
+.tool-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.tool-name {
+  color: #171E45;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.tool-desc {
+  color: #6B7280;
+  font-size: 12px;
+}
+
+.tool-arrow {
+  color: #9CA3AF;
+  font-size: 13px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.tool-card:hover .tool-arrow {
+  transform: translate(2px, -2px);
+  color: #171E45;
 }
 
 /* Recent Assignments */
-.dash-section-title {
-  font-size: 18px;
-  font-weight: 600;
-  font-family: 'Inter',sans-serif;
-}
-
 .dash-link-orange {
   color: #FC800A;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.dash-link-orange:hover {
+  color: #E27208;
+  text-decoration: underline !important;
 }
 
 .dash-table {
   color: #1A1F45;
 }
 
-
-
-.dash-book-cover {
-  width: 32px;
-  height: 42px;
-  object-fit: cover;
-  border-radius: 4px;
+.dash-table thead th {
+  background-color: #FAF8F5;
+  color: #6B7280;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #EFEAE4;
 }
 
-.dash-table-td-text {
+.dash-table tbody td {
+  padding: 16px;
+  vertical-align: middle;
+  border-bottom: 1px solid #F3EDE6;
   font-size: 14px;
+}
+
+.dash-book-cover {
+  width: 44px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #EFEAE4;
+  transition: all 0.2s ease;
+}
+
+.dash-book-cover:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.book-title-cell {
+  font-weight: 600;
+  color: #171E45;
+  font-size: 14px;
+}
+
+.reading-desc-cell {
+  color: #4B5563;
+  font-size: 13px;
+  max-width: 240px;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.grade-cell {
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.due-date-cell {
+  font-size: 13px;
+  color: #4B5563;
+  font-weight: 500;
   white-space: nowrap;
 }
 
-.dash-table-td-score {
-  color: #3B82F6;
-  font-size: 14px;
-}
-
-.dash-table-border-top {
-  border-color: #F8F9FA !important;
-}
-
-.dash-badge-completed {
-  background-color: #DCFCE7;
-  color: #15803D;
+/* Subject Badges */
+.subject-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 12px;
   font-weight: 600;
-  padding: 10px 16px;
-  font-size: 12px;
   display: inline-block;
-  border-radius: 6px;
-    border: 1px solid #15803D;
+  white-space: nowrap;
 }
 
-.dash-badge-progress {
-  background-color: #FFFCEB;
-  color: #FFD900;
-    font-weight: 600;
-  padding: 10px 16px;
+.badge-subject-green {
+  background-color: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+}
+
+.badge-subject-blue {
+  background-color: #EFF6FF;
+  color: #2563EB;
+  border: 1px solid #BFDBFE;
+}
+
+.badge-subject-purple {
+  background-color: #FAF5FF;
+  color: #7E22CE;
+  border: 1px solid #E9D5FF;
+}
+
+.badge-subject-orange {
+  background-color: #FFF7ED;
+  color: #EA580C;
+  border: 1px solid #FED7AA;
+}
+
+.badge-subject-default {
+  background-color: #F3F4F6;
+  color: #4B5563;
+  border: 1px solid #E5E7EB;
+}
+
+/* Action Button */
+.btn-view-action {
+  background-color: #FFF7ED;
+  color: #FC800A;
+  border: 1px solid #FED7AA;
+  padding: 6px 14px;
+  border-radius: 8px;
   font-size: 12px;
-  border: 1px solid #FFD900;
-  display: inline-block;
-  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
-.dash-badge-overdue {
-  background-color: #FFE6E6;
-  color: #FF1A1A;
-   font-weight: 600;
-  padding: 10px 16px;
-  font-size: 12px;
-  display: inline-block;
-  border-radius: 6px;
-  border: 1px solid #FF1A1A;
+.btn-view-action:hover {
+  background-color: #FC800A;
+  color: #ffffff;
+  border-color: #FC800A;
+  box-shadow: 0 2px 8px rgba(252, 128, 10, 0.2);
 }
 
-.dash-badge-notstarted {
-  background-color: #E6E6E6B2;
-  color: #6F767E;
-   font-weight: 600;
-  padding: 10px 16px;
-  font-size: 12px;
-  display: inline-block;
-  border-radius: 6px;
-  border: 1px solid #6F767E;
+/* Modal Styling */
+.preview-img-wrapper {
+  background-color: #F9FAFB;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .dashboard-card {
+    padding: 16px;
+  }
 
-/* Upcoming Events */
-.dash-event-icon-box {
-  min-width: 24px;
+  .dash-stat-value {
+    font-size: 22px;
+  }
+
+  .reading-desc-cell {
+    max-width: 150px;
+  }
 }
-
-.dash-event-title {
-  font-size: 14px;
-  font-family: 'Inter',sans-serif;
-}
-
-.dash-event-meta {
-  font-size: 13px;
-}
-
-/* Quick Actions */
-.dash-quick-title {
-  font-size: 16px;
-  font-family: 'Inter',sans-serif;
-}
-
-.dash-quick-icon-bg {
-  width: 32px;
-  height: 32px;
-  background-color: #F8F9FA;
-}
-
-.dash-quick-icon {
-  font-size: 12px;
-}
-
-.dash-quick-text {
-  font-size: 13px;
-}
-
-/* Amount Due */
-.dash-amount-label {
-  font-size: 16px;
-  color: #1F2937;
-  font-family: 'Inter',sans-serif;
-  letter-spacing: 0.5px;
-}
-
-.dash-amount-value {
-  color: #FF6B00;
-   font-family: 'Inter',sans-serif;
-  font-size: 24px;
-}
-
-
-
-/* table */
-.ct_text_dark{
-  color: #000;
-}
-
-
-

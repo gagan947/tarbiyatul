@@ -10,21 +10,23 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './choose-role.component.css'
 })
 export class ChooseRoleComponent implements OnInit {
-  selectedRole: 'teacher' | 'parent' = 'teacher';
+  selectedRole: 'parent' | 'teacher' | 'tutoring' = 'parent';
 
   constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
-  selectRole(role: 'teacher' | 'parent'): void {
+  selectRole(role: 'parent' | 'teacher' | 'tutoring'): void {
     this.selectedRole = role;
   }
 
   onContinue(): void {
     if (this.selectedRole === 'teacher') {
       this.router.navigate(['/signup-teacher']);
+    } else if (this.selectedRole === 'tutoring') {
+      this.router.navigate(['/signup'], { queryParams: { role: 'tutoring' } });
     } else {
-      this.router.navigate(['/signup']);
+      this.router.navigate(['/signup'], { queryParams: { role: 'parent' } });
     }
   }
 }

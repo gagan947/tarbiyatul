@@ -1,0 +1,154 @@
+<section class="ct_inner_bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" data-aos="fade-down" data-aos-duration="1000">
+        <h2 class="ct_fs_60 text-white">Official Academy Forms</h2>
+        <p class="text-white-50 ct_fs_18 mb-0">Downloadable PDF forms for student admissions, tuition agreements, and
+          health reports.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ct_scene_bg ct_py_60 ct_pb_150">
+  <div class="container">
+    <!-- Header Controls -->
+    <div class="row align-items-center g-3 mb-5" data-aos="fade-down" data-aos-duration="1000">
+      <div class="col-xl-5 col-lg-5 mb-2 mb-lg-0">
+        <div class="position-relative">
+          <input type="text" class="form-control rounded-pill ps-5 pe-4 border-0 shadow-sm search-input"
+            placeholder="Search forms by name or keywords..." [(ngModel)]="searchQuery">
+          <i
+            class="fa-solid fa-magnifying-glass position-absolute top-50 start-0 translate-middle-y ms-4 text-muted fs-6"></i>
+          <button *ngIf="searchQuery" 
+                  type="button" 
+                  class="btn btn-link position-absolute top-50 end-0 translate-middle-y me-3 text-muted p-0 text-decoration-none"
+                  (click)="searchQuery = ''" 
+                  aria-label="Clear search">
+            <i class="fa-solid fa-circle-xmark fs-6"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-xl-7 col-lg-7">
+        <div class="category-filters-wrapper d-flex justify-content-start justify-content-lg-end gap-2 align-items-center flex-wrap">
+          <button *ngFor="let cat of categories" 
+                  type="button"
+                  class="cat-filter-btn"
+                  [class.active]="selectedCategory === cat"
+                  (click)="selectedCategory = cat">
+            {{ cat }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-warning" role="status" style="width: 3rem; height: 3rem;">
+        <span class="visually-hidden">Loading forms...</span>
+      </div>
+      <p class="text-muted mt-3 ct_fs_16">Loading official academy forms...</p>
+    </div>
+
+    <!-- Forms Cards Grid -->
+    <div class="row g-4" *ngIf="!isLoading">
+      <div *ngFor="let form of filteredForms" class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-duration="1000">
+        <div class="card h-100 border-0 shadow-sm ct_border_radius_20 overflow-hidden form-card hover-lift">
+          <div class="card-body p-4 d-flex flex-column justify-content-between">
+            <div>
+              <div class="d-flex align-items-center justify-content-between mb-3">
+                <span class="badge bg-light text-dark border px-3 py-2 rounded-pill ct_fs_13">{{ form.category }}</span>
+              </div>
+              <div class="d-flex align-items-start gap-3 mb-3">
+                <div class="form-icon-box">
+                  <i class="fa-solid fs-2" [ngClass]="getCategoryIcon(form.category)"></i>
+                </div>
+                <div>
+                  <h4 class="ct_fs_20 ct_fw_600 text-dark mb-1">{{ form.title }}</h4>
+                  <p class="text-muted ct_fs_14 mb-0" style="line-height: 1.6;">{{ form.description }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-3 border-top mt-4 d-flex gap-2 align-items-center">
+              <button class="btn btn-outline-primary rounded-pill flex-grow-1 py-2 ct_fs_14 ct_fw_600"
+                (click)="openPreview(form)">
+                <i class="fa-solid fa-eye me-1"></i> Preview PDF
+              </button>
+              <button type="button"
+                class="card-download-btn"
+                (click)="downloadForm(form, $event)">
+                <i class="fa-solid fa-download me-1"></i> Download
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="filteredForms.length === 0" class="col-12 text-center py-5">
+        <div class="p-5 bg-white rounded-4 shadow-sm max-w-md mx-auto">
+          <i class="fa-solid fa-file-circle-exclamation text-muted display-4 mb-3"></i>
+          <h4 class="ct_fs_24 text-dark font-semibold">No Forms Found</h4>
+          <p class="text-muted">No forms match your current search criteria or category filter.</p>
+          <button class="btn btn-dark rounded-pill px-4" (click)="searchQuery = ''; selectedCategory = 'All'">Reset
+            Filters</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PDF PREVIEW MODAL -->
+<div *ngIf="showPreviewModal" class="modal fade show d-block" style="background: rgba(0,0,0,0.7); z-index: 9999;">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content ct_border_radius_20 border-0 shadow-lg overflow-hidden">
+      <div class="modal-header bg-light border-0 px-4 py-3 d-flex justify-content-between align-items-center">
+        <div>
+          <h5 class="modal-title ct_fs_20 ct_fw_700 text-dark mb-0">{{ previewForm?.title }}</h5>
+          <small class="text-muted">{{ previewForm?.fileName }} • {{ previewForm?.fileSize }}</small>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1-5" (click)="openInNewTab()">
+            <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open in New Tab
+          </button>
+          <button type="button" class="btn modal-download-btn btn-sm rounded-pill px-3 py-1-5"
+            (click)="downloadForm(previewForm)">
+            <i class="fa-solid fa-download me-1"></i> Download File
+          </button>
+          <button type="button" class="btn-close ms-2" (click)="closePreview()"></button>
+        </div>
+      </div>
+      <div class="modal-body p-0 position-relative d-flex align-items-center justify-content-center"
+        style="height: 75vh; background: #323639;">
+        <!-- Loading State -->
+        <div *ngIf="isPreviewLoading" class="text-center text-white py-5">
+          <div class="spinner-border text-warning mb-3" role="status" style="width: 3rem; height: 3rem;">
+            <span class="visually-hidden">Loading PDF preview...</span>
+          </div>
+          <p class="ct_fs_16 mb-0 text-white-50">Loading document preview...</p>
+        </div>
+
+        <!-- Fallback/Error State -->
+        <div *ngIf="previewError && !isPreviewLoading" class="text-center text-white p-4" style="max-width: 500px;">
+          <i class="fa-solid fa-file-circle-exclamation text-warning display-4 mb-3"></i>
+          <h5 class="ct_fs_20 ct_fw_600 text-white mb-2">Direct Preview Unavailable</h5>
+          <p class="text-white-50 ct_fs_14 mb-4">The server restrictions prevent embedding this PDF in an iframe. You
+            can open it in a new window or download it directly.</p>
+          <div class="d-flex justify-content-center gap-2">
+            <button type="button" class="btn btn-light rounded-pill px-4" (click)="openInNewTab()">
+              <i class="fa-solid fa-arrow-up-right-from-square me-1"></i> Open in New Tab
+            </button>
+            <button type="button" class="btn ct_orange_btn rounded-pill px-4" (click)="downloadForm(previewForm)">
+              <i class="fa-solid fa-download me-1"></i> Download File
+            </button>
+          </div>
+        </div>
+
+        <!-- Safe Blob PDF Frame -->
+        <iframe *ngIf="safePreviewUrl && !isPreviewLoading && !previewError" [src]="safePreviewUrl"
+          class="w-100 h-100 border-0" title="PDF Document Preview">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</div>

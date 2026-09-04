@@ -32,11 +32,13 @@ export class TeacherCreateAssignmentComponent implements OnInit {
   imageBaseUrl = environment.imageBaseUrl;
 
   gradeOptions: string[] = [
+    'Pre-K',
     'Kindergarten',
     '1st Grade',
     '2nd Grade',
     '3rd Grade',
     '4th Grade',
+    'Adult Learner / Tutoring'
   ];
 
   constructor(
@@ -56,9 +58,10 @@ export class TeacherCreateAssignmentComponent implements OnInit {
       if (profile && profile.data && profile.data.teacherProfile) {
         const teachingGrade = profile.data.teacherProfile.teachingGrade;
         if (teachingGrade) {
-          // Restrict grade options to only the grade they are teaching
-          this.gradeOptions = [teachingGrade];
-          if (!this.isEditMode) {
+          if (!this.gradeOptions.includes(teachingGrade)) {
+            this.gradeOptions.unshift(teachingGrade);
+          }
+          if (!this.isEditMode && !this.assignmentForm.get('grade_level')?.value) {
             this.assignmentForm.patchValue({
               grade_level: teachingGrade,
               target_grade: teachingGrade

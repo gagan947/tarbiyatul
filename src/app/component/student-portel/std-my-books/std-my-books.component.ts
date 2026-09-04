@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../../core/services/api.service';
 
 interface Book {
   title: string;
@@ -19,7 +20,40 @@ interface Book {
   templateUrl: './std-my-books.component.html',
   styleUrl: './std-my-books.component.css'
 })
-export class StdMyBooksComponent {
+export class StdMyBooksComponent implements OnInit {
+  isLoading = false;
+
+  constructor(private apiService: ApiService) {}
+
+  ngOnInit(): void {
+    this.fetchBooks();
+  }
+
+  fetchBooks(): void {
+    this.isLoading = true;
+    this.apiService.get<any>('student/books').subscribe({
+      next: (res) => {
+        this.isLoading = false;
+        const list = res?.data?.books || res?.data || res;
+        if (Array.isArray(list) && list.length > 0) {
+          this.books = list.map((b: any) => ({
+            title: b.title || b.book_title || 'Untitled Book',
+            category: b.category || b.subject || 'General',
+            grade: b.grade || b.gradeLevel || 'Grade 4',
+            coverImage: b.coverImage || b.book_cover_url || 'assets/img/book_1.png',
+            progress: b.progress !== undefined ? b.progress : 50,
+            currentPage: b.currentPage || 1,
+            totalPages: b.totalPages || 20,
+            status: b.status || 'Reading'
+          }));
+        }
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error('Error fetching student books:', err);
+      }
+    });
+  }
   books: Book[] = [
     {
       title: 'Stories of the Prophets',

@@ -30,11 +30,13 @@ export class ParentMyProfileComponent implements OnInit {
   submitted = false;
 
   gradeLevels: string[] = [
+    'Pre-K',
     'Kindergarten',
     '1st Grade',
     '2nd Grade',
     '3rd Grade',
-    '4th Grade'
+    '4th Grade',
+    'Adult Learner / Tutoring'
   ];
 
   academies: string[] = [

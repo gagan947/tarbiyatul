@@ -2,8 +2,9 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ApiService } from '../../core/services/api.service';
-import { ToastService } from '../../core/services/toast.service';
+import { ApiService } from '../../../core/services/api.service';
+import { ToastService } from '../../../core/services/toast.service';
+import { ProfileService } from '../../../core/services/profile.service';
 
 export interface SupportTicket {
   s_no?: number;
@@ -41,20 +42,20 @@ export interface SupportStats {
 }
 
 @Component({
-  selector: 'app-tech-support',
+  selector: 'app-parent-support',
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './tech-support.component.html',
-  styleUrls: ['./tech-support.component.css']
+  templateUrl: './parent-support.component.html',
+  styleUrls: ['./parent-support.component.css']
 })
-export class TechSupportComponent implements OnInit {
-  isLoggedIn: boolean = false;
+export class ParentSupportComponent implements OnInit {
   isLoading: boolean = false;
   isSubmitting: boolean = false;
   isSendingReply: boolean = false;
   isLoadingThread: boolean = false;
 
-  // Stats
+  selectedStudentId: number | string | null = null;
+
   stats: SupportStats = {
     total_tickets: 0,
     open_tickets: 0,
@@ -63,16 +64,14 @@ export class TechSupportComponent implements OnInit {
     unread_replies: 0
   };
 
-  // Tickets List
   tickets: SupportTicket[] = [];
   selectedFilter: 'all' | 'open' | 'in_progress' | 'resolved' = 'all';
   searchQuery: string = '';
 
-  // New Ticket Form State
   showCreateModal: boolean = false;
   newTicket = {
     subject: '',
-    category: 'Technical Support',
+    category: 'Academic & Assignments',
     priority: 'medium',
     message: '',
     student_id: null as number | null
@@ -88,13 +87,12 @@ export class TechSupportComponent implements OnInit {
   ];
 
   priorities = [
-    { value: 'low', label: 'Low', color: '#10B981' },
-    { value: 'medium', label: 'Medium', color: '#3B82F6' },
-    { value: 'high', label: 'High', color: '#F59E0B' },
-    { value: 'urgent', label: 'Urgent', color: '#EF4444' }
+    { value: 'low', label: 'Low' },
+    { value: 'medium', label: 'Medium' },
+    { value: 'high', label: 'High' },
+    { value: 'urgent', label: 'Urgent' }
   ];
 
-  // Active Thread Modal
   showThreadModal: boolean = false;
   selectedTicket: SupportTicket | null = null;
   replyMessage: string = '';
@@ -102,15 +100,25 @@ export class TechSupportComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private toastService: ToastService,
+    private profileService: ProfileService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-    const token = localStorage.getItem('token');
-    this.isLoggedIn = !!token;
-    if (this.isLoggedIn) {
-      this.loadTickets();
+    this.profileService.selectedStudent$.subscribe(student => {
+      if (student && student.id) {
+        this.selectedStudentId = student.id;
+      }
+    });
+
+    if (!this.selectedStudentId) {
+      const savedStudentId = localStorage.getItem('selectedStudentId');
+      if (savedStudentId) {
+        this.selectedStudentId = savedStudentId;
+      }
     }
+
+    this.loadTickets();
   }
 
   loadTickets(): void {
@@ -162,7 +170,6 @@ export class TechSupportComponent implements OnInit {
               messages: t.messages || []
             }));
 
-            // If stats were not provided, compute from list
             if (!data.stats) {
               this.stats.total_tickets = this.tickets.length;
               this.stats.open_tickets = this.tickets.filter(t => t.status === 'open').length;
@@ -193,15 +200,11 @@ export class TechSupportComponent implements OnInit {
   openCreateModal(): void {
     this.newTicket = {
       subject: '',
-      category: 'Technical Support',
+      category: 'Academic & Assignments',
       priority: 'medium',
       message: '',
-      student_id: null
+      student_id: this.selectedStudentId ? Number(this.selectedStudentId) : null
     };
-    const savedChildId = localStorage.getItem('selectedStudentId');
-    if (savedChildId) {
-      this.newTicket.student_id = Number(savedChildId);
-    }
     this.showCreateModal = true;
   }
 
@@ -226,8 +229,8 @@ export class TechSupportComponent implements OnInit {
       priority: this.newTicket.priority,
       message: this.newTicket.message.trim()
     };
-    if (this.newTicket.student_id) {
-      payload.student_id = this.newTicket.student_id;
+    if (this.newTicket.student_id || this.selectedStudentId) {
+      payload.student_id = this.newTicket.student_id || Number(this.selectedStudentId);
     }
 
     this.apiService.post<any>('support', payload).subscribe({
@@ -267,12 +270,11 @@ export class TechSupportComponent implements OnInit {
       error: (err: any) => {
         this.isLoadingThread = false;
         console.warn(`GET /api/support/${ticket.id} error:`, err);
-        // Fallback: create initial message from last_message if empty
         if (!this.selectedTicket!.messages || this.selectedTicket!.messages.length === 0) {
           this.selectedTicket!.messages = [
             {
               sender_name: 'You',
-              sender_role: 'user',
+              sender_role: 'parent',
               is_admin: false,
               is_me: true,
               message: ticket.last_message || ticket.subject,
@@ -305,14 +307,13 @@ export class TechSupportComponent implements OnInit {
         this.replyMessage = '';
         this.toastService.success(res?.message || 'Reply sent successfully!');
 
-        // Append to thread immediately
         if (!this.selectedTicket!.messages) {
           this.selectedTicket!.messages = [];
         }
         this.selectedTicket!.messages.push({
           id: Date.now(),
           sender_name: 'You',
-          sender_role: 'user',
+          sender_role: 'parent',
           is_admin: false,
           is_me: true,
           message: msgText,

@@ -18,15 +18,28 @@ export class StdDashboardComponent implements OnInit {
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
-    this.apiService.get<any>('dashboard/student').subscribe({
+    this.apiService.get<any>('student/dashboard').subscribe({
       next: (response) => {
-        console.log('Student Dashboard Response:', response);
         if (response.success && response.data) {
           this.bindData(response.data);
+        } else if (response.data) {
+          this.bindData(response.data);
+        } else {
+          this.bindData(response);
         }
       },
-      error: (error) => {
-        console.error('Error fetching student dashboard:', error);
+      error: () => {
+        // Fallback to legacy endpoint
+        this.apiService.get<any>('dashboard/student').subscribe({
+          next: (response) => {
+            if (response.success && response.data) {
+              this.bindData(response.data);
+            }
+          },
+          error: (error) => {
+            console.error('Error fetching student dashboard:', error);
+          }
+        });
       }
     });
   }

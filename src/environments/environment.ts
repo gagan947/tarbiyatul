@@ -4,3 +4,4 @@ export const environment = {
   imageBaseUrl: 'http://72.60.203.98:7000',
   socketUrl: 'http://72.60.203.98:7000'
 };
+

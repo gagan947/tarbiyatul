@@ -2,9 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
-  gap: 30px;
+  gap: 24px;
   width: 100%;
-  max-width: 630px;
+  max-width: 860px;
   margin: 20px auto 40px auto;
   box-sizing: border-box;
 }
@@ -50,6 +50,7 @@
   max-width: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;
+  background-color: #ffffff;
 }
 
 .role-card:hover .role-img {
@@ -57,11 +58,12 @@
 }
 
 .role-card-label {
-  font-family: 'Inter', sans-serif;
-  font-size: 20px;
-  font-weight: 600;
+  font-family: 'Rowdies', sans-serif;
+  font-size: 22px;
+  font-weight: 400;
   color: #171E45;
   margin: 0;
+  text-align: center;
   transition: color 0.3s ease;
 }
 

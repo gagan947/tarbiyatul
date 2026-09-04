@@ -1,0 +1,49 @@
+.hover-bg-light:hover {
+  background-color: #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.max-w-700 {
+  max-width: 700px;
+}
+
+.ct_free_touch_card {
+  padding: 35px 25px;
+  border-radius: 20px;
+  color: #fff;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ct_free_touch_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.ct_white_btn {
+  background: #ffffff;
+  color: #1f2937;
+  border: none;
+  border-radius: 50px;
+  padding: 10px 24px;
+  margin: 15px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.ct_white_btn:hover {
+  background: #f3f4f6;
+  transform: scale(1.03);
+}
+
+.modal {
+  backdrop-filter: blur(4px);
+}

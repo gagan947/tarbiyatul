@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../core/services/api.service';
 import { LoginRequest, LoginResponse } from '../../../core/models/login.model';
 
@@ -20,10 +20,14 @@ export class LoginComponent implements OnInit {
   errorMessage: string | null = null;
   successMessage: string | null = null;
 
+  // Selected Login Category: 'main' (Parent/Teacher), 'student', 'tutoring' (Adult/Child)
+  loginType: 'main' | 'student' | 'tutoring' = 'main';
+
   constructor(
     private fb: FormBuilder,
     private apiService: ApiService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
@@ -31,6 +35,21 @@ export class LoginComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]]
     });
+
+    this.route.queryParams.subscribe(params => {
+      if (params['type']) {
+        this.loginType = params['type'];
+      } else if (params['tab'] === 'tutoring' || params['role'] === 'tutoring' || params['role'] === 'adult') {
+        this.loginType = 'tutoring';
+      } else if (params['tab'] === 'student' || params['role'] === 'student') {
+        this.loginType = 'student';
+      }
+    });
+  }
+
+  setLoginType(type: 'main' | 'student' | 'tutoring'): void {
+    this.loginType = type;
+    this.errorMessage = null;
   }
 
   get f() {
@@ -72,6 +91,15 @@ export class LoginComponent implements OnInit {
           if (role === 'student') {
             localStorage.setItem('isPasswordGenerated', String(isPasswordGenerated ?? true));
           }
+
+          // If logging in via Tutoring (Adult/Child) or user role is tutoring
+          if (this.loginType === 'tutoring' || role === 'tutoring' || role === 'adult') {
+            localStorage.setItem('portalType', 'tutoring');
+            this.router.navigate(['/tutoring-dashboard']);
+            return;
+          }
+
+          localStorage.removeItem('portalType');
 
           // Redirect based on user role
           if (role === 'parent') {

@@ -17,31 +17,44 @@ export class ProfileService {
   fetchProfile(): Observable<any> {
     return this.apiService.get<any>('users/auth/profile').pipe(
       tap(response => {
-        this.profileSubject.next(response);
-        const students = response?.data?.students || [];
-        if (students.length > 0) {
-          // Keep current selection if valid, otherwise check localStorage, otherwise default to first student
-          const current = this.selectedStudentSubject.value;
-          let exists = students.some((s: any) => s.id === current?.id);
-          
-          if (!exists) {
-            const savedStudentId = localStorage.getItem('selectedStudentId');
-            if (savedStudentId) {
-              const savedStudent = students.find((s: any) => s.id.toString() === savedStudentId);
-              if (savedStudent) {
-                this.selectedStudentSubject.next(savedStudent);
-                exists = true;
-              }
-            }
-          }
-
-          if (!exists) {
-            this.selectedStudentSubject.next(students[0]);
-            localStorage.setItem('selectedStudentId', students[0].id.toString());
-          }
-        }
+        this.processProfileResponse(response);
       })
     );
+  }
+
+  fetchParentOverview(): Observable<any> {
+    return this.apiService.get<any>('parent/overview').pipe(
+      tap(response => {
+        this.processProfileResponse(response);
+      })
+    );
+  }
+
+  private processProfileResponse(response: any): void {
+    this.profileSubject.next(response);
+    const students = response?.data?.students || response?.data?.children || response?.students || [];
+    if (students.length > 0) {
+      const current = this.selectedStudentSubject.value;
+      let exists = students.some((s: any) => s.id === current?.id);
+
+      if (!exists) {
+        const savedStudentId = localStorage.getItem('selectedStudentId');
+        if (savedStudentId) {
+          const savedStudent = students.find((s: any) => s.id?.toString() === savedStudentId);
+          if (savedStudent) {
+            this.selectedStudentSubject.next(savedStudent);
+            exists = true;
+          }
+        }
+      }
+
+      if (!exists) {
+        this.selectedStudentSubject.next(students[0]);
+        if (students[0].id) {
+          localStorage.setItem('selectedStudentId', students[0].id.toString());
+        }
+      }
+    }
   }
 
   getProfileData(): any {

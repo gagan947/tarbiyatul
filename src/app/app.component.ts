@@ -26,10 +26,13 @@ export class AppComponent implements OnInit {
   isStudentPortal = false;
   isParentPortal = false;
   isTeacherPortal = false;
+  isTutoringPortal = false;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
+    this.loadExternalScript();
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Dynamically toggle footer layout on the home route
@@ -38,7 +41,7 @@ export class AppComponent implements OnInit {
         this.isStudentPortal = url.startsWith('/student');
         this.isParentPortal = url.startsWith('/parent');
         this.isTeacherPortal = url.startsWith('/teacher');
-        this.loadExternalScript();
+        this.isTutoringPortal = url.startsWith('/tutoring');
 
         // Scroll to top on page change
         window.scrollTo(0, 0);
@@ -46,17 +49,37 @@ export class AppComponent implements OnInit {
         portalMains.forEach(el => {
           el.scrollTop = 0;
         });
+
+        // Trigger AOS refresh & scroll event so images and animations render immediately without needing manual scroll
+        setTimeout(() => {
+          if (typeof (window as any).AOS !== 'undefined') {
+            (window as any).AOS.refreshHard();
+          }
+          window.dispatchEvent(new Event('scroll'));
+          window.dispatchEvent(new Event('resize'));
+        }, 80);
+
+        setTimeout(() => {
+          if (typeof (window as any).AOS !== 'undefined') {
+            (window as any).AOS.refresh();
+          }
+          window.dispatchEvent(new Event('scroll'));
+        }, 300);
       }
     });
   }
 
   loadExternalScript() {
+    if (document.querySelector('script[src="assets/js/main.js"]')) {
+      return;
+    }
     const scriptElement = document.createElement('script');
     scriptElement.src = 'assets/js/main.js';
     scriptElement.onload = () => {
-      // console.log('External script loaded');
+      if (typeof (window as any).AOS !== 'undefined') {
+        (window as any).AOS.refreshHard();
+      }
     };
     document.body.appendChild(scriptElement);
   }
-
 }

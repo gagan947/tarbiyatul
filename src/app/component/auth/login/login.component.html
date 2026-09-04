@@ -7,9 +7,36 @@
 
             <div class="ct_auth_white_bg">
               <!-- Brand Logo Header -->
-              <div class="auth-page-header">
-                <h2 class="auth-title">Welcome Back</h2>
-                <p class="auth-subtitle">Login to access your dashboard</p>
+              <div class="auth-page-header text-center mb-4">
+                <h2 class="auth-title">
+                  <span *ngIf="loginType === 'main'">Welcome Back</span>
+                  <span *ngIf="loginType === 'student'">Student Portal Login</span>
+                  <span *ngIf="loginType === 'tutoring'">Tutoring & Adult Education Login</span>
+                </h2>
+                <p class="auth-subtitle">
+                  <span *ngIf="loginType === 'main'">Login to access Parent or Teacher Portal</span>
+                  <span *ngIf="loginType === 'student'">Access your online classes, assignments & resources</span>
+                  <span *ngIf="loginType === 'tutoring'">Access your Profile, Payments & Math/English assignments</span>
+                </p>
+              </div>
+
+              <!-- Login Portal Switcher Tabs -->
+              <div class="auth-role-switcher-container">
+                <button type="button" class="auth-role-switch-btn"
+                  [class.active]="loginType === 'main'"
+                  (click)="setLoginType('main')">
+                  <i class="fa-solid fa-users me-1"></i> Parent / Staff
+                </button>
+                <button type="button" class="auth-role-switch-btn"
+                  [class.active]="loginType === 'student'"
+                  (click)="setLoginType('student')">
+                  <i class="fa-solid fa-graduation-cap me-1"></i> Student Login
+                </button>
+                <button type="button" class="auth-role-switch-btn"
+                  [class.active]="loginType === 'tutoring'"
+                  (click)="setLoginType('tutoring')">
+                  <i class="fa-solid fa-chalkboard-user me-1"></i> Tutoring (Adult/Child)
+                </button>
               </div>
 
               <!-- Alert Messages (Success/Error) -->
@@ -78,10 +105,11 @@
                     Logging in...
                   </span>
                 </button>
+                <div class="auth-card-footer border-top pt-4 mt-4 text-center">
+                  <span class="text-muted">Don't have an account?</span>
+                  <a routerLink="/choose-role" class="auth-link fw-bold ms-2">Sign Up</a>
+                </div>
               </form>
-            </div>
-            <div class="auth-footer mt-4">
-              Don't have an account? <a routerLink="/choose-role" class="auth-link">Sign Up</a>
             </div>
           </div>
         </div>

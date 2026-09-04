@@ -23,11 +23,13 @@ export class TeacherEditProfileComponent implements OnInit {
 
   // Grade levels dropdown options
   gradeLevels: string[] = [
+    'Pre-K',
     'Kindergarten',
     '1st Grade',
     '2nd Grade',
     '3rd Grade',
-    '4th Grade'
+    '4th Grade',
+    'Adult Learner / Tutoring'
   ];
 
   // Image Cropping Properties

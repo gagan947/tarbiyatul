@@ -1,0 +1,12 @@
+.hover-bg-light:hover {
+  background-color: #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.modal {
+  backdrop-filter: blur(4px);
+}

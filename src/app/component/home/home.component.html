@@ -1,5 +1,5 @@
 <section class="ct_banner_bg" style="overflow: hidden;">
-  
+
 
   <!-- Banner section S -->
 
@@ -33,7 +33,7 @@
 
 
             <div class="mt-4">
-              <a href="#" class="ct_orange_btn ct_ff_Rowdies">Get Started <img src="assets/img/right_arrow.svg"
+              <a routerLink="/admissionProcess" class="ct_orange_btn ct_ff_Rowdies">Get Started <img src="assets/img/right_arrow.svg"
                   alt="" /></a>
             </div>
           </div>
@@ -136,7 +136,7 @@
             </li>
 
           </ul>
-          <a href="#" class="ct_orange_btn ct_ff_Rowdies ct_text_transform_unset">Contact us: info&#64;tiaglobal.org
+          <a routerLink="/contact_us" class="ct_orange_btn ct_ff_Rowdies ct_text_transform_unset">Contact us: info&#64;tiaglobal.org
             <img src="assets/img/right_arrow.svg" alt="" /></a>
         </div>
 
@@ -182,13 +182,46 @@
         </p>
 
 
-        <a href="#" class="ct_orange_btn ct_ff_Rowdies">Get Started <img src="assets/img/right_arrow.svg" alt="" /></a>
+        <a routerLink="/choose-role" class="ct_orange_btn ct_ff_Rowdies">Get Started <img src="assets/img/right_arrow.svg" alt="" /></a>
       </div>
 
     </div>
 
   </div>
 </section>
+
+<!-- Adult Learning Section S -->
+<section class="ct_py_60 ct_why_inroll_bg ct_px_140" data-aos="fade-up" data-aos-duration="1000" id="adult-learning-section">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        <div class="ct_why_inroll_right_img text-center">
+          <img src="assets/img/popup1.svg" alt="Adult Learning" class="img-fluid" style="max-height: 380px; border-radius: 20px;">
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="ct_enroll_section_left">
+          <span class="ct_orange_text ct_fs_18 mb-2 d-block">Adult Education</span>
+          <h2 class="ct_fs_46 mb-4">Adult Learning Program</h2>
+          <p class="ct_fs_18 mb-3" style="line-height: 1.7;">
+            Adult learning is a supportive, judgment‑free way for parents and adults to strengthen their math, reading, and English skills from the comfort of their own home. Our program is designed for adults who want to feel more confident helping their children with schoolwork, advancing in their careers, or navigating everyday tasks like reading documents, writing messages, and solving practical math problems.
+          </p>
+          <p class="ct_fs_18 mb-4" style="line-height: 1.7;">
+            Because adults learn differently, we focus on simple, real‑world lessons that fit busy schedules and personal goals. Learning at home allows adults to move at their own pace, practice privately, and access easy‑to‑follow materials that build confidence step by step. Whether you’re improving reading comprehension, strengthening everyday English, or mastering foundational math, our approach meets you exactly where you are—encouraging, flexible, and tailored to your needs—so you can grow your skills and open new opportunities for yourself and your family.
+          </p>
+          <div class="d-flex gap-3 flex-wrap">
+            <a routerLink="/academicProgram" [queryParams]="{ tab: 'adult-education' }" class="ct_orange_btn ct_ff_Rowdies">Learn More <img src="assets/img/right_arrow.svg" alt="" /></a>
+            <a routerLink="/login" [queryParams]="{ tab: 'tutoring' }" class="ct_custom_btn ms-0 ct_btn_border_blue">
+              <i class="fa-solid fa-user-graduate"></i>
+              <span class="ct_orange_text"> Adult / Tutoring Login </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Adult Learning Section E -->
 
 
 <section class="ct_testimonial_section">
@@ -212,15 +245,11 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                   </div>
-                  <p class="mb-0">“Our family had a few hardships when we first enrolled in TIA, we had moved from
-                    another state, we were on the blink of homelessness amongst other things...<a  type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal3"
-                      class="text-white ct_fs_18">Read more</a></p>
+                  <p class="mb-0">“Our family had a few hardships when we first enrolled in TIA, we had moved from another state and faced adversity... <a type="button"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal3" class="ct_read_more_link">Read more</a>
+                  </p>
                 </div>
               </div>
-              <!-- <div class="ct_client_main_dtl">
-                            <img src="assets/img/client_2.png" alt="" class="ct_img_90">
-                            <h4 class="mb-0 ct_fs_18">Maxi Gina's Mom</h4>
-                       </div> -->
             </div>
           </div>
           <div class="item">
@@ -235,12 +264,12 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                   </div>
-                  <p class="mb-0">“We loved TIA because we were a part of a real family not just a school. The teachers
-                    we were in touch with helped to educate our family by challenging them daily... <a type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal"
-                      class="text-white ct_fs_18">Read more</a> </p>
+                  <p class="mb-0">“We loved TIA because we were a part of a real family. The teachers helped educate our family daily... <a type="button"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal" class="ct_read_more_link">Read more</a>
+                  </p>
                 </div>
               </div>
-            
+
             </div>
           </div>
           <div class="item">
@@ -255,8 +284,8 @@
                     <i class="fa-solid fa-star"></i>
                     <i class="fa-solid fa-star"></i>
                   </div>
-                  <p class="mb-0">“TIA, thank you for helping us to prepare my son for his next stage in life. He is
-                    well adjusted in his new school in a different state...<a class="text-white ct_fs_18" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal2">Read more</a>
+                  <p class="mb-0">“TIA, thank you for helping prepare my son for his next stage. He is well adjusted in his school... <a class="ct_read_more_link" type="button"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal2">Read more</a>
                   </p>
                 </div>
               </div>
@@ -286,7 +315,7 @@
   </div> -->
 
 
-  <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered " style="min-width: 100%;
   display: flex;
@@ -296,13 +325,13 @@
       <div class="">
         <div class="">
           <img src="assets/img/popup1.svg" alt="">
-       
+
         </div>
-      
+
       </div>
 
     </div>
-  
+
   </div>
 </div>
 <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -314,13 +343,13 @@
       <div class="">
         <div class="">
           <img src="assets/img/popup2.svg" alt="">
-       
+
         </div>
-      
+
       </div>
 
     </div>
-  
+
   </div>
 </div>
 <div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -332,12 +361,12 @@
       <div class="">
         <div class="">
           <img src="assets/img/popup3.svg" alt="">
-       
+
         </div>
-      
+
       </div>
 
     </div>
-  
+
   </div>
 </div>

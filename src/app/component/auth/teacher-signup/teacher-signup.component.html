@@ -79,11 +79,38 @@
                     <!-- Phone Number -->
                     <div class="col-md-6 form-group mb-4">
                       <label for="phone" class="form-label">Phone Number</label>
-                      <div class="phone-input-group">
-                        <span class="phone-prefix-badge">+1 <i class="fa-solid fa-chevron-down ms-1"></i></span>
-                        <input type="text" id="phone" formControlName="phone" class="form-control-custom phone-input"
-                          placeholder="50XXXXXXX"
-                          [ngClass]="{ 'is-invalid-custom': f['phone'].invalid && (f['phone'].touched || submitted) }" />
+                      <div class="phone-input-wrapper position-relative">
+                        <div class="phone-input-group">
+                          <button type="button" class="phone-prefix-btn" (click)="toggleCountryDropdown($event)">
+                            <span>{{ signupForm.value.countryCode || '+1' }}</span>
+                            <i class="fa-solid fa-chevron-down ms-2 small-chevron" [class.rotate-180]="isCountryDropdownOpen"></i>
+                          </button>
+                          <input type="text" id="phone" formControlName="phone" class="form-control-custom phone-input"
+                            placeholder="50XXXXXXX"
+                            [ngClass]="{ 'is-invalid-custom': f['phone'].invalid && (f['phone'].touched || submitted) }" />
+                        </div>
+
+                        <!-- Custom Country Picker Dropdown -->
+                        <div class="country-dropdown-menu shadow-lg rounded-3" *ngIf="isCountryDropdownOpen" (click)="$event.stopPropagation()">
+                          <div class="p-2 border-bottom bg-light">
+                            <div class="input-group input-group-sm">
+                              <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted small"></i></span>
+                              <input type="text" class="form-control border-start-0 ps-0 bg-white" placeholder="Search country or code..." [(ngModel)]="countrySearchQuery" [ngModelOptions]="{standalone: true}" (click)="$event.stopPropagation()">
+                            </div>
+                          </div>
+                          <div class="country-list-scroll">
+                            <div *ngFor="let c of filteredCountryCodes" 
+                                 class="country-option-item d-flex align-items-center justify-content-between px-3 py-2" 
+                                 [class.active-country]="signupForm.value.countryCode === c.code"
+                                 (click)="selectCountryCode(c.code)">
+                              <span class="country-name small text-dark">{{ c.name }}</span>
+                              <span class="badge bg-light text-dark border small fw-bold">{{ c.code }}</span>
+                            </div>
+                            <div *ngIf="filteredCountryCodes.length === 0" class="text-center py-3 text-muted small">
+                              No country found
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div *ngIf="f['phone'].invalid && (f['phone'].touched || submitted)" class="error-msg">
                         <span><i class="fa-solid fa-circle-info me-1"></i> Phone Number is required</span>
@@ -289,5 +316,39 @@
 
     </div>
 
+  </div>
+</div>
+
+<!-- ================= MODAL: ACCOUNT ALREADY EXISTS ================= -->
+<div class="modal fade show d-block" *ngIf="showDuplicateEmailModal" tabindex="-1" style="background: rgba(0,0,0,0.6); z-index: 1060; backdrop-filter: blur(4px);">
+  <div class="modal-dialog modal-dialog-centered" style="max-width: 460px;">
+    <div class="modal-content border-0 rounded-4 shadow-lg overflow-hidden text-center p-4">
+      
+      <!-- Warning Icon Circle -->
+      <div class="mx-auto mb-3 rounded-circle d-flex align-items-center justify-content-center" 
+           style="width: 76px; height: 76px; background-color: #FFF3E0; color: #FC800A;">
+        <i class="fa-solid fa-user-xmark fs-2"></i>
+      </div>
+
+      <!-- Title -->
+      <h4 class="fw-bold text-dark mb-2">Account Already Registered</h4>
+
+      <!-- Description -->
+      <p class="text-muted small mb-4" style="line-height: 1.6;">
+        An account associated with <strong class="text-dark">{{ duplicateEmailAddress }}</strong> already exists in our system.
+        Please sign in directly or use another email address to register.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="d-flex flex-column gap-2">
+        <a routerLink="/login" class="btn btn-warning text-white fw-bold py-2 rounded-pill shadow-sm d-flex align-items-center justify-content-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Login to Existing Account
+        </a>
+        <button type="button" class="btn btn-light border py-2 rounded-pill text-dark fw-medium" (click)="closeDuplicateModalAndEditEmail()">
+          <i class="fa-solid fa-pen-to-square me-1"></i> Edit Email Address
+        </button>
+      </div>
+
+    </div>
   </div>
 </div>
