@@ -6,39 +6,128 @@
     </button>
   </div>
 
-  <div class="dashboard-card dash-card-shadow p-4 p-md-5  bg-white" style="border-radius: 16px; border: 1px solid #F3F4F6; box-shadow: 0px 2px 10px 0px #0000000A;
-">
-    
-    <div class="d-flex justify-content-center mb-4 pb-4" >
-      <div class="d-flex align-items-center gap-3  p-4 w-100" style="border: 1px solid #DADCE5; box-shadow: 0px 4px 20px 0px #0000000D;
- border-radius: 12px;">
-        <img src="assets/img/boy.jpg" alt="Student Profile" class="rounded-circle shadow-sm" style="width: 56px; height: 56px; object-fit: cover;" />
-        <div class="flex-grow-1">
-          <p class="mb-0 ct_fs_16 ct_fw_400 ct_text_para" >STU-1001</p>
-          <h5 class="ct_fs_20 ct_fw_600 ct_text_dark ct_ff_inter mb-0" >Ali Khan</h5>
-        </div>
-        <span class="badge rounded-pill text-white  px-3 py-2 ct_fs_14 ct_fw_500" style="background-color: #F68B1F;  box-shadow: 0px -2px 4px 0px #FFFFFF29 inset; backdrop-filter: blur(14px)
-
-">Grade 4</span>
-      </div>
-    </div>
-
-    <div class="d-flex flex-wrap flex-md-nowrap gap-4 align-items-center">
-      <img src="assets/img/book_1.png" alt="Book Cover" class="shadow-sm" style="width: 80px; height: 110px; border-radius: 8px; object-fit: cover;" />
-      <div class="flex-grow-1">
-        <h4 class="ct_ff_inter ct_fs_20 ct_fw_600 ct_text_dark" style=" text-decoration: underline;">Stories of the Prophets – Reflection Activity</h4>
-        <p class="ct_text_para mb-0 ct_fs_16 ct_fw_400" >Due Date : 25 May, 2025</p>
-        <p class="ct_text_para mb-0 ct_fs_16 ct_fw_400">Required reading : Pages 10 – 20</p>
-      </div>
-      <div>
-        <span class="ct_custom_badge_status" style="background-color: #FF7A001A; color: #FF7A00; ">PENDING</span>
-      </div>
-    </div>
-
+  <!-- Error alert -->
+  <div *ngIf="errorMessage" class="alert alert-danger mb-4" role="alert">
+    {{ errorMessage }}
   </div>
 
-  <div class="text-center mt-4">
-    <p class="text-muted ct_fs_16 ct_text_para" >The student has not completed this assignment yet. Scores and teacher comments can be added once the assignment is completed.</p>
+  <!-- Success alert -->
+  <div *ngIf="successMessage" class="alert alert-success mb-4" role="alert">
+    {{ successMessage }}
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-warning" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2 text-muted mb-0">Loading student assignment details...</p>
+  </div>
+
+  <div *ngIf="!isLoading && assignment">
+    <!-- Student Header Card -->
+    <div class="dashboard-card dash-card-shadow p-4 mb-4 bg-white" style="border-radius: 16px; border: 1px solid #F3F4F6; box-shadow: 0px 2px 10px 0px #0000000A;">
+      <div class="d-flex align-items-center gap-3 p-3 p-md-4 w-100" style="border: 1px solid #DADCE5; box-shadow: 0px 4px 20px 0px #0000000D; border-radius: 12px;">
+        <img #stdAvatar [src]="getStudentAvatarUrl(student)" (error)="stdAvatar.src='assets/img/boy.jpg'" alt="Student Profile" class="rounded-circle shadow-sm" style="width: 56px; height: 56px; object-fit: cover;" />
+        <div class="flex-grow-1">
+          <p class="mb-0 ct_fs_14 ct_fw_400 ct_text_para">{{ student?.rollNumber || '-' }}</p>
+          <h5 class="ct_fs_20 ct_fw_600 ct_text_dark ct_ff_inter mb-0">{{ student?.name || 'Student' }}</h5>
+        </div>
+        <span *ngIf="student?.gradeLevel || assignment?.grade_level" class="badge rounded-pill text-white px-3 py-2 ct_fs_14 ct_fw_500" style="background-color: #F68B1F; box-shadow: 0px -2px 4px 0px #FFFFFF29 inset;">
+          {{ student?.gradeLevel || assignment?.grade_level }}
+        </span>
+      </div>
+
+      <!-- Assignment Details Row -->
+      <div class="d-flex flex-wrap flex-md-nowrap gap-4 align-items-center mt-4 pt-2">
+        <img #bookCover [src]="getBookCoverUrl(assignment)" (error)="bookCover.src='assets/img/book_1.png'" alt="Book Cover" class="shadow-sm" style="width: 80px; height: 110px; border-radius: 8px; object-fit: cover;" />
+        <div class="flex-grow-1">
+          <h4 class="ct_ff_inter ct_fs_20 ct_fw_600 ct_text_dark">{{ assignment.title }}</h4>
+          <p *ngIf="assignment.book_title" class="ct_text_para mb-1 ct_fs_15"><span class="fw-semibold">Book:</span> {{ assignment.book_title }}</p>
+          <p class="ct_text_para mb-1 ct_fs_15"><span class="fw-semibold">Due Date:</span> {{ formatDate(assignment.due_date) }}</p>
+          <p *ngIf="assignment.required_reading" class="ct_text_para mb-1 ct_fs_15"><span class="fw-semibold">Required reading:</span> {{ assignment.required_reading }}</p>
+          <p class="ct_text_para mb-0 ct_fs_15"><span class="fw-semibold">Total Points:</span> {{ assignment.total_points }}</p>
+        </div>
+        <div>
+          <span class="ct_custom_badge_status" 
+                [ngStyle]="{
+                  'background-color': isGraded ? '#00B5361A' : isSubmitted ? '#0267EB1A' : '#FF7A001A',
+                  'color': isGraded ? '#00B536' : isSubmitted ? '#0267EB' : '#FF7A00'
+                }">
+            {{ (assignment.submission_status || assignment.status || (isSubmitted ? 'SUBMITTED' : 'PENDING')) | uppercase }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Description & Reading Instructions -->
+      <div *ngIf="assignment.description || assignment.reading_instructions" class="mt-4 pt-3 border-top">
+        <div *ngIf="assignment.description" class="mb-3">
+          <h6 class="fw-semibold ct_fs_15 ct_text_dark mb-1">Description:</h6>
+          <p class="text-muted ct_fs_14 mb-0" style="white-space: pre-line;">{{ assignment.description }}</p>
+        </div>
+        <div *ngIf="assignment.reading_instructions" class="mb-0">
+          <h6 class="fw-semibold ct_fs_15 ct_text_dark mb-1">Reading Instructions:</h6>
+          <p class="text-muted ct_fs_14 mb-0" style="white-space: pre-line;">{{ assignment.reading_instructions }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Student Submission Section (If student submitted) -->
+    <div *ngIf="submission" class="dashboard-card dash-card-shadow p-4 mb-4 bg-white" style="border-radius: 16px; border: 1px solid #F3F4F6;">
+      <h5 class="ct_fs_18 ct_fw_600 ct_text_dark ct_ff_inter mb-3">
+        <i class="fa-solid fa-file-circle-check text-success me-2"></i> Student Submission
+      </h5>
+      <div class="p-3 bg-light rounded-3 mb-3">
+        <p class="mb-2 ct_fs_15 text-dark" style="white-space: pre-line;">{{ submission.submission_text || 'No submission notes provided.' }}</p>
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 text-muted small pt-2 border-top">
+          <span><i class="fa-regular fa-clock me-1"></i> Submitted: {{ formatDate(submission.submitted_at || assignment.submitted_at) }}</span>
+          <a *ngIf="submission.attachment_url" [href]="getImageUrl(submission.attachment_url)" target="_blank" class="btn btn-sm btn-outline-primary py-1 px-3">
+            <i class="fa-solid fa-paperclip me-1"></i> View Attachment
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Teacher Grading & Feedback Form -->
+    <div *ngIf="isSubmitted" class="dashboard-card dash-card-shadow p-4 bg-white" style="border-radius: 16px; border: 1px solid #F3F4F6;">
+      <h5 class="ct_fs_18 ct_fw_600 ct_text_dark ct_ff_inter mb-3">
+        <i class="fa-solid fa-marker text-warning me-2"></i> Grade & Feedback
+      </h5>
+
+      <form (ngSubmit)="saveGrade()" novalidate>
+        <div class="row g-3 mb-3">
+          <div class="col-md-6">
+            <label class="form-label ct_fs_13 ct_fw_600 ct_text_dark mb-1">
+              Marks Obtained <span class="text-danger">*</span> (Out of {{ assignment.total_points }})
+            </label>
+            <input type="number" [(ngModel)]="gradeForm.marks_obtained" name="marks_obtained" min="0" [max]="assignment.total_points" class="form-control ct_input" placeholder="e.g., 48" required style="border-radius: 6px; border-color: rgba(0,0,0,0.1);" />
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label ct_fs_13 ct_fw_600 ct_text_dark mb-1">Grade Letter (Optional)</label>
+            <input type="text" [(ngModel)]="gradeForm.grade" name="grade" class="form-control ct_input" placeholder="e.g., A, A+, B" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);" />
+          </div>
+
+          <div class="col-12">
+            <label class="form-label ct_fs_13 ct_fw_600 ct_text_dark mb-1">Teacher Feedback / Comments</label>
+            <textarea [(ngModel)]="gradeForm.feedback" name="feedback" rows="3" class="form-control ct_input h-auto" placeholder="Enter encouraging feedback and notes for the student..." style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"></textarea>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+          <button type="submit" [disabled]="isSavingGrade" class="btn text-white px-4 py-2" style="background-color: #FC800A; border-radius: 8px;">
+            <span *ngIf="isSavingGrade" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+            {{ isSavingGrade ? 'Saving Grade...' : (isGraded ? 'Update Grade' : 'Save Grade') }}
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- If Not Submitted -->
+    <div *ngIf="!isSubmitted" class="text-center mt-4 p-4 bg-white rounded-3 border">
+      <i class="fa-regular fa-clock fs-2 text-warning mb-2 d-block"></i>
+      <p class="text-muted ct_fs_16 ct_text_para mb-0">The student has not completed this assignment yet. Scores and teacher comments can be added once the assignment is completed.</p>
+    </div>
   </div>
 
 </div>
