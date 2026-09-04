@@ -341,28 +341,43 @@
           <p class="text-muted mb-0">Your personal registration information and enrolled tutoring program specifics.</p>
         </div>
 
-        <div class="row g-4">
-          <!-- Profile Card -->
-          <div class="col-lg-4">
-            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white text-center h-100">
-              <div class="mx-auto mb-3 rounded-circle overflow-hidden shadow-sm border position-relative"
-                style="width: 88px; height: 88px;">
-                <img [src]="getProfileImageUrl(userProfile.profileImage)" alt="Learner Avatar"
-                  class="w-100 h-100 object-fit-cover" onerror="this.src='assets/img/user-avatar.png';">
-              </div>
-              <h5 class="fw-bold text-dark mb-1">{{ userProfile.fullName }}</h5>
-              <p class="text-muted small mb-2">{{ userProfile.program }}</p>
-              <span
-                class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-1 rounded-pill mb-3 fw-semibold small">
-                <i class="fa-solid fa-graduation-cap me-1"></i> {{ userProfile.gradeLevel || 'Adult Learner' }}
-              </span>
-              <div class="mb-4">
-                <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2 rounded-pill">
-                  <i class="fa-solid fa-circle-check me-1"></i> Active Enrolled Learner
-                </span>
+        <!-- Single Unified Profile Card -->
+        <div class="card border-0 shadow-sm rounded-4 bg-white overflow-hidden profile-unified-card">
+          <div class="row g-0">
+            <!-- Left Side: Profile Summary Column -->
+            <div
+              class="col-lg-4 col-xl-4 p-4 p-xl-5 text-center border-end border-light-subtle profile-side-panel d-flex flex-column justify-content-between">
+              <div>
+                <div class="position-relative d-inline-block mx-auto mb-3">
+                  <div class="rounded-circle overflow-hidden shadow-sm border position-relative"
+                    style="width: 96px; height: 96px;">
+                    <img [src]="getProfileImageUrl(userProfile.profileImage)" alt="Learner Avatar"
+                      class="w-100 h-100 object-fit-cover" onerror="this.src='assets/img/user-avatar.png';">
+                  </div>
+                  <button type="button"
+                    class="btn btn-sm btn-warning text-white rounded-circle position-absolute bottom-0 end-0 p-0 d-flex align-items-center justify-content-center shadow-sm"
+                    style="width: 30px; height: 30px;" (click)="openEditProfileModal()" title="Edit Profile">
+                    <i class="fa-solid fa-pen" style="font-size: 11px;"></i>
+                  </button>
+                </div>
+
+                <h5 class="fw-bold text-dark mb-1">{{ userProfile.fullName }}</h5>
+                <p class="text-muted small mb-2">{{ userProfile.program }}</p>
+
+                <div class="d-flex flex-column align-items-center gap-2 mb-3">
+                  <span
+                    class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle px-3 py-1-5 rounded-pill fw-semibold small">
+                    <i class="fa-solid fa-graduation-cap me-1"></i> {{ userProfile.gradeLevel || 'Adult Learner' }}
+                  </span>
+                  <span
+                    class="badge bg-success-subtle text-success border border-success-subtle px-3 py-1-5 rounded-pill small">
+                    <i class="fa-solid fa-circle-check me-1"></i> Active Enrolled Learner
+                  </span>
+                </div>
               </div>
 
-              <div class="text-start border-top pt-3">
+              <!-- Quick Info List -->
+              <div class="text-start border-top pt-4 mt-3">
                 <div class="d-flex justify-content-between py-2 text-muted small border-bottom">
                   <span>Enrollment Date</span>
                   <span class="fw-semibold text-dark">{{ userProfile.enrollmentDate }}</span>
@@ -373,54 +388,104 @@
                 </div>
                 <div class="d-flex justify-content-between py-2 text-muted small">
                   <span>Account Status</span>
-                  <span class="fw-semibold text-success">Good Standing</span>
+                  <span class="fw-semibold text-success d-inline-flex align-items-center gap-1">
+                    <span class="rounded-circle bg-success d-inline-block" style="width: 7px; height: 7px;"></span>
+                    Good Standing
+                  </span>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Information Fields -->
-          <div class="col-lg-8">
-            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white h-100">
-              <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
-                <h5 class="fw-bold mb-0 text-dark">Personal & Contact Information</h5>
-                <button type="button" class="btn btn-sm btn-light border rounded-3 text-muted"
-                  (click)="openEditProfileModal()">
-                  <i class="fa-regular fa-pen-to-square me-1 text-warning"></i> Edit Details
-                </button>
+            <!-- Right Side: Personal & Contact Information -->
+            <div class="col-lg-8 col-xl-8 p-4 p-xl-5 d-flex flex-column justify-content-between">
+              <div>
+                <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+                  <div>
+                    <h5 class="fw-bold mb-1 text-dark">Personal & Contact Information</h5>
+                    <p class="text-muted small mb-0">Review or update your personal account details</p>
+                  </div>
+                  <button type="button"
+                    class="btn btn-outline-warning btn-sm rounded-pill px-3 py-2 fw-semibold d-inline-flex align-items-center gap-2"
+                    (click)="openEditProfileModal()">
+                    <i class="fa-regular fa-pen-to-square"></i> Edit Details
+                  </button>
+                </div>
+
+                <div class="row g-3 g-md-4 mb-4">
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small fw-semibold">Full Name</label>
+                    <div class="input-group">
+                      <span class="input-group-text profile-input-icon"><i class="fa-regular fa-user"></i></span>
+                      <input type="text" class="form-control profile-info-input profile-input-field py-2 ps-2"
+                        [value]="userProfile.fullName" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small fw-semibold">Grade / Learning Level</label>
+                    <div class="input-group">
+                      <span class="input-group-text profile-input-icon"><i
+                          class="fa-solid fa-graduation-cap"></i></span>
+                      <input type="text" class="form-control profile-info-input profile-input-field py-2 ps-2"
+                        [value]="userProfile.gradeLevel || 'Adult Learner / Tutoring'" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small fw-semibold">Email Address</label>
+                    <div class="input-group">
+                      <span class="input-group-text profile-input-icon"><i
+                          class="fa-regular fa-envelope"></i></span>
+                      <input type="email" class="form-control profile-info-input profile-input-field py-2 ps-2"
+                        [value]="userProfile.email" readonly>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label text-muted small fw-semibold">Phone Number</label>
+                    <div class="input-group">
+                      <span class="input-group-text profile-input-icon"><i class="fa-solid fa-phone"></i></span>
+                      <input type="text" class="form-control profile-info-input profile-input-field py-2 ps-2"
+                        [value]="userProfile.phone" readonly>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Academic Program Banner -->
+                <div class="p-3 rounded-3 mt-2" style="background-color: #FFF8F1; border: 1px solid #FFE6CC;">
+                  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-3">
+                      <div class="rounded-circle p-2 d-flex align-items-center justify-content-center"
+                        style="background: #FFE8D1; color: #FC800A; width: 42px; height: 42px;">
+                        <i class="fa-solid fa-book-open-reader fs-5"></i>
+                      </div>
+                      <div>
+                        <div class="fw-bold text-dark ct_fs_14">Enrolled Program</div>
+                        <div class="text-muted small">{{ userProfile.program || 'Adult Learning & 1-on-1 Tutoring' }}
+                        </div>
+                      </div>
+                    </div>
+                    <button type="button"
+                      class="btn btn-sm btn-light border rounded-pill px-3 py-1-5 text-dark fw-medium"
+                      (click)="activeTab = 'assignments'">
+                      View Assignments <i class="fa-solid fa-arrow-right ms-1"></i>
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              <div class="row g-4">
-                <div class="col-md-6">
-                  <label class="form-label text-muted small fw-semibold">Full Name</label>
-                  <input type="text" class="form-control rounded-3 bg-light border-0 py-2"
-                    [value]="userProfile.fullName" readonly>
+              <!-- Security & Actions Row -->
+              <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-4 border-top mt-4">
+                <div class="text-muted small">
+                  <i class="fa-solid fa-shield-halved text-success me-1"></i> Account is protected and verified
                 </div>
-                <div class="col-md-6">
-                  <label class="form-label text-muted small fw-semibold">Grade / Learning Level</label>
-                  <input type="text" class="form-control rounded-3 bg-light border-0 py-2"
-                    [value]="userProfile.gradeLevel || 'Adult Learner / Tutoring'" readonly>
+                <div class="d-flex gap-2">
+                  <button type="button" class="btn btn-light border rounded-pill px-3 py-1-5 text-muted small fw-medium"
+                    (click)="openChangePasswordModal()">
+                    <i class="fa-solid fa-key me-1"></i> Change Password
+                  </button>
+                  <button type="button" class="btn btn-light border rounded-pill px-3 py-1-5 text-muted small fw-medium"
+                    (click)="activeTab = 'support'">
+                    <i class="fa-regular fa-circle-question me-1"></i> Get Help
+                  </button>
                 </div>
-                <div class="col-md-6">
-                  <label class="form-label text-muted small fw-semibold">Email Address</label>
-                  <input type="email" class="form-control rounded-3 bg-light border-0 py-2" [value]="userProfile.email"
-                    readonly>
-                </div>
-                <div class="col-md-6">
-                  <label class="form-label text-muted small fw-semibold">Phone Number</label>
-                  <input type="text" class="form-control rounded-3 bg-light border-0 py-2" [value]="userProfile.phone"
-                    readonly>
-                </div>
-                <!-- Hidden for now
-                <div class="col-12">
-                  <label class="form-label text-muted small fw-semibold">Location / Address</label>
-                  <input type="text" class="form-control rounded-3 bg-light border-0 py-2" [value]="userProfile.address" readonly>
-                </div>
-                <div class="col-12">
-                  <label class="form-label text-muted small fw-semibold">Learning Plan & Academic Goals</label>
-                  <textarea class="form-control rounded-3 bg-light border-0 py-2" rows="3" readonly>{{ userProfile.notes }}</textarea>
-                </div>
-                -->
               </div>
             </div>
           </div>
