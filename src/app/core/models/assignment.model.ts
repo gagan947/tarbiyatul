@@ -71,6 +71,7 @@ export interface AssignmentListItem {
   _id?: number | string;
   assignment_id?: number | string;
   teacher_id?: number | string;
+  book?: string;
   title?: string;
   description?: string;
   grade_level?: string;

@@ -42,13 +42,13 @@
           </div>
           <h2 class="card-title">New Assignments</h2>
         </div>
-        <a href="javascript:void(0)" class="view-all-link">View All</a>
+        <a routerLink="/student/assignments" class="view-all-link">View All</a>
       </div>
       <div class="card-body">
         <div class="assignments-list">
           <div class="assignment-row" *ngFor="let ass of newAssignments">
             <div class="assignment-info">
-              <img [src]="ass.image" alt="Book Cover" class="book-cover" />
+              <img [src]="getCoverImage(ass)" alt="Book Cover" class="book-cover" />
               <div class="book-details">
                 <h4 class="book-title">{{ ass.title }}</h4>
                 <p class="book-meta">
@@ -57,7 +57,8 @@
                 </p>
               </div>
             </div>
-            <button type="button" class="start-reading-btn">Start Reading</button>
+            <button type="button" class="start-reading-btn" [routerLink]="'/student/assignments/' + ass.id">Start
+              Reading</button>
           </div>
         </div>
       </div>

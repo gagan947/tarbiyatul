@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../../core/services/api.service';
+import { ɵɵRouterLink } from "@angular/router/testing";
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-std-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ɵɵRouterLink],
   templateUrl: './std-dashboard.component.html',
   styleUrl: './std-dashboard.component.css'
 })
@@ -14,7 +16,7 @@ export class StdDashboardComponent implements OnInit {
   newAssignments: any[] = [];
   announcements: any[] = [];
   alert: any = null;
-
+  imageBaseUrl = environment.imageBaseUrl;
   constructor(private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -42,6 +44,26 @@ export class StdDashboardComponent implements OnInit {
         });
       }
     });
+  }
+
+  getCoverImage(item: any): string {
+    const imgPath = item.image || item.attachment_url || item.bookCover || item.attachmentUrl || item.attachment || item.assignment_attachment;
+    if (!imgPath) {
+      return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
+    }
+
+    if (
+      imgPath.startsWith('http://') ||
+      imgPath.startsWith('https://') ||
+      imgPath.startsWith('data:') ||
+      imgPath.startsWith('assets/')
+    ) {
+      return imgPath;
+    }
+
+    const base = this.imageBaseUrl.endsWith('/') ? this.imageBaseUrl : `${this.imageBaseUrl}/`;
+    const path = imgPath.startsWith('/') ? imgPath.substring(1) : imgPath;
+    return `${base}${path}`;
   }
 
   bindData(data: any): void {

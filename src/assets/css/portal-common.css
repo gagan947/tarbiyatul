@@ -61,7 +61,8 @@
   display: inline-block;
   text-transform: capitalize;
   width: 90px;
-  font-family: 'Inter',sans-serif;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
 }
 
 .badge-completed {
@@ -129,7 +130,7 @@
   font-weight: 600;
   color: var(--portal-text-dark);
   margin: 0 0 6px 0;
-  font-family: "Inter",sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 .callout-body {
@@ -152,7 +153,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   border: none;
-  font-family: 'Inter',sans-serif;
+  font-family: 'Inter', sans-serif;
   outline: none;
 }
 
@@ -184,7 +185,7 @@
 }
 
 .portal-btn-outline:hover {
-  background-color:var(--portal-orange);
+  background-color: var(--portal-orange);
   color: #fff;
   border-color: var(--portal-orange);
 }

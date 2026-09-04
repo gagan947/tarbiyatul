@@ -17,7 +17,7 @@ export class TeacherDashboardComponent implements OnInit {
   isLoading = false;
   dashboardData: any = null;
   recentAssignments: AssignmentListItem[] = [];
-  modalImgUrl = 'assets/img/book_1.png';
+  modalImgUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
   imageBaseUrl = environment.imageBaseUrl;
 
   // Dashboard Stats matching backend { stats: { total_students, teaching_grade, total_assignments, pending_gradings } }
@@ -30,7 +30,7 @@ export class TeacherDashboardComponent implements OnInit {
     private apiService: ApiService,
     private assignmentService: AssignmentService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.fetchDashboard();
@@ -113,9 +113,9 @@ export class TeacherDashboardComponent implements OnInit {
 
   private loadRecentAssignments(): void {
     // 1. Check if dashboard payload already contains recent_assignments
-    const recent = this.dashboardData?.recent_assignments || 
-                   this.dashboardData?.recentAssignments || 
-                   this.dashboardData?.assignments;
+    const recent = this.dashboardData?.recent_assignments ||
+      this.dashboardData?.recentAssignments ||
+      this.dashboardData?.assignments;
 
     if (Array.isArray(recent) && recent.length > 0) {
       this.recentAssignments = recent.slice(0, 5);
@@ -151,7 +151,7 @@ export class TeacherDashboardComponent implements OnInit {
   getCoverImage(item: AssignmentListItem): string {
     const imgPath = item.book_cover_url || item.attachment_url || item.bookCover || item.attachmentUrl || item.attachment || item.assignment_attachment;
     if (!imgPath) {
-      return 'assets/img/book_1.png';
+      return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
     }
 
     if (
