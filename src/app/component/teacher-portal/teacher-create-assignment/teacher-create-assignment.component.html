@@ -78,12 +78,12 @@
         <div class="col-md-3">
           <label class="ct_form_label ct_fs_13 ct_fw_600 ct_text_dark mb-2">Target Grade <span
               class="text-danger">*</span></label>
-          <select formControlName="target_grade" (change)="onGradeSelect($event)"
-            class="form-select ct_input text-muted" style="border-radius: 6px; border-color: rgba(0,0,0,0.1);"
-            [ngClass]="{ 'is-invalid': (f['grade_level'].invalid || f['target_grade'].invalid) && (f['grade_level'].dirty || f['grade_level'].touched || submitted) }">
-            <option value="" disabled selected>Select Grade</option>
-            <option *ngFor="let grade of gradeOptions" [value]="grade">{{ grade }}</option>
-          </select>
+          <input type="text" formControlName="target_grade"
+            class="form-control ct_input bg-light"
+            readonly
+            placeholder="Predefined Grade"
+            style="border-radius: 6px; border-color: rgba(0,0,0,0.1); cursor: not-allowed;"
+            [ngClass]="{ 'is-invalid': (f['grade_level'].invalid || f['target_grade'].invalid) && (f['grade_level'].dirty || f['grade_level'].touched || submitted) }" />
           <div
             *ngIf="(f['grade_level'].invalid || f['target_grade'].invalid) && (f['grade_level'].dirty || f['grade_level'].touched || submitted)"
             class="text-danger mt-1 small">

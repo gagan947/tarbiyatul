@@ -174,8 +174,9 @@ export class ParentDashboardComponent implements OnInit, OnDestroy {
     this.profileService.selectedStudent$
       .pipe(takeUntil(this.destroy$))
       .subscribe(student => {
-        if (student && student.id && student.id !== this.selectedStudentId) {
+        if (student && student.id && String(student.id) !== String(this.selectedStudentId)) {
           this.selectedStudentId = student.id;
+          this.selectedStudent = student;
           this.fetchDashboardData();
         }
       });
@@ -264,6 +265,14 @@ export class ParentDashboardComponent implements OnInit, OnDestroy {
         this.selectedStudent = active;
         this.selectedStudentId = active.id;
       }
+      this.profileService.setStudentsList(this.linkedChildren);
+    }
+
+    if (this.selectedStudent) {
+      const cur = this.profileService.getSelectedStudent();
+      if (!cur || String(cur.id) !== String(this.selectedStudent.id) || !cur.name) {
+        this.profileService.selectStudent(this.selectedStudent);
+      }
     }
 
     // 2. Stats
@@ -305,11 +314,16 @@ export class ParentDashboardComponent implements OnInit, OnDestroy {
   }
 
   onSelectChild(child: ChildItem): void {
-    if (this.selectedStudentId === child.id) return;
+    if (String(this.selectedStudentId) === String(child.id)) return;
     this.selectedStudentId = child.id;
     this.selectedStudent = child;
     this.profileService.selectStudent(child);
     this.fetchDashboardData();
+  }
+
+  isChildSelected(child: ChildItem): boolean {
+    if (!child || this.selectedStudentId === null || this.selectedStudentId === undefined) return false;
+    return String(this.selectedStudentId) === String(child.id);
   }
 
   getProfileImageUrl(img?: string | null): string {

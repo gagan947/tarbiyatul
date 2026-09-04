@@ -12,6 +12,9 @@ export class ProfileService {
   private selectedStudentSubject = new BehaviorSubject<any>(null);
   public selectedStudent$ = this.selectedStudentSubject.asObservable();
 
+  private studentsListSubject = new BehaviorSubject<any[]>([]);
+  public studentsList$ = this.studentsListSubject.asObservable();
+
   constructor(private apiService: ApiService) { }
 
   fetchProfile(): Observable<any> {
@@ -32,10 +35,11 @@ export class ProfileService {
 
   private processProfileResponse(response: any): void {
     this.profileSubject.next(response);
-    const students = response?.data?.students || response?.data?.children || response?.students || [];
+    const students = response?.data?.students || response?.data?.children || response?.data?.linked_children || response?.students || [];
     if (students.length > 0) {
+      this.setStudentsList(students);
       const current = this.selectedStudentSubject.value;
-      let exists = students.some((s: any) => s.id === current?.id);
+      let exists = students.some((s: any) => String(s.id) === String(current?.id));
 
       if (!exists) {
         const savedStudentId = localStorage.getItem('selectedStudentId');
@@ -55,6 +59,16 @@ export class ProfileService {
         }
       }
     }
+  }
+
+  setStudentsList(students: any[]): void {
+    if (Array.isArray(students)) {
+      this.studentsListSubject.next(students);
+    }
+  }
+
+  getStudentsList(): any[] {
+    return this.studentsListSubject.value;
   }
 
   getProfileData(): any {

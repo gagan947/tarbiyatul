@@ -3,6 +3,7 @@ import { CommonModule, Location } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentService } from '../../../core/services/assignment.service';
+import { ApiService } from '../../../core/services/api.service';
 import { ToastService } from '../../../core/services/toast.service';
 import { ProfileService } from '../../../core/services/profile.service';
 import { CreateAssignmentPayload, AssignmentListItem } from '../../../core/models/assignment.model';
@@ -30,6 +31,7 @@ export class TeacherCreateAssignmentComponent implements OnInit {
   existingAttachmentUrl: string | null = null;
   existingAttachmentName: string | null = null;
   imageBaseUrl = environment.imageBaseUrl;
+  teacherGrade: string = '';
 
   gradeOptions: string[] = [
     'Pre-K',
@@ -46,6 +48,7 @@ export class TeacherCreateAssignmentComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private assignmentService: AssignmentService,
+    private apiService: ApiService,
     private toastService: ToastService,
     private location: Location,
     private profileService: ProfileService
@@ -55,13 +58,16 @@ export class TeacherCreateAssignmentComponent implements OnInit {
     this.initForm();
 
     this.profileService.profile$.subscribe(profile => {
-      if (profile && profile.data && profile.data.teacherProfile) {
-        const teachingGrade = profile.data.teacherProfile.teachingGrade;
+      if (profile && profile.data) {
+        const teachingGrade = profile.data.teacherProfile?.teachingGrade ||
+                              profile.data.teachingGrade ||
+                              profile.data.user?.teacherProfile?.teachingGrade || '';
         if (teachingGrade) {
+          this.teacherGrade = teachingGrade;
           if (!this.gradeOptions.includes(teachingGrade)) {
             this.gradeOptions.unshift(teachingGrade);
           }
-          if (!this.isEditMode && !this.assignmentForm.get('grade_level')?.value) {
+          if (!this.isEditMode || !this.assignmentForm.get('target_grade')?.value) {
             this.assignmentForm.patchValue({
               grade_level: teachingGrade,
               target_grade: teachingGrade
@@ -74,6 +80,24 @@ export class TeacherCreateAssignmentComponent implements OnInit {
     if (!this.profileService.getProfileData()) {
       this.profileService.fetchProfile().subscribe();
     }
+
+    // Fallback in case teachingGrade is provided from teacher/dashboard stats
+    this.apiService.get<any>('teacher/dashboard').subscribe({
+      next: (res) => {
+        const stats = res?.data?.stats || res?.data || res;
+        const grade = stats?.teaching_grade || stats?.teachingGrade;
+        if (grade && !this.teacherGrade) {
+          this.teacherGrade = grade;
+          if (!this.isEditMode || !this.assignmentForm.get('target_grade')?.value) {
+            this.assignmentForm.patchValue({
+              grade_level: grade,
+              target_grade: grade
+            });
+          }
+        }
+      },
+      error: () => {}
+    });
 
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
@@ -311,6 +335,13 @@ export class TeacherCreateAssignmentComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.teacherGrade && (!this.assignmentForm.get('target_grade')?.value || !this.assignmentForm.get('grade_level')?.value)) {
+      this.assignmentForm.patchValue({
+        grade_level: this.teacherGrade,
+        target_grade: this.teacherGrade
+      });
+    }
+
     this.submitted = true;
     this.errorMessage = null;
     this.successMessage = null;
@@ -322,13 +353,14 @@ export class TeacherCreateAssignmentComponent implements OnInit {
 
     this.isLoading = true;
 
-    const formValues = this.assignmentForm.value;
+    const formValues = this.assignmentForm.getRawValue();
     const isoDueDate = this.formatIsoDate(formValues.due_date);
+    const effectiveGrade = formValues.target_grade || formValues.grade_level || this.teacherGrade;
 
     const payload: CreateAssignmentPayload = {
       title: formValues.title,
       description: formValues.description,
-      grade_level: formValues.grade_level || formValues.target_grade,
+      grade_level: effectiveGrade,
       subject: formValues.subject,
       due_date: isoDueDate,
       total_points: formValues.total_points,
@@ -337,7 +369,7 @@ export class TeacherCreateAssignmentComponent implements OnInit {
       reading_instructions: formValues.reading_instructions || '',
       enable_islamic_alert: !!formValues.enable_islamic_alert,
       islamic_alert_description: formValues.enable_islamic_alert ? formValues.islamic_alert_description : '',
-      target_grade: formValues.target_grade || formValues.grade_level
+      target_grade: effectiveGrade
     };
 
     const saveObservable = (this.isEditMode && this.assignmentId)
@@ -356,7 +388,9 @@ export class TeacherCreateAssignmentComponent implements OnInit {
         if (!this.isEditMode) {
           this.submitted = false;
           this.assignmentForm.reset({
-            enable_islamic_alert: true
+            enable_islamic_alert: true,
+            grade_level: this.teacherGrade,
+            target_grade: this.teacherGrade
           });
           this.removeFile();
         }

@@ -9,102 +9,130 @@
 
 
 <div class="d-flex justify-content-between align-items-center mt-3 ct_flex_col_575 gap-sm-5 gap-3">
-                <!-- Search -->
-                <div class="search-box w-100" style="">
-                  <div class="input-group position-relative">
-                    <input type="text" class="form-control ct_input ps-5" placeholder="Search...">
-
-                    <i class="fas fa-search ct_show_left " style="color: #6b6b6b;"></i>
-                  </div>
-                </div>
-
-                <!-- Filters -->
-                <div class="dropdown ct_w_100_575">
-                  <button class="btn filter-dropdown dropdown-toggle ct_w_100_575" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-           <svg class="me-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.5833 0.5H0.5L4.30145 5.25183C4.53787 5.54733 4.66667 5.9145 4.66667 6.293V11.75C4.66667 12.2102 5.03975 12.5833 5.5 12.5833H7.58333C8.04358 12.5833 8.41667 12.2102 8.41667 11.75V6.293C8.41667 5.9145 8.5455 5.54733 8.78192 5.25183L12.5833 0.5Z" stroke="#919EAB" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-
-
-                     All Grade <svg class="ms-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M18 9L12 15L6 9" stroke="#919EAB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg>
-
-                  </button>
-                  <ul class="dropdown-menu" style="">
-                    <li>
-                      <a class="dropdown-item" href="#">Grade 1</a>
-                    </li>
-                    <li>
-                      <a class="dropdown-item" href="#">Grade 2</a>
-                    </li>
-                      <li>
-                      <a class="dropdown-item" href="#">Grade 3</a>
-                    </li>
-                  
-                  
-                  </ul>
-                </div>
-
-
-                
-              </div>
-
- 
-    <div class="table-responsive ct_custom_table mt-5">
-      <table class="table align-middle dash-table mb-0">
-        <thead>
-          <tr>
-            <th class="">S.NO</th>
-            <th class="">ROLL NO.</th>
-            <th class="">PROFILE</th>
-            <th class="">STUDENT NAME</th>
-            <th class="">GRADE</th>
-            <th class="">ACTION</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let student of students; let i = index">
-            <td class="">
-            <span class="ct_text_dark">{{ i + 1 }}</span>
-            </td>
-            <td class="">
-             <span class="ct_text_dark"> {{ student.rollNo }}</span>
-            </td>
-            <td class="">
-
-              <a href="#" data-bs-toggle="modal" data-bs-target="#profileModal" (click)="openImg(student)">
-              <img [src]="student.avatar" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;" />
-              </a>
-            </td>
-            <td class="">
-              {{ student.name }}
-            </td>
-            <td class="">
-              {{ student.grade }}
-            </td>
-            <td class="">
-              <button class="btn btn-link p-0 text-decoration-none" style="color: #3B82F6;" (click)="viewDetails(student.id)">
-                <i class="fa-regular fa-eye fs-5"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
- 
-<hr class="mt-4" style="border-top: 1px solid #E0C0AF4D;">
-  <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 14px; margin-bottom: 24px; ">
-    <span class="ct_text_dark">Showing 1-10 of 145 applications</span>
-    <div class="d-flex gap-2">
-      <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted" style="width: 32px; height: 32px;"><i class="fa-solid fa-angle-left"></i></button>
-      <button class="btn btn-sm text-white d-flex align-items-center justify-content-center border-0" style="width: 32px; height: 32px; background-color: #9C5100;">1</button>
-      <button class="btn btn-sm bg-white d-flex align-items-center justify-content-center shadow-sm border-0 text-muted" style="width: 32px; height: 32px;">2</button>
-      <button class="btn btn-sm bg-white d-flex align-items-center justify-content-center shadow-sm border-0 text-muted" style="width: 32px; height: 32px;">3</button>
-      <button class="btn btn-sm bg-white d-flex align-items-center justify-content-center shadow-sm border-0 text-muted" style="width: 32px; height: 32px;">4</button>
-      <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted" style="width: 32px; height: 32px;"><i class="fa-solid fa-angle-right"></i></button>
+  <!-- Search -->
+  <div class="search-box w-100">
+    <div class="input-group position-relative">
+      <input type="text" [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" class="form-control ct_input ps-5" placeholder="Search by name, roll no, email...">
+      <i class="fas fa-search ct_show_left" style="color: #6b6b6b;"></i>
     </div>
   </div>
+
+  <!-- Filters -->
+  <div class="dropdown ct_w_100_575">
+    <button class="btn filter-dropdown dropdown-toggle ct_w_100_575 d-flex align-items-center justify-content-between" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <span class="d-flex align-items-center">
+        <svg class="me-2" width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.5833 0.5H0.5L4.30145 5.25183C4.53787 5.54733 4.66667 5.9145 4.66667 6.293V11.75C4.66667 12.2102 5.03975 12.5833 5.5 12.5833H7.58333C8.04358 12.5833 8.41667 12.2102 8.41667 11.75V6.293C8.41667 5.9145 8.5455 5.54733 8.78192 5.25183L12.5833 0.5Z" stroke="#919EAB" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+        {{ selectedGrade }}
+      </span>
+      <svg class="ms-2" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 9L12 15L6 9" stroke="#919EAB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <ul class="dropdown-menu">
+      <li *ngFor="let grade of gradeOptions">
+        <a class="dropdown-item cursor-pointer" [class.active]="selectedGrade === grade" (click)="selectGrade(grade)">{{ grade }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- Alert / Error message -->
+<div *ngIf="errorMessage" class="alert alert-danger mt-3 mb-0" role="alert">
+  {{ errorMessage }}
+</div>
+
+<div class="table-responsive ct_custom_table mt-4">
+  <table class="table align-middle dash-table mb-0">
+    <thead>
+      <tr>
+        <th>S.NO</th>
+        <th>ROLL NO.</th>
+        <th>PROFILE</th>
+        <th>STUDENT NAME</th>
+        <th>GRADE</th>
+        <th>ACTION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Loading skeleton / spinner -->
+      <tr *ngIf="isLoading">
+        <td colspan="6" class="text-center py-5">
+          <div class="spinner-border text-warning" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-2 mb-0 text-muted">Loading students...</p>
+        </td>
+      </tr>
+
+      <!-- Empty state -->
+      <tr *ngIf="!isLoading && students.length === 0">
+        <td colspan="6" class="text-center py-5 text-muted">
+          <i class="fa-regular fa-user fs-2 mb-2 d-block"></i>
+          No students found matching your criteria.
+        </td>
+      </tr>
+
+      <!-- Students List -->
+      <tr *ngFor="let student of paginatedStudents; let i = index">
+        <td>
+          <span class="ct_text_dark">{{ startIndex + i }}</span>
+        </td>
+        <td>
+          <span class="ct_text_dark">{{ student.rollNo || student.rollNumber || '-' }}</span>
+        </td>
+        <td>
+          <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#profileModal" (click)="openImg(student)">
+            <img #stdImg [src]="getAvatarUrl(student.avatar)" (error)="stdImg.src='assets/img/boy.jpg'" alt="Avatar" class="rounded-circle" style="width: 40px; height: 40px; object-fit: cover;" />
+          </a>
+        </td>
+        <td>
+          <span class="fw-medium">{{ student.name || (student.firstName + ' ' + (student.lastName || '')) }}</span>
+        </td>
+        <td>
+          <span class="badge bg-light text-dark border px-2 py-1">{{ student.grade || '-' }}</span>
+        </td>
+        <td>
+          <button class="btn btn-link p-0 text-decoration-none" style="color: #3B82F6;" (click)="viewDetails(student.id)" title="View Student Details">
+            <i class="fa-regular fa-eye fs-5"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="mt-4" style="border-top: 1px solid #E0C0AF4D;">
+<div class="d-flex justify-content-between align-items-center text-muted flex-wrap gap-2" style="font-size: 14px; margin-bottom: 24px;">
+  <span class="ct_text_dark">Showing {{ startIndex }}-{{ endIndex }} of {{ totalStudents }} students</span>
+  <div class="d-flex gap-2" *ngIf="totalPages > 1">
+    <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted"
+      [disabled]="currentPage === 1"
+      (click)="goToPage(currentPage - 1)"
+      style="width: 32px; height: 32px;">
+      <i class="fa-solid fa-angle-left"></i>
+    </button>
+
+    <button *ngFor="let page of totalPagesArray"
+      class="btn btn-sm d-flex align-items-center justify-content-center border-0"
+      [style.background-color]="currentPage === page ? '#9C5100' : 'white'"
+      [class.text-white]="currentPage === page"
+      [class.text-muted]="currentPage !== page"
+      [class.shadow-sm]="currentPage !== page"
+      (click)="goToPage(page)"
+      style="width: 32px; height: 32px;">
+      {{ page }}
+    </button>
+
+    <button class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center bg-white border-0 shadow-sm text-muted"
+      [disabled]="currentPage === totalPages"
+      (click)="goToPage(currentPage + 1)"
+      style="width: 32px; height: 32px;">
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
+  </div>
+</div>
 
 
 

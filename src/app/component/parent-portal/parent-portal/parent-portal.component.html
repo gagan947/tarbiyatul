@@ -180,12 +180,12 @@
                         aria-expanded="false" class="p-0">
                         <div class="d-flex align-items-center gap-2">
                             <img #headerImgRef
-                                [src]="selectedStudent?.profileImage ? imageBaseUrl + selectedStudent?.profileImage : 'assets/img/placeholder.jpg'"
+                                [src]="getStudentImage(selectedStudent)"
                                 (error)="headerImgRef.src = 'assets/img/placeholder.jpg'" alt="Profile"
                                 class="rounded-circle object-fit-cover" style="width: 25px; height: 25px;">
                             <div class="align-items-end d-flex flex-column ">
                                 <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
-                                    {{ selectedStudent?.fullName || selectedStudent?.firstName || 'Select Child' }}
+                                    {{ getStudentDisplayName(selectedStudent) }}
                                 </small>
                             </div>
                         </div>
@@ -193,15 +193,16 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li *ngFor="let student of studentsList; let idx = index">
-                            <a class="dropdown-item" href="javascript:void(0)" (click)="selectStudent(student)">
+                            <a class="dropdown-item" href="javascript:void(0)" (click)="selectStudent(student)"
+                                [class.active]="isStudentSelected(student)">
                                 <div class="d-flex align-items-center gap-2">
                                     <img #dropdownImgRef
-                                        [src]="student.profileImage ? imageBaseUrl + student.profileImage : 'assets/img/placeholder.jpg'"
+                                        [src]="getStudentImage(student)"
                                         (error)="dropdownImgRef.src = 'assets/img/placeholder.jpg'" alt="Profile"
                                         class="rounded-circle object-fit-cover" style="width: 25px; height: 25px;">
                                     <div class="align-items-end d-flex flex-column ">
                                         <small class="ct_fs_15 ct_fw_500 d-none d-sm-block">
-                                            {{ student.fullName || student.firstName }}
+                                            {{ getStudentDisplayName(student) }}
                                         </small>
                                     </div>
                                 </div>

@@ -6,15 +6,24 @@
     </button>
   </div>
 
-  <div class="row g-4 mb-4">
+  <div *ngIf="errorMessage" class="alert alert-danger mb-4" role="alert">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-warning" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-2 text-muted">Loading student details...</p>
+  </div>
+
+  <div class="row g-4 mb-4" *ngIf="!isLoading">
     <!-- Student Information Card -->
     <div class="col-xl-7 col-lg-6">
       <div class="dashboard-card h-100 dash-card-shadow p-4" style="border-radius: 16px;">
-       
-        
         <div class="d-lg-flex gap-4">
           <div class="">
-            <img [src]="student.avatar" alt="Avatar" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover;" />
+            <img #stdAvatar [src]="student.avatar" (error)="stdAvatar.src='assets/img/boy.jpg'" alt="Avatar" class="rounded-circle shadow-sm" style="width: 120px; height: 120px; object-fit: cover;" />
           </div>
           <div class="">
              <h4 class="mb-3 ct_fs_18 ct_fw_600 dash-section-title ct_ff_inter"  >Student Information</h4>

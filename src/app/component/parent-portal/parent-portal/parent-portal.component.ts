@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ProfileService } from '../../../core/services/profile.service';
+import { ApiService } from '../../../core/services/api.service';
 import { environment } from 'src/environments/environment';
 import { SocketService } from '../../../core/services/socket.service';
 
@@ -33,7 +34,7 @@ export class ParentPortalComponent implements OnInit {
   selectedResource: any = null;
   isSidebarOpen = false;
   isProfileSidebarOpen = false;
-  imageBaseUrl = environment.imageBaseUrl
+  imageBaseUrl = environment.imageBaseUrl;
   profileData: any = null;
   selectedStudent: any = null;
   studentsList: any[] = [];
@@ -90,6 +91,7 @@ export class ParentPortalComponent implements OnInit {
   constructor(
     private router: Router,
     private profileService: ProfileService,
+    private apiService: ApiService,
     private socketService: SocketService
   ) {
     this.currentUrl = this.router.url;
@@ -106,8 +108,16 @@ export class ParentPortalComponent implements OnInit {
     // Subscribe to profile changes
     this.profileService.profile$.subscribe(data => {
       this.profileData = data;
-      if (data?.data?.students) {
-        this.studentsList = data.data.students;
+      const students = data?.data?.students || data?.data?.children || data?.data?.linked_children || data?.students;
+      if (Array.isArray(students) && students.length > 0) {
+        this.studentsList = students;
+      }
+    });
+
+    // Subscribe to students list changes
+    this.profileService.studentsList$.subscribe(students => {
+      if (Array.isArray(students) && students.length > 0) {
+        this.studentsList = students;
       }
     });
 
@@ -115,8 +125,8 @@ export class ParentPortalComponent implements OnInit {
     this.profileService.selectedStudent$.subscribe(student => {
       this.selectedStudent = student;
       if (student) {
-        this.studentName = student.fullName || `${student.firstName} ${student.lastName}`;
-        this.studentGrade = student.gradeLevel || student.grade || 'N/A';
+        this.studentName = this.getStudentDisplayName(student);
+        this.studentGrade = student.grade_level || student.gradeLevel || student.grade || 'N/A';
       }
     });
 
@@ -129,6 +139,50 @@ export class ParentPortalComponent implements OnInit {
         console.error('Failed to load profile for header:', err);
       }
     });
+
+    // Fetch dashboard/parent to guarantee children list & selection are available in header
+    this.apiService.get<any>('dashboard/parent').subscribe({
+      next: (res) => {
+        const data = res?.data || res;
+        const children = data?.linked_children || data?.students || [];
+        if (Array.isArray(children) && children.length > 0) {
+          this.studentsList = children;
+          this.profileService.setStudentsList(children);
+          if (!this.selectedStudent) {
+            const savedId = localStorage.getItem('selectedStudentId');
+            const found = (savedId && children.find((c: any) => String(c.id) === String(savedId)))
+              || data?.selected_student
+              || children.find((c: any) => c.isSelected)
+              || children[0];
+            if (found) {
+              this.profileService.selectStudent(found);
+            }
+          }
+        }
+      },
+      error: () => {}
+    });
+  }
+
+  getStudentDisplayName(student: any): string {
+    if (!student) return 'Select Child';
+    return student.name || student.fullName || `${student.firstName || ''} ${student.lastName || ''}`.trim() || student.firstName || 'Select Child';
+  }
+
+  getStudentImage(student: any): string {
+    const img = student?.profile_image || student?.profileImage;
+    if (!img) return 'assets/img/placeholder.jpg';
+    if (img.startsWith('http://') || img.startsWith('https://') || img.startsWith('assets/')) {
+      return img;
+    }
+    const base = this.imageBaseUrl.endsWith('/') ? this.imageBaseUrl : `${this.imageBaseUrl}/`;
+    const clean = img.startsWith('/') ? img.substring(1) : img;
+    return `${base}${clean}`;
+  }
+
+  isStudentSelected(student: any): boolean {
+    if (!student || !this.selectedStudent) return false;
+    return String(student.id) === String(this.selectedStudent.id);
   }
 
   selectStudent(student: any): void {

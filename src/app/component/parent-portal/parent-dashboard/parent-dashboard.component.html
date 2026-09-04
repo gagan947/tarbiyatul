@@ -6,10 +6,10 @@
     <button *ngFor="let child of linkedChildren" 
             type="button" 
             class="btn btn-sm rounded-pill px-3 py-1 fw-medium transition-all"
-            [class.btn-warning]="selectedStudentId === child.id"
-            [class.text-white]="selectedStudentId === child.id"
-            [class.btn-light]="selectedStudentId !== child.id"
-            [class.border]="selectedStudentId !== child.id"
+            [class.btn-warning]="isChildSelected(child)"
+            [class.text-white]="isChildSelected(child)"
+            [class.btn-light]="!isChildSelected(child)"
+            [class.border]="!isChildSelected(child)"
             (click)="onSelectChild(child)">
       <img [src]="getProfileImageUrl(child.profile_image)" alt="{{ child.name }}" class="rounded-circle me-1" style="width: 20px; height: 20px; object-fit: cover;">
       {{ child.name }} <span *ngIf="child.grade_level" class="opacity-75">({{ child.grade_level }})</span>
