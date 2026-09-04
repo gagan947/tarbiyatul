@@ -16,7 +16,7 @@ import { environment } from '../../../../environments/environment';
 export class TeacherStudentAssignmentDetailsComponent implements OnInit {
   assignmentId: string | number | null = null;
   studentId: string | number | null = null;
-  
+
   assignment: any = null;
   submission: any = null;
   student: any = null;
@@ -39,7 +39,7 @@ export class TeacherStudentAssignmentDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private assignmentService: AssignmentService,
     private toastService: ToastService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -156,9 +156,9 @@ export class TeacherStudentAssignmentDetailsComponent implements OnInit {
   }
 
   getBookCoverUrl(item?: any): string {
-    if (!item) return 'assets/img/book_1.png';
+    if (!item) return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
     const url = item.book_cover_url || item.bookCoverUrl || item.coverImage || item.bookCover || item.cover_image || item.cover || item.attachment_url;
-    if (!url) return 'assets/img/book_1.png';
+    if (!url) return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('assets/')) {
       return url;
     }
@@ -168,9 +168,9 @@ export class TeacherStudentAssignmentDetailsComponent implements OnInit {
   }
 
   getStudentAvatarUrl(student?: any): string {
-    if (!student) return 'assets/img/boy.jpg';
+    if (!student) return 'assets/img/placeholder.jpg';
     const url = student.profileImage || student.profile_image || student.avatar;
-    if (!url) return 'assets/img/boy.jpg';
+    if (!url) return 'assets/img/placeholder.jpg';
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('assets/')) {
       return url;
     }
@@ -180,7 +180,7 @@ export class TeacherStudentAssignmentDetailsComponent implements OnInit {
   }
 
   getImageUrl(url?: string | null): string {
-    if (!url) return 'assets/img/boy.jpg';
+    if (!url) return 'assets/img/placeholder.jpg';
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('assets/')) {
       return url;
     }

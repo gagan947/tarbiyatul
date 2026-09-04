@@ -47,7 +47,7 @@ export class TeacherAssignmentSubmissionsComponent implements OnInit {
   submissions: SubmissionItem[] = [];
   isLoading = false;
   errorMessage: string | null = null;
-  imgUrl: string = 'assets/img/boy.jpg';
+  imgUrl: string = 'assets/img/placeholder.jpg';
   imageBaseUrl = environment.imageBaseUrl;
 
   searchTerm: string = '';
@@ -178,9 +178,9 @@ export class TeacherAssignmentSubmissionsComponent implements OnInit {
   }
 
   getBookCoverUrl(item?: any): string {
-    if (!item) return 'assets/img/book_1.png';
+    if (!item) return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
     const url = item.book_cover_url || item.bookCoverUrl || item.coverImage || item.bookCover || item.cover_image || item.cover || item.attachment_url;
-    if (!url) return 'assets/img/book_1.png';
+    if (!url) return 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2hVJDy3F4XWmkk83hnAhRBH67skWqDYvstj-5y9wxlA&s=10';
     if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:') || url.startsWith('assets/')) {
       return url;
     }
@@ -190,7 +190,7 @@ export class TeacherAssignmentSubmissionsComponent implements OnInit {
   }
 
   getAvatarUrl(avatar?: string | null): string {
-    if (!avatar) return 'assets/img/boy.jpg';
+    if (!avatar) return 'assets/img/placeholder.jpg';
     if (avatar.startsWith('http://') || avatar.startsWith('https://') || avatar.startsWith('data:') || avatar.startsWith('assets/')) {
       return avatar;
     }
